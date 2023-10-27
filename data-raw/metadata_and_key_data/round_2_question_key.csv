@@ -1,0 +1,126 @@
+qname,question,variable_name
+Q11_6_TEXT,What error distribution was assumed in your analysis:,error_distribution
+Q12_5_TEXT,What link function was used in your analysis,link_function
+Q19_6_TEXT,"If you are submitting multiple analyses, which number analysis is described on this page? ",analysis_number
+Q90_6_TEXT,What error distribution was assumed in your analysis:,error_distribution
+Q91_5_TEXT,What link function was used in your analysis,link_function
+Q97_6_TEXT,"If you are submitting multiple analyses, which number analysis is described on this page? ",analysis_number
+Q107_6_TEXT,What error distribution was assumed in your analysis:,error_distribution
+Q108_5_TEXT,What link function was used in your analysis,link_function
+Q114_6_TEXT,"If you are submitting multiple analyses, which number analysis is described on this page? ",analysis_number
+Q123_6_TEXT,What error distribution was assumed in your analysis:,error_distribution
+Q124_5_TEXT,What link function was used in your analysis,link_function
+Q130_6_TEXT,"If you are submitting multiple analyses, which number analysis is described on this page? ",analysis_number
+Q139_6_TEXT,What error distribution was assumed in your analysis:,error_distribution
+Q140_5_TEXT,What link function was used in your analysis,link_function
+Q146_6_TEXT,"If you are submitting multiple analyses, which number analysis is described on this page? ",analysis_number
+Q14,"<div>What is the slope/beta estimate associated with the independent / predictor variable you identified above?</div>
+
+<div> </div>
+
+<div>If your independent variable is a factor (categorical variable) with &gt;2 categories, please report all the contrast estimates presented (number of categories - 1) in your model output and specify which values accompany which category.<br>
+<br>
+If your independent variable is a factor (categorical variable) with &gt;2 categories and you wish to use just one of the contrasts (between just two of the categories), please (a) tell us which contrast this is and (b) please report the adjusted degrees of freedom that corresponds to this contrast in the box below that asks for adjusted degrees of freedom. <br></div>",beta_estimate
+Q93,"<div>What is the slope/beta estimate associated with the independent / predictor variable you identified above?</div>
+
+<div> </div>
+
+<div>If your independent variable is a factor (categorical variable) with &gt;2 categories, please report all the contrast estimates presented (number of categories - 1) in your model output and specify which values accompany which category.<br>
+<br>
+If your independent variable is a factor (categorical variable) with &gt;2 categories and you wish to use just one of the contrasts (between just two of the categories), please (a) tell us which contrast this is and (b) please report the adjusted degrees of freedom that corresponds to this contrast in the box below that asks for adjusted degrees of freedom. <br></div>",beta_estimate
+Q110,"<div>What is the slope/beta estimate associated with the independent / predictor variable you identified above?</div>
+
+<div> </div>
+
+<div>If your independent variable is a factor (categorical variable) with &gt;2 categories, please report all the contrast estimates presented (number of categories - 1) in your model output and specify which values accompany which category.<br>
+<br>
+If your independent variable is a factor (categorical variable) with &gt;2 categories and you wish to use just one of the contrasts (between just two of the categories), please (a) tell us which contrast this is and (b) please report the adjusted degrees of freedom that corresponds to this contrast in the box below that asks for adjusted degrees of freedom. <br></div>",beta_estimate
+Q126,"<div>What is the slope/beta estimate associated with the independent / predictor variable you identified above?</div>
+
+<div> </div>
+
+<div>If your independent variable is a factor (categorical variable) with &gt;2 categories, please report all the contrast estimates presented (number of categories - 1) in your model output and specify which values accompany which category.<br>
+<br>
+If your independent variable is a factor (categorical variable) with &gt;2 categories and you wish to use just one of the contrasts (between just two of the categories), please (a) tell us which contrast this is and (b) please report the adjusted degrees of freedom that corresponds to this contrast in the box below that asks for adjusted degrees of freedom. <br></div>",beta_estimate
+Q142,"<div>What is the slope/beta estimate associated with the independent / predictor variable you identified above?</div>
+
+<div> </div>
+
+<div>If your independent variable is a factor (categorical variable) with &gt;2 categories, please report all the contrast estimates presented (number of categories - 1) in your model output and specify which values accompany which category.<br>
+<br>
+If your independent variable is a factor (categorical variable) with &gt;2 categories and you wish to use just one of the contrasts (between just two of the categories), please (a) tell us which contrast this is and (b) please report the adjusted degrees of freedom that corresponds to this contrast in the box below that asks for adjusted degrees of freedom. <br></div>",beta_estimate
+Q15,"<div>What is the standard error (SE) associated with the estimate provided in the prior question?</div><div><br></div><div>If you identified &gt;1 estimate associated with &gt;1 contrast for a factor (categorical predictor), please specific which SE accompanies which contrast.<br></div>",beta_SE
+Q94,"<div>What is the standard error (SE) associated with the estimate provided in the prior question?</div><div><br></div><div>If you identified &gt;1 estimate associated with &gt;1 contrast for a factor (categorical predictor), please specific which SE accompanies which contrast.<br></div>",beta_SE
+Q111,"<div>What is the standard error (SE) associated with the estimate provided in the prior question?</div><div><br></div><div>If you identified &gt;1 estimate associated with &gt;1 contrast for a factor (categorical predictor), please specific which SE accompanies which contrast.<br></div>",beta_SE
+Q127,"<div>What is the standard error (SE) associated with the estimate provided in the prior question?</div><div><br></div><div>If you identified &gt;1 estimate associated with &gt;1 contrast for a factor (categorical predictor), please specific which SE accompanies which contrast.<br></div>",beta_SE
+Q143,"<div>What is the standard error (SE) associated with the estimate provided in the prior question?</div><div><br></div><div>If you identified &gt;1 estimate associated with &gt;1 contrast for a factor (categorical predictor), please specific which SE accompanies which contrast.<br></div>",beta_SE
+Q13,"<div>What single independent (predictor) variable from this analysis are you designating as the test of the primary study question? If the variable is listed in the original data set, please copy and paste the name of the variable here. If there is more than one option, choose the independent variable that you think is most relevant.  If you cannot identify an independent variable that can serve as a test of primary study question, enter 'N/A'</div>",test_variable
+Q92,"<div>What single independent (predictor) variable from this analysis are you designating as the test of the primary study question? If the variable is listed in the original data set, please copy and paste the name of the variable here. If there is more than one option, choose the independent variable that you think is most relevant.  If you cannot identify an independent variable that can serve as a test of primary study question, enter 'N/A'</div>",test_variable
+Q109,"<div>What single independent (predictor) variable from this analysis are you designating as the test of the primary study question? If the variable is listed in the original data set, please copy and paste the name of the variable here. If there is more than one option, choose the independent variable that you think is most relevant.  If you cannot identify an independent variable that can serve as a test of primary study question, enter 'N/A'</div>",test_variable
+Q125,"<div>What single independent (predictor) variable from this analysis are you designating as the test of the primary study question? If the variable is listed in the original data set, please copy and paste the name of the variable here. If there is more than one option, choose the independent variable that you think is most relevant.  If you cannot identify an independent variable that can serve as a test of primary study question, enter 'N/A'</div>",test_variable
+Q141,"<div>What single independent (predictor) variable from this analysis are you designating as the test of the primary study question? If the variable is listed in the original data set, please copy and paste the name of the variable here. If there is more than one option, choose the independent variable that you think is most relevant.  If you cannot identify an independent variable that can serve as a test of primary study question, enter 'N/A'</div>",test_variable
+Q6,Data set analyzed (choose one),dataset
+Q85,Data set analyzed (choose one),dataset
+Q102,Data set analyzed (choose one),dataset
+Q118,Data set analyzed (choose one),dataset
+Q134,Data set analyzed (choose one),dataset
+Q7,"Dependent (response) variable in this analysis. If you used a variable listed in the original data set, please copy and paste the original variable name.",response_variable_name
+Q86,"Dependent (response) variable in this analysis. If you used a variable listed in the original data set, please copy and paste the original variable name.",response_variable_name
+Q103,"Dependent (response) variable in this analysis. If you used a variable listed in the original data set, please copy and paste the original variable name.",response_variable_name
+Q119,"Dependent (response) variable in this analysis. If you used a variable listed in the original data set, please copy and paste the original variable name.",response_variable_name
+Q135,"Dependent (response) variable in this analysis. If you used a variable listed in the original data set, please copy and paste the original variable name.",response_variable_name
+Q20,Do you need to submit data from an additional analysis or are you finished with this survey?,survey_finished
+Q98,Do you need to submit data from an additional analysis or are you finished with this survey?,survey_finished
+Q115,Do you need to submit data from an additional analysis or are you finished with this survey?,survey_finished
+Q131,Do you need to submit data from an additional analysis or are you finished with this survey?,survey_finished
+Q147,Do you need to submit data from an additional analysis or are you finished with this survey?,survey_finished
+Q19,"If you are submitting multiple analyses, which number analysis is described on this page? ",analysis_number
+Q97,"If you are submitting multiple analyses, which number analysis is described on this page? ",analysis_number
+Q114,"If you are submitting multiple analyses, which number analysis is described on this page? ",analysis_number
+Q130,"If you are submitting multiple analyses, which number analysis is described on this page? ",analysis_number
+Q146,"If you are submitting multiple analyses, which number analysis is described on this page? ",analysis_number
+Q10,"If you constructed your variable from multiple other variables, please briefly identify the original variables that contributed to the constructed variable, and the process used to combine the information.",response_construction_description
+Q89,"If you constructed your variable from multiple other variables, please briefly identify the original variables that contributed to the constructed variable, and the process used to combine the information.",response_construction_description
+Q106,"If you constructed your variable from multiple other variables, please briefly identify the original variables that contributed to the constructed variable, and the process used to combine the information.",response_construction_description
+Q122,"If you constructed your variable from multiple other variables, please briefly identify the original variables that contributed to the constructed variable, and the process used to combine the information.",response_construction_description
+Q138,"If you constructed your variable from multiple other variables, please briefly identify the original variables that contributed to the constructed variable, and the process used to combine the information.",response_construction_description
+Q9,"If your variable was transformed prior to conducting the analysis, please describe the transformation here.",response_transformation_description
+Q88,"If your variable was transformed prior to conducting the analysis, please describe the transformation here.",response_transformation_description
+Q105,"If your variable was transformed prior to conducting the analysis, please describe the transformation here.",response_transformation_description
+Q121,"If your variable was transformed prior to conducting the analysis, please describe the transformation here.",response_transformation_description
+Q137,"If your variable was transformed prior to conducting the analysis, please describe the transformation here.",response_transformation_description
+Q8,"Was this dependent variable in the original data set, or is it a constructed variable (a variable based on combining information from two [2] or more original variables)?",response_variable_type
+Q87,"Was this dependent variable in the original data set, or is it a constructed variable (a variable based on combining information from two [2] or more original variables)?",response_variable_type
+Q104,"Was this dependent variable in the original data set, or is it a constructed variable (a variable based on combining information from two [2] or more original variables)?",response_variable_type
+Q120,"Was this dependent variable in the original data set, or is it a constructed variable (a variable based on combining information from two [2] or more original variables)?",response_variable_type
+Q136,"Was this dependent variable in the original data set, or is it a constructed variable (a variable based on combining information from two [2] or more original variables)?",response_variable_type
+Q16,"What are the adjusted degrees of freedom (df) from this analysis? This value will have been generated by following the instructions linked above (and in our email). If you were unable to implement these instructions, please state that here.",adjusted_df
+Q95,"What are the adjusted degrees of freedom (df) from this analysis? This value will have been generated by following the instructions linked above (and in our email). If you were unable to implement these instructions, please state that here.",adjusted_df
+Q112,"What are the adjusted degrees of freedom (df) from this analysis? This value will have been generated by following the instructions linked above (and in our email). If you were unable to implement these instructions, please state that here.",adjusted_df
+Q128,"What are the adjusted degrees of freedom (df) from this analysis? This value will have been generated by following the instructions linked above (and in our email). If you were unable to implement these instructions, please state that here.",adjusted_df
+Q144,"What are the adjusted degrees of freedom (df) from this analysis? This value will have been generated by following the instructions linked above (and in our email). If you were unable to implement these instructions, please state that here.",adjusted_df
+Q11,What error distribution was assumed in your analysis:,error_distribution
+Q90,What error distribution was assumed in your analysis:,error_distribution
+Q107,What error distribution was assumed in your analysis:,error_distribution
+Q123,What error distribution was assumed in your analysis:,error_distribution
+Q139,What error distribution was assumed in your analysis:,error_distribution
+Q12,What link function was used in your analysis,link_function
+Q91,What link function was used in your analysis,link_function
+Q108,What link function was used in your analysis,link_function
+Q124,What link function was used in your analysis,link_function
+Q140,What link function was used in your analysis,link_function
+Q17_Id,predictions_file_ID,predictions_file_ID
+Q17_Name,predictions_file_name,predictions_file_name
+Q17_Type,predictions_file_type,predictions_file_type
+Q96_Id,predictions_file_ID,predictions_file_ID
+Q96_Name,predictions_file_name,predictions_file_name
+Q96_Type,predictions_file_type,predictions_file_type
+Q113_Id,predictions_file_ID,predictions_file_ID
+Q113_Name,predictions_file_name,predictions_file_name
+Q113_Type,predictions_file_type,predictions_file_type
+Q129_Id,predictions_file_ID,predictions_file_ID
+Q129_Name,predictions_file_name,predictions_file_name
+Q129_Type,predictions_file_type,predictions_file_type
+Q145_Id,predictions_file_ID,predictions_file_ID
+Q145_Name,predictions_file_name,predictions_file_name
+Q145_Type,predictions_file_type,predictions_file_type

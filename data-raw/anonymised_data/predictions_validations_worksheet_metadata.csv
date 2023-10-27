@@ -1,0 +1,31 @@
+variable_name,description
+response_id,same as ResponseIDS2 and response_id_Required
+response_variable_name,partially updated Feb 2023
+submission_id,NA
+exclude_csv,"exclude' if the csv file in this row should be excluded. In some cases, there will be another csv file corresponding to this analysis, but with a slightly different name and listed in the ""list_of_new_csv_files.xlsx"" spreadsheet"
+submission_id_new,matched based on combined_master Feb 2023
+analysis_id_new,matched based on combined_master and response variable Feb 2023
+split_id_new,matched based on combined_master and response variable Feb 2023
+question,NA
+file_name,NA
+file_exists,NA
+dataset,NA
+check_id,NA
+check_description,NA
+check_executed,NA
+check_passed,NA
+values_in_set_passed,NA
+column_exists,NA
+column_rename,NA
+column_reformat,NA
+scenario_values,NA
+contact_analyst,NA
+other_action,NA
+misc_notes,NA
+done,NA
+NA,NA
+response_variable_type,NA
+response_construction_description,NA
+response_transformation_status,NA
+transformation,NA
+error_distribution,NA

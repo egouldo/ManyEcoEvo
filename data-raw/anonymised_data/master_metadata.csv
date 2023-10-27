@@ -1,0 +1,156 @@
+variable_name,variable_description
+response_id,response ID from the 'Required_Analysis_Info' file
+submission_id,submission ID standardized by THP 2022.06
+analysis_id,analysis ID standardized by THP 2022.06
+split_id,split ID standardized by THP 2022.06
+TeamIdentifier,original
+beta_estimate,"This is a slope or contrast from a statistical model describing the relationship between the response variable and the predictor ('test') variable in the model identified in this row. The sign has been standardized to reflect a priori hypotheses (that increased competition reduces growth in blue tit chicks, and that more grass cover increases eucalyptus seedling success). The sign from this effect should be used to determine the sign for the effect size used in the effect-size meta-analysis."
+contrast,"indicates whether the the reported effect size is a 'slope' or, if it is a contrast, what the contrast is (which categories of blue tit brood sizes manipulate are being compared ('control-enlarged', 'reduced-control', or 'reduced-enlarged')"
+adjusted_df,degrees of freedom calculated by the method we provided to the analysts. This df is for use in calculating the effect size.
+beta_SE,SE (standard error) associated with the beta_for_analysis
+transformation,"link function based on link_functionS2 but edited by THP based on reported error distributions (family) and/or link in generalized models (in survey or code). If reported values back-transformed, that is indicated by 'back.transformed'"
+link_function_reported,link function based on link_functionS2 but edited by THP based on reported error distributions (family) and/or link in generalized models (in survey or code)
+dataset,original
+mixed_model,effects coming from mixed models (those with random effects) identified with '1'. Others '0'. Originally created by HF. Some edits THP
+file_name,original
+file_id,original
+response_transformation_description,"If 'transformed' indicated under 'response_transformed', this column indicates the mathemetical transformation"
+response_transformation_status,"If 'transformed' indicated under 'response_transformed', this column indicates the mathemetical transformation unless the reported estimates are back-transformed, in which case, that is indicated by 'back.transformed'"
+response_variable_type,original
+response_construction_description,original
+response_variable_name,response variable name standardized by THP 2022.06
+response_id_S2,original
+test_variable,the standardized name of the predictor variable identified by the analyst as testing the hypothesis of interest. Standardized by THP 2022.06
+sample_size,"The number of rows of data used in the data analysis. We did not request this information in the survey and so we derived it from the submitted materials (output, methods, results) when possible"
+Bayesian,indicates whether the analysis was Bayesian (1) or not (0). Originally created by HF. Some edits THP
+linear_model,all effects classified as coming from 'linear' or 'generalised' models. Some edits THP
+model_subclass,"classification of model type including exponential_variance, hurdle, lasso_regression, mixture_model, PCA, quadratic_variance, quantile_regression, standard, zero_inflated, zero_inflated_hurdle. Originally created by HF. Some edits THP"
+num_variables,Number of predictor variables (both fixed and random) included in the model that produced the effect in this row. Variables included >1 time in a model (for instance in an interaction or in a quadratic term) are counted only once
+num_effects,"Number of predictor effects (both fixed and random) included in the model that produced the effect in this row. Interactions, quadratic terms, or other terms in which a variable may be included >1 time are all counted in this variable"
+num_fixed_variables,Number of fixed predictor variables included in the model that produced the effect in this row. Variables included >1 time in a model (for instance in an interaction or in a quadratic term) are counted only once
+num_fixed_effects,"Number of fixed predictor effects included in the model that produced the effect in this row. Interactions, quadratic terms, or other terms in which a variable may be included >1 time are all counted in this variable"
+num_random_variables,Number of random predictor variables included in the model that produced the effect in this row. Variables included >1 time in a model (for instance in an interaction or in a quadratic term) are counted only once
+num_random_effects,Number of random predictor effects included in the model that produced the effect in this row. This only occurred when nesting different fixed variables within the same random variable in different terms
+num_interactions,Number of interaction terms included in the model
+num_duplicate_terms,"Number of cases in which a variable already included once the model is included an additional time in some transformed state (e.g., as a quadratic term)"
+exclusions_all,"effects that should be excluded from all meta-analyses ('exclude') for reasons including selection of inappropriate response or predictor variables, or insufficient information to understand what was included in their model VS effects to be include ('retain')"
+exclusions_effect_analysis,"effects that should be excluded from the effect-size meta-analysis (primarily due to a lack of degrees of freedom) ('exclude_all') or excluded only from the more conservative effect-size meta-analysis (primarily because they provided identical degrees of freedom for two seperate effects) ('exclude_partial'), or retained for all effect-size meta-analyses ('retain'). This column does NOT address whether an out-of-sample prediction should be excluded from analysis."
+exclusion_predictions,"identifies effects that should be excluded from out-of-sample predictions analysis ('exclude'), most often because of a lack of an appropriate predictions file. Many rows not assessed for exclusion (for instance because no file submitted, or because the entire analysis excluded as indicated in the 'exclusions-all' column), and these are labled 'NA'."
+ConclusionS1,original
+Conclusion,"coded conclusions: pos_c = clear positive, pos_q = qualified positive, neg_c = clear negative, neg_q = qualified negative, mixed = mixed / ambiguous, none_c = clearly no relationship, none_q = qualified no relationship.  Created by HF"
+software,original
+data_cleaning_preprocessing_tool,software used for data processing - created by HF
+data_cleaning_preprocessing_version,version of software used for data processing - created by HF
+data_analysis_tool,software used for data analysis - created by HF
+data_analysis_version,version of software used for data analysis - created by HF
+SurveyID,eucalyptus variable: SurveyID
+Date,eucalyptus variable: Date
+Season,eucalyptus variable: Season
+Property,eucalyptus variable: Property
+Quadrat no,eucalyptus variable: Quadrat no
+Easting,eucalyptus variable: Easting
+Northing,eucalyptus variable: Northing
+Aspect,eucalyptus variable: Aspect
+Landscape position,eucalyptus variable: Landscape position
+ExoticAnnualGrass_cover,eucalyptus variable: ExoticAnnualGrass_cover
+ExoticAnnualHerb_cover,eucalyptus variable: ExoticAnnualHerb_cover
+ExoticPerennialHerb_cover,eucalyptus variable: ExoticPerennialHerb_cover
+ExoticPerennialGrass_cover,eucalyptus variable: ExoticPerennialGrass_cover
+ExoticShrub_cover,eucalyptus variable: ExoticShrub_cover
+NativePerennialFern_cover,eucalyptus variable: NativePerennialFern_cover
+NativePerennialGrass_cover,eucalyptus variable: NativePerennialGrass_cover
+NativePerennialHerb_cover,eucalyptus variable: NativePerennialHerb_cover
+NativePerennialGraminoid_cover,eucalyptus variable: NativePerennialGraminoid_cover
+NativeShrub_cover,eucalyptus variable: NativeShrub_cover
+BareGround_cover,eucalyptus variable: BareGround_cover
+Litter_cover,eucalyptus variable: Litter_cover
+MossLichen_cover,eucalyptus variable: MossLichen_cover
+Rock_cover,eucalyptus variable: Rock_cover
+Euc_canopy_cover,eucalyptus variable: Euc_canopy_cover
+Distance_to_Eucalypt_canopy(m),eucalyptus variable: Distance_to_Eucalypt_canopy(m)
+euc_sdlgs0_50cm,eucalyptus variable: euc_sdlgs0_50cm
+euc_sdlgs50cm-2m,eucalyptus variable: euc_sdlgs50cm-2m
+euc_sdlgs>2m,eucalyptus variable: euc_sdlgs>2m
+annual_precipitation,eucalyptus variable: annual_precipitation
+precipitation_warmest_quarter,eucalyptus variable: precipitation_warmest_quarter
+precipitation_coldest_quarter,eucalyptus variable: precipitation_coldest_quarter
+PET,eucalyptus variable: PET
+MrVBF,eucalyptus variable: MrVBF
+K_perc,eucalyptus variable: K_perc
+Th_ppm,eucalyptus variable: Th_ppm
+U_ppm,eucalyptus variable: U_ppm
+SRad_Jan,eucalyptus variable: SRad_Jan
+SRad_Jul,eucalyptus variable: SRad_Jul
+all_grass,eucalyptus variable: all_grass: analyst-constructed: sum of all grass cover. May or may not include NativePerennialGraminoid_cover
+all_exotic_grass,eucalyptus variable: all_exotic_grass: analyst-constructed: sum of annual and perennial exotic grass
+all_native_grass_graminoid,eucalyptus variable: all_native_grass_graminoid: analyst-constructed: sum of native perennial grass and native graminoid
+all_non-grass_veg,eucalyptus variable: all_non-grass_veg: analyst-constructed: all vegetation other than grass
+shrub_cover,eucalyptus variable: shrub_cover: analyst-constructed: ExoticShrub_cover + NativeShrub_cover
+herb_cover,eucalyptus variable: herb_cover: analyst-constructed: ExoticAnnualHerb_cover+ExoticPerennialHerb_cover+NativePerennialHerb_cover
+other_veg,eucalyptus variable: other_veg: analyst-constructed: NativePerennialFern_cover + NativePerennialGraminoid_cover + MossLichen_cover + Litter_cover
+bare,eucalyptus variable: bare: analyst-constructed: bare ground + rock cover
+month,eucalyptus variable: month: analyst-constructed: month of sampling
+all_exotic_herb,eucalyptus variable: all_exotic_herb: analyst-constructed: exotic annual herb cover + exotic perennial herb cover
+native_herb_fern_gram,eucalyptus variable: native_herb_fern_gram: analyst-constructed: nativePerennialFern_cover + NativePerennialGraminoid_cover + nativePerennialHerb_cover
+growing_space,eucalyptus variable: growing_space: analyst-constructed: Litter_cover + MossLichen_cover + BareGround_cover / ExoticAnnualHerb_cover + ExoticPerennialHerb_cover + ExoticShrub_cover + NativePerennialFern_cover + NativePerennialHerb_cover + NativeShrub_cover + Rock_cover
+soilPC1,"eucalyptus variable: soilPC1: analyst-constructed: PC1 from PCA of K_perc, Th_ppm, and U_ppm"
+coverPC1,"eucalyptus variable: coverPC1: analyst-constructed: PC1 from PCA of ExoticAnnualHerb_cover, ExoticPerennialHerb_cover, ExoticShrub_cover, NativePerennialFern_cover, NativePerennialHerb_cover, NativePerennialGraminoid_cover, NativeShrub_cover, BareGround_cover, Litter_cover, MossLichen_cover, and Rock_cover"
+coverPC2,"eucalyptus variable: coverPC2: analyst-constructed: PC2 from PCA of ExoticAnnualHerb_cover, ExoticPerennialHerb_cover, ExoticShrub_cover, NativePerennialFern_cover, NativePerennialHerb_cover, NativePerennialGraminoid_cover, NativeShrub_cover, BareGround_cover, Litter_cover, MossLichen_cover, and Rock_cover"
+coverPC3,"eucalyptus variable: coverPC3: analyst-constructed: PC3 from PCA of ExoticAnnualHerb_cover, ExoticPerennialHerb_cover, ExoticShrub_cover, NativePerennialFern_cover, NativePerennialHerb_cover, NativePerennialGraminoid_cover, NativeShrub_cover, BareGround_cover, Litter_cover, MossLichen_cover, and Rock_cover"
+precip_max_range,eucalyptus variable: precip_max_range: analyst-constructed: precipitation in warmest quarter – precipitation in coldest-quarter
+year,eucalyptus variable: year: analyst-constructed: year
+size_class,"eucalyptus variable: size_class: analyst-constructed: size class of eucalyptus stems tallied (when all tallys are in the same column, with a separate column designating 0-50cm, 50cm-2m, or >2m)"
+all_perennial_grass,eucalyptus variable: all_perennial_grass: analyst-constructed: sum of native perennial grass and exotic perennial grass
+sample,eucalyptus variable: sample: analyst-constructed: season + property
+hatch_year,Blue tit variable: hatch_year
+hatch_nest_breed_ID,Blue tit variable: hatch_nest_breed_ID
+hatch_Area,Blue tit variable: hatch_Area
+hatch_Box,Blue tit variable: hatch_Box
+hatch_mom_Ring,Blue tit variable: hatch_mom_Ring
+hatch_nest_dad_Ring,Blue tit variable: hatch_nest_dad_Ring
+Extra-pair_paternity,Blue tit variable: Extra-pair_paternity
+Extra-pair_dad_ring,Blue tit variable: Extra-pair_dad_ring
+genetic_dad_ring_(WP_or_EP),Blue tit variable: genetic_dad_ring_(WP_or_EP)
+hatch_nest_LD,Blue tit variable: hatch_nest_LD
+hatch_nest_CS,Blue tit variable: hatch_nest_CS
+hatch_nest_OH,Blue tit variable: hatch_nest_OH
+d0_hatch_nest_brood_size,Blue tit variable: d0_hatch_nest_brood_size
+d14_hatch_nest_brood_size,Blue tit variable: d14_hatch_nest_brood_size
+rear_nest_breed_ID,Blue tit variable: rear_nest_breed_ID
+rear_area,Blue tit variable: rear_area
+rear_Box,Blue tit variable: rear_Box
+rear_mom_Ring,Blue tit variable: rear_mom_Ring
+rear_dad_Ring,Blue tit variable: rear_dad_Ring
+rear_nest_trt,Blue tit variable: rear_nest_trt
+home_or_away,Blue tit variable: home_or_away
+rear_nest_LD,Blue tit variable: rear_nest_LD
+rear_nest_CS,Blue tit variable: rear_nest_CS
+rear_nest_OH,Blue tit variable: rear_nest_OH
+rear_d0_rear_nest_brood_size,Blue tit variable: rear_d0_rear_nest_brood_size
+rear_Cs_out,Blue tit variable: rear_Cs_out
+rear_Cs_in,Blue tit variable: rear_Cs_in
+net_rearing_manipulation,Blue tit variable: net_rearing_manipulation
+rear_Cs_at_start_of_rearing,Blue tit variable: rear_Cs_at_start_of_rearing
+d14_rear_nest_brood_size,Blue tit variable: d14_rear_nest_brood_size
+number_chicks_fledged_from_rear_nest,Blue tit variable: number_chicks_fledged_from_rear_nest
+Date_of_day14,Blue tit variable: Date_of_day14
+day_14_tarsus_length,Blue tit variable: day_14_tarsus_length
+day_14_weight,Blue tit variable: day_14_weight
+day14_measurer,Blue tit variable: day14_measurer
+chick_sex_molec,Blue tit variable: chick_sex_molec
+chick_survival_to_first_breed_season,Blue tit variable: chick_survival_to_first_breed_season
+within-area_movement,Blue tit variable: within-area_movement: analyst-constructed: whether cross fostering moved chicks to another area of the wood or within the same area
+brood_reduction,Blue tit variable: brood_reduction: analyst-constructed: rear_Cs_at_start_of_rearing - chicks fledged
+blood_sib,Blue tit variable: blood_sib: analyst-constructed: number of siblings in nest with same genetic parents (excludes cross-fostered)
+hatch_incub_length,Blue tit variable: hatch_incub_length: analyst-constructed: hatch_nest_OH - hatch_nest_LD
+rear_incub_length,Blue tit variable: rear_incub_length: analyst-constructed: rear_nest_OH - rear_nest_LD
+relatedness,Blue tit variable: relatedness: analyst-constructed: proportion of nestlings in the rearing nest who were hatched in that nest
+competition_weight,Blue tit variable: competition_weight: analyst-constructed: xd14_rear_nest_brood_size × x ̅day_14 _weight | d14_rear_nest_breed_ID
+relative_CS,Blue tit variable: relative_CS: analyst-constructed: rear_Cs_at_start_of_rearing / rear_nest_CS ###or### rear_Cs_at_start_of_rearing / rear_d0_rear_nest_brood_size
+envir_rear,"Blue tit variable: envir_rear: analyst-constructed: concatenation of the following: hatch_year, hatch_nest_Ohbin, rear_Area"
+percent_change,Blue tit variable: percent_change: analyst-constructed: (net_rearing_manipulation/rear_d0_rear_nest_brood_size)*100
+parentage,Blue tit variable: parentage: analyst-constructed: combined hatch_mom_Ring and genetic_dad_ring_(WP_or_EP)
+manipulation_non,Blue tit variable: manipulation_non: analyst-constructed: rearing nest manipulated or not manipulated
+seasonal_timing,"Blue tit variable: seasonal_timing: analyst-constructed: PC1 from PCA of all date variables (hatch nest lay date, hatch nest hatch date, rear nest lay day, rear nest hatch date,d14 date)"
+brood_mortality,Blue tit variable: brood_mortality: analyst-constructed: proportion of nestlings that died between cross-fostering day and day 14
+brood_sex_ratio,"Blue tit variable: brood_sex_ratio: analyst-constructed: proportion of males in the nest (1 = all males, 0 = all females), while indicating unknown sex of chicks as 0.5"

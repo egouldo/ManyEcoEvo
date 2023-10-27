@@ -1,0 +1,516 @@
+response_id_S2,analysis_id_S2,submission_id_S2,ReviewerId,PriorBelief,RateAnalysis,PublishableAsIs
+R_9GOTiblKFa9C4x3,1,1,Rev142,NA,90,publishable with minor revision
+R_9GOTiblKFa9C4x3,2,2,Rev142,NA,90,publishable with minor revision
+R_2q46Az9oG9EuskN,1,1,Rev142,NA,100,publishable as is
+R_V53ZP6DAbdFUqS5,1,1,Rev142,NA,90,publishable with minor revision
+R_3Kvy0h01LXHWniT,1,1,Rev142,NA,50,publishable with major revision
+R_3Kvy0h01LXHWniT,2,2,Rev142,NA,50,publishable with major revision
+R_XQXeN7diZLPsRVv,1,1,Rev35,Negative relationship (more grass cover = fewer seedlings),82,publishable as is
+R_XQXeN7diZLPsRVv,2,2,Rev35,Negative relationship (more grass cover = fewer seedlings),82,publishable as is
+R_3NHVKFiOiQBfX9b,1,1,Rev35,Negative relationship (more grass cover = fewer seedlings),45,publishable with major revision
+R_3NHVKFiOiQBfX9b,2,2,Rev35,Negative relationship (more grass cover = fewer seedlings),45,publishable with major revision
+R_3NHVKFiOiQBfX9b,3,3,Rev35,Negative relationship (more grass cover = fewer seedlings),45,publishable with major revision
+R_vojH4E5b8mNOCU9,1,1,Rev35,Negative relationship (more grass cover = fewer seedlings),95,publishable as is
+NA,NA,NA,Rev35,Negative relationship (more grass cover = fewer seedlings),65,publishable as is
+R_2RWagSaG4jPYGlh,1,1,Rev144,Negative relationship (more grass cover = fewer seedlings),70,publishable with minor revision
+R_2zj7U8UJE7GgEYS,1,1,Rev144,Negative relationship (more grass cover = fewer seedlings),24,deeply flawed and unpublishable
+R_2zj7U8UJE7GgEYS,2,2,Rev144,Negative relationship (more grass cover = fewer seedlings),24,deeply flawed and unpublishable
+R_1LXqc8NAdABndjl,1,1,Rev144,Negative relationship (more grass cover = fewer seedlings),50,publishable with major revision
+R_21I1NvXiVXIGkqp,1,1,Rev144,Negative relationship (more grass cover = fewer seedlings),60,publishable with minor revision
+NA,NA,NA,Rev41,Negative relationship (more grass cover = fewer seedlings),90,publishable as is
+R_3dYDpQUfDUXjtDy,1,1,Rev41,Negative relationship (more grass cover = fewer seedlings),75,publishable with major revision
+R_3dYDpQUfDUXjtDy,2,2,Rev41,Negative relationship (more grass cover = fewer seedlings),75,publishable with major revision
+R_2AHKlq0vRRQTSVz,1,1,Rev41,Negative relationship (more grass cover = fewer seedlings),85,publishable with minor revision
+R_2anLJGpWhjUjzes,1,1,Rev41,Negative relationship (more grass cover = fewer seedlings),75,publishable with minor revision
+R_1LRqq2WHrQaENtM,1,1,Rev41,Negative relationship (more grass cover = fewer seedlings),50,publishable with major revision
+R_phpZePnRFCxhQFH,1,1,Rev102,Negative relationship (more grass cover = fewer seedlings),65,publishable with major revision
+R_1r2FSn2AXuCimpi,1,1,Rev102,Negative relationship (more grass cover = fewer seedlings),80,publishable with minor revision
+NA,NA,NA,Rev102,Negative relationship (more grass cover = fewer seedlings),85,publishable with minor revision
+R_1M0cMZL2IPYWHoi,1,1,Rev102,Negative relationship (more grass cover = fewer seedlings),70,publishable with major revision
+NA,NA,NA,Rev107,Negative relationship (more grass cover = fewer seedlings),75,publishable with minor revision
+R_2anLJGpWhjUjzes,1,1,Rev107,Negative relationship (more grass cover = fewer seedlings),70,publishable with minor revision
+R_2tLsM42vnTf9wX6,1,1,Rev107,Negative relationship (more grass cover = fewer seedlings),95,publishable with minor revision
+R_2tLsM42vnTf9wX6,2,2,Rev107,Negative relationship (more grass cover = fewer seedlings),95,publishable with minor revision
+R_2tLsM42vnTf9wX6,3,3,Rev107,Negative relationship (more grass cover = fewer seedlings),95,publishable with minor revision
+R_2tLsM42vnTf9wX6,4,4,Rev107,Negative relationship (more grass cover = fewer seedlings),95,publishable with minor revision
+NA,NA,NA,Rev107,Negative relationship (more grass cover = fewer seedlings),60,publishable with major revision
+R_3L6k5TOvZ4731Dk,1,1,Rev56,Negative relationship (more grass cover = fewer seedlings),85,publishable with minor revision
+R_31tNDcbaXNaQp1y,1,1,Rev56,Negative relationship (more grass cover = fewer seedlings),60,publishable with major revision
+R_1kH1Ko3yaLsrD0E,1,1,Rev56,Negative relationship (more grass cover = fewer seedlings),70,publishable with major revision
+R_2ZOi9HYfzNfJmKE,1,1,Rev56,Negative relationship (more grass cover = fewer seedlings),55,publishable with major revision
+R_21AEcUhC7tWDsN6,1,1,Rev148,NA,75,publishable with minor revision
+R_2V7qaLEfdbgUGg3,1,1,Rev148,NA,20,publishable with major revision
+R_2V7qaLEfdbgUGg3,2,2,Rev148,NA,20,publishable with major revision
+R_3EbbZxcQ3gctVZu,1,1,Rev148,NA,60,publishable with major revision
+R_3D10yCylth7wFPg,1,1,Rev148,NA,18,publishable with major revision
+R_1FJQlMO4buRu6S2,1,1,Rev148,NA,75,publishable with minor revision
+R_3NHVKFiOiQBfX9b,1,1,Rev115,NA,50,publishable with major revision
+R_3NHVKFiOiQBfX9b,2,2,Rev115,NA,50,publishable with major revision
+R_3NHVKFiOiQBfX9b,3,3,Rev115,NA,50,publishable with major revision
+R_3eta2uFp1DLnGVJ,1,1,Rev115,NA,70,publishable with minor revision
+R_2zSEWAYDs4K7SiK,1,1,Rev115,NA,80,publishable with minor revision
+R_2qt4UsEXYCfKubj,1,1,Rev115,NA,15,deeply flawed and unpublishable
+R_3mfyhAj6rakbi5b,1,1,Rev100,NA,50,publishable with minor revision
+R_phpZePnRFCxhQFH,1,1,Rev100,NA,50,publishable with minor revision
+NA,NA,NA,Rev100,NA,51,publishable with minor revision
+R_1LTZWsikoIaKdMu,1,1,Rev100,NA,51,publishable with minor revision
+R_3GqVN6mfoOWe3Nz,1,1,Rev57,NA,90,publishable with minor revision
+R_3GqVN6mfoOWe3Nz,2,2,Rev57,NA,90,publishable with minor revision
+R_3GqVN6mfoOWe3Nz,3,3,Rev57,NA,90,publishable with minor revision
+R_Rku0BAsjkxtwo7L,1,1,Rev36,Negative relationship (more grass cover = fewer seedlings),95,publishable with minor revision
+R_2RWagSaG4jPYGlh,1,1,Rev36,Negative relationship (more grass cover = fewer seedlings),70,publishable with minor revision
+NA,NA,NA,Rev36,Negative relationship (more grass cover = fewer seedlings),95,publishable with minor revision
+R_1LXqc8NAdABndjl,1,1,Rev36,Negative relationship (more grass cover = fewer seedlings),80,publishable with minor revision
+R_3EYx3CfuTZ7YNmF,1,1,Rev36,Negative relationship (more grass cover = fewer seedlings),70,publishable with minor revision
+R_3EYx3CfuTZ7YNmF,2,2,Rev36,Negative relationship (more grass cover = fewer seedlings),70,publishable with minor revision
+R_3EYx3CfuTZ7YNmF,3,3,Rev36,Negative relationship (more grass cover = fewer seedlings),70,publishable with minor revision
+R_3EYx3CfuTZ7YNmF,4,4,Rev36,Negative relationship (more grass cover = fewer seedlings),70,publishable with minor revision
+R_3EYx3CfuTZ7YNmF,5,5,Rev36,Negative relationship (more grass cover = fewer seedlings),70,publishable with minor revision
+R_phpZePnRFCxhQFH,1,1,Rev146,NA,80,publishable with minor revision
+R_23UKvhBc7D608VO,3,1,Rev146,NA,70,publishable with major revision
+R_23UKvhBc7D608VO,4,2,Rev146,NA,70,publishable with major revision
+R_23UKvhBc7D608VO,5,3,Rev146,NA,70,publishable with major revision
+R_23UKvhBc7D608VO,6,4,Rev146,NA,70,publishable with major revision
+R_23UKvhBc7D608VO,7,5,Rev146,NA,70,publishable with major revision
+R_3HzSBqQTAmJJ9ye,8,1,Rev146,NA,70,publishable with major revision
+R_3HzSBqQTAmJJ9ye,9,2,Rev146,NA,70,publishable with major revision
+R_3HzSBqQTAmJJ9ye,10,3,Rev146,NA,70,publishable with major revision
+R_1Ej3sywrrnzy7KJ,1,1,Rev146,NA,85,publishable with minor revision
+R_2zSEWAYDs4K7SiK,1,1,Rev146,NA,85,publishable with minor revision
+R_9KB5LL2E99Hqfhn,1,1,Rev146,NA,90,publishable with minor revision
+R_1M0cMZL2IPYWHoi,1,1,Rev47,Positive relationship (more grass cover = more seedlings),60,publishable with major revision
+R_vojH4E5b8mNOCU9,1,1,Rev47,Positive relationship (more grass cover = more seedlings),90,publishable as is
+R_2ZOi9HYfzNfJmKE,1,1,Rev47,Positive relationship (more grass cover = more seedlings),95,publishable as is
+R_1LTZWsikoIaKdMu,1,1,Rev47,Positive relationship (more grass cover = more seedlings),91,publishable as is
+R_2qt4UsEXYCfKubj,1,1,Rev47,Positive relationship (more grass cover = more seedlings),75,publishable with major revision
+R_1r2FSn2AXuCimpi,1,1,Rev23,Negative relationship (more grass cover = fewer seedlings),70,publishable with minor revision
+R_3L6k5TOvZ4731Dk,1,1,Rev23,Negative relationship (more grass cover = fewer seedlings),40,publishable with major revision
+R_x9Fs6DQf26tdSRr,1,1,Rev23,Negative relationship (more grass cover = fewer seedlings),50,publishable with major revision
+R_x9Fs6DQf26tdSRr,2,2,Rev23,Negative relationship (more grass cover = fewer seedlings),50,publishable with major revision
+R_9GOTiblKFa9C4x3,1,1,Rev23,Negative relationship (more grass cover = fewer seedlings),100,publishable as is
+R_9GOTiblKFa9C4x3,2,2,Rev23,Negative relationship (more grass cover = fewer seedlings),100,publishable as is
+R_12R6XuSRUcRemui,1,1,Rev23,Negative relationship (more grass cover = fewer seedlings),90,publishable as is
+R_3PBpbf5wxagIV7X,2,2,Rev104,Negative relationship (more grass cover = fewer seedlings),11,deeply flawed and unpublishable
+NA,NA,NA,Rev104,Negative relationship (more grass cover = fewer seedlings),80,publishable with minor revision
+R_2AHKlq0vRRQTSVz,1,1,Rev104,Negative relationship (more grass cover = fewer seedlings),100,publishable as is
+R_21I1NvXiVXIGkqp,1,1,Rev104,Negative relationship (more grass cover = fewer seedlings),96,publishable as is
+R_1l9qIgUeSEKY3ME,1,1,Rev104,Negative relationship (more grass cover = fewer seedlings),95,publishable as is
+R_1l9qIgUeSEKY3ME,2,2,Rev104,Negative relationship (more grass cover = fewer seedlings),95,publishable as is
+R_3EoS37IOWKLRxDV,1,1,Rev127,NA,95,publishable with minor revision
+R_1ItMbxJAVt7RRtX,1,1,Rev127,NA,80,publishable with minor revision
+R_3OftgnLM9MoIwf8,1,1,Rev127,NA,30,deeply flawed and unpublishable
+NA,NA,NA,Rev127,NA,50,deeply flawed and unpublishable
+R_3Kvy0h01LXHWniT,1,1,Rev127,NA,30,deeply flawed and unpublishable
+R_3Kvy0h01LXHWniT,2,2,Rev127,NA,30,deeply flawed and unpublishable
+NA,NA,NA,Rev90,Positive relationship (more grass cover = more seedlings),49,publishable with major revision
+NA,NA,NA,Rev90,Positive relationship (more grass cover = more seedlings),78,publishable with minor revision
+R_3D10yCylth7wFPg,1,1,Rev90,Positive relationship (more grass cover = more seedlings),34,deeply flawed and unpublishable
+R_2tLsM42vnTf9wX6,1,1,Rev90,Positive relationship (more grass cover = more seedlings),58,publishable with major revision
+R_2tLsM42vnTf9wX6,2,2,Rev90,Positive relationship (more grass cover = more seedlings),58,publishable with major revision
+R_2tLsM42vnTf9wX6,3,3,Rev90,Positive relationship (more grass cover = more seedlings),58,publishable with major revision
+R_2tLsM42vnTf9wX6,4,4,Rev90,Positive relationship (more grass cover = more seedlings),58,publishable with major revision
+R_3fqsqu3iZPZDV4J,1,1,Rev90,Positive relationship (more grass cover = more seedlings),84,publishable with minor revision
+R_3fqsqu3iZPZDV4J,2,2,Rev90,Positive relationship (more grass cover = more seedlings),84,publishable with minor revision
+R_1ItMbxJAVt7RRtX,1,1,Rev85,NA,84,publishable as is
+R_3OftgnLM9MoIwf8,1,1,Rev85,NA,81,publishable as is
+NA,NA,NA,Rev85,NA,35,publishable with major revision
+NA,NA,NA,Rev85,NA,86,publishable as is
+R_1kH1Ko3yaLsrD0E,1,1,Rev85,NA,90,publishable as is
+R_XQXeN7diZLPsRVv,1,1,Rev28,Negative relationship (more grass cover = fewer seedlings),49,publishable with major revision
+R_XQXeN7diZLPsRVv,2,2,Rev28,Negative relationship (more grass cover = fewer seedlings),49,publishable with major revision
+R_9GOTiblKFa9C4x3,1,1,Rev28,Negative relationship (more grass cover = fewer seedlings),61,publishable with minor revision
+R_9GOTiblKFa9C4x3,2,2,Rev28,Negative relationship (more grass cover = fewer seedlings),61,publishable with minor revision
+R_2D5BccM9OleEDwh,1,1,Rev28,Negative relationship (more grass cover = fewer seedlings),81,publishable with minor revision
+R_2ZOi9HYfzNfJmKE,1,1,Rev28,Negative relationship (more grass cover = fewer seedlings),86,publishable with minor revision
+R_12R6XuSRUcRemui,1,1,Rev28,Negative relationship (more grass cover = fewer seedlings),60,publishable with major revision
+R_2AHKlq0vRRQTSVz,1,1,Rev30,Negative relationship (more grass cover = fewer seedlings),79,publishable with minor revision
+R_3pte7gGbO7GliHv,1,1,Rev30,Negative relationship (more grass cover = fewer seedlings),70,publishable with minor revision
+R_C7CnNaqfX71jQjL,1,1,Rev30,Negative relationship (more grass cover = fewer seedlings),65,publishable with major revision
+R_C7CnNaqfX71jQjL,2,2,Rev30,Negative relationship (more grass cover = fewer seedlings),65,publishable with major revision
+R_C7CnNaqfX71jQjL,3,3,Rev30,Negative relationship (more grass cover = fewer seedlings),65,publishable with major revision
+R_C7CnNaqfX71jQjL,4,4,Rev30,Negative relationship (more grass cover = fewer seedlings),65,publishable with major revision
+R_C7CnNaqfX71jQjL,5,5,Rev30,Negative relationship (more grass cover = fewer seedlings),65,publishable with major revision
+R_3oWTTWWo1e8y3jB,6,1,Rev30,Negative relationship (more grass cover = fewer seedlings),65,publishable with major revision
+R_AzL6RdNTHtPjxzX,1,1,Rev30,Negative relationship (more grass cover = fewer seedlings),91,publishable as is
+NA,NA,NA,Rev30,Negative relationship (more grass cover = fewer seedlings),77,publishable with minor revision
+R_21jtSu9hB9Shf6Y,1,1,Rev83,NA,60,publishable with minor revision
+R_21jtSu9hB9Shf6Y,2,2,Rev83,NA,60,publishable with minor revision
+R_21jtSu9hB9Shf6Y,3,3,Rev83,NA,60,publishable with minor revision
+R_21jtSu9hB9Shf6Y,4,4,Rev83,NA,60,publishable with minor revision
+R_1BWpZlSbkmSofe1,1,1,Rev83,NA,70,publishable as is
+NA,NA,NA,Rev83,NA,15,publishable with major revision
+R_C7CnNaqfX71jQjL,1,1,Rev83,NA,40,publishable with major revision
+R_C7CnNaqfX71jQjL,2,2,Rev83,NA,40,publishable with major revision
+R_C7CnNaqfX71jQjL,3,3,Rev83,NA,40,publishable with major revision
+R_C7CnNaqfX71jQjL,4,4,Rev83,NA,40,publishable with major revision
+R_C7CnNaqfX71jQjL,5,5,Rev83,NA,40,publishable with major revision
+R_3oWTTWWo1e8y3jB,6,1,Rev83,NA,40,publishable with major revision
+R_3rIdpCqsQtsmgqT,3,3,Rev83,NA,10,deeply flawed and unpublishable
+R_3rIdpCqsQtsmgqT,4,4,Rev83,NA,10,deeply flawed and unpublishable
+R_2V7qaLEfdbgUGg3,1,1,Rev110,Negative relationship (more grass cover = fewer seedlings),25,deeply flawed and unpublishable
+R_2V7qaLEfdbgUGg3,2,2,Rev110,Negative relationship (more grass cover = fewer seedlings),25,deeply flawed and unpublishable
+NA,NA,NA,Rev110,Negative relationship (more grass cover = fewer seedlings),71,publishable with major revision
+R_27QNfbdXCi5JjQT,1,1,Rev110,Negative relationship (more grass cover = fewer seedlings),60,publishable with major revision
+R_27QNfbdXCi5JjQT,2,2,Rev110,Negative relationship (more grass cover = fewer seedlings),60,publishable with major revision
+R_2Uf2SxOynEElDZN,1,1,Rev110,Negative relationship (more grass cover = fewer seedlings),70,publishable with major revision
+R_2EgAnNXZmEg7LoJ,1,1,Rev110,Negative relationship (more grass cover = fewer seedlings),90,publishable with minor revision
+R_2EgAnNXZmEg7LoJ,2,2,Rev110,Negative relationship (more grass cover = fewer seedlings),90,publishable with minor revision
+R_2EgAnNXZmEg7LoJ,3,3,Rev110,Negative relationship (more grass cover = fewer seedlings),90,publishable with minor revision
+NA,NA,NA,Rev137,NA,77,publishable with major revision
+NA,NA,NA,Rev137,NA,88,publishable with minor revision
+NA,NA,NA,Rev137,NA,95,publishable with minor revision
+R_V53ZP6DAbdFUqS5,1,1,Rev137,NA,76,publishable with major revision
+R_1kH1Ko3yaLsrD0E,1,1,Rev137,NA,62,publishable with major revision
+NA,NA,NA,Rev72,NA,81,publishable with minor revision
+R_XQXeN7diZLPsRVv,1,1,Rev72,NA,71,publishable with major revision
+R_XQXeN7diZLPsRVv,2,2,Rev72,NA,71,publishable with major revision
+R_3NHVKFiOiQBfX9b,1,1,Rev72,NA,50,publishable with major revision
+R_3NHVKFiOiQBfX9b,2,2,Rev72,NA,50,publishable with major revision
+R_3NHVKFiOiQBfX9b,3,3,Rev72,NA,50,publishable with major revision
+NA,NA,NA,Rev72,NA,92,publishable as is
+R_2D5BccM9OleEDwh,1,1,Rev72,NA,82,publishable with minor revision
+R_2V7qaLEfdbgUGg3,1,1,Rev149,Negative relationship (more grass cover = fewer seedlings),10,publishable with major revision
+R_2V7qaLEfdbgUGg3,2,2,Rev149,Negative relationship (more grass cover = fewer seedlings),10,publishable with major revision
+R_2Uf2SxOynEElDZN,1,1,Rev149,Negative relationship (more grass cover = fewer seedlings),30,publishable with major revision
+R_1LXqc8NAdABndjl,1,1,Rev149,Negative relationship (more grass cover = fewer seedlings),70,publishable with minor revision
+NA,NA,NA,Rev149,Negative relationship (more grass cover = fewer seedlings),30,publishable with major revision
+NA,NA,NA,Rev149,Negative relationship (more grass cover = fewer seedlings),20,publishable with major revision
+R_Rku0BAsjkxtwo7L,1,1,Rev39,Negative relationship (more grass cover = fewer seedlings),69,publishable with major revision
+R_3GqVN6mfoOWe3Nz,1,1,Rev39,Negative relationship (more grass cover = fewer seedlings),69,publishable with major revision
+R_3GqVN6mfoOWe3Nz,2,2,Rev39,Negative relationship (more grass cover = fewer seedlings),69,publishable with major revision
+R_3GqVN6mfoOWe3Nz,3,3,Rev39,Negative relationship (more grass cover = fewer seedlings),69,publishable with major revision
+R_3dYDpQUfDUXjtDy,1,1,Rev39,Negative relationship (more grass cover = fewer seedlings),18,deeply flawed and unpublishable
+R_3dYDpQUfDUXjtDy,2,2,Rev39,Negative relationship (more grass cover = fewer seedlings),18,deeply flawed and unpublishable
+NA,NA,NA,Rev39,Negative relationship (more grass cover = fewer seedlings),78,publishable with minor revision
+NA,NA,NA,Rev39,Negative relationship (more grass cover = fewer seedlings),94,publishable as is
+R_2YQeDDkUPqS56ew,1,1,Rev55,Negative relationship (more grass cover = fewer seedlings),76,publishable with minor revision
+R_1M0cMZL2IPYWHoi,1,1,Rev55,Negative relationship (more grass cover = fewer seedlings),60,publishable with major revision
+R_vojH4E5b8mNOCU9,1,1,Rev55,Negative relationship (more grass cover = fewer seedlings),95,publishable as is
+NA,NA,NA,Rev55,Negative relationship (more grass cover = fewer seedlings),95,publishable as is
+R_3eta2uFp1DLnGVJ,1,1,Rev55,Negative relationship (more grass cover = fewer seedlings),87,publishable with minor revision
+NA,NA,NA,Rev133,Negative relationship (more grass cover = fewer seedlings),76,publishable with minor revision
+R_3GqVN6mfoOWe3Nz,1,1,Rev133,Negative relationship (more grass cover = fewer seedlings),81,publishable with minor revision
+R_3GqVN6mfoOWe3Nz,2,2,Rev133,Negative relationship (more grass cover = fewer seedlings),81,publishable with minor revision
+R_3GqVN6mfoOWe3Nz,3,3,Rev133,Negative relationship (more grass cover = fewer seedlings),81,publishable with minor revision
+R_2zj7U8UJE7GgEYS,1,1,Rev133,Negative relationship (more grass cover = fewer seedlings),64,publishable with minor revision
+R_2zj7U8UJE7GgEYS,2,2,Rev133,Negative relationship (more grass cover = fewer seedlings),64,publishable with minor revision
+R_1LRqq2WHrQaENtM,1,1,Rev133,Negative relationship (more grass cover = fewer seedlings),80,publishable with minor revision
+R_1FJQlMO4buRu6S2,1,1,Rev133,Negative relationship (more grass cover = fewer seedlings),95,publishable with minor revision
+NA,NA,NA,Rev70,Negative relationship (more grass cover = fewer seedlings),20,publishable with major revision
+R_3dYDpQUfDUXjtDy,1,1,Rev70,Negative relationship (more grass cover = fewer seedlings),20,publishable with major revision
+R_3dYDpQUfDUXjtDy,2,2,Rev70,Negative relationship (more grass cover = fewer seedlings),20,publishable with major revision
+R_3NKz8oHb8nvNIQR,1,1,Rev70,Negative relationship (more grass cover = fewer seedlings),95,publishable as is
+R_AzL6RdNTHtPjxzX,1,1,Rev70,Negative relationship (more grass cover = fewer seedlings),70,publishable with major revision
+NA,NA,NA,Rev70,Negative relationship (more grass cover = fewer seedlings),85,publishable with minor revision
+R_21AEcUhC7tWDsN6,1,1,Rev109,NA,100,publishable as is
+R_21jtSu9hB9Shf6Y,1,1,Rev109,NA,55,publishable with major revision
+R_21jtSu9hB9Shf6Y,2,2,Rev109,NA,55,publishable with major revision
+R_21jtSu9hB9Shf6Y,3,3,Rev109,NA,55,publishable with major revision
+R_21jtSu9hB9Shf6Y,4,4,Rev109,NA,55,publishable with major revision
+R_1BWpZlSbkmSofe1,1,1,Rev109,NA,50,publishable with major revision
+R_3EYx3CfuTZ7YNmF,1,1,Rev109,NA,50,publishable with major revision
+R_3EYx3CfuTZ7YNmF,2,2,Rev109,NA,50,publishable with major revision
+R_3EYx3CfuTZ7YNmF,3,3,Rev109,NA,50,publishable with major revision
+R_3EYx3CfuTZ7YNmF,4,4,Rev109,NA,50,publishable with major revision
+R_3EYx3CfuTZ7YNmF,5,5,Rev109,NA,50,publishable with major revision
+R_9FUOSSR4h4s5OlX,1,1,Rev109,NA,65,publishable with minor revision
+R_2RWagSaG4jPYGlh,1,1,Rev94,NA,100,publishable as is
+NA,NA,NA,Rev94,NA,70,publishable with major revision
+R_3EYx3CfuTZ7YNmF,1,1,Rev94,NA,100,publishable as is
+R_3EYx3CfuTZ7YNmF,2,2,Rev94,NA,100,publishable as is
+R_3EYx3CfuTZ7YNmF,3,3,Rev94,NA,100,publishable as is
+R_3EYx3CfuTZ7YNmF,4,4,Rev94,NA,100,publishable as is
+R_3EYx3CfuTZ7YNmF,5,5,Rev94,NA,100,publishable as is
+R_2tLsM42vnTf9wX6,1,1,Rev94,NA,92,publishable with minor revision
+R_2tLsM42vnTf9wX6,2,2,Rev94,NA,92,publishable with minor revision
+R_2tLsM42vnTf9wX6,3,3,Rev94,NA,92,publishable with minor revision
+R_2tLsM42vnTf9wX6,4,4,Rev94,NA,92,publishable with minor revision
+R_3pte7gGbO7GliHv,1,1,Rev94,NA,91,publishable with minor revision
+R_21AEcUhC7tWDsN6,1,1,Rev138,Negative relationship (more grass cover = fewer seedlings),70,publishable with minor revision
+R_2RWagSaG4jPYGlh,1,1,Rev138,Negative relationship (more grass cover = fewer seedlings),83,publishable with minor revision
+R_27QNfbdXCi5JjQT,1,1,Rev138,Negative relationship (more grass cover = fewer seedlings),45,publishable with major revision
+R_27QNfbdXCi5JjQT,2,2,Rev138,Negative relationship (more grass cover = fewer seedlings),45,publishable with major revision
+R_9FUOSSR4h4s5OlX,1,1,Rev138,Negative relationship (more grass cover = fewer seedlings),79,publishable as is
+R_3pte7gGbO7GliHv,1,1,Rev138,Negative relationship (more grass cover = fewer seedlings),59,publishable with major revision
+R_1r2FSn2AXuCimpi,1,1,Rev95,Positive relationship (more grass cover = more seedlings),80,publishable with minor revision
+R_31tNDcbaXNaQp1y,1,1,Rev95,Positive relationship (more grass cover = more seedlings),65,publishable with minor revision
+NA,NA,NA,Rev95,Positive relationship (more grass cover = more seedlings),85,publishable with minor revision
+R_9KB5LL2E99Hqfhn,1,1,Rev95,Positive relationship (more grass cover = more seedlings),5,deeply flawed and unpublishable
+R_2qt4UsEXYCfKubj,1,1,Rev95,Positive relationship (more grass cover = more seedlings),55,publishable with major revision
+R_2RWagSaG4jPYGlh,1,1,Rev147,Positive relationship (more grass cover = more seedlings),39,deeply flawed and unpublishable
+R_2zj7U8UJE7GgEYS,1,1,Rev147,Positive relationship (more grass cover = more seedlings),74,publishable with minor revision
+R_2zj7U8UJE7GgEYS,2,2,Rev147,Positive relationship (more grass cover = more seedlings),74,publishable with minor revision
+NA,NA,NA,Rev147,Positive relationship (more grass cover = more seedlings),50,publishable with major revision
+R_3NKz8oHb8nvNIQR,1,1,Rev147,Positive relationship (more grass cover = more seedlings),57,publishable with major revision
+R_3fqsqu3iZPZDV4J,1,1,Rev147,Positive relationship (more grass cover = more seedlings),82,publishable as is
+R_3fqsqu3iZPZDV4J,2,2,Rev147,Positive relationship (more grass cover = more seedlings),82,publishable as is
+NA,NA,NA,Rev96,Negative relationship (more grass cover = fewer seedlings),54,publishable with minor revision
+R_2YQeDDkUPqS56ew,1,1,Rev96,Negative relationship (more grass cover = fewer seedlings),78,publishable with minor revision
+R_2zNKAmJcWbM4QtY,1,1,Rev96,Negative relationship (more grass cover = fewer seedlings),84,publishable as is
+R_2zNKAmJcWbM4QtY,2,2,Rev96,Negative relationship (more grass cover = fewer seedlings),84,publishable as is
+NA,NA,NA,Rev96,Negative relationship (more grass cover = fewer seedlings),84,publishable with minor revision
+R_3eta2uFp1DLnGVJ,1,1,Rev96,Negative relationship (more grass cover = fewer seedlings),98,publishable as is
+NA,NA,NA,Rev139,Negative relationship (more grass cover = fewer seedlings),60,publishable with major revision
+R_XQXeN7diZLPsRVv,1,1,Rev139,Negative relationship (more grass cover = fewer seedlings),40,publishable with major revision
+R_XQXeN7diZLPsRVv,2,2,Rev139,Negative relationship (more grass cover = fewer seedlings),40,publishable with major revision
+R_3NHVKFiOiQBfX9b,1,1,Rev139,Negative relationship (more grass cover = fewer seedlings),15,publishable with major revision
+R_3NHVKFiOiQBfX9b,2,2,Rev139,Negative relationship (more grass cover = fewer seedlings),15,publishable with major revision
+R_3NHVKFiOiQBfX9b,3,3,Rev139,Negative relationship (more grass cover = fewer seedlings),15,publishable with major revision
+R_x9Fs6DQf26tdSRr,1,1,Rev139,Negative relationship (more grass cover = fewer seedlings),99,publishable as is
+R_x9Fs6DQf26tdSRr,2,2,Rev139,Negative relationship (more grass cover = fewer seedlings),99,publishable as is
+R_1reUKfTYXhTqVMo,1,1,Rev139,Negative relationship (more grass cover = fewer seedlings),75,publishable with major revision
+NA,NA,NA,Rev22,NA,59,publishable with minor revision
+R_vojH4E5b8mNOCU9,1,1,Rev22,NA,80,publishable with minor revision
+R_1ItMbxJAVt7RRtX,1,1,Rev22,NA,60,publishable with minor revision
+R_1ib6zw7qoq0lHlf,1,1,Rev22,NA,65,publishable with minor revision
+R_1LTZWsikoIaKdMu,1,1,Rev22,NA,75,publishable with minor revision
+R_Rku0BAsjkxtwo7L,1,1,Rev111,Negative relationship (more grass cover = fewer seedlings),80,publishable with minor revision
+R_3EbbZxcQ3gctVZu,1,1,Rev111,Negative relationship (more grass cover = fewer seedlings),90,publishable as is
+R_3EYx3CfuTZ7YNmF,1,1,Rev111,Negative relationship (more grass cover = fewer seedlings),100,publishable as is
+R_3EYx3CfuTZ7YNmF,2,2,Rev111,Negative relationship (more grass cover = fewer seedlings),100,publishable as is
+R_3EYx3CfuTZ7YNmF,3,3,Rev111,Negative relationship (more grass cover = fewer seedlings),100,publishable as is
+R_3EYx3CfuTZ7YNmF,4,4,Rev111,Negative relationship (more grass cover = fewer seedlings),100,publishable as is
+R_3EYx3CfuTZ7YNmF,5,5,Rev111,Negative relationship (more grass cover = fewer seedlings),100,publishable as is
+R_2EgAnNXZmEg7LoJ,1,1,Rev111,Negative relationship (more grass cover = fewer seedlings),80,publishable as is
+R_2EgAnNXZmEg7LoJ,2,2,Rev111,Negative relationship (more grass cover = fewer seedlings),80,publishable as is
+R_2EgAnNXZmEg7LoJ,3,3,Rev111,Negative relationship (more grass cover = fewer seedlings),80,publishable as is
+R_0MuZ4chnmwTaLiV,1,1,Rev111,Negative relationship (more grass cover = fewer seedlings),100,publishable as is
+R_3EoS37IOWKLRxDV,1,1,Rev51,NA,98,publishable as is
+NA,NA,NA,Rev51,NA,47,publishable with major revision
+R_1M0cMZL2IPYWHoi,1,1,Rev51,NA,45,publishable with major revision
+R_2q46Az9oG9EuskN,1,1,Rev51,NA,92,publishable as is
+R_12R6XuSRUcRemui,1,1,Rev51,NA,79,publishable with minor revision
+R_2V7qaLEfdbgUGg3,1,1,Rev92,Negative relationship (more grass cover = fewer seedlings),50,publishable with major revision
+R_2V7qaLEfdbgUGg3,2,2,Rev92,Negative relationship (more grass cover = fewer seedlings),50,publishable with major revision
+R_2Uf2SxOynEElDZN,1,1,Rev92,Negative relationship (more grass cover = fewer seedlings),60,publishable with minor revision
+R_3D10yCylth7wFPg,1,1,Rev92,Negative relationship (more grass cover = fewer seedlings),25,deeply flawed and unpublishable
+R_21I1NvXiVXIGkqp,1,1,Rev92,Negative relationship (more grass cover = fewer seedlings),80,publishable with minor revision
+NA,NA,NA,Rev92,Negative relationship (more grass cover = fewer seedlings),95,publishable as is
+NA,NA,NA,Rev112,NA,60,publishable with major revision
+R_1QlnXdW5tKuUQIr,1,1,Rev112,NA,85,publishable with minor revision
+R_3NHVKFiOiQBfX9b,1,1,Rev112,NA,10,deeply flawed and unpublishable
+R_3NHVKFiOiQBfX9b,2,2,Rev112,NA,10,deeply flawed and unpublishable
+R_3NHVKFiOiQBfX9b,3,3,Rev112,NA,10,deeply flawed and unpublishable
+R_x9Fs6DQf26tdSRr,1,1,Rev112,NA,80,publishable with minor revision
+R_x9Fs6DQf26tdSRr,2,2,Rev112,NA,80,publishable with minor revision
+R_2YQeDDkUPqS56ew,1,1,Rev8,NA,81,publishable with minor revision
+R_3L6k5TOvZ4731Dk,1,1,Rev8,NA,90,publishable as is
+NA,NA,NA,Rev8,NA,50,publishable with major revision
+R_1Ej3sywrrnzy7KJ,1,1,Rev8,NA,50,publishable with major revision
+R_3eta2uFp1DLnGVJ,1,1,Rev8,NA,75,publishable with minor revision
+R_3EbbZxcQ3gctVZu,1,1,Rev118,NA,90,publishable with minor revision
+R_21jtSu9hB9Shf6Y,1,1,Rev118,NA,95,publishable as is
+R_21jtSu9hB9Shf6Y,2,2,Rev118,NA,95,publishable as is
+R_21jtSu9hB9Shf6Y,3,3,Rev118,NA,95,publishable as is
+R_21jtSu9hB9Shf6Y,4,4,Rev118,NA,95,publishable as is
+R_2AHKlq0vRRQTSVz,1,1,Rev118,NA,95,publishable as is
+NA,NA,NA,Rev118,NA,70,publishable with major revision
+R_1FJQlMO4buRu6S2,1,1,Rev118,NA,100,publishable as is
+NA,NA,NA,Rev99,Negative relationship (more grass cover = fewer seedlings),25,deeply flawed and unpublishable
+NA,NA,NA,Rev99,Negative relationship (more grass cover = fewer seedlings),90,publishable with minor revision
+NA,NA,NA,Rev99,Negative relationship (more grass cover = fewer seedlings),46,publishable with major revision
+R_1LXqc8NAdABndjl,1,1,Rev99,Negative relationship (more grass cover = fewer seedlings),95,publishable as is
+NA,NA,NA,Rev26,Negative relationship (more grass cover = fewer seedlings),50,publishable with major revision
+NA,NA,NA,Rev26,Negative relationship (more grass cover = fewer seedlings),85,publishable with minor revision
+R_1kH1Ko3yaLsrD0E,1,1,Rev26,Negative relationship (more grass cover = fewer seedlings),65,publishable with major revision
+R_2ZOi9HYfzNfJmKE,1,1,Rev26,Negative relationship (more grass cover = fewer seedlings),85,publishable with minor revision
+R_9KB5LL2E99Hqfhn,1,1,Rev26,Negative relationship (more grass cover = fewer seedlings),50,publishable with major revision
+R_21AEcUhC7tWDsN6,1,1,Rev21,Negative relationship (more grass cover = fewer seedlings),99,publishable as is
+R_3GqVN6mfoOWe3Nz,1,1,Rev21,Negative relationship (more grass cover = fewer seedlings),92,publishable with minor revision
+R_3GqVN6mfoOWe3Nz,2,2,Rev21,Negative relationship (more grass cover = fewer seedlings),92,publishable with minor revision
+R_3GqVN6mfoOWe3Nz,3,3,Rev21,Negative relationship (more grass cover = fewer seedlings),92,publishable with minor revision
+NA,NA,NA,Rev21,Negative relationship (more grass cover = fewer seedlings),85,publishable as is
+R_3dYDpQUfDUXjtDy,1,1,Rev21,Negative relationship (more grass cover = fewer seedlings),60,publishable with major revision
+R_3dYDpQUfDUXjtDy,2,2,Rev21,Negative relationship (more grass cover = fewer seedlings),60,publishable with major revision
+R_1LRqq2WHrQaENtM,1,1,Rev21,Negative relationship (more grass cover = fewer seedlings),85,publishable with minor revision
+R_3mfyhAj6rakbi5b,1,1,Rev119,NA,75,publishable with minor revision
+R_phpZePnRFCxhQFH,1,1,Rev119,NA,60,publishable with major revision
+R_3Kvy0h01LXHWniT,1,1,Rev119,NA,90,publishable with minor revision
+R_3Kvy0h01LXHWniT,2,2,Rev119,NA,90,publishable with minor revision
+R_1ib6zw7qoq0lHlf,1,1,Rev119,NA,55,publishable with major revision
+R_2qt4UsEXYCfKubj,1,1,Rev119,NA,60,publishable with major revision
+R_23UKvhBc7D608VO,3,1,Rev59,Negative relationship (more grass cover = fewer seedlings),15,deeply flawed and unpublishable
+R_23UKvhBc7D608VO,4,2,Rev59,Negative relationship (more grass cover = fewer seedlings),15,deeply flawed and unpublishable
+R_23UKvhBc7D608VO,5,3,Rev59,Negative relationship (more grass cover = fewer seedlings),15,deeply flawed and unpublishable
+R_23UKvhBc7D608VO,6,4,Rev59,Negative relationship (more grass cover = fewer seedlings),15,deeply flawed and unpublishable
+R_23UKvhBc7D608VO,7,5,Rev59,Negative relationship (more grass cover = fewer seedlings),15,deeply flawed and unpublishable
+R_3HzSBqQTAmJJ9ye,8,1,Rev59,Negative relationship (more grass cover = fewer seedlings),15,deeply flawed and unpublishable
+R_3HzSBqQTAmJJ9ye,9,2,Rev59,Negative relationship (more grass cover = fewer seedlings),15,deeply flawed and unpublishable
+R_3HzSBqQTAmJJ9ye,10,3,Rev59,Negative relationship (more grass cover = fewer seedlings),15,deeply flawed and unpublishable
+R_V53ZP6DAbdFUqS5,1,1,Rev59,Negative relationship (more grass cover = fewer seedlings),55,publishable with major revision
+R_2D5BccM9OleEDwh,1,1,Rev59,Negative relationship (more grass cover = fewer seedlings),65,publishable with major revision
+R_2zSEWAYDs4K7SiK,1,1,Rev59,Negative relationship (more grass cover = fewer seedlings),65,publishable with major revision
+R_1LTZWsikoIaKdMu,1,1,Rev59,Negative relationship (more grass cover = fewer seedlings),90,publishable as is
+R_21AEcUhC7tWDsN6,1,1,Rev113,NA,80,publishable with minor revision
+R_27QNfbdXCi5JjQT,1,1,Rev113,NA,70,publishable with major revision
+R_27QNfbdXCi5JjQT,2,2,Rev113,NA,70,publishable with major revision
+R_1LRqq2WHrQaENtM,1,1,Rev113,NA,55,publishable with major revision
+R_3rIdpCqsQtsmgqT,3,3,Rev113,NA,71,publishable with minor revision
+R_3rIdpCqsQtsmgqT,4,4,Rev113,NA,71,publishable with minor revision
+NA,NA,NA,Rev113,NA,96,publishable as is
+R_3EoS37IOWKLRxDV,1,1,Rev98,NA,95,publishable as is
+R_1QlnXdW5tKuUQIr,1,1,Rev98,NA,80,publishable with minor revision
+R_2zNKAmJcWbM4QtY,1,1,Rev98,NA,60,publishable with major revision
+R_2zNKAmJcWbM4QtY,2,2,Rev98,NA,60,publishable with major revision
+R_1NqVW3amqwy69rK,1,1,Rev98,NA,80,publishable with minor revision
+R_1NqVW3amqwy69rK,2,2,Rev98,NA,80,publishable with minor revision
+R_1NqVW3amqwy69rK,3,3,Rev98,NA,80,publishable with minor revision
+R_1NqVW3amqwy69rK,4,4,Rev98,NA,80,publishable with minor revision
+R_1reUKfTYXhTqVMo,1,1,Rev98,NA,80,publishable with minor revision
+NA,NA,NA,Rev25,NA,95,publishable as is
+R_1LRqq2WHrQaENtM,1,1,Rev25,NA,70,publishable with major revision
+R_2tLsM42vnTf9wX6,1,1,Rev25,NA,90,publishable with minor revision
+R_2tLsM42vnTf9wX6,2,2,Rev25,NA,90,publishable with minor revision
+R_2tLsM42vnTf9wX6,3,3,Rev25,NA,90,publishable with minor revision
+R_2tLsM42vnTf9wX6,4,4,Rev25,NA,90,publishable with minor revision
+R_C7CnNaqfX71jQjL,1,1,Rev25,NA,95,publishable as is
+R_C7CnNaqfX71jQjL,2,2,Rev25,NA,95,publishable as is
+R_C7CnNaqfX71jQjL,3,3,Rev25,NA,95,publishable as is
+R_C7CnNaqfX71jQjL,4,4,Rev25,NA,95,publishable as is
+R_C7CnNaqfX71jQjL,5,5,Rev25,NA,95,publishable as is
+R_3oWTTWWo1e8y3jB,6,1,Rev25,NA,95,publishable as is
+R_AzL6RdNTHtPjxzX,1,1,Rev25,NA,95,publishable as is
+R_3EbbZxcQ3gctVZu,1,1,Rev105,NA,75,publishable with minor revision
+R_2zj7U8UJE7GgEYS,1,1,Rev105,NA,60,publishable with major revision
+R_2zj7U8UJE7GgEYS,2,2,Rev105,NA,60,publishable with major revision
+NA,NA,NA,Rev105,NA,90,publishable with minor revision
+R_0MuZ4chnmwTaLiV,1,1,Rev105,NA,76,publishable with minor revision
+NA,NA,NA,Rev105,NA,75,publishable with minor revision
+R_2YQeDDkUPqS56ew,1,1,Rev9,Negative relationship (more grass cover = fewer seedlings),78,publishable with minor revision
+R_1QlnXdW5tKuUQIr,1,1,Rev9,Negative relationship (more grass cover = fewer seedlings),90,publishable with minor revision
+R_x9Fs6DQf26tdSRr,1,1,Rev9,Negative relationship (more grass cover = fewer seedlings),61,publishable with major revision
+R_x9Fs6DQf26tdSRr,2,2,Rev9,Negative relationship (more grass cover = fewer seedlings),61,publishable with major revision
+R_2D5BccM9OleEDwh,1,1,Rev9,Negative relationship (more grass cover = fewer seedlings),80,publishable with minor revision
+R_2zSEWAYDs4K7SiK,1,1,Rev9,Negative relationship (more grass cover = fewer seedlings),98,publishable as is
+R_2zj7U8UJE7GgEYS,1,1,Rev134,Negative relationship (more grass cover = fewer seedlings),85,publishable with minor revision
+R_2zj7U8UJE7GgEYS,2,2,Rev134,Negative relationship (more grass cover = fewer seedlings),85,publishable with minor revision
+R_1BWpZlSbkmSofe1,1,1,Rev134,Negative relationship (more grass cover = fewer seedlings),98,publishable as is
+R_3NKz8oHb8nvNIQR,1,1,Rev134,Negative relationship (more grass cover = fewer seedlings),100,publishable as is
+R_0MuZ4chnmwTaLiV,1,1,Rev134,Negative relationship (more grass cover = fewer seedlings),84,publishable as is
+NA,NA,NA,Rev134,Negative relationship (more grass cover = fewer seedlings),85,publishable with minor revision
+R_1r2FSn2AXuCimpi,1,1,Rev16,NA,17,publishable with major revision
+R_1QlnXdW5tKuUQIr,1,1,Rev16,NA,75,publishable with minor revision
+R_2zNKAmJcWbM4QtY,1,1,Rev16,NA,0,deeply flawed and unpublishable
+R_2zNKAmJcWbM4QtY,2,2,Rev16,NA,0,deeply flawed and unpublishable
+R_1NqVW3amqwy69rK,1,1,Rev16,NA,76,publishable with minor revision
+R_1NqVW3amqwy69rK,2,2,Rev16,NA,76,publishable with minor revision
+R_1NqVW3amqwy69rK,3,3,Rev16,NA,76,publishable with minor revision
+R_1NqVW3amqwy69rK,4,4,Rev16,NA,76,publishable with minor revision
+R_3OftgnLM9MoIwf8,1,1,Rev16,NA,0,deeply flawed and unpublishable
+R_3EoS37IOWKLRxDV,1,1,Rev15,NA,90,publishable with minor revision
+R_2YQeDDkUPqS56ew,1,1,Rev15,NA,78,publishable with minor revision
+R_31tNDcbaXNaQp1y,1,1,Rev15,NA,50,publishable with major revision
+NA,NA,NA,Rev15,NA,80,publishable with minor revision
+R_23UKvhBc7D608VO,3,1,Rev15,NA,50,publishable with major revision
+R_23UKvhBc7D608VO,4,2,Rev15,NA,50,publishable with major revision
+R_23UKvhBc7D608VO,5,3,Rev15,NA,50,publishable with major revision
+R_23UKvhBc7D608VO,6,4,Rev15,NA,50,publishable with major revision
+R_23UKvhBc7D608VO,7,5,Rev15,NA,50,publishable with major revision
+R_3HzSBqQTAmJJ9ye,8,1,Rev15,NA,50,publishable with major revision
+R_3HzSBqQTAmJJ9ye,9,2,Rev15,NA,50,publishable with major revision
+R_3HzSBqQTAmJJ9ye,10,3,Rev15,NA,50,publishable with major revision
+R_1BWpZlSbkmSofe1,1,1,Rev105,Positive relationship (more grass cover = more seedlings),49,publishable with major revision
+R_3EYx3CfuTZ7YNmF,1,1,Rev105,Positive relationship (more grass cover = more seedlings),71,publishable with major revision
+R_3EYx3CfuTZ7YNmF,2,2,Rev105,Positive relationship (more grass cover = more seedlings),71,publishable with major revision
+R_3EYx3CfuTZ7YNmF,3,3,Rev105,Positive relationship (more grass cover = more seedlings),71,publishable with major revision
+R_3EYx3CfuTZ7YNmF,4,4,Rev105,Positive relationship (more grass cover = more seedlings),71,publishable with major revision
+R_3EYx3CfuTZ7YNmF,5,5,Rev105,Positive relationship (more grass cover = more seedlings),71,publishable with major revision
+R_21I1NvXiVXIGkqp,1,1,Rev105,Positive relationship (more grass cover = more seedlings),75,publishable with minor revision
+NA,NA,NA,Rev105,Positive relationship (more grass cover = more seedlings),47,deeply flawed and unpublishable
+NA,NA,NA,Rev105,Positive relationship (more grass cover = more seedlings),46,deeply flawed and unpublishable
+R_1reUKfTYXhTqVMo,1,1,Rev47,Positive relationship (more grass cover = more seedlings),85,publishable with minor revision
+R_21AEcUhC7tWDsN6,1,1,Rev38,Positive relationship (more grass cover = more seedlings),100,publishable as is
+R_Rku0BAsjkxtwo7L,1,1,Rev38,Positive relationship (more grass cover = more seedlings),100,publishable as is
+R_3NKz8oHb8nvNIQR,1,1,Rev38,Positive relationship (more grass cover = more seedlings),60,publishable with major revision
+R_3pte7gGbO7GliHv,1,1,Rev38,Positive relationship (more grass cover = more seedlings),80,publishable with minor revision
+R_1l9qIgUeSEKY3ME,1,1,Rev38,Positive relationship (more grass cover = more seedlings),70,publishable with major revision
+R_1l9qIgUeSEKY3ME,2,2,Rev38,Positive relationship (more grass cover = more seedlings),70,publishable with major revision
+R_9GOTiblKFa9C4x3,1,1,Rev99,Negative relationship (more grass cover = fewer seedlings),87,publishable with minor revision
+R_9GOTiblKFa9C4x3,2,2,Rev99,Negative relationship (more grass cover = fewer seedlings),87,publishable with minor revision
+R_21jtSu9hB9Shf6Y,1,1,Rev99,Negative relationship (more grass cover = fewer seedlings),93,publishable with minor revision
+R_21jtSu9hB9Shf6Y,2,2,Rev99,Negative relationship (more grass cover = fewer seedlings),93,publishable with minor revision
+R_21jtSu9hB9Shf6Y,3,3,Rev99,Negative relationship (more grass cover = fewer seedlings),93,publishable with minor revision
+R_21jtSu9hB9Shf6Y,4,4,Rev99,Negative relationship (more grass cover = fewer seedlings),93,publishable with minor revision
+R_3GqVN6mfoOWe3Nz,1,1,Rev133,Negative relationship (more grass cover = fewer seedlings),91,publishable with minor revision
+R_3GqVN6mfoOWe3Nz,2,2,Rev133,Negative relationship (more grass cover = fewer seedlings),91,publishable with minor revision
+R_3GqVN6mfoOWe3Nz,3,3,Rev133,Negative relationship (more grass cover = fewer seedlings),91,publishable with minor revision
+NA,NA,NA,Rev102,Negative relationship (more grass cover = fewer seedlings),65,publishable with major revision
+NA,NA,NA,Rev10,NA,92,publishable as is
+R_2zNKAmJcWbM4QtY,1,1,Rev10,NA,90,publishable as is
+R_2zNKAmJcWbM4QtY,2,2,Rev10,NA,90,publishable as is
+R_1reUKfTYXhTqVMo,1,1,Rev10,NA,81,publishable as is
+R_23UKvhBc7D608VO,3,1,Rev107,Negative relationship (more grass cover = fewer seedlings),70,publishable with minor revision
+R_23UKvhBc7D608VO,4,2,Rev107,Negative relationship (more grass cover = fewer seedlings),70,publishable with minor revision
+R_23UKvhBc7D608VO,5,3,Rev107,Negative relationship (more grass cover = fewer seedlings),70,publishable with minor revision
+R_23UKvhBc7D608VO,6,4,Rev107,Negative relationship (more grass cover = fewer seedlings),70,publishable with minor revision
+R_23UKvhBc7D608VO,7,5,Rev107,Negative relationship (more grass cover = fewer seedlings),70,publishable with minor revision
+R_3HzSBqQTAmJJ9ye,8,1,Rev107,Negative relationship (more grass cover = fewer seedlings),70,publishable with minor revision
+R_3HzSBqQTAmJJ9ye,9,2,Rev107,Negative relationship (more grass cover = fewer seedlings),70,publishable with minor revision
+R_3HzSBqQTAmJJ9ye,10,3,Rev107,Negative relationship (more grass cover = fewer seedlings),70,publishable with minor revision
+R_1Ej3sywrrnzy7KJ,1,1,Rev107,Negative relationship (more grass cover = fewer seedlings),85,publishable with minor revision
+R_3rIdpCqsQtsmgqT,3,3,Rev13,Negative relationship (more grass cover = fewer seedlings),98,publishable with minor revision
+R_3rIdpCqsQtsmgqT,4,4,Rev13,Negative relationship (more grass cover = fewer seedlings),98,publishable with minor revision
+R_3mfyhAj6rakbi5b,1,1,Rev75,NA,75,publishable with minor revision
+R_27QNfbdXCi5JjQT,1,1,Rev105,Positive relationship (more grass cover = more seedlings),65,publishable with minor revision
+R_27QNfbdXCi5JjQT,2,2,Rev105,Positive relationship (more grass cover = more seedlings),65,publishable with minor revision
+R_0MuZ4chnmwTaLiV,1,1,Rev105,Positive relationship (more grass cover = more seedlings),71,publishable with major revision
+R_3PBpbf5wxagIV7X,2,2,Rev101,NA,90,publishable with minor revision
+R_AzL6RdNTHtPjxzX,1,1,Rev101,NA,30,deeply flawed and unpublishable
+R_1l9qIgUeSEKY3ME,1,1,Rev101,NA,90,publishable with minor revision
+R_1l9qIgUeSEKY3ME,2,2,Rev101,NA,90,publishable with minor revision
+R_3rIdpCqsQtsmgqT,3,3,Rev101,NA,70,publishable with major revision
+R_3rIdpCqsQtsmgqT,4,4,Rev101,NA,70,publishable with major revision
+R_23UKvhBc7D608VO,3,1,Rev35,Negative relationship (more grass cover = fewer seedlings),55,publishable with minor revision
+R_23UKvhBc7D608VO,4,2,Rev35,Negative relationship (more grass cover = fewer seedlings),55,publishable with minor revision
+R_23UKvhBc7D608VO,5,3,Rev35,Negative relationship (more grass cover = fewer seedlings),55,publishable with minor revision
+R_23UKvhBc7D608VO,6,4,Rev35,Negative relationship (more grass cover = fewer seedlings),55,publishable with minor revision
+R_23UKvhBc7D608VO,7,5,Rev35,Negative relationship (more grass cover = fewer seedlings),55,publishable with minor revision
+R_3HzSBqQTAmJJ9ye,8,1,Rev35,Negative relationship (more grass cover = fewer seedlings),55,publishable with minor revision
+R_3HzSBqQTAmJJ9ye,9,2,Rev35,Negative relationship (more grass cover = fewer seedlings),55,publishable with minor revision
+R_3HzSBqQTAmJJ9ye,10,3,Rev35,Negative relationship (more grass cover = fewer seedlings),55,publishable with minor revision
+R_3mfyhAj6rakbi5b,1,1,Rev46,Positive relationship (more grass cover = more seedlings),90,publishable with minor revision
+R_1NqVW3amqwy69rK,1,1,Rev46,Positive relationship (more grass cover = more seedlings),95,publishable as is
+R_1NqVW3amqwy69rK,2,2,Rev46,Positive relationship (more grass cover = more seedlings),95,publishable as is
+R_1NqVW3amqwy69rK,3,3,Rev46,Positive relationship (more grass cover = more seedlings),95,publishable as is
+R_1NqVW3amqwy69rK,4,4,Rev46,Positive relationship (more grass cover = more seedlings),95,publishable as is
+R_vojH4E5b8mNOCU9,1,1,Rev46,Positive relationship (more grass cover = more seedlings),70,publishable with major revision
+R_3eta2uFp1DLnGVJ,1,1,Rev46,Positive relationship (more grass cover = more seedlings),85,publishable with minor revision
+R_2anLJGpWhjUjzes,1,1,Rev73,NA,51,publishable with minor revision
+R_9FUOSSR4h4s5OlX,1,1,Rev73,NA,49,publishable with minor revision
+R_1FJQlMO4buRu6S2,1,1,Rev56,NA,65,publishable with major revision
+R_2EgAnNXZmEg7LoJ,1,1,Rev56,NA,55,publishable with major revision
+R_2EgAnNXZmEg7LoJ,2,2,Rev56,NA,55,publishable with major revision
+R_2EgAnNXZmEg7LoJ,3,3,Rev56,NA,55,publishable with major revision
+R_3L6k5TOvZ4731Dk,1,1,Rev84,Negative relationship (more grass cover = fewer seedlings),70,publishable with major revision
+R_3fqsqu3iZPZDV4J,1,1,Rev54,Negative relationship (more grass cover = fewer seedlings),85,publishable with minor revision
+R_3fqsqu3iZPZDV4J,2,2,Rev54,Negative relationship (more grass cover = fewer seedlings),85,publishable with minor revision
+R_2EgAnNXZmEg7LoJ,1,1,Rev112,NA,82,publishable as is
+R_2EgAnNXZmEg7LoJ,2,2,Rev112,NA,82,publishable as is
+R_2EgAnNXZmEg7LoJ,3,3,Rev112,NA,82,publishable as is
+R_3mfyhAj6rakbi5b,1,1,Rev100,NA,60,publishable with minor revision
+R_3EoS37IOWKLRxDV,1,1,Rev100,NA,61,publishable with minor revision
+R_2zNKAmJcWbM4QtY,1,1,Rev100,NA,80,publishable as is
+R_2zNKAmJcWbM4QtY,2,2,Rev100,NA,80,publishable as is
+R_23UKvhBc7D608VO,3,1,Rev100,NA,61,publishable with minor revision
+R_23UKvhBc7D608VO,4,2,Rev100,NA,61,publishable with minor revision
+R_23UKvhBc7D608VO,5,3,Rev100,NA,61,publishable with minor revision
+R_23UKvhBc7D608VO,6,4,Rev100,NA,61,publishable with minor revision
+R_23UKvhBc7D608VO,7,5,Rev100,NA,61,publishable with minor revision
+R_3HzSBqQTAmJJ9ye,8,1,Rev100,NA,61,publishable with minor revision
+R_3HzSBqQTAmJJ9ye,9,2,Rev100,NA,61,publishable with minor revision
+R_3HzSBqQTAmJJ9ye,10,3,Rev100,NA,61,publishable with minor revision
+R_1Ej3sywrrnzy7KJ,1,1,Rev100,NA,59,publishable with minor revision
+NA,NA,NA,Rev115,NA,25,publishable with major revision
+R_3L6k5TOvZ4731Dk,1,1,Rev2,NA,65,publishable with major revision
+R_1NqVW3amqwy69rK,1,1,Rev2,NA,50,publishable with major revision
+R_1NqVW3amqwy69rK,2,2,Rev2,NA,50,publishable with major revision
+R_1NqVW3amqwy69rK,3,3,Rev2,NA,50,publishable with major revision
+R_1NqVW3amqwy69rK,4,4,Rev2,NA,50,publishable with major revision
+R_2q46Az9oG9EuskN,1,1,Rev2,NA,75,publishable with minor revision
+R_1reUKfTYXhTqVMo,1,1,Rev2,NA,65,publishable with minor revision
+R_1QlnXdW5tKuUQIr,1,1,Rev76,Negative relationship (more grass cover = fewer seedlings),90,publishable with minor revision
+R_x9Fs6DQf26tdSRr,1,1,Rev76,Negative relationship (more grass cover = fewer seedlings),95,publishable as is
+R_x9Fs6DQf26tdSRr,2,2,Rev76,Negative relationship (more grass cover = fewer seedlings),95,publishable as is
+R_2ZOi9HYfzNfJmKE,1,1,Rev76,Negative relationship (more grass cover = fewer seedlings),45,publishable with major revision
+R_9KB5LL2E99Hqfhn,1,1,Rev76,Negative relationship (more grass cover = fewer seedlings),64,publishable with major revision
+R_1LTZWsikoIaKdMu,1,1,Rev76,Negative relationship (more grass cover = fewer seedlings),85,publishable as is

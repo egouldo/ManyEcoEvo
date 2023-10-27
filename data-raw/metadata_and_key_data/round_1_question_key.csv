@@ -1,0 +1,151 @@
+qname,question,variable_name
+Q32,Which research question did you answer?,dataset
+Q33,What is your first (given) name?,FirstName
+Q34,What is your last name (surname or family name)?,LastName
+Q36,What is your email address?,RecipientEmail
+Q39,What is the name of your analyst team (where relevant)?,TeamName
+Q35,List the full names and emails for the other analysts on this analysis team,TeamMembers
+Q20,<b>Data Cleaning</b>,
+transforms,What transformations (if any) were applied to the variables? Please be specific. ,transforms
+exclusions,"<p>Did you exclude any data (entirely exclude any <u>rows
+</u>from the original data set)? (This question is NOT asking about excluding
+variables [columns from the original data set])</p>",exclusions
+Q23,"Please
+describe the process and
+criteria used to choose to exclude (or not exclude) subsets of the data
+from your final analysis.",ExclusionCriteriaProcess
+Q21,<b>Statistical Modeling</b>,
+technique,What is the name of the statistical technique that you employed? (e.g. “Analysis of Variance” or “Generalized Linear Mixed Model with binomial error and logit link”),technique
+Q24,"Please
+explain why you selected this technique and describe the process you used to
+select it",TechniqueSelectionProcess
+tech_expl,"Please describe the statistical technique you chose in more detail. Be specific, especially if your choice is not one you consider to be well-known. ",tech_expl
+tech_ref,"What
+are some references for the statistical technique that you chose? If you don’t
+know of references introducing or justifying this technique, can you provide
+one or more references in which the technique was used?",tech_ref
+cov_reason,"How
+did you choose variables for your model?
+ If there were multiple steps, please explain them.",cov_reason
+Q25,"Please
+describe the process by which you decided how to combine your variables in your
+model (for instance, how did you decide whether to include interaction terms or
+quadratic terms?). Again, if there were multiple steps, please explain.",CovariateCombinationSelectionProcess
+Q26,Did you include any random effects in your model?,RandomEffectsIncluded
+Q27,"If you included random effects, please list them an explain why you included each one",RandomEffectsExplanation
+software,"Which software (including version) did you use? If you used multiple kinds, please indicate what was accomplished with each piece of software (e.g., data cleaning - R 3.4.4; model estimation - SAS 9.3)",software
+Q19_Id,<b>Attach a description of your methods</b> <div>Please upload a file containing a full-text description of your methods as you would write for submission to a journal</div>,MethodDescriptionFile_Id
+Q19_Name,<b>Attach a description of your methods</b> <div>Please upload a file containing a full-text description of your methods as you would write for submission to a journal</div>,MethodDescriptionFile_Name
+Q19_Size,<b>Attach a description of your methods</b> <div>Please upload a file containing a full-text description of your methods as you would write for submission to a journal</div>,MethodDescriptionFile_Size
+Q19_Type,<b>Attach a description of your methods</b> <div>Please upload a file containing a full-text description of your methods as you would write for submission to a journal</div>,MethodDescriptionFile_Type
+Q29_Id,"<b>Attach your analysis files </b><br>Please upload a file containing your analysis code (if you have multiple analysis files please compress them into a zip file first). If you conducted analyses with menu-driven software, please upload a file listing the complete sequence of menu options you selected.",AnalysisCodeFile_Id
+Q29_Name,"<b>Attach your analysis files </b><br>Please upload a file containing your analysis code (if you have multiple analysis files please compress them into a zip file first). If you conducted analyses with menu-driven software, please upload a file listing the complete sequence of menu options you selected.",AnalysisCodeFile_Name
+Q29_Size,"<b>Attach your analysis files </b><br>Please upload a file containing your analysis code (if you have multiple analysis files please compress them into a zip file first). If you conducted analyses with menu-driven software, please upload a file listing the complete sequence of menu options you selected.",AnalysisCodeFile_Size
+Q29_Type,"<b>Attach your analysis files </b><br>Please upload a file containing your analysis code (if you have multiple analysis files please compress them into a zip file first). If you conducted analyses with menu-driven software, please upload a file listing the complete sequence of menu options you selected.",AnalysisCodeFile_Type
+Q22_Id,"<b>Attach processed data files (if relevant)</b><div>We will need to re-run all or part of your analysis to generate standard effect sizes. Therefore, if your analysis files rely on processed data files please upload the processed data files here (if you have multiple files please compress them into a zip file first)</div>",ProcessedDataFile_Id
+Q22_Name,"<b>Attach processed data files (if relevant)</b><div>We will need to re-run all or part of your analysis to generate standard effect sizes. Therefore, if your analysis files rely on processed data files please upload the processed data files here (if you have multiple files please compress them into a zip file first)</div>",ProcessedDataFile_Name
+Q22_Size,"<b>Attach processed data files (if relevant)</b><div>We will need to re-run all or part of your analysis to generate standard effect sizes. Therefore, if your analysis files rely on processed data files please upload the processed data files here (if you have multiple files please compress them into a zip file first)</div>",ProcessedDataFile_Size
+Q22_Type,"<b>Attach processed data files (if relevant)</b><div>We will need to re-run all or part of your analysis to generate standard effect sizes. Therefore, if your analysis files rely on processed data files please upload the processed data files here (if you have multiple files please compress them into a zip file first)</div>",ProcessedDataFile_Type
+Q30_Id,"<b>Attach your output files </b><br>Please 
+upload a file containing your analysis output (if you have multiple 
+analysis output files please compress them into a zip file first).",OutputFile_Id
+Q30_Name,"<b>Attach your output files </b><br>Please 
+upload a file containing your analysis output (if you have multiple 
+analysis output files please compress them into a zip file first).",OutputFile_Name
+Q30_Size,"<b>Attach your output files </b><br>Please 
+upload a file containing your analysis output (if you have multiple 
+analysis output files please compress them into a zip file first).",OutputFile_Size
+Q30_Type,"<b>Attach your output files </b><br>Please 
+upload a file containing your analysis output (if you have multiple 
+analysis output files please compress them into a zip file first).",OutputFile_Type
+Q31_Id,"<b>Attach a results summary file </b><br>Please 
+upload a file containing your results as you would present them in a manuscript for publication.This should include parameter (slope) estimates and associated estimates of uncertainty (e.g., standard error) around these estimates as well as other relevant details from the analysis you conducted. Please include this information for all variables included in your model(s), not just the primary independent variable.<br><br>In most cases, it will be appropriate to include this information in one or more tables. ",ResultsSummaryFile_Id
+Q31_Name,"<b>Attach a results summary file </b><br>Please 
+upload a file containing your results as you would present them in a manuscript for publication.This should include parameter (slope) estimates and associated estimates of uncertainty (e.g., standard error) around these estimates as well as other relevant details from the analysis you conducted. Please include this information for all variables included in your model(s), not just the primary independent variable.<br><br>In most cases, it will be appropriate to include this information in one or more tables. ",ResultsSummaryFile_Name
+Q31_Size,"<b>Attach a results summary file </b><br>Please 
+upload a file containing your results as you would present them in a manuscript for publication.This should include parameter (slope) estimates and associated estimates of uncertainty (e.g., standard error) around these estimates as well as other relevant details from the analysis you conducted. Please include this information for all variables included in your model(s), not just the primary independent variable.<br><br>In most cases, it will be appropriate to include this information in one or more tables. ",ResultsSummaryFile_Size
+Q31_Type,"<b>Attach a results summary file </b><br>Please 
+upload a file containing your results as you would present them in a manuscript for publication.This should include parameter (slope) estimates and associated estimates of uncertainty (e.g., standard error) around these estimates as well as other relevant details from the analysis you conducted. Please include this information for all variables included in your model(s), not just the primary independent variable.<br><br>In most cases, it will be appropriate to include this information in one or more tables. ",ResultsSummaryFile_Type
+Q31,"What conclusion regarding the original biological question do you draw from your results?  <br>
+<br>
+As a reminder, here are the two questions:<br>
+To what extent is the growth of nestling blue tits (Cyanistes caeruleus) influenced by competition with siblings?  <br>
+or<br>
+How does grass cover influence Eucalyptus spp. seedling recruitment?",Conclusion
+comment,Please use this space for any additional comment you may have at this stage (this is for our information and will not displayed to other teams).,comment
+Q38_1,Which variables did you include when testing the research question (To what extent is the growth of nestling blue tits (Cyanistes caeruleus) influenced by competition with siblings)?,VariablesBTS1_1
+Q38_4,Which variables did you include when testing the research question (To what extent is the growth of nestling blue tits (Cyanistes caeruleus) influenced by competition with siblings)?,VariablesBTS1_4
+Q38_5,Which variables did you include when testing the research question (To what extent is the growth of nestling blue tits (Cyanistes caeruleus) influenced by competition with siblings)?,VariablesBTS1_5
+Q38_6,Which variables did you include when testing the research question (To what extent is the growth of nestling blue tits (Cyanistes caeruleus) influenced by competition with siblings)?,VariablesBTS1_6
+Q38_7,Which variables did you include when testing the research question (To what extent is the growth of nestling blue tits (Cyanistes caeruleus) influenced by competition with siblings)?,VariablesBTS1_7
+Q38_8,Which variables did you include when testing the research question (To what extent is the growth of nestling blue tits (Cyanistes caeruleus) influenced by competition with siblings)?,VariablesBTS1_8
+Q38_9,Which variables did you include when testing the research question (To what extent is the growth of nestling blue tits (Cyanistes caeruleus) influenced by competition with siblings)?,VariablesBTS1_9
+Q38_10,Which variables did you include when testing the research question (To what extent is the growth of nestling blue tits (Cyanistes caeruleus) influenced by competition with siblings)?,VariablesBTS1_10
+Q38_11,Which variables did you include when testing the research question (To what extent is the growth of nestling blue tits (Cyanistes caeruleus) influenced by competition with siblings)?,VariablesBTS1_11
+Q38_12,Which variables did you include when testing the research question (To what extent is the growth of nestling blue tits (Cyanistes caeruleus) influenced by competition with siblings)?,VariablesBTS1_12
+Q38_13,Which variables did you include when testing the research question (To what extent is the growth of nestling blue tits (Cyanistes caeruleus) influenced by competition with siblings)?,VariablesBTS1_13
+Q38_14,Which variables did you include when testing the research question (To what extent is the growth of nestling blue tits (Cyanistes caeruleus) influenced by competition with siblings)?,VariablesBTS1_14
+Q38_15,Which variables did you include when testing the research question (To what extent is the growth of nestling blue tits (Cyanistes caeruleus) influenced by competition with siblings)?,VariablesBTS1_15
+Q38_16,Which variables did you include when testing the research question (To what extent is the growth of nestling blue tits (Cyanistes caeruleus) influenced by competition with siblings)?,VariablesBTS1_16
+Q38_17,Which variables did you include when testing the research question (To what extent is the growth of nestling blue tits (Cyanistes caeruleus) influenced by competition with siblings)?,VariablesBTS1_17
+Q38_18,Which variables did you include when testing the research question (To what extent is the growth of nestling blue tits (Cyanistes caeruleus) influenced by competition with siblings)?,VariablesBTS1_18
+Q38_19,Which variables did you include when testing the research question (To what extent is the growth of nestling blue tits (Cyanistes caeruleus) influenced by competition with siblings)?,VariablesBTS1_19
+Q38_20,Which variables did you include when testing the research question (To what extent is the growth of nestling blue tits (Cyanistes caeruleus) influenced by competition with siblings)?,VariablesBTS1_20
+Q38_21,Which variables did you include when testing the research question (To what extent is the growth of nestling blue tits (Cyanistes caeruleus) influenced by competition with siblings)?,VariablesBTS1_21
+Q38_22,Which variables did you include when testing the research question (To what extent is the growth of nestling blue tits (Cyanistes caeruleus) influenced by competition with siblings)?,VariablesBTS1_22
+Q38_23,Which variables did you include when testing the research question (To what extent is the growth of nestling blue tits (Cyanistes caeruleus) influenced by competition with siblings)?,VariablesBTS1_23
+Q38_24,Which variables did you include when testing the research question (To what extent is the growth of nestling blue tits (Cyanistes caeruleus) influenced by competition with siblings)?,VariablesBTS1_24
+Q38_25,Which variables did you include when testing the research question (To what extent is the growth of nestling blue tits (Cyanistes caeruleus) influenced by competition with siblings)?,VariablesBTS1_25
+Q38_26,Which variables did you include when testing the research question (To what extent is the growth of nestling blue tits (Cyanistes caeruleus) influenced by competition with siblings)?,VariablesBTS1_26
+Q38_27,Which variables did you include when testing the research question (To what extent is the growth of nestling blue tits (Cyanistes caeruleus) influenced by competition with siblings)?,VariablesBTS1_27
+Q38_28,Which variables did you include when testing the research question (To what extent is the growth of nestling blue tits (Cyanistes caeruleus) influenced by competition with siblings)?,VariablesBTS1_28
+Q38_29,Which variables did you include when testing the research question (To what extent is the growth of nestling blue tits (Cyanistes caeruleus) influenced by competition with siblings)?,VariablesBTS1_29
+Q38_30,Which variables did you include when testing the research question (To what extent is the growth of nestling blue tits (Cyanistes caeruleus) influenced by competition with siblings)?,VariablesBTS1_30
+Q38_31,Which variables did you include when testing the research question (To what extent is the growth of nestling blue tits (Cyanistes caeruleus) influenced by competition with siblings)?,VariablesBTS1_31
+Q38_32,Which variables did you include when testing the research question (To what extent is the growth of nestling blue tits (Cyanistes caeruleus) influenced by competition with siblings)?,VariablesBTS1_32
+Q38_33,Which variables did you include when testing the research question (To what extent is the growth of nestling blue tits (Cyanistes caeruleus) influenced by competition with siblings)?,VariablesBTS1_33
+Q38_34,Which variables did you include when testing the research question (To what extent is the growth of nestling blue tits (Cyanistes caeruleus) influenced by competition with siblings)?,VariablesBTS1_34
+Q38_35,Which variables did you include when testing the research question (To what extent is the growth of nestling blue tits (Cyanistes caeruleus) influenced by competition with siblings)?,VariablesBTS1_35
+Q38_36,Which variables did you include when testing the research question (To what extent is the growth of nestling blue tits (Cyanistes caeruleus) influenced by competition with siblings)?,VariablesBTS1_36
+Q38_37,Which variables did you include when testing the research question (To what extent is the growth of nestling blue tits (Cyanistes caeruleus) influenced by competition with siblings)?,VariablesBTS1_37
+Q38_38,Which variables did you include when testing the research question (To what extent is the growth of nestling blue tits (Cyanistes caeruleus) influenced by competition with siblings)?,VariablesBTS1_38
+Q38_39,Which variables did you include when testing the research question (To what extent is the growth of nestling blue tits (Cyanistes caeruleus) influenced by competition with siblings)?,VariablesBTS1_39
+Q38_40,Which variables did you include when testing the research question (To what extent is the growth of nestling blue tits (Cyanistes caeruleus) influenced by competition with siblings)?,VariablesBTS1_40
+Q37_1,Which variables did you include when testing the research question (How does grass cover influence Eucalyptus spp. seedling recruitment)?,VariablesEucS1_1
+Q37_4,Which variables did you include when testing the research question (How does grass cover influence Eucalyptus spp. seedling recruitment)?,VariablesEucS1_4
+Q37_5,Which variables did you include when testing the research question (How does grass cover influence Eucalyptus spp. seedling recruitment)?,VariablesEucS1_5
+Q37_6,Which variables did you include when testing the research question (How does grass cover influence Eucalyptus spp. seedling recruitment)?,VariablesEucS1_6
+Q37_7,Which variables did you include when testing the research question (How does grass cover influence Eucalyptus spp. seedling recruitment)?,VariablesEucS1_7
+Q37_8,Which variables did you include when testing the research question (How does grass cover influence Eucalyptus spp. seedling recruitment)?,VariablesEucS1_8
+Q37_9,Which variables did you include when testing the research question (How does grass cover influence Eucalyptus spp. seedling recruitment)?,VariablesEucS1_9
+Q37_10,Which variables did you include when testing the research question (How does grass cover influence Eucalyptus spp. seedling recruitment)?,VariablesEucS1_10
+Q37_11,Which variables did you include when testing the research question (How does grass cover influence Eucalyptus spp. seedling recruitment)?,VariablesEucS1_11
+Q37_12,Which variables did you include when testing the research question (How does grass cover influence Eucalyptus spp. seedling recruitment)?,VariablesEucS1_12
+Q37_13,Which variables did you include when testing the research question (How does grass cover influence Eucalyptus spp. seedling recruitment)?,VariablesEucS1_13
+Q37_14,Which variables did you include when testing the research question (How does grass cover influence Eucalyptus spp. seedling recruitment)?,VariablesEucS1_14
+Q37_15,Which variables did you include when testing the research question (How does grass cover influence Eucalyptus spp. seedling recruitment)?,VariablesEucS1_15
+Q37_16,Which variables did you include when testing the research question (How does grass cover influence Eucalyptus spp. seedling recruitment)?,VariablesEucS1_16
+Q37_17,Which variables did you include when testing the research question (How does grass cover influence Eucalyptus spp. seedling recruitment)?,VariablesEucS1_17
+Q37_18,Which variables did you include when testing the research question (How does grass cover influence Eucalyptus spp. seedling recruitment)?,VariablesEucS1_18
+Q37_19,Which variables did you include when testing the research question (How does grass cover influence Eucalyptus spp. seedling recruitment)?,VariablesEucS1_19
+Q37_20,Which variables did you include when testing the research question (How does grass cover influence Eucalyptus spp. seedling recruitment)?,VariablesEucS1_20
+Q37_21,Which variables did you include when testing the research question (How does grass cover influence Eucalyptus spp. seedling recruitment)?,VariablesEucS1_21
+Q37_22,Which variables did you include when testing the research question (How does grass cover influence Eucalyptus spp. seedling recruitment)?,VariablesEucS1_22
+Q37_23,Which variables did you include when testing the research question (How does grass cover influence Eucalyptus spp. seedling recruitment)?,VariablesEucS1_23
+Q37_24,Which variables did you include when testing the research question (How does grass cover influence Eucalyptus spp. seedling recruitment)?,VariablesEucS1_24
+Q37_25,Which variables did you include when testing the research question (How does grass cover influence Eucalyptus spp. seedling recruitment)?,VariablesEucS1_25
+Q37_26,Which variables did you include when testing the research question (How does grass cover influence Eucalyptus spp. seedling recruitment)?,VariablesEucS1_26
+Q37_27,Which variables did you include when testing the research question (How does grass cover influence Eucalyptus spp. seedling recruitment)?,VariablesEucS1_27
+Q37_28,Which variables did you include when testing the research question (How does grass cover influence Eucalyptus spp. seedling recruitment)?,VariablesEucS1_28
+Q37_29,Which variables did you include when testing the research question (How does grass cover influence Eucalyptus spp. seedling recruitment)?,VariablesEucS1_29
+Q37_30,Which variables did you include when testing the research question (How does grass cover influence Eucalyptus spp. seedling recruitment)?,VariablesEucS1_30
+Q37_31,Which variables did you include when testing the research question (How does grass cover influence Eucalyptus spp. seedling recruitment)?,VariablesEucS1_31
+Q37_32,Which variables did you include when testing the research question (How does grass cover influence Eucalyptus spp. seedling recruitment)?,VariablesEucS1_32
+Q37_33,Which variables did you include when testing the research question (How does grass cover influence Eucalyptus spp. seedling recruitment)?,VariablesEucS1_33
+Q37_34,Which variables did you include when testing the research question (How does grass cover influence Eucalyptus spp. seedling recruitment)?,VariablesEucS1_34
+Q37_35,Which variables did you include when testing the research question (How does grass cover influence Eucalyptus spp. seedling recruitment)?,VariablesEucS1_35
+Q37_36,Which variables did you include when testing the research question (How does grass cover influence Eucalyptus spp. seedling recruitment)?,VariablesEucS1_36
+Q37_37,Which variables did you include when testing the research question (How does grass cover influence Eucalyptus spp. seedling recruitment)?,VariablesEucS1_37
+Q37_38,Which variables did you include when testing the research question (How does grass cover influence Eucalyptus spp. seedling recruitment)?,VariablesEucS1_38
+Q37_39,Which variables did you include when testing the research question (How does grass cover influence Eucalyptus spp. seedling recruitment)?,VariablesEucS1_39
+Q37_40,Which variables did you include when testing the research question (How does grass cover influence Eucalyptus spp. seedling recruitment)?,VariablesEucS1_40

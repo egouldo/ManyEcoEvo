@@ -1,0 +1,31 @@
+qname,question,QID,suffix1,suffix2
+Q11,What error distribution was assumed in your analysis:,Q11_6_TEXT,6,TEXT
+Q12,What link function was used in your analysis,Q12_5_TEXT,5,TEXT
+Q19,"If you are submitting multiple analyses, which number analysis is described on this page? ",Q19_6_TEXT,6,TEXT
+Q90,What error distribution was assumed in your analysis:,Q90_6_TEXT,6,TEXT
+Q91,What link function was used in your analysis,Q91_5_TEXT,5,TEXT
+Q97,"If you are submitting multiple analyses, which number analysis is described on this page? ",Q97_6_TEXT,6,TEXT
+Q107,What error distribution was assumed in your analysis:,Q107_6_TEXT,6,TEXT
+Q108,What link function was used in your analysis,Q108_5_TEXT,5,TEXT
+Q114,"If you are submitting multiple analyses, which number analysis is described on this page? ",Q114_6_TEXT,6,TEXT
+Q123,What error distribution was assumed in your analysis:,Q123_6_TEXT,6,TEXT
+Q124,What link function was used in your analysis,Q124_5_TEXT,5,TEXT
+Q130,"If you are submitting multiple analyses, which number analysis is described on this page? ",Q130_6_TEXT,6,TEXT
+Q139,What error distribution was assumed in your analysis:,Q139_6_TEXT,6,TEXT
+Q140,What link function was used in your analysis,Q140_5_TEXT,5,TEXT
+Q146,"If you are submitting multiple analyses, which number analysis is described on this page? ",Q146_6_TEXT,6,TEXT
+Q17,NA,Q17_Id,Id,NA
+Q17,NA,Q17_Name,Name,NA
+Q17,NA,Q17_Type,Type,NA
+Q96,NA,Q96_Id,Id,NA
+Q96,NA,Q96_Name,Name,NA
+Q96,NA,Q96_Type,Type,NA
+Q113,NA,Q113_Id,Id,NA
+Q113,NA,Q113_Name,Name,NA
+Q113,NA,Q113_Type,Type,NA
+Q129,NA,Q129_Id,Id,NA
+Q129,NA,Q129_Name,Name,NA
+Q129,NA,Q129_Type,Type,NA
+Q145,NA,Q145_Id,Id,NA
+Q145,NA,Q145_Name,Name,NA
+Q145,NA,Q145_Type,Type,NA
