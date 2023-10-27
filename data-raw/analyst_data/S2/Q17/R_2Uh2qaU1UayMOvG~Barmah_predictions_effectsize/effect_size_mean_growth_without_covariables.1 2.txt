@@ -1,0 +1,2 @@
+"Variable","Estimate","Estimate_SE"
+"rear_Cs_at_start_of_rearing",-0.1329,0.0135

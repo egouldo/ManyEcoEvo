@@ -1,0 +1,7 @@
+estimate,ci.low,ci.hi,std.err,scenario,scale,table
+9.702103905,8.464214139,10.98299037,0.635512431,1,original,Wa_weight
+10.44790304,9.09713916,11.86867756,0.716665874,2,original,Wa_weight
+10.77863581,9.289893516,12.1553649,0.744457632,3,original,Wa_weight
+-0.490234775,-1.557659773,0.639523403,0.564519234,1,dependent and predictor scaled,WE_weight
+0.166341314,-1.058806792,1.34079821,0.616450141,2,dependent and predictor scaled,WE_weight
+0.509287312,-0.755799352,1.734389968,0.614920234,3,dependent and predictor scaled,WE_weight

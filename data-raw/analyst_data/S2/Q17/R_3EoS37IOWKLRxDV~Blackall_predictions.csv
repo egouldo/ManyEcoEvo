@@ -1,0 +1,4 @@
+SurveyID,size_class,ci.low,fit,ci.hi,std.err,scenario
+Q1,euc_sdlgs0_50cm,0,0,2,1.4139035137368137,Q1
+Q2,euc_sdlgs0_50cm,0,0,6,5.29801848312106,Q2
+Q3,euc_sdlgs0_50cm,0,0,26,24.261124891615193,Q3

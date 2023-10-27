@@ -1,0 +1,10 @@
+estimate,ci.low,ci.hi,std.err,scenario,Response Variable,Transformation applied,"Prediction using predict(model, type = ""link"", newdata = newblue)"
+795232.7328,412154.9019,1166186.273,193370.8167,1,overall growth (day_14_weight*day_14_tarsus_length),blue$grow <- (blue$grow^2.675),615194.9 1293463.6 1165358.0 
+1045678.398,695755.1144,1424574.382,196562.5146,2,overall growth (day_14_weight*day_14_tarsus_length),,
+1155587.457,785008.5295,1532141.31,193397.8295,3,overall growth (day_14_weight*day_14_tarsus_length),,
+1353957.738,1096230.127,1602931.163,121842.3962,1,day_14_tarsus_length,blue$day_14_tarsus_length <- (blue$day_14_tarsus_length^5.025),1241198 1605677 1366830 
+1446675.319,1198353.513,1727553.366,137773.9087,2,day_14_tarsus_length,,
+1498058.134,1203743.692,1786393.629,139967.8169,3,day_14_tarsus_length,,
+4162.722035,1695.634176,6663.370523,1298.984113,1,day_14_weight,blue$day_14_weight <- (blue$day_14_weight^3.625),3824.325 5182.230 5289.884
+4977.856901,2507.929394,7673.086921,1321.54445,2,day_14_weight,,
+5534.476642,3001.504034,8061.721744,1338.273554,3,day_14_weight,,

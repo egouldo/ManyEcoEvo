@@ -12,7 +12,7 @@ preprocess_prediction_files(predictions_validation, all_surveys)
 \item{all_surveys}{A tibble of analyst-data for all datasets}
 }
 \value{
-pointblank check columns are nested into the list-column \code{checks}, \code{submission_id} is computed from \code{question}, \code{new_names} for replacement column names are given in \code{new_names}, \code{filepath} is appended with "inst/extdata/analyst_data/S2"
+pointblank check columns are nested into the list-column \code{checks}, \code{submission_id} is computed from \code{question}, \code{new_names} for replacement column names are given in \code{new_names}, \code{filepath} is appended with "data-raw/analyst_data/S2"
 }
 \description{
 Preprocess Prediction Files

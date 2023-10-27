@@ -1,0 +1,2 @@
+'scenario', 'Tarsus_estimate', 'std.err', 'bootstrap_ci.low', 'bootstrap_ci.hi'
+1, 16.68891500195848, 'NAN', 16.66642381511947, 16.71093615354485

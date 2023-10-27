@@ -1,0 +1,4 @@
+,fit,ci.low,ci.hi,std.err,scenario,euc_sdlng_size
+euc_sdlgs50cm.2m_m3.1,-1.903167789,-3.035143016,-0.984562963,0.561975706,Q1,euc_sdlgs50cm.2m_m3.1
+euc_sdlgs50cm.2m_m3.2,-1.773134998,-2.913029328,-0.858810652,0.563719549,Q2,euc_sdlgs50cm.2m_m3.2
+euc_sdlgs50cm.2m_m3.3,-1.773134998,-2.913029328,-0.858810652,0.563719549,Q3,euc_sdlgs50cm.2m_m3.3

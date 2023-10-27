@@ -3,7 +3,7 @@
 #' @param predictions_validation a dataframe containing the outputs of pointblank validation for multiple out of sample prediction files
 #' @param all_surveys A tibble of analyst-data for all datasets
 #'
-#' @return pointblank check columns are nested into the list-column `checks`, `submission_id` is computed from `question`, `new_names` for replacement column names are given in `new_names`, `filepath` is appended with "inst/extdata/analyst_data/S2" 
+#' @return pointblank check columns are nested into the list-column `checks`, `submission_id` is computed from `question`, `new_names` for replacement column names are given in `new_names`, `filepath` is appended with "data-raw/analyst_data/S2" 
 #' @export
 preprocess_prediction_files <- function(predictions_validation, 
                                         all_surveys) {
@@ -30,7 +30,7 @@ preprocess_prediction_files <- function(predictions_validation,
     dplyr::mutate(checks = map(checks, left_join, new_names, by = c("check_id", "dataset"))) %>% 
     dplyr::inner_join(all_surveys, by = c("response_id", "submission_id", "analysis_id", "split_id")) %>% 
     dplyr::mutate(filepath = 
-             here::here("inst/extdata/analyst_data/S2", 
+             here::here("data-raw/analyst_data/S2", #TODO do not hard-code in
                         question, 
                         file_name)) %>% 
     dplyr::filter(is.na(exclude_csv),

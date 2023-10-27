@@ -22,7 +22,7 @@ preprocess_updated_prediction_files <- function(df = data.frame()) {
   df %>% 
     drop_na(`new_csv_file_name--file-submissionID-csv_number`) %>% 
     mutate(updated_submission_data = map(.x = `new_csv_file_name--file-submissionID-csv_number`,
-                                         .f = ~ read_submission_data(filepath = here::here("inst/extdata/analyst_data/S2", .x)))) %>% #TODO replace with exported data in pkg
+                                         .f = ~ read_submission_data(filepath = here::here("data-raw/analyst_data/S2", .x)))) %>% #TODO replace with exported data in pkg / DO NOT hard code in
     group_by(response_id, submission_id, analysis_id, split_id, csv_number) %>% 
     mutate(updated_checks = map2(.x = updated_submission_data, 
                                  .y = dataset,

@@ -1,0 +1,32 @@
+,
+Seedling_model,Conditional model:
+,                  Estimate Std. Error z value Pr(>|z|)  
+,(Intercept)      -1.574631   1.401971  -1.123   0.2614  
+,Grass_cover       0.009359   0.013250   0.706   0.4800  
+,Shrub_cover      -0.069501   0.126903  -0.548   0.5839  
+,Herb_cover       -0.009506   0.018289  -0.520   0.6032  
+,other_veg         0.002913   0.012039   0.242   0.8088  
+,Bare              0.015663   0.015361   1.020   0.3079  
+,Euc_canopy_cover  0.021919   0.011359   1.930   0.0536 .
+,
+,
+Sapling_model,Conditional model:
+,                  Estimate Std. Error z value Pr(>|z|)  
+,(Intercept)      -1.062123   1.327802  -0.800   0.4238  
+,Grass_cover       0.008334   0.011672   0.714   0.4752  
+,Shrub_cover       0.002424   0.049578   0.049   0.9610  
+,Herb_cover       -0.038937   0.019095  -2.039   0.0414 *
+,other_veg         0.010219   0.011561   0.884   0.3767  
+,Bare              0.011762   0.013317   0.883   0.3771  
+,Euc_canopy_cover -0.006427   0.010514  -0.611   0.5410  
+,
+,
+Sub_Adult,Conditional model:
+,                   Estimate Std. Error z value Pr(>|z|)
+,(Intercept)      -5.131e+00  6.552e+00  -0.783    0.434
+,Grass_cover      -1.177e-02  4.042e-02  -0.291    0.771
+,Shrub_cover      -1.903e+01  1.865e+04  -0.001    0.999
+,Herb_cover       -3.173e-02  5.515e-02  -0.575    0.565
+,other_veg         3.833e-03  3.162e-02   0.121    0.904
+,Bare             -1.630e-02  4.095e-02  -0.398    0.691
+,Euc_canopy_cover  1.989e-02  2.282e-02   0.872    0.383

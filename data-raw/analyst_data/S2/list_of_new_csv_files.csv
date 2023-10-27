@@ -1,0 +1,44 @@
+response_id,submission_id,survey_question,csv_number,response_variable_or_model,transformation,analysis_id,split_id,notes,dataset,new_csv_file_name--file-submissionID-csv_number
+R_11787O3NmejXKAH,1,Q17,1,overall growth (day_14_weight*day_14_tarsus_length).transformed,blue$grow <- (blue$grow^2.675),2,1,NA,blue tit,R_11787O3NmejXKAH~Ayr_predictions_blue_1_1.csv
+R_11787O3NmejXKAH,1,Q17,2,day_14_tarsus_length.transformed,blue$day_14_tarsus_length <- (blue$day_14_tarsus_length^5.025),2,1,NA,blue tit,R_11787O3NmejXKAH~Ayr_predictions_blue_1_2.csv
+R_11787O3NmejXKAH,1,Q17,3,day_14_weight.transformed,blue$day_14_weight <- (blue$day_14_weight^3.625),2,1,NA,blue tit,R_11787O3NmejXKAH~Ayr_predictions_blue_1_3.csv
+R_1kH1Ko3yaLsrD0E,1,Q17,1,0 to 50 cm,NA,1,1,NA,eucalyptus,R_1kH1Ko3yaLsrD0E~Bombala_prediction_1_1.csv
+R_1kH1Ko3yaLsrD0E,1,Q17,2,50 cm to 2 m,NA,1,1,NA,eucalyptus,R_1kH1Ko3yaLsrD0E~Bombala_prediction_1_2.csv
+R_1kH1Ko3yaLsrD0E,1,Q17,3,> 2 m,NA,1,1,NA,eucalyptus,R_1kH1Ko3yaLsrD0E~Bombala_prediction_1_3.csv
+R_1M0cMZL2IPYWHoi,1,Q17,1,Seedling_L,NA,1,1,NA,eucalyptus,R_1M0cMZL2IPYWHoi~Bruthen_predictions_1_1.csv
+R_1M0cMZL2IPYWHoi,1,Q17,2,Seedling_M,NA,1,1,NA,eucalyptus,R_1M0cMZL2IPYWHoi~Bruthen_predictions_1_2.csv
+R_1M0cMZL2IPYWHoi,1,Q17,3,Seedling_S,NA,1,1,NA,eucalyptus,R_1M0cMZL2IPYWHoi~Bruthen_predictions_1_3.csv
+R_2TFNREdJSxTXZBQ,2,Q96,1,day_14_weight.transformed,day_14_weight^3.675,1,1,NA,blue tit,R_2TFNREdJSxTXZBQ~Avenel_predictions_1_1_1.csv
+R_31tNDcbaXNaQp1y,1,Q17,1,mod1 (euc_sdlgs0_50cm ~ ExoticAnnualGrass_cover),NA,1,1,NA,eucalyptus,R_31tNDcbaXNaQp1y~Bermagui_predictions_1_1.csv
+R_31tNDcbaXNaQp1y,1,Q17,2,mod2 (euc_sdlgs0_50cm ~ ExoticPerennialGrass),NA,1,2,NA,eucalyptus,R_31tNDcbaXNaQp1y~Bermagui_predictions_1_2.csv
+R_31tNDcbaXNaQp1y,1,Q17,3,mod3(euc_sdlgs0_50cm ~ NativePerennialGrass_cover),NA,1,3,NA,eucalyptus,R_31tNDcbaXNaQp1y~Bermagui_predictions_1_3.csv
+R_31tNDcbaXNaQp1y,1,Q17,1,mod4 (euc_sdlgs50cm.2m ~ ExoticAnnualGrass_cover),NA,2,1,NA,eucalyptus,R_31tNDcbaXNaQp1y~Bermagui_predictions_2_1.csv
+R_31tNDcbaXNaQp1y,1,Q17,2,mod5 (euc_sdlgs50cm.2m ~ ExoticPerennialGrass),NA,2,2,NA,eucalyptus,R_31tNDcbaXNaQp1y~Bermagui_predictions_2_2.csv
+R_31tNDcbaXNaQp1y,1,Q17,3,mod6(euc_sdlgs50cm.2m ~ NativePerennialGrass_cover),NA,2,3,NA,eucalyptus,R_31tNDcbaXNaQp1y~Bermagui_predictions_2_3.csv
+R_31tNDcbaXNaQp1y,1,Q17,1,mod7 (euc_sdlgs.2m ~ ExoticAnnualGrass_cover),NA,3,1,NA,eucalyptus,R_31tNDcbaXNaQp1y~Bermagui_predictions_3_1.csv
+R_31tNDcbaXNaQp1y,1,Q17,2,mod8 (euc_sdlgs.2m ~ ExoticPerennialGrass),NA,3,2,NA,eucalyptus,R_31tNDcbaXNaQp1y~Bermagui_predictions_3_2.csv
+R_31tNDcbaXNaQp1y,1,Q17,3,mod9(euc_sdlgs.2m ~ NativePerennialGrass_cover),NA,3,3,NA,eucalyptus,R_31tNDcbaXNaQp1y~Bermagui_predictions_3_3.csv
+R_3m9pJhdYt9KfVms,1,Q17,2,day_14_tarsus,NA,1,2,NA,blue tit,R_3m9pJhdYt9KfVms~Camden_prediction_1_1.csv
+R_3m9pJhdYt9KfVms,1,Q17,1,day_14_weight,NA,1,1,NA,blue tit,R_3m9pJhdYt9KfVms~Camden_prediction_1_2.csv
+R_CfUlQXg434XEESd,2,Q96,1,day_14_tarsus_length,NA,2,1,NA,blue tit,R_CfUlQXg434XEESd~Arltung_predictions_Table_Ta_tarsus_2_1.csv
+R_CfUlQXg434XEESd,2,Q96,1,day_14_weight,NA,3,1,NA,blue tit,R_CfUlQXg434XEESd~Arltung_predictions_Table_Ma_mass_2_1.csv
+R_CfUlQXg434XEESd,2,Q96,1,body_mass_index,NA,4,1,NA,blue tit,R_CfUlQXg434XEESd~Arltung_predictions_Table_Ba_bmi_2_1.csv
+R_rl4gKNbuSPbhvjj,1,Q17,1,day_14_weight,NA,1,1,NA,blue tit,R_rl4gKNbuSPbhvjj~Belmont_predictions_1_1.csv
+R_3NHVKFiOiQBfX9b,2,Q96,1,euc_sdlgs0_50cm,NA,2,1,NA,eucalyptus,R_3NHVKFiOiQBfX9b~Brooklyn_predictions_2_2_1.csv
+R_25Sd6zEgjVjLhN3,1,Q17,1,day_14_weight,NA,1,1,NA,blue tit,R_25Sd6zEgjVjLhN3~Aldgat_predictions_1_1_1.csv
+R_25Sd6zEgjVjLhN3,2,Q96,1,day_14_tarsus,NA,2,1,NA,blue tit,R_25Sd6zEgjVjLhN3~Aldgat_predictions_2_2_1.csv
+R_21AEcUhC7tWDsN6,1,Q17,1,"euc_sdlgs_overall = euc_sdlgs0_50cm + euc_sdlgs50cm_2m + euc_sdlgs_over2m (note that this is a hurdle model, so the estimates and predictions may apply only to those sites with at least one seedling)",NA,1,1,NA,eucalyptus,R_21AEcUhC7tWDsN6~Chewton_Prediction_1_1.csv
+R_2qt4UsEXYCfKubj,1,Q17,1,euc_sdlgs0_50cm,NA,1,1,NA,eucalyptus,R_2qt4UsEXYCfKubj~Ballarat_prediction_1_1.csv
+R_3rIdpCqsQtsmgqT,1,Q17,1,day_14_weight,"""mean centered and standardized""",1,1,NA,blue tit,R_3rIdpCqsQtsmgqT~Adelong_predictions_1_1.csv
+R_3rIdpCqsQtsmgqT,2,Q96,1,day_14_tarsus,"""mean centered and standardized""",2,1,NA,blue tit,R_3rIdpCqsQtsmgqT~Adelong_predictions_2_1.csv
+R_3rIdpCqsQtsmgqT,3,Q113,1,euc_sdlgs0_50cm,"""mean centered and standardized""",3,4,NA,eucalyptus,R_3rIdpCqsQtsmgqT~Adelong_predictions_3_3_3.csv
+R_3rIdpCqsQtsmgqT,4,Q113,1,euc_sdlgs50cm_2m,"""mean centered and standardized""",3,4,NA,eucalyptus,R_3rIdpCqsQtsmgqT~Adelong_predictions_4_4_4.csv
+R_2Wwn0cMK5hFC4vB,1,Q17,1,day_14_weight,NA,1,1,NA,blue tit,R_2Wwn0cMK5hFC4vB~Beltan_predictions_1_1_1.csv
+R_2Wwn0cMK5hFC4vB,2,Q96,1,day_14_tarsus,NA,2,1,NA,blue tit,R_2Wwn0cMK5hFC4vB~Beltan_predictions_2_2_1.csv
+R_1Ej3sywrrnzy7KJ,1,Q17,1,"sum: euc_sdlgs50cm-2m, euc_sdlgs>2m and euc_sdlgs0_50cm",NA,1,1,NA,eucalyptus,R_1Ej3sywrrnzy7KJ~Birchip_predictions_1_1.csv
+R_1LRqq2WHrQaENtM,1,Q17,1,euc_sdlgs>2m,NA,1,3,NA,eucalyptus,R_1LRqq2WHrQaENtM~Boorowa_predictions_1_1.csv
+R_1LRqq2WHrQaENtM,1,Q17,2,euc_sdlgs50cm-2m,NA,1,2,NA,eucalyptus,R_1LRqq2WHrQaENtM~Boorowa_predictions_1_2.csv
+R_1LRqq2WHrQaENtM,1,Q17,3,euc_sdlgs0_50cm,NA,1,1,NA,eucalyptus,R_1LRqq2WHrQaENtM~Boorowa_predictions_1_3.csv
+R_2tLsM42vnTf9wX6,1,Q17,1,euc_sdlgs0_50cm,NA,1,1,NA,eucalyptus,R_2tLsM42vnTf9wX6~Bangalow_predictions_1_1.csv
+R_2tLsM42vnTf9wX6,2,Q96,1,euc_sdlgs0_50cm,NA,2,1,NA,eucalyptus,R_2tLsM42vnTf9wX6~Bangalow_predictions_2_1.csv
+R_2tLsM42vnTf9wX6,3,Q113,1,euc_sdlgs50cm.2m,NA,3,1,NA,eucalyptus,R_2tLsM42vnTf9wX6~Bangalow_predictions_3_1.csv

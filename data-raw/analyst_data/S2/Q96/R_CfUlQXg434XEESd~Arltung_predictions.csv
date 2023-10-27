@@ -1,0 +1,7 @@
+estimate,ci.low,ci.hi,std.err,scenario,scale,table
+16.35617088,15.80330007,16.90051511,0.288214222,1,original,Ta_tarsus
+17.09613759,16.48548252,17.68256697,0.308086347,2,original,Ta_tarsus
+17.22281034,16.58007257,17.8592271,0.328011211,3,original,Ta_tarsus
+-0.567107501,-1.409103972,0.198383011,0.419412933,1,dependent and predictor scaled,TE_tarsus
+0.544046285,-0.343205651,1.462040037,0.465614642,2,dependent and predictor scaled,TE_tarsus
+0.745615316,-0.225262743,1.68807993,0.480518841,3,dependent and predictor scaled,TE_tarsus

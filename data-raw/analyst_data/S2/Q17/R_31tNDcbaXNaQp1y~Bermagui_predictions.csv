@@ -1,0 +1,44 @@
+﻿mod1 (euc_sdlgs0_50cm ~ ExoticAnnualGrass_cover),SurveyID,fit,lwr,upr,std.err,ExoticAnnualGrass_Est,ExoticAnnualGrass_std.err,,,
+,1,1199.096482,-172.154930,2576.096500,561.507635,1.49E+01,5.19E+00,,,
+,2,0.429359,-0.115965,0.949151,0.286644,,,,0.519792,-0.090433
+,3,1.171900,-0.456143,2.651248,0.864573,,,,1.479348,-0.307449
+,,,,,,,,,0.000000,0.000000
+mod2 (euc_sdlgs0_50cm ~ ExoticPerennialGrass),SurveyID,fit,lwr,upr,std.err,ExoticPerennialGrass_Est,ExoticPerennialGrass_std.err,,#VALUE!,#VALUE!
+,1,472.657065,-234.154500,942.158610,161.507635,-1.61E+01,1.85E+01,,469.501545,3.155519
+,2,2.712384,-0.416485,5.841564,0.857693,,,,3.129180,-0.416797
+,3,0.568191,-0.359416,0.819546,0.391147,,,,0.251355,0.316835
+,,,,,,,,,0.000000,0.000000
+mod3(euc_sdlgs0_50cm ~ NativePerennialGrass_cover),SurveyID,fit,lwr,upr,std.err,NativePerennialGrass_Est,NativePerennialGrass_std.err,,#VALUE!,#VALUE!
+,1,97.596473,-43.459110,194.159410,44.069690,1.31E+01,5.92E+00,,96.562937,1.033535
+,2,3.308834,0.717161,7.334849,1.028586,,,,4.026015,-0.717180
+,3,0.302914,-0.215964,0.849813,0.507100,,,,0.546899,-0.243985
+,,,,,,,,,0.000000,0.000000
+mod4 (euc_sdlgs50cm.2m ~ ExoticAnnualGrass_cover),SurveyID,fit,lwr,upr,std.err,ExoticAnnualGrass_Est,ExoticAnnualGrass_std.err,,#VALUE!,#VALUE!
+,1,2.590538,-1.496153,5.548516,0.899683,-4.98E-01,5.29E-01,,2.957978,-0.367440
+,2,0.975111,-0.001634,1.965448,0.778109,,,,0.990337,-0.015227
+,3,0.916858,-0.642357,2.265145,0.573079,,,,1.348287,-0.431428
+,,,,,,,,,0.000000,0.000000
+mod5 (euc_sdlgs50cm.2m ~ ExoticPerennialGrass),SurveyID,fit,lwr,upr,std.err,ExoticPerennialGrass_Est,ExoticPerennialGrass_std.err,,#VALUE!,#VALUE!
+,1,0.716177,-0.221654,1.565413,0.410387,1.95E+00,2.89E+00,,0.849236,-0.133058
+,2,2.444246,-1.013687,5.719651,0.949328,,,,3.275405,-0.831159
+,3,0.345804,-0.096543,0.765146,0.512300,,,,0.419342,-0.073538
+,,,,,,,,,0.000000,0.000000
+mod6(euc_sdlgs50cm.2m ~ NativePerennialGrass_cover),SurveyID,fit,lwr,upr,std.err,NativePerennialGrass_Est,NativePerennialGrass_std.err,,#VALUE!,#VALUE!
+,1,1.118677,-1.216324,2.415964,0.481487,-7.98E-01,6.05E-01,,1.297287,-0.178610
+,2,0.371320,-0.048597,0.715642,0.780262,,,,0.344322,0.026998
+,3,1.503321,-0.816547,3.215646,0.753751,,,,1.712325,-0.209004
+,,,,,,,,,0.000000,0.000000
+mod7 (euc_sdlgs.2m ~ ExoticAnnualGrass_cover),SurveyID,fit,lwr,upr,std.err,ExoticAnnualGrass_Est,ExoticAnnualGrass_std.err,,#VALUE!,#VALUE!
+,1,4.775233,-1.456244,9.156496,3.160070,-7.98E-01,6.05E-01,,4.381263,0.393970
+,2,1.811196,-0.898126,3.915641,0.744263,,,,2.104445,-0.293249
+,3,3.175938,-0.454312,6.778461,1.081279,,,,3.602523,-0.426585
+,,,,,,,,,0.000000,0.000000
+mod8 (euc_sdlgs.2m ~ ExoticPerennialGrass),SurveyID,fit,lwr,upr,std.err,ExoticPerennialGrass_Est,ExoticPerennialGrass_std.err,,#VALUE!,#VALUE!
+,1,12.654740,-6.845312,27.654216,9.783657,-2.35E+00,8.98E+00,,14.999476,-2.344736
+,2,0.865342,-0.114462,1.874125,0.567823,,,,1.008783,-0.143441
+,3,1.763574,0.354631,3.898135,1.254237,,,,2.134561,-0.370987
+,,,,,,,,,0.000000,0.000000
+mod9(euc_sdlgs.2m ~ NativePerennialGrass_cover),SurveyID,fit,lwr,upr,std.err,NativePerennialGrass_Est,NativePerennialGrass_std.err,,#VALUE!,#VALUE!
+,1,17.264996,-8.195632,38.156477,11.692573,-5.27E+00,7.97E+00,,20.891481,-3.626485
+,2,1.250298,-0.545916,2.778165,0.720828,,,,1.527867,-0.277569
+,3,3.561061,-2.123467,9.264185,1.172917,,,,5.703124,-2.142063
