@@ -19,7 +19,7 @@ Authors@R: c(person(given = "Elliot",
                     role = "aut",
                     comment = c(ORCID = "https://orcid.org/0000-0003-2995-5284"))
            )
-Description: The ManyAnalysts package provides a set of functions for
+Description: The ManyEcoEvo package provides a set of functions for
     aiding data cleaning, preparation and conducting analysis for
     multi-analyst style studies. It also contains datasets from the
     ManyEcoEvo project for reproducing the ManyEcoEvo analysis.
