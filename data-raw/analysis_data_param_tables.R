@@ -3,13 +3,13 @@
 #NOTE: relies on package being built after running `data-raw/osf_load_analyst_datasets.R`
 
 library(tidyverse)
-library(ManyAnalysts)
+library(ManyEcoEvo)
 
 analysis_data_param_tables <- 
   bind_rows(
-    make_param_table(ManyAnalysts::blue_tit_data) %>% 
+    make_param_table(ManyEcoEvo::blue_tit_data) %>% 
       mutate(dataset = "blue tit"),
-    make_param_table(ManyAnalysts::euc_data) %>% 
+    make_param_table(ManyEcoEvo::euc_data) %>% 
       mutate(dataset = "eucalyptus")
   )
 

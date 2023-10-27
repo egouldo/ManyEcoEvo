@@ -1,9 +1,9 @@
 #' Generate Expertise Data Subsets
 #'
-#' @param ManyEcoEvo a ManyAnalysts dataframe containing formatted raw `data`, formatted `diversity_data`, the `estimate_type`,  `dataset`, `publishable_subset`, and `exclusion_set`. See details.
+#' @param ManyEcoEvo a ManyEcoEvo dataframe containing formatted raw `data`, formatted `diversity_data`, the `estimate_type`,  `dataset`, `publishable_subset`, and `exclusion_set`. See details.
 #' @param expert_subset a dataframe containing the column `response_id` containing response ID's to be included in the expert subset
 #'
-#' @return A ManyAnalysts dataframe with added column `expertise_subset` with new subsets of `data` and `diversity_data`
+#' @return A ManyEcoEvo dataframe with added column `expertise_subset` with new subsets of `data` and `diversity_data`
 #' @export
 #' @details
 #' Note that this function needs to be run on `ManyEcoEvo` after the following functions have been run (See examples):
@@ -13,7 +13,7 @@
 #' 
 #' `generate_rating_subsets()` only creates expertise subsets based on the full dataset where `exclusion_set == "complete"` and `publishable_subset == "All"`.
 #' @examples
-#' library(ManyAnalysts)
+#' library(ManyEcoEvo)
 #' library(tidyverse)
 #' library(targets)
 #' targets::tar_load(ManyEcoEvo)

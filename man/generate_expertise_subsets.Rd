@@ -7,12 +7,12 @@
 generate_expertise_subsets(ManyEcoEvo, expert_subset)
 }
 \arguments{
-\item{ManyEcoEvo}{a ManyAnalysts dataframe containing formatted raw \code{data}, formatted \code{diversity_data}, the \code{estimate_type},  \code{dataset}, \code{publishable_subset}, and \code{exclusion_set}. See details.}
+\item{ManyEcoEvo}{a ManyEcoEvo dataframe containing formatted raw \code{data}, formatted \code{diversity_data}, the \code{estimate_type},  \code{dataset}, \code{publishable_subset}, and \code{exclusion_set}. See details.}
 
 \item{expert_subset}{a dataframe containing the column \code{response_id} containing response ID's to be included in the expert subset}
 }
 \value{
-A ManyAnalysts dataframe with added column \code{expertise_subset} with new subsets of \code{data} and \code{diversity_data}
+A ManyEcoEvo dataframe with added column \code{expertise_subset} with new subsets of \code{data} and \code{diversity_data}
 }
 \description{
 Generate Expertise Data Subsets
@@ -28,7 +28,7 @@ Note that this function needs to be run on \code{ManyEcoEvo} after the following
 \code{generate_rating_subsets()} only creates expertise subsets based on the full dataset where \code{exclusion_set == "complete"} and \code{publishable_subset == "All"}.
 }
 \examples{
-library(ManyAnalysts)
+library(ManyEcoEvo)
 library(tidyverse)
 library(targets)
 targets::tar_load(ManyEcoEvo)

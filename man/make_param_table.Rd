@@ -23,6 +23,6 @@ The parameter table is used in the computation of Z-values during the standardis
 Currently variable names of \code{analysis_data} must not contain \code{.} because this character is used to split the \code{variable} from the \code{parameter} during \code{pivot_longer()}
 }
 \examples{
-make_param_table(ManyAnalysts::blue_tit_data)
-make_param_table(ManyAnalysts::euc_data)
+make_param_table(ManyEcoEvo::blue_tit_data)
+make_param_table(ManyEcoEvo::euc_data)
 }

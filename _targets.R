@@ -23,11 +23,11 @@ pkgs <- c("tidyverse",
           "rsvg",
           "multilevelmod",
           "metafor",
-          "ManyAnalysts")
+          "ManyEcoEvo")
 
 tar_option_set(
   packages = pkgs,
-  imports = "ManyAnalysts",
+  imports = "ManyEcoEvo",
   # debug = c("augmented_data_3efd9941")#, #augmented_data_a4d78efa
   # cue = tar_cue(mode = "never") #because we have silent errors!
 )
@@ -221,7 +221,7 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
                                                                                                    "constructed", 
                                                                                                    negate = TRUE)))) %>% 
                            prepare_response_variables(estimate_type = "yi",
-                                                      param_table = ManyAnalysts:::analysis_data_param_tables) %>%
+                                                      param_table = ManyEcoEvo:::analysis_data_param_tables) %>%
                            generate_yi_subsets() %>% #TODO: must be run after prepare_response_variables??
                            apply_VZ_exclusions(3) %>%
                            generate_exclusion_subsets() %>% #TODO: runs on ManyEcoEvo that contains Zr and yi results.

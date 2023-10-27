@@ -2,7 +2,7 @@
 % Please edit documentation in R/anonymise_teams.R
 \name{anonymise_teams}
 \alias{anonymise_teams}
-\title{Anonymise ManyAnalysts Data}
+\title{Anonymise ManyEcoEvo Data}
 \usage{
 anonymise_teams(df, lookup)
 }
@@ -15,5 +15,5 @@ anonymise_teams(df, lookup)
 A \code{df} with anonymised values of \code{id_col} based on the \code{New_Identifier} colum of \code{lookup}
 }
 \description{
-Anonymise ManyAnalysts Data
+Anonymise ManyEcoEvo Data
 }

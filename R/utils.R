@@ -98,8 +98,8 @@ rm_inf_na <- function(effects_analysis, Z_colname, VZ_colname){
 #' @export
 #' @importFrom dplyr group_split
 #' @examples
-#' named_group_split(ManyAnalysts::euc_data , Property)
-#' named_group_split(ManyAnalysts::blue_tit_data, hatch_Area)
+#' named_group_split(ManyEcoEvo::euc_data , Property)
+#' named_group_split(ManyEcoEvo::blue_tit_data, hatch_Area)
 named_group_split <- function(.data,grouping_variable ) {
   .data %>% 
     group_by({{grouping_variable}}) %>% 

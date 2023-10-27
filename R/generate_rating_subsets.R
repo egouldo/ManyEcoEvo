@@ -2,9 +2,9 @@
 #' @description Generates two subsets of data based on for both complete and partial exclusion datasets for both `yi` and `Zr` estimates.
 #' 
 #'
-#' @param ManyEcoEvo a ManyAnalysts dataframe containing formatted raw `data`, formatted `diversity_data`, the `estimate_type`, and `dataset`
+#' @param ManyEcoEvo a ManyEcoEvo dataframe containing formatted raw `data`, formatted `diversity_data`, the `estimate_type`, and `dataset`
 #'
-#' @return A ManyAnalysts dataframe with added column `exclusion_set` with new subsets of `data` and `diversity_data`
+#' @return A ManyEcoEvo dataframe with added column `exclusion_set` with new subsets of `data` and `diversity_data`
 #' @export
 #' @family Multi-dataset Wrapper Functions
 #' @family targets-pipeline functions

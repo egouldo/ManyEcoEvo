@@ -48,7 +48,7 @@ blue_tit_data <- readr::read_csv(here::here("data-raw/analysis_datasets/blue_tit
 
 # Load Master Data File (obtain standardised names of analyst variables)
 
-# master_data<-read_excel("C:/Users/hanna/OneDrive/Documents/ManyAnalysts/data-raw/Combined_Master_2022.06.29.xlsx")
+# master_data<-read_excel("C:/Users/hanna/OneDrive/Documents/ManyEcoEvo/data-raw/Combined_Master_2022.06.29.xlsx")
 # standardised_names<-unique(master_data$response_name_standardized)
 
 # Add analyst-constructed variables to analysis data

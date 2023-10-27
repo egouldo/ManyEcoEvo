@@ -1,4 +1,4 @@
-#' Anonymise ManyAnalysts Data
+#' Anonymise ManyEcoEvo Data
 #'
 #' @param df A dataframe containing the column `id_col`
 #' @param lookup A dataframe containing the columns `TeamIdentifier` and `New_Identifier`

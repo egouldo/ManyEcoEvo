@@ -7,10 +7,10 @@
 generate_rating_subsets(ManyEcoEvo)
 }
 \arguments{
-\item{ManyEcoEvo}{a ManyAnalysts dataframe containing formatted raw \code{data}, formatted \code{diversity_data}, the \code{estimate_type}, and \code{dataset}}
+\item{ManyEcoEvo}{a ManyEcoEvo dataframe containing formatted raw \code{data}, formatted \code{diversity_data}, the \code{estimate_type}, and \code{dataset}}
 }
 \value{
-A ManyAnalysts dataframe with added column \code{exclusion_set} with new subsets of \code{data} and \code{diversity_data}
+A ManyEcoEvo dataframe with added column \code{exclusion_set} with new subsets of \code{data} and \code{diversity_data}
 }
 \description{
 Generates two subsets of data based on for both complete and partial exclusion datasets for both \code{yi} and \code{Zr} estimates.

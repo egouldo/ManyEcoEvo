@@ -2,15 +2,15 @@
 % Please edit documentation in R/generate_outlier_subsets.R
 \name{generate_outlier_subsets}
 \alias{generate_outlier_subsets}
-\title{Generate Outlier Subsets for ManyAnalysts datasets}
+\title{Generate Outlier Subsets for ManyEcoEvo datasets}
 \usage{
 generate_outlier_subsets(ManyEcoEvo)
 }
 \arguments{
-\item{ManyEcoEvo}{a ManyAnalysts dataframe containing formatted raw \code{data}, formatted \code{diversity_data}, the \code{estimate_type}, and \code{dataset}}
+\item{ManyEcoEvo}{a ManyEcoEvo dataframe containing formatted raw \code{data}, formatted \code{diversity_data}, the \code{estimate_type}, and \code{dataset}}
 }
 \value{
-A ManyAnalysts dataframe with added column \code{exclusion_set} with new subsets of \code{data} and \code{diversity_data}
+A ManyEcoEvo dataframe with added column \code{exclusion_set} with new subsets of \code{data} and \code{diversity_data}
 }
 \description{
 Removes top outlier for \code{yi} datasets and top 2 and bottom 2 outliers for \code{Zr} datasets

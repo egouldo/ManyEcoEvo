@@ -21,6 +21,6 @@ Split data frame by groups and name elements
 Function will fail if character string is provided to \code{grouping_variable} instead of bare variable name.
 }
 \examples{
-named_group_split(ManyAnalysts::euc_data , Property)
-named_group_split(ManyAnalysts::blue_tit_data, hatch_Area)
+named_group_split(ManyEcoEvo::euc_data , Property)
+named_group_split(ManyEcoEvo::blue_tit_data, hatch_Area)
 }

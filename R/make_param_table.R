@@ -10,8 +10,8 @@
 #' @param analysis_data A dataframe or tibble.
 #' @return A tibble.
 #' @examples 
-#' make_param_table(ManyAnalysts::blue_tit_data)
-#' make_param_table(ManyAnalysts::euc_data)
+#' make_param_table(ManyEcoEvo::blue_tit_data)
+#' make_param_table(ManyEcoEvo::euc_data)
 make_param_table <- function(analysis_data){
   # calc SD + mean for ALL continuous variables
   # The table will then be used in the standardisation of 

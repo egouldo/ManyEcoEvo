@@ -1,9 +1,9 @@
-#' Generate Outlier Subsets for ManyAnalysts datasets
+#' Generate Outlier Subsets for ManyEcoEvo datasets
 #' @description Removes top outlier for `yi` datasets and top 2 and bottom 2 outliers for `Zr` datasets
 #'
-#' @param ManyEcoEvo a ManyAnalysts dataframe containing formatted raw `data`, formatted `diversity_data`, the `estimate_type`, and `dataset`
+#' @param ManyEcoEvo a ManyEcoEvo dataframe containing formatted raw `data`, formatted `diversity_data`, the `estimate_type`, and `dataset`
 #'
-#' @return A ManyAnalysts dataframe with added column `exclusion_set` with new subsets of `data` and `diversity_data`
+#' @return A ManyEcoEvo dataframe with added column `exclusion_set` with new subsets of `data` and `diversity_data`
 #' @export
 #' @family Multi-dataset Wrapper Functions
 #' @family targets-pipeline functions
