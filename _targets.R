@@ -231,6 +231,8 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
                            meta_analyse_datasets() #TODO requires col exclusion_set from generate_exclusino_subsets() but don't need that fun in this pipeline anymore
      ),
      targets::tar_target( name = ManyEcoEvo_yi_viz,
-                          command = make_viz(ManyEcoEvo_yi_results))
+                          command = make_viz(ManyEcoEvo_yi_results)),
+     tarchetypes::tar_quarto(name = README,
+                             path = "README.qmd")
      # tarchetypes::tar_quarto(full_analysis, "analysis/analysis_revised_data.qmd")
 )
