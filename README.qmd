@@ -2,6 +2,8 @@
 format: gfm
 ---
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10046153.svg)](https://doi.org/10.5281/zenodo.10046153) [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0) [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](code_of_conduct.md)
+
 # ManyEcoEvo <img src="man/figures/ManyEcoEvoHex.jpg" align="right" width="120"/>
 
 The `ManyEcoEvo` package provides a suite of functions for:
@@ -44,11 +46,11 @@ targets::tar_read("ManyEcoEvo")
 
 ## License
 
-This software is licensed with the GNU GPL 3 license [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+This software is licensed with the GNU GPL 3 license.
 
 ## Contributing
 
-This package is released with a [Contributor Code of Conduct](https://github.com/egouldo/ManyEcoEvo/blob/aa2b9dcb6462f35ce873418e0b9c9697cf0b2f24/CODE_OF_CONDUCT.md) [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](code_of_conduct.md)
+This package is released with a [Contributor Code of Conduct](https://github.com/egouldo/ManyEcoEvo/blob/aa2b9dcb6462f35ce873418e0b9c9697cf0b2f24/CODE_OF_CONDUCT.md).
 
 ## Citation
 
