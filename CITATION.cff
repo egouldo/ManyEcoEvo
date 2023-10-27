@@ -1,0 +1,54 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: ManyEcoEvo
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Elliot
+    family-names: Gould
+    email: elliot.gould@unimelb.edu.au
+    affiliation: University of Melbourne
+    orcid: 'https://orcid.org/0000-0002-6585-538X'
+  - given-names: Hannah S.
+    family-names: Fraser
+    email: hannahsfraser@gmail.com
+    affiliation: University of Melbourne
+    orcid: 'https://orcid.org/0000-0003-2443-4463'
+  - given-names: Shinichi
+    family-names: Nakagawa
+    email: s.nakagawa@unsw.edu.au
+    affiliation: University of New South Wales
+    orcid: 'https://orcid.org/0000-0002-7765-5182'
+  - given-names: Timothy H.
+    family-names: Parker
+    email: parkerth@whitman.edu
+    affiliation: Whitman College
+    orcid: 'https://orcid.org/0000-0003-2995-5284'
+identifiers:
+  - type: doi
+    value: 10.32942/X2GG62
+    description: >-
+      Same Data, Many Analysts Manuscript preprint on
+      EcoEvoArXiv
+repository-code: 'https://github.com/egouldo/ManyEcoEvo'
+url: 'https://egouldo.github.io/ManyAnalysts/index.html'
+repository: 'https://osf.io/mn5aj/'
+abstract: >-
+  This package builds the ManyEcoEvo analysis dataset and
+  provides a suite of functions for working with
+  Many-Analyst style data
+keywords:
+  - meta-analysis
+  - metaresearch
+  - ecology
+  - evolutionary biology
+  - many analysts
+license: GPL-3.0-or-later
+commit: >-
+  https://github.com/egouldo/ManyEcoEvo/commit/6b4101cb89630f4f18722dcf30c5ab4997275e2c
+version: v1.0.0
+date-released: '2023-10-27'
