@@ -1,5 +1,5 @@
 
-# ManyEcoEvo <img src="man/figures/ManyEcoEvoHex.jpg" align="right" alt="" width="120" />
+# ManyEcoEvo <img src="man/figures/ManyEcoEvoHex.jpg" align="right" width="120"/>
 
 The `ManyEcoEvo` package provides a suite of functions for:
 
@@ -69,6 +69,22 @@ Conduct](https://github.com/egouldo/ManyEcoEvo/blob/aa2b9dcb6462f35ce873418e0b9c
 Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](code_of_conduct.md)
 
 ## Citation
+
+    To cite package ‘ManyEcoEvo’ in publications use:
+
+      Gould E, Fraser H, Nakagawa S, Parker T (2023). _ManyEcoEvo: Meta-analyse
+      data from 'Many-Analysts' style studies_. R package version 1.0.0,
+      <https://github.com/egouldo/ManyEcoEvo>.
+
+    A BibTeX entry for LaTeX users is
+
+      @Manual{,
+        title = {ManyEcoEvo: Meta-analyse data from 'Many-Analysts' style studies},
+        author = {Elliot Gould and Hannah S. Fraser and Shinichi Nakagawa and Timothy H. Parker},
+        year = {2023},
+        note = {R package version 1.0.0},
+        url = {https://github.com/egouldo/ManyEcoEvo},
+      }
 
 [^1]: Gould, E., Fraser, H., Parker, T. *et al.* (2023). Same data,
     different analysts: Variation in effect sizes due to analytical
