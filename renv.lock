@@ -63,23 +63,6 @@
       ],
       "Hash": "9586b552d57f5516fe4d25398c1bacd6"
     },
-    "ManyAnalysts": {
-      "Package": "ManyAnalysts",
-      "Version": "0.0.0.9001",
-      "Source": "unknown",
-      "Requirements": [
-        "R",
-        "betapart",
-        "dplyr",
-        "ggplot2",
-        "magrittr",
-        "purrr",
-        "rlang",
-        "tidyr",
-        "tidyselect"
-      ],
-      "Hash": "24d39f0d8dceb8c7e675df0b8de55426"
-    },
     "Matrix": {
       "Package": "Matrix",
       "Version": "1.5-4",
