@@ -1,0 +1,43 @@
+Package: ManyEcoEvo
+Title: Meta-analyse data from 'Many-Analysts' style studies
+Version: 1.0.0
+Authors@R: c(person(given = "Elliot",
+                    family = "Gould", 
+                    email =  "elliot.gould@unimelb.edu.au", 
+                    role = c("aut", "cre"), 
+                    comment = c(ORCID = "https://orcid.org/0000-0002-6585-538X")),
+             person(given = "Hannah S.", 
+                    family = "Fraser", 
+                    role = "aut",
+                    comment = c(ORCID = "https://orcid.org/0000-0003-2443-4463")),
+             person(given = "Shinichi",
+                    family = "Nakagawa",
+                    role = "aut",
+                    comment = c(ORCID = "https://orcid.org/0000-0002-7765-5182")),
+             person(given = "Timothy H.",
+                    family = "Parker",
+                    role = "aut",
+                    comment = c(ORCID = "https://orcid.org/0000-0003-2995-5284"))
+           )
+Description: The ManyAnalysts package provides a set of functions for
+    aiding data cleaning, preparation and conducting analysis for
+    multi-analyst style studies. It also contains datasets from the
+    ManyEcoEvo project for reproducing the ManyEcoEvo analysis.
+License: GPL (>= 3)
+Depends: 
+    R (>= 2.10)
+Imports: 
+    betapart,
+    dplyr,
+    ggplot2,
+    magrittr,
+    purrr,
+    rlang,
+    tidyr,
+    tidyselect
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
+URL: https://github.com/egouldo/ManyEcoEvo
+BugReports: https://github.com/egouldo/ManyEcoEvo/issues
