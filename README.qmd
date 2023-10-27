@@ -28,7 +28,7 @@ Please see the documentation at <https://docs.ropensci.org/targets/> for further
 Should you wish to completely reproduce the dataset generation and analysis in *Gould et al.*, complete the following steps:
 
 1.  Clone or download [https://github.com/egouldo/this repository](https://github.com/egouldo/ManyEcoEvo)
-2.  Run `renv::restore()` to load the packages used in the analysis pipeline locally on your machine
+2.  Run `renv::restore()` to load the packages used in the analysis pipeline locally on your machine (see [`renv::`]https://rstudio.github.io/renv/index.html) for details)
 3.  Run `tar_destroy()` to remove any record and caches of existing targets
 4.  Run `targets::tar_make()` in your console, depending on the power of your machine, the analysis pipeline will take between 2 and 7 minutes to execute (plus or minus some!)
 5.  You can view a table of all targets in the pipeline by running `targets::tar_meta()`

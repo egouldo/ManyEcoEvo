@@ -35,7 +35,8 @@ analysis in *Gould et al.*, complete the following steps:
 1.  Clone or download [https://github.com/egouldo/this
     repository](https://github.com/egouldo/ManyEcoEvo)
 2.  Run `renv::restore()` to load the packages used in the analysis
-    pipeline locally on your machine
+    pipeline locally on your machine (see
+    \[`renv::`\]https://rstudio.github.io/renv/index.html) for details)
 3.  Run `tar_destroy()` to remove any record and caches of existing
     targets
 4.  Run `targets::tar_make()` in your console, depending on the power of
