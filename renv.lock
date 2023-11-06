@@ -2244,18 +2244,6 @@
       ],
       "Hash": "1da6217cea8a3ef496258819b80770e1"
     },
-    "magick": {
-      "Package": "magick",
-      "Version": "2.8.1",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Requirements": [
-        "Rcpp",
-        "curl",
-        "magrittr"
-      ],
-      "Hash": "691d5b9fd0e7ee9b56301fc8735a2e1f"
-    },
     "magrittr": {
       "Package": "magrittr",
       "Version": "2.0.3",

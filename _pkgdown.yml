@@ -77,6 +77,5 @@ reference:
   desc: Miscelaneous utility functions
   contents:
   - capwords
-  - hex_key
   - named_group_split
 
