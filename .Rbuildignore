@@ -8,3 +8,4 @@ _targets.R
 ^_pkgdown\.yml$
 ^docs$
 ^pkgdown$
+^\.github$
