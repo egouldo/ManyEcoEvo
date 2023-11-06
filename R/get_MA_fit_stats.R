@@ -7,7 +7,6 @@
 #' @importFrom rlang set_names
 #' @importFrom tibble as_tibble_row
 #' @importFrom dplyr bind_cols
-#' @importFrom orchaRd i2_ml
 get_MA_fit_stats <- function(MA_mod) {
   stopifnot("MA_mod must be an object of class rma.mv" = "rma.mv" %in% class(MA_mod))
   
