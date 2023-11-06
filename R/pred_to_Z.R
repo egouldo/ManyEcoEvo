@@ -44,7 +44,7 @@ pred_to_Z <- function(back_transformed_data,
     if(!pointblank::test_col_exists(back_transformed_data, 
                                     columns = c("fit", "se.fit"))){
       
-      cli::cli_warn("Eucalyptus Dataframe {.arg back_transformed_data} is missing columns {.val fit} and/or {.val se.fit}. Returning {.val {NA}} for standardized predictions.")
+      cli::cli_warn("Eucalyptus Dataframe {.arg back_transformed_data} is missing columns {.val fit} and/or {.val se.fit}. Returning {.val {NA}} for standardized predictions.") #TODO remove hard-coding, generalise
       return(NA)
     }
     sd_p <- params %>% filter(parameter == "sd") %>% pluck("value")
