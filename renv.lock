@@ -2170,8 +2170,13 @@
     "lme4": {
       "Package": "lme4",
       "Version": "1.1-35.1",
-      "Source": "Repository",
-      "Repository": "CRAN",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteUsername": "lme4",
+      "RemoteRepo": "lme4",
+      "RemoteRef": "master",
+      "RemoteSha": "ce9bd2d9cd5ef2945ccd6be2455d5f1b05670b58",
       "Requirements": [
         "MASS",
         "Matrix",
@@ -2191,7 +2196,7 @@
         "stats",
         "utils"
       ],
-      "Hash": "07fb0c5b727b15b0ce40feb641498e4e"
+      "Hash": "637cd05f128abc248406130ac2ff1bb2"
     },
     "lmtest": {
       "Package": "lmtest",
@@ -3327,13 +3332,18 @@
     "rlang": {
       "Package": "rlang",
       "Version": "1.1.2",
-      "Source": "Repository",
-      "Repository": "CRAN",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteUsername": "r-lib",
+      "RemoteRepo": "rlang",
+      "RemoteRef": "main",
+      "RemoteSha": "169fbbf32f7fde278717d226e9fb1728a06ff4f2",
       "Requirements": [
         "R",
         "utils"
       ],
-      "Hash": "50a6dbdc522936ca35afc5e2082ea91b"
+      "Hash": "f9ffcafa3f9272dcaf8a204224baaece"
     },
     "rmarkdown": {
       "Package": "rmarkdown",
