@@ -46,7 +46,6 @@ Imports:
     glue, 
     here, 
     lme4, 
-    magick, 
     metafor, 
     metaviz, 
     naniar, 
