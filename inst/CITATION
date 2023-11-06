@@ -1,16 +1,29 @@
 citHeader("To cite ManyEcoEvo in publications use:")
 
-citEntry(
-  entry    = "Article",
-  title    = "ManyEcoEvo: Meta-analyse data from ManyAnalyst style studies",
-  author   = c("Elliot Gould, "Hannah S. Fraser", "Shinichi Nakagawa, "Timothy H. Parker"),
-  journal  = "TBC",
-  year     = 2023,
-#  volume   = ,
-#  number   = ,
-#  pages    = ,
-#  url      = ,
-  textVersion = paste(
-
-  )
-)
+bibentry(
+     bibtype = "Article",
+     title = "ManyEcoEvo: Meta-analyse data from ManyAnalyst style studies",
+     author = c(person(given = "Elliot",
+                    family = "Gould",
+                    email =  "elliot.gould@unimelb.edu.au",
+                    role = c("aut", "cre"),
+                    comment = c(ORCID = "https://orcid.org/0000-0002-6585-538X")),
+             person(given = "Hannah S.",
+                    family = "Fraser",
+                    role = "aut",
+                    comment = c(ORCID = "https://orcid.org/0000-0003-2443-4463")),
+             person(given = "Shinichi",
+                    family = "Nakagawa",
+                    role = "aut",
+                    comment = c(ORCID = "https://orcid.org/0000-0002-7765-5182")),
+             person(given = "Timothy H.",
+                    family = "Parker",
+                    role = "aut",
+                    comment = c(ORCID = "https://orcid.org/0000-0003-2995-5284"))
+           ),
+     journal = "TBC",
+     year = "2023",
+     #note = "R package version 1.3-4",
+     #url = "https://CRAN.R-project.org/package=boot",
+     #key = "boot-package"
+     )
