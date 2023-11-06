@@ -35,7 +35,6 @@ Imports:
     rlang,
     tidyr,
     tidyselect,
-    orchaRd,
     pointblank,
     tibble,
     broom.mixed, 
@@ -44,7 +43,6 @@ Imports:
     forcats, 
     fs, 
     ggeffects, 
-    ggforestplot, 
     glue, 
     here, 
     lme4, 
@@ -64,6 +62,11 @@ Imports:
     stringr, 
     timetk, 
     workflows
+Suggests:
+  tidyverse
+Remotes:
+  daniel1noble/orchaRd,
+  NightingaleHealth/ggforestplot
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
