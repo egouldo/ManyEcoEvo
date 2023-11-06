@@ -1,9 +1,16 @@
 citHeader("To cite ManyEcoEvo in publications use:")
 
- @Manual{,
-    title = {ManyEcoEvo: Meta-analyse data from 'Many-Analysts' style studies},
-    author = {Elliot Gould and Hannah S. Fraser and Shinichi Nakagawa and Timothy H. Parker},
-    year = {2023},
-    note = {R package version 1.0.0},
-    url = {https://github.com/egouldo/ManyEcoEvo},
-  }
+citEntry(
+  entry    = "Article",
+  title    = {ManyEcoEvo: Meta-analyse data from 'ManyAnalyst' style studies},
+  author   = {Gould, Elliot, Fraser, Hannah S., Nakagawa, Shinichi, Parker, Timothy H.},
+  journal  = {TBC},
+  year     = {2023},
+  volume   = ,
+  number   = ,
+  pages    = ,
+  url      = ,
+  textVersion = paste(
+
+  )
+)
