@@ -62,7 +62,9 @@ Imports:
     timetk, 
     workflows
 Suggests:
-  tidyverse
+  tidyverse,
+  orchaRd,
+  ggforestplot
 Remotes:
   daniel1noble/orchaRd,
   NightingaleHealth/ggforestplot
