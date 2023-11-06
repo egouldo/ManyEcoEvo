@@ -2,14 +2,14 @@ citHeader("To cite ManyEcoEvo in publications use:")
 
 citEntry(
   entry    = "Article",
-  title    = {ManyEcoEvo: Meta-analyse data from 'ManyAnalyst' style studies},
-  author   = {Gould, Elliot, Fraser, Hannah S., Nakagawa, Shinichi, Parker, Timothy H.},
-  journal  = {TBC},
-  year     = {2023},
-  volume   = ,
-  number   = ,
-  pages    = ,
-  url      = ,
+  title    = "ManyEcoEvo: Meta-analyse data from ManyAnalyst style studies",
+  author   = c("Elliot Gould, "Hannah S. Fraser", "Shinichi Nakagawa, "Timothy H. Parker"),
+  journal  = "TBC",
+  year     = 2023,
+#  volume   = ,
+#  number   = ,
+#  pages    = ,
+#  url      = ,
   textVersion = paste(
 
   )
