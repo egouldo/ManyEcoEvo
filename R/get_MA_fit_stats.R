@@ -2,11 +2,6 @@
 #' @param MA_mod a fitted model of class rma.mv
 #' @return A tidy tibble with \eqn{\sigma^2} and \eqn{I^2} estimates for \code{MA_mod}
 #' @export
-#' @importFrom orchaRd i2_ml
-#' @importFrom purrr pluck
-#' @importFrom rlang set_names
-#' @importFrom tibble as_tibble_row
-#' @importFrom dplyr bind_cols
 get_MA_fit_stats <- function(MA_mod) {
   stopifnot("MA_mod must be an object of class rma.mv" = "rma.mv" %in% class(MA_mod))
   
