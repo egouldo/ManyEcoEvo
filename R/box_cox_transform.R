@@ -5,14 +5,6 @@
 #'
 #' @return data with additional columns of box-cox transformed deviation scores and variance
 #' @export
-#'
-#' @examples
-#' # library(tidyverse)
-#' # library(targets)
-#' # source("R/functions.R")
-#' # tar_load(meta_analysis_outputs)
-#' # box_cox_transform(data = meta_analysis_outputs$data[[1]],
-#' #                   dataset = meta_analysis_outputs$dataset[[1]])
 box_cox_transform <- function(data, dataset) {
   if(rlang::is_na(data) | rlang::is_null(data)){
     cli::cli_alert_warning(text =  glue::glue("Cannot box-cox transform data for", 
