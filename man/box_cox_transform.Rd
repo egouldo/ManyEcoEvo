@@ -17,11 +17,3 @@ data with additional columns of box-cox transformed deviation scores and varianc
 \description{
 Box-cox transform absolute deviation from the meta-analytic mean scores
 }
-\examples{
-# library(tidyverse)
-# library(targets)
-# source("R/functions.R")
-# tar_load(meta_analysis_outputs)
-# box_cox_transform(data = meta_analysis_outputs$data[[1]],
-#                   dataset = meta_analysis_outputs$dataset[[1]])
-}
