@@ -67,11 +67,37 @@ For example, [@Auspurg2021] re-analysed part of the seminal 'Red-Card' many-anal
 By providing the code and data for Gould *et al.* [-@gould2023] the *ManyEcoEvo* package, we aim to facilitate computational reproductions by others in order to verify our results.
 We also aim to facilitate analytic reproductions of this study, wherein *ManyEcoEvo* can be used to re-run the analysis in Gould *et al.* [-@gould2023] with slightly different methods, or subsets of data in order to verify and examine the robustness of our findings.
 
+The last ten years has seen the growing emergence of many-analyst projects, [e.g. @silberzahn2018; @botvinik-nezer2020; @huntington-klein2021; @schweinsberg2021; @breznau2022; @hoogeveen2022many; @coretta2023], predominantly in the disciplines of psychology and social and behavioural sciences, however we expect more of these types of studies to be published into the near future across other disciplines.
+Moreover, collaborative and distributed big team open science projects are becoming increasingly common in ecology and evolutionary biology (e.g. NutNet <https://nutnet.org/index.php/>, DragNet, ManyBirds <http://themanybirds.com>) as well as other disciplines (ManyBabies **CITE**, ManyPrimates **CITE**) which pose computationally analogous data-manipulation and analysis problems to the many-analyst workflow addressed by the *ManyEcoEvo* approach.
+While *ManyEcoEvo* was designed for the ManyEcoEvo project, the structured approach it employs establishes a workflow that can be generalised and applied to new many-analyst style data, facilitating replication of Gould *et al.* [-@gould2023], in addition to computational reproduction [@Stoudt2021], as well as new analyses of many-analyst type studies.
+
+We are not aware of any R packages or software in other languages exclusively focussed on facilitating many-analyst style studies.
+Existing many-analyst code if shared, is written as R scripts particular to that study's analysis (e.g. <https://github.com/manybabies/mb1-analysis-public>, <https://github.com/many-speech-analyses/many_analyses>).
+However, there are a range of existing packages with select functionality that addresses various components of many-analyst style analyses, namely meta-analysis, its associated preparation and visualisation, as well as the visualisation component of [specification curve analysis] / [multiverse analysis] ([@Simonsohn2020], [@Steegen2016]).
+Following the collection of results from teams conducting independent analyses, the data must be 1.
+cleaned and prepared for 2.
+meta-analysis and other model analysis, which is then 3.
+subjected to model checking, statistic extraction and visualisation [@aczel2021].
+
+We provide a suite of miscellaneous functions for data cleaning and processing tasks that we expect to be common to the sorts of data collected by many-analyst style studies.
+This was the most time and effort-intensive aspect of the analysis in Gould *et al.* [-@gould2023], and we hope these functions will ease the burden on future researchers conducting many-analyst studies.
+
+*ManyEcoEvo* provides custom functions to calculate standardize effect sizes in the form of Fishers' Z correlation scores in preparation for meta-analysis.
+While some existing functions exist within other packages (e.g. `DescTools::FishersZ()`, `DiagTest3Grp::FisherZ.var()`), the method for calculating variance of the standardized effect size in Gould *et al.* [-@gould2023] differed slightly see `INSERT FUNCTION NAME`, and we wished to avoid reliance on too many external packages (Wickham & Bryan, 2023: **Chapter 10.1**).
+Should *ManyEcoEvo* users wish to deviate from the effect-size standardisation method used in Gould *et al.* [-@gould2023], they are free to use their own functions provided by other software or custom functions (See **Harrer et al. 2022** chapter 3 for a range of R snippets that calculate various effect sizes).
+
+`meta` (**CITE**) and `metafor` (**cite**) R packages are the two most commonly used softwares for undertaking meta-analysis in R [@lortie2020].
+We provide functions for fitting the exact meta-analysis models used in Gould *et al.* [-@gould2023], which were implemented with the *metafor* package, however *ManyEcoEvo* users are free to supply alternative model-fitting functions should they wish to deviate from these specified models.
+After model-fitting and analysis, model checking and extraction of model fit and heterogeneity statistics is implemented using a range of existing packages, including: `performance::`, `broom.mixed::`, `metafor::`.
+*ManyEcoEvo* also draws on existing visualisation packages to implement forest plots (`ggforest::)`, funnel plots (`metafor::`), and s [specification curve analysis] plots to examine the influence of analysis specifications on variation in analysis outcomes (`specr::`).
+Select functions from the above packages have been thoughtfully abstracted and coded into wrapper functions according to a principled and structured workflow (described below) for ease of application and generalisation to alternative datasets.
+
 # Same Data, Different Analysts: variation in effect sizes due to analytical decisions in ecology and evolutionary biology.
 
 # Acknowledgements
 
-We acknowledge the contributions of all 246 analysts and co-authors of Gould et al. (2023).
+We acknowledge the contributions of all 246 analysts and co-authors of Gould *et al. [-@gould2023]* please see the original manuscript for a full list of contributors to the ManyEcoEvo project.
+
 EG is supported by an Australian Government Research Training Program Scholarship.
 
 -   [ ] HF?
