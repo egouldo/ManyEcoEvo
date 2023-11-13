@@ -1,6 +1,6 @@
 Package: ManyEcoEvo
 Title: Meta-analyse data from 'Many-Analysts' style studies
-Version: 1.0.0
+Version: 1.0.0.9000
 Authors@R: c(person(given = "Elliot",
                     family = "Gould", 
                     email =  "elliot.gould@unimelb.edu.au", 
