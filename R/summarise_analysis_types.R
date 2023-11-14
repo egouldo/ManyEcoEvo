@@ -81,11 +81,11 @@ summarise_analysis_types <- function(ManyEcoEvo_results, ManyEcoEvo_yi_results, 
   
   summarised_data <- full_join(
   map_dfr(.x = list(effects, predictions) %>% 
-            set_names("effects", "predictions"),
+            purrr::set_names("effects", "predictions"),
           count_teams_analyses, 
           .id = "subset"),
       map_dfr(.x = list(effects, predictions) %>% 
-            set_names("effects", "predictions"),
+            purrr::set_names("effects", "predictions"),
           count_binary_coded_features,
           .id = "subset")
   )
