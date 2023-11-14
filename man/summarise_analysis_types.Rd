@@ -7,7 +7,11 @@
 summarise_analysis_types(ManyEcoEvo_results, ManyEcoEvo_yi_results, ManyEcoEvo)
 }
 \arguments{
-\item{data}{}
+\item{ManyEcoEvo_results}{A tibble of \code{ManyEcoEvo_results}}
+
+\item{ManyEcoEvo_yi_results}{A tibble of \code{ManyEcoEvo_yi_results}}
+
+\item{ManyEcoEvo}{A tibble of \code{ManyEcoEvo}}
 }
 \value{
 A summarised tibble with the variables \code{subset}, \code{dataset}, \code{num_teams}, \code{total_analyses}, \code{sum_linear}, \code{sum_mixed}, \code{sum_Bayesian}.
