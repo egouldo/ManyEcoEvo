@@ -24,7 +24,7 @@
 #' @importFrom dplyr right_join
 #' @importFrom dplyr full_join
 #' @importFrom purrr map_dfr
-#'
+#' @family Multi-dataset Wrapper Functions
 #' @examples
 #' summarise_analysis_types(ManyEcoEvo_results, ManyEcoEvo_yi_results, ManyEcoEvo)
 summarise_analysis_types <- function(ManyEcoEvo_results, ManyEcoEvo_yi_results, ManyEcoEvo) {

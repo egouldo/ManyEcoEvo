@@ -21,6 +21,7 @@
 #' @importFrom tidyr pivot_longer
 #' @importFrom purrr map_dfr
 #' @importFrom purrr set_names
+#' @family Multi-dataset Wrapper Functions
 #' @examples
 #' summarise_model_composition(ManyEcoEvo_results, ManyEcoEvo_yi_results, ManyEcoEvo)
 summarise_model_composition <- function(ManyEcoEvo_results, ManyEcoEvo_yi_results, ManyEcoEvo) {

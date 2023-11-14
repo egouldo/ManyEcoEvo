@@ -23,7 +23,7 @@
 #' @importFrom dplyr full_join
 #' @importFrom purrr map_dfr
 #' @importFrom tidyr pivot_wider
-#'
+#' @family Multi-dataset Wrapper Functions
 #' @examples
 #' summarise_conclusions(ManyEcoEvo_results,ManyEcoEvo_yi_results,ManyEcoEvo)
 summarise_conclusions <- function(ManyEcoEvo_results, ManyEcoEvo_yi_results, ManyEcoEvo) {
