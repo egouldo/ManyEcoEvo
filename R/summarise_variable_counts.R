@@ -89,10 +89,10 @@ summarise_variable_counts <- function(ManyEcoEvo, ManyEcoEvo_results, ManyEcoEvo
     summarised_data <-  summarised_data %>% 
       group_by(dataset, subset) %>% 
       summarise(across(n, 
-                       .fns = list(mean = mean, 
-                                   sd = sd, 
-                                   min = min, 
-                                   max = max)))
+                       .fns = list(mean = ~ mean(.x, na.rm = TRUE), 
+                                   sd = ~ sd(.x, na.rm = TRUE), 
+                                   min = ~ min(.x, na.rm = TRUE), #TODO is value of 0 correct?
+                                   max = ~ max(.x, na.rm = TRUE))))
   }
   return(summarised_data)
 }
