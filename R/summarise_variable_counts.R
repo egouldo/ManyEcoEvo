@@ -29,9 +29,9 @@
 #' @author Elliot Gould
 #' @family Multi-dataset Wrapper Functions
 #' @examples
-#' summarise_variable_usage(ManyEcoEvo, ManyEcoEvo_results, ManyEcoEvo_yi_results, "count")
+#' summarise_variable_counts(ManyEcoEvo, ManyEcoEvo_results, ManyEcoEvo_yi_results, "count")
 #' 
-#' summarise_variable_usage(ManyEcoEvo, ManyEcoEvo_results, ManyEcoEvo_yi_results, "aggregate")
+#' summarise_variable_counts(ManyEcoEvo, ManyEcoEvo_results, ManyEcoEvo_yi_results, "aggregate")
 summarise_variable_counts <- function(ManyEcoEvo, ManyEcoEvo_results, ManyEcoEvo_yi_results, output = "count") {
   stopifnot(output == "count" | output == "aggregate")
   

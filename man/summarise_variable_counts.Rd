@@ -30,9 +30,9 @@ Calculates either the counts of analyses in which each variable is used for a gi
 To calculate count values, supply \code{"count"} to argument \code{output}. To calculate summary statistics of counts, supply \code{"aggregate"} to argument \code{output} instead.
 }
 \examples{
-summarise_variable_usage(ManyEcoEvo, ManyEcoEvo_results, ManyEcoEvo_yi_results, "count")
+summarise_variable_counts(ManyEcoEvo, ManyEcoEvo_results, ManyEcoEvo_yi_results, "count")
 
-summarise_variable_usage(ManyEcoEvo, ManyEcoEvo_results, ManyEcoEvo_yi_results, "aggregate")
+summarise_variable_counts(ManyEcoEvo, ManyEcoEvo_results, ManyEcoEvo_yi_results, "aggregate")
 }
 \seealso{
 Other Multi-dataset Wrapper Functions: 
