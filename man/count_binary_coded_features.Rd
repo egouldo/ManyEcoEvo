@@ -26,3 +26,8 @@ ungroup \%>\%
         Bayesian = as.numeric(Bayesian)) \%>\% 
  count_binary_coded_features()
 }
+\author{
+Hannah S. Fraser
+
+Elliot Gould
+}

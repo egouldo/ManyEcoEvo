@@ -26,3 +26,26 @@ Calculate descriptive statistics (mean, sd, min, max) for number of fixed effect
 \examples{
 summarise_model_composition(ManyEcoEvo_results, ManyEcoEvo_yi_results, ManyEcoEvo)
 }
+\seealso{
+Other Multi-dataset Wrapper Functions: 
+\code{\link{apply_VZ_exclusions}()},
+\code{\link{compute_MA_inputs}()},
+\code{\link{generate_exclusion_subsets}()},
+\code{\link{generate_outlier_subsets}()},
+\code{\link{generate_rating_subsets}()},
+\code{\link{generate_yi_subsets}()},
+\code{\link{make_viz}()},
+\code{\link{meta_analyse_datasets}()},
+\code{\link{prepare_ManyEcoEvo_yi}()},
+\code{\link{prepare_ManyEcoEvo}()},
+\code{\link{prepare_response_variables_yi}()},
+\code{\link{prepare_response_variables}()},
+\code{\link{summarise_analysis_types}()},
+\code{\link{summarise_conclusions}()}
+}
+\author{
+Hannah S. Fraser
+
+Elliot Gould
+}
+\concept{Multi-dataset Wrapper Functions}

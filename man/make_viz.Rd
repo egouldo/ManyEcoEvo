@@ -36,7 +36,10 @@ Other Multi-dataset Wrapper Functions:
 \code{\link{prepare_ManyEcoEvo_yi}()},
 \code{\link{prepare_ManyEcoEvo}()},
 \code{\link{prepare_response_variables_yi}()},
-\code{\link{prepare_response_variables}()}
+\code{\link{prepare_response_variables}()},
+\code{\link{summarise_analysis_types}()},
+\code{\link{summarise_conclusions}()},
+\code{\link{summarise_model_composition}()}
 }
 \concept{Multi-dataset Wrapper Functions}
 \concept{targets-pipeline functions}

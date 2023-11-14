@@ -23,3 +23,8 @@ select(data) \%>\%
 unnest(data) \%>\% 
 count_teams_analyses()
 }
+\author{
+Hannah S. Fraser
+
+Elliot Gould
+}

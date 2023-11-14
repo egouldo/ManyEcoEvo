@@ -23,3 +23,8 @@ select(data) \%>\%
 unnest(data) \%>\% 
 summarise_model_composition_data()
 }
+\author{
+Hannah S. Fraser
+
+Elliot Gould
+}

@@ -20,3 +20,8 @@ ManyEcoEvo$data[[1]] \%>\%
 filter(Conclusion != "CHECK") \%>\%
 summarise_conclusions_data()
 }
+\author{
+Hannah S. Fraser
+
+Elliot Gould
+}
