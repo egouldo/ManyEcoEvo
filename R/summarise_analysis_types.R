@@ -2,7 +2,9 @@
 #' @description
 #' Generates a summary of the number of analysis teams, total analyses, models with normal error distributions, mixed effects modls, and models developed using Bayesian statistical methods for a given analysis type.
 #' 
-#' @param data 
+#' @param ManyEcoEvo_results A tibble of `ManyEcoEvo_results`
+#' @param ManyEcoEvo_yi_results A tibble of `ManyEcoEvo_yi_results`
+#' @param ManyEcoEvo A tibble of `ManyEcoEvo`
 #'
 #' @return A summarised tibble with the variables `subset`, `dataset`, `num_teams`, `total_analyses`, `sum_linear`, `sum_mixed`, `sum_Bayesian`.
 #' @export
