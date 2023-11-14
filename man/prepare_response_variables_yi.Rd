@@ -50,7 +50,8 @@ Other Multi-dataset Wrapper Functions:
 \code{\link{prepare_response_variables}()},
 \code{\link{summarise_analysis_types}()},
 \code{\link{summarise_conclusions}()},
-\code{\link{summarise_model_composition}()}
+\code{\link{summarise_model_composition}()},
+\code{\link{summarise_variable_counts}()}
 }
 \concept{Multi-dataset Wrapper Functions}
 \concept{targets-pipeline functions}

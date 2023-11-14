@@ -30,7 +30,8 @@ Other Multi-dataset Wrapper Functions:
 \code{\link{prepare_response_variables}()},
 \code{\link{summarise_analysis_types}()},
 \code{\link{summarise_conclusions}()},
-\code{\link{summarise_model_composition}()}
+\code{\link{summarise_model_composition}()},
+\code{\link{summarise_variable_counts}()}
 
 Other targets-pipeline functions: 
 \code{\link{generate_rating_subsets}()},

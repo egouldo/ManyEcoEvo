@@ -37,7 +37,8 @@ Other Multi-dataset Wrapper Functions:
 \code{\link{prepare_response_variables_yi}()},
 \code{\link{prepare_response_variables}()},
 \code{\link{summarise_conclusions}()},
-\code{\link{summarise_model_composition}()}
+\code{\link{summarise_model_composition}()},
+\code{\link{summarise_variable_counts}()}
 }
 \author{
 Hannah S. Fraser
