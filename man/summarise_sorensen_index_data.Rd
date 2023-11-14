@@ -2,7 +2,7 @@
 % Please edit documentation in R/summarise_sorensen_index.R
 \name{summarise_sorensen_index_data}
 \alias{summarise_sorensen_index_data}
-\title{Summarise Sorensen's Index Estimates}
+\title{Summarise Sorensen's Mean Index Estimates for a dataframe}
 \usage{
 summarise_sorensen_index_data(data)
 }

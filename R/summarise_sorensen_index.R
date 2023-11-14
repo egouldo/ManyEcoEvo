@@ -86,7 +86,7 @@ summarise_sorensen_index <- function(ManyEcoEvo_results,ManyEcoEvo_yi_results) {
   return(summarised_data)
 }
 
-#' Summarise Sorensen's Index Estimates
+#' Summarise Sorensen's Mean Index Estimates for a dataframe
 #' @description
 #' Summarises Sorensen's index estimates for a single dataframe of estimates 
 #' 
