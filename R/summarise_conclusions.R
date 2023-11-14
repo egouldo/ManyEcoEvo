@@ -1,4 +1,32 @@
-summarise_conclusions <- function(variables) {
+#' Summarise counts of qualitative conclusions across all datasets
+#'
+#' @param ManyEcoEvo_results A tibble of `ManyEcoEvo_results`
+#' @param ManyEcoEvo_yi_results A tibble of `ManyEcoEvo_yi_results`
+#' @param ManyEcoEvo A tibble of `ManyEcoEvo`
+#'
+#' @return A dataframe with count values for each unique `Conclusion` in columns for each `subset` ("effects", "predictions", "all"), for each `dataset`.
+#' @export
+#' @importFrom dplyr filter
+#' @importFrom dplyr select
+#' @importFrom dplyr group_by
+#' @importFrom dplyr rename
+#' @importFrom purrr map
+#' @importFrom broom tidy
+#' @importFrom tidyr unnest
+#' @importFrom magrittr "%>%"
+#' @importFrom dplyr distinct
+#' @importFrom dplyr mutate
+#' @import metafor
+#' @importFrom dplyr across
+#' @importFrom dplyr left_join
+#' @importFrom dplyr right_join
+#' @importFrom dplyr full_join
+#' @importFrom purrr map_dfr
+#' @importFrom dplyr pivot_wider
+#'
+#' @examples
+#' summarise_conclusions(ManyEcoEvo_results,ManyEcoEvo_yi_results,ManyEcoEvo)
+summarise_conclusions <- function(ManyEcoEvo_results, ManyEcoEvo_yi_results, ManyEcoEvo) {
   effect_ids <- ManyEcoEvo_results %>% 
     filter(exclusion_set == "complete", 
            publishable_subset == "All") %>% 
@@ -62,17 +90,33 @@ summarise_conclusions <- function(variables) {
             .id = "subset") %>% 
     pivot_wider(names_from = Conclusion, 
                 values_from = n,
-                values_fill = 0)
+                values_fill = 0) %>% 
+    ungroup()
   
   return(summarised_data)
   
 }
 
 
+#' Count qualitative conclusions across all analyses for each dataset
+#'
+#' @param data A dataframe containing the columns `split_id`, `analysis_id`, `dataset`, `Conclusion`
+#'
+#' @return A dataframe with counts `n` for each unique value of `Conclusion` for each `dataset`
+#' @export
+#' @importFrom dplyr filter
+#' @importFrom dplyr group_by
+#' @importFrom dplyr count
+#' @importFrom magrittr "%>%"
+#' @examples
+#' ManyEcoEvo$data[[1]] %>%
+#' filter(Conclusion != "CHECK") %>%
+#' summarise_conclusions_data()
 summarise_conclusions_data <- function(data){
   data %>% 
     ungroup %>% 
     filter(split_id == "1", analysis_id == "1" ) %>% #TODO how to generalise to data without split_id
     group_by(dataset, Conclusion) %>% 
-    count()
+    count() %>% 
+    ungroup()
 }
