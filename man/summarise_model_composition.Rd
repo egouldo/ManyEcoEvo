@@ -42,6 +42,7 @@ Other Multi-dataset Wrapper Functions:
 \code{\link{prepare_response_variables}()},
 \code{\link{summarise_analysis_types}()},
 \code{\link{summarise_conclusions}()},
+\code{\link{summarise_sorensen_index}()},
 \code{\link{summarise_variable_counts}()}
 }
 \author{
