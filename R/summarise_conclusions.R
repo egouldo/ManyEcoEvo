@@ -22,7 +22,7 @@
 #' @importFrom dplyr right_join
 #' @importFrom dplyr full_join
 #' @importFrom purrr map_dfr
-#' @importFrom dplyr pivot_wider
+#' @importFrom tidyr pivot_wider
 #'
 #' @examples
 #' summarise_conclusions(ManyEcoEvo_results,ManyEcoEvo_yi_results,ManyEcoEvo)
