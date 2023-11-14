@@ -21,9 +21,10 @@ Values in variable columns are character strings or \code{NA}. \code{NA} values 
 Variable presence in an analysis is converted to numeric 1's/0's and then summed to calculate total times the analysis is used across all analyses (\code{n}).
 }
 \examples{
+library(ManyEcoEvo)
 ManyEcoEvo \%>\% 
 select(diversity_data) \%>\% 
- unnest(diversity_data) \%>\% 
+ tidyr::unnest(diversity_data) \%>\% 
  count_analyses_variables_used()
 }
 \author{

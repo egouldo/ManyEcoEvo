@@ -116,9 +116,10 @@ summarise_variable_counts <- function(ManyEcoEvo, ManyEcoEvo_results, ManyEcoEvo
 #' @author Hannah S. Fraser
 #' @author Elliot Gould
 #' @examples
+#' library(ManyEcoEvo)
 #' ManyEcoEvo %>% 
 #' select(diversity_data) %>% 
-#'  unnest(diversity_data) %>% 
+#'  tidyr::unnest(diversity_data) %>% 
 #'  count_analyses_variables_used()
 count_analyses_variables_used <- function(data){
   data %>% 
