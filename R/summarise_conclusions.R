@@ -24,6 +24,8 @@
 #' @importFrom purrr map_dfr
 #' @importFrom tidyr pivot_wider
 #' @family Multi-dataset Wrapper Functions
+#' @author Hannah S. Fraser
+#' @author Elliot Gould
 #' @examples
 #' summarise_conclusions(ManyEcoEvo_results,ManyEcoEvo_yi_results,ManyEcoEvo)
 summarise_conclusions <- function(ManyEcoEvo_results, ManyEcoEvo_yi_results, ManyEcoEvo) {
@@ -108,6 +110,8 @@ summarise_conclusions <- function(ManyEcoEvo_results, ManyEcoEvo_yi_results, Man
 #' @importFrom dplyr group_by
 #' @importFrom dplyr count
 #' @importFrom magrittr "%>%"
+#' @author Hannah S. Fraser
+#' @author Elliot Gould
 #' @examples
 #' ManyEcoEvo$data[[1]] %>%
 #' filter(Conclusion != "CHECK") %>%

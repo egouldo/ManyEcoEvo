@@ -25,6 +25,8 @@
 #' @importFrom dplyr full_join
 #' @importFrom purrr map_dfr
 #' @family Multi-dataset Wrapper Functions
+#' @author Hannah S. Fraser
+#' @author Elliot Gould
 #' @examples
 #' summarise_analysis_types(ManyEcoEvo_results, ManyEcoEvo_yi_results, ManyEcoEvo)
 summarise_analysis_types <- function(ManyEcoEvo_results, ManyEcoEvo_yi_results, ManyEcoEvo) {
@@ -107,7 +109,8 @@ summarise_analysis_types <- function(ManyEcoEvo_results, ManyEcoEvo_yi_results, 
 #' @importFrom dplyr group_by
 #' @importFrom dplyr summarise
 #' @importFrom magrittr "%>%"
-#'
+#' @author Hannah S. Fraser
+#' @author Elliot Gould
 #' @examples
 #' ManyEcoEvo %>% 
 #' filter(dataset == "blue tit") %>% 
@@ -132,7 +135,8 @@ count_teams_analyses <- function(data) {
 #' @importFrom dplyr group_by
 #' @importFrom dplyr summarise
 #' @importFrom magrittr "%>%"
-#'
+#' @author Hannah S. Fraser
+#' @author Elliot Gould
 #' @examples
 #' ManyEcoEvo %>%
 #' filter(dataset == "eucalyptus") %>%

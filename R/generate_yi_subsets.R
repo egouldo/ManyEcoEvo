@@ -6,6 +6,7 @@
 #' @family Multi-dataset Wrapper Functions
 #' @return A `datraframe` with the character columns `dataset`, `estimate_type` and list-cols `data` and `diversity_data`
 #' @export
+#' @author Elliot Gould
 generate_yi_subsets <- function(yi_analysis){
   
   # So: yi_analysis$data[[1]]$back_transformed data is that obj.

@@ -21,6 +21,8 @@
 #' @importFrom tidyr pivot_longer
 #' @importFrom purrr map_dfr
 #' @importFrom purrr set_names
+#' @author Hannah S. Fraser
+#' @author Elliot Gould
 #' @family Multi-dataset Wrapper Functions
 #' @examples
 #' summarise_model_composition(ManyEcoEvo_results, ManyEcoEvo_yi_results, ManyEcoEvo)
@@ -98,7 +100,8 @@ summarise_model_composition <- function(ManyEcoEvo_results, ManyEcoEvo_yi_result
 #'
 #' @return A dataframe in tidy format yielding descriptive summary statistics (mean, sd, min and max) for the key variables described in `data`, includes the variables `subset`, `dataset`, `variable`, `fn`, `value` 
 #' @export
-#'
+#' @author Hannah S. Fraser
+#' @author Elliot Gould
 #' @examples
 #' ManyEcoEvo %>% 
 #' ungroup %>% 
