@@ -1,0 +1,37 @@
+---
+title: "Scaling Up: working with multiple subsets or multiple datasets"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{multiple_datasets}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(ManyEcoEvo)
+```
+
+# A tidy approach with list-columns and nested dataframes
+list-columns tidy modelling approach.
+
+## Working with Multiple datasets
+
+Multiple different datasets that you might want to replicate the same analyses and compare. E.g. Blue tit vs. Eucalyptus. 
+
+Demonstrate the approach of the analysis pipeline for ManyEcoEvo just using the blue tit and Eucalyptus data -> `make_viz()` etc. 
+
+## Creating data subsets based on various exclusion principles
+
+Generate different subsets:
+- `generate_exclusion_subsets()`
+- `generate_expertise_subsets()` 
+- `generate_outlier_subsets()` 
+- `generate_rating_subsets()` 
+- `generate_yi_subsets()`

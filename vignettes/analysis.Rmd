@@ -1,0 +1,40 @@
+---
+title: "Analysing Many-Analyst Data"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{analysis}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(ManyEcoEvo)
+```
+
+Briefly describe what analyses we implemented, sending reader to the Gould et al. paper. and pointing out what functions correspond to which analyses.
+
+You could theoretically write your own function for this, but the functions packaged here allow you to implement our specific meta-analyses.
+
+# Analysis
+
+## Meta-analysis
+
+## Univariate analyses
+
+# Extracting model results
+
+## Model Checking
+
+## Heterogeneity statistics
+
+## Forest Plots
+
+## Specification Curves
+

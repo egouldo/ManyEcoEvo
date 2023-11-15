@@ -5,3 +5,4 @@
 .DS_Store
 *reprex.*
 docs
+inst/doc
