@@ -139,13 +139,13 @@ summarise_analyses_by_reviewer <- function(review_data) {
 #' @importFrom magrittr "%>%"
 #'
 #' @examples
-# ManyEcoEvo %>%
-# ungroup %>%
-# select(data, -dataset) %>%
-# unnest(data) %>%
-# select(ends_with("_id"), id_col, dataset, review_data) %>%
-# unnest(review_data) %>%
-# summarise_reviews_per_analysis()
+#' ManyEcoEvo %>%
+#' ungroup %>%
+#' select(data, -dataset) %>%
+#' unnest(data) %>%
+#' select(ends_with("_id"), id_col, dataset, review_data) %>%
+#' unnest(review_data) %>%
+#' summarise_reviews_per_analysis()
 summarise_reviews_per_analysis <- function(review_data) {
   # number of times analyses reviewed across all datasets
   review_data %>% 
