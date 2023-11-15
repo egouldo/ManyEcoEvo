@@ -22,6 +22,9 @@
 #' @importFrom dplyr ends_with
 #' @importFrom broom tidy
 #' @import metafor
+#' @author Hannah S. Fraser
+#' @author Elliot Gould
+#' @family Multi-dataset Wrapper Functions
 #'
 #' @examples
 #' summarise_reviews(ManyEcoEvo, ManyEcoEvo_results,ManyEcoEvo_yi_results)
