@@ -1,7 +1,7 @@
 #' Summarise variable usage across analyses
 #' 
 #' @description
-#' Calculates either the counts of analyses in which each variable is used for a given dataset, or the mean, sd, minimum and maximum of those counts.
+#' Using [count_analyses_variables_used()] calculates the counts of analyses in which each variable is used for a given `dataset`. Further summarisation of those counts ( `mean`, `sd`, `min` and `max`) is optional, see details.
 #' 
 #' @details To calculate count values, supply `"count"` to argument `output`. To calculate summary statistics of counts, supply `"aggregate"` to argument `output` instead.
 #' 
@@ -10,7 +10,7 @@
 #' @param ManyEcoEvo A tibble of `ManyEcoEvo`
 #' @param output A length 1 character vector equal to `"count"` or `"aggregate"`
 #'
-#' @return A dataframe of count values `n` or summary statistic values `n_mean`/`n_sd`/`n_min`/`n_max` of counts depending on the the value supplied to the `output` argument. 
+#' @return A dataframe of count values `n` or summary statistic values `n_mean`,`n_sd`,`n_min`,`n_max` of counts depending on the the value supplied to the `output` argument. 
 #' @export
 #' @importFrom dplyr filter
 #' @importFrom dplyr select

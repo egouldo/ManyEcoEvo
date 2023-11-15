@@ -1,5 +1,9 @@
 #' Summarise Mean Sorensen's Index Estimates
-#'
+#' 
+#' @details
+#' Generates data summary with [summarise_sorensen_index_data()].
+#' 
+#' 
 #' @param ManyEcoEvo_results A tibble of `ManyEcoEvo_results`
 #' @param ManyEcoEvo_yi_results A tibble of `ManyEcoEvo_yi_results`
 #'

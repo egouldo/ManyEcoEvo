@@ -2,6 +2,10 @@
 #' @description
 #' Calculate descriptive statistics (mean, sd, min, max) for number of fixed effects, number of random effects, number of interactions and sample size of models for each dataset across both out of sample predictions and standardized corelation coefficients.
 #' 
+#' @details
+#' Generates summary data with [summarise_model_composition_data()].
+#' 
+#' 
 #' @param ManyEcoEvo_results A tibble of `ManyEcoEvo_results`
 #' @param ManyEcoEvo_yi_results A tibble of `ManyEcoEvo_yi_results`
 #' @param ManyEcoEvo A tibble of `ManyEcoEvo`

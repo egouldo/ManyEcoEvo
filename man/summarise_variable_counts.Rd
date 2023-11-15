@@ -21,10 +21,10 @@ summarise_variable_counts(
 \item{output}{A length 1 character vector equal to \code{"count"} or \code{"aggregate"}}
 }
 \value{
-A dataframe of count values \code{n} or summary statistic values \code{n_mean}/\code{n_sd}/\code{n_min}/\code{n_max} of counts depending on the the value supplied to the \code{output} argument.
+A dataframe of count values \code{n} or summary statistic values \code{n_mean},\code{n_sd},\code{n_min},\code{n_max} of counts depending on the the value supplied to the \code{output} argument.
 }
 \description{
-Calculates either the counts of analyses in which each variable is used for a given dataset, or the mean, sd, minimum and maximum of those counts.
+Using \code{\link[=count_analyses_variables_used]{count_analyses_variables_used()}} calculates the counts of analyses in which each variable is used for a given \code{dataset}. Further summarisation of those counts ( \code{mean}, \code{sd}, \code{min} and \code{max}) is optional, see details.
 }
 \details{
 To calculate count values, supply \code{"count"} to argument \code{output}. To calculate summary statistics of counts, supply \code{"aggregate"} to argument \code{output} instead.

@@ -19,6 +19,9 @@ A dataframe with count values for each unique \code{Conclusion} in columns for e
 \description{
 Summarise counts of qualitative conclusions across all datasets
 }
+\details{
+Data summary is generated with \code{\link[=summarise_conclusions_data]{summarise_conclusions_data()}}.
+}
 \examples{
 summarise_conclusions(ManyEcoEvo_results,ManyEcoEvo_yi_results,ManyEcoEvo)
 }

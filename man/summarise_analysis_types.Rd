@@ -17,7 +17,10 @@ summarise_analysis_types(ManyEcoEvo_results, ManyEcoEvo_yi_results, ManyEcoEvo)
 A summarised tibble with the variables \code{subset}, \code{dataset}, \code{num_teams}, \code{total_analyses}, \code{sum_linear}, \code{sum_mixed}, \code{sum_Bayesian}.
 }
 \description{
-Generates a summary of the number of analysis teams, total analyses, models with normal error distributions, mixed effects modls, and models developed using Bayesian statistical methods for a given analysis type.
+Generates a summary of the number of analysis teams, total analyses, models with normal error distributions, mixed effects models, and models developed using Bayesian statistical methods for a given analysis type.
+}
+\details{
+Applies both \code{\link[=count_binary_coded_features]{count_binary_coded_features()}} and \code{\link[=count_teams_analyses]{count_teams_analyses()}} to generate data summaries.
 }
 \examples{
 summarise_analysis_types(ManyEcoEvo_results, ManyEcoEvo_yi_results, ManyEcoEvo)

@@ -1,5 +1,8 @@
 #' Summarise counts of qualitative conclusions across all datasets
-#'
+#' 
+#' @details
+#' Data summary is generated with [summarise_conclusions_data()].
+#' 
 #' @param ManyEcoEvo_results A tibble of `ManyEcoEvo_results`
 #' @param ManyEcoEvo_yi_results A tibble of `ManyEcoEvo_yi_results`
 #' @param ManyEcoEvo A tibble of `ManyEcoEvo`

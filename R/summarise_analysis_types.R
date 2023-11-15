@@ -1,6 +1,10 @@
 #' Summarise Analysis Types
 #' @description
-#' Generates a summary of the number of analysis teams, total analyses, models with normal error distributions, mixed effects modls, and models developed using Bayesian statistical methods for a given analysis type.
+#' Generates a summary of the number of analysis teams, total analyses, models with normal error distributions, mixed effects models, and models developed using Bayesian statistical methods for a given analysis type.
+#' 
+#' @details
+#' Applies both [count_binary_coded_features()] and [count_teams_analyses()] to generate data summaries.
+#' 
 #' 
 #' @param ManyEcoEvo_results A tibble of `ManyEcoEvo_results`
 #' @param ManyEcoEvo_yi_results A tibble of `ManyEcoEvo_yi_results`
