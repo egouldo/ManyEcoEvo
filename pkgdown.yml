@@ -1,8 +1,11 @@
 pandoc: 2.19.2
 pkgdown: 2.0.7
 pkgdown_sha: ~
-articles: {}
-last_built: 2023-11-07T08:45Z
+articles:
+  analysis: analysis.html
+  data_cleaning_preparation: data_cleaning_preparation.html
+  multiple_datasets: multiple_datasets.html
+last_built: 2023-11-15T05:00Z
 urls:
   reference: https://egouldo.github.io/ManyEcoEvo/reference
   article: https://egouldo.github.io/ManyEcoEvo/articles

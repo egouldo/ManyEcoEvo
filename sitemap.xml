@@ -10,6 +10,18 @@
     <loc>https://egouldo.github.io/ManyEcoEvo/LICENSE.html</loc>
   </url>
   <url>
+    <loc>https://egouldo.github.io/ManyEcoEvo/articles/analysis.html</loc>
+  </url>
+  <url>
+    <loc>https://egouldo.github.io/ManyEcoEvo/articles/data_cleaning_preparation.html</loc>
+  </url>
+  <url>
+    <loc>https://egouldo.github.io/ManyEcoEvo/articles/index.html</loc>
+  </url>
+  <url>
+    <loc>https://egouldo.github.io/ManyEcoEvo/articles/multiple_datasets.html</loc>
+  </url>
+  <url>
     <loc>https://egouldo.github.io/ManyEcoEvo/authors.html</loc>
   </url>
   <url>
@@ -77,6 +89,15 @@
   </url>
   <url>
     <loc>https://egouldo.github.io/ManyEcoEvo/reference/convert_predictions.html</loc>
+  </url>
+  <url>
+    <loc>https://egouldo.github.io/ManyEcoEvo/reference/count_analyses_variables_used.html</loc>
+  </url>
+  <url>
+    <loc>https://egouldo.github.io/ManyEcoEvo/reference/count_binary_coded_features.html</loc>
+  </url>
+  <url>
+    <loc>https://egouldo.github.io/ManyEcoEvo/reference/count_teams_analyses.html</loc>
   </url>
   <url>
     <loc>https://egouldo.github.io/ManyEcoEvo/reference/cube_back.html</loc>
@@ -236,6 +257,39 @@
   </url>
   <url>
     <loc>https://egouldo.github.io/ManyEcoEvo/reference/subset_fns_yi.html</loc>
+  </url>
+  <url>
+    <loc>https://egouldo.github.io/ManyEcoEvo/reference/summarise_analyses_by_reviewer.html</loc>
+  </url>
+  <url>
+    <loc>https://egouldo.github.io/ManyEcoEvo/reference/summarise_analysis_types.html</loc>
+  </url>
+  <url>
+    <loc>https://egouldo.github.io/ManyEcoEvo/reference/summarise_conclusions.html</loc>
+  </url>
+  <url>
+    <loc>https://egouldo.github.io/ManyEcoEvo/reference/summarise_conclusions_data.html</loc>
+  </url>
+  <url>
+    <loc>https://egouldo.github.io/ManyEcoEvo/reference/summarise_model_composition.html</loc>
+  </url>
+  <url>
+    <loc>https://egouldo.github.io/ManyEcoEvo/reference/summarise_model_composition_data.html</loc>
+  </url>
+  <url>
+    <loc>https://egouldo.github.io/ManyEcoEvo/reference/summarise_reviews.html</loc>
+  </url>
+  <url>
+    <loc>https://egouldo.github.io/ManyEcoEvo/reference/summarise_reviews_per_analysis.html</loc>
+  </url>
+  <url>
+    <loc>https://egouldo.github.io/ManyEcoEvo/reference/summarise_sorensen_index.html</loc>
+  </url>
+  <url>
+    <loc>https://egouldo.github.io/ManyEcoEvo/reference/summarise_sorensen_index_data.html</loc>
+  </url>
+  <url>
+    <loc>https://egouldo.github.io/ManyEcoEvo/reference/summarise_variable_counts.html</loc>
   </url>
   <url>
     <loc>https://egouldo.github.io/ManyEcoEvo/reference/validate_predictions.html</loc>
