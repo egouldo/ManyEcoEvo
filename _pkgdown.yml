@@ -1,4 +1,6 @@
 url: https://egouldo.github.io/ManyEcoEvo/
+development:
+  mode: auto
 template:
   bootstrap: 5
 reference:
@@ -61,9 +63,18 @@ reference:
   - compare_ml_MA
   - get_MA_fit_stats
   - run_model_checks
+- subtitle: Summarising Analysis Features
+  desc: |
+    Functions for summarising qualitative and quantitative features of analyses, 
+    including model specification and variable selection, analyst conclusions and 
+    modelling approaches.
+  contents:
+  - starts_with("summarise")
+  - starts_with("count")
 - title: 'Scaling Up: Working with data subsets or multiple datasets'
   desc: |
-    Functions for working with multiple datasets or data subsets within a tidyverse list-column framework.
+    Functions for working with multiple datasets or data subsets within a 
+    tidyverse list-column framework.
 - subtitle: Wrapper Functions
   desc: ''
   contents:
