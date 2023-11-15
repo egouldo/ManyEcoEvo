@@ -25,6 +25,8 @@
 #' @importFrom tidyr pivot_longer
 #' @importFrom purrr map_dfr
 #' @importFrom purrr set_names
+#' @importFrom dplyr ends_with
+#' @importFrom broom tidy
 #' @author Hannah S. Fraser
 #' @author Elliot Gould
 #' @family Multi-dataset Wrapper Functions
@@ -48,9 +50,10 @@ summarise_variable_counts <- function(ManyEcoEvo, ManyEcoEvo_results, ManyEcoEvo
                           ~ broom::tidy(.x, 
                                         conf.int = TRUE, 
                                         include_studies = TRUE) %>% 
-                            rename(study_id = term)), .keep = "none") %>% 
+                            rename(study_id = term)), 
+           .keep = "none") %>% 
     unnest(tidy_mod) %>% 
-    filter(type =="study") %>% 
+    filter(type == "study") %>% 
     ungroup %>% 
     select(study_id) %>% 
     rename(id_col = study_id) %>% #TODO duplicates for "Bell-2-2-1" and "Bonalbo-1-1-1 WHY?
@@ -65,7 +68,8 @@ summarise_variable_counts <- function(ManyEcoEvo, ManyEcoEvo_results, ManyEcoEvo
     mutate(tidy_mod = map(MA_mod, 
                           ~ broom::tidy(.x, conf.int = TRUE, include_studies = TRUE) %>% 
                             rename(study_id = term)), .keep = "none") %>% 
-    unnest(tidy_mod) %>% filter(type == "study") %>% 
+    unnest(tidy_mod) %>% 
+    filter(type == "study") %>% 
     ungroup %>% 
     select(study_id) %>% 
     rename(id_col = study_id) %>% 
