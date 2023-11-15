@@ -1,0 +1,153 @@
+#' Title
+#'
+#' @param ManyEcoEvo 
+#' @param ManyEcoEvo_results 
+#' @param ManyEcoEvo_yi_results 
+#'
+#' @return
+#' @export
+#' @importFrom dplyr filter
+#' @importFrom dplyr select
+#' @importFrom tidyr unnest
+#' @importFrom dplyr mutate
+#' @importFrom dplyr rename
+#' @importFrom dplyr group_by
+#' @importFrom dplyr distinct
+#' @importFrom magrittr "%>%"
+#' @importFrom dplyr right_join
+#' @importFrom purrr map_dfr
+#' @importFrom purrr set_names
+#' @importFrom dplyr ends_with
+#' @importFrom broom tidy
+#' @import metafor
+#'
+#' @examples
+#' summarise_reviews(ManyEcoEvo, ManyEcoEvo_results,ManyEcoEvo_yi_results)
+summarise_reviews <- function(ManyEcoEvo, ManyEcoEvo_results, ManyEcoEvo_yi_results) {
+  review_data <- 
+    ManyEcoEvo %>% #TODO check that OK across all summarise code... was added after HF created original code
+    ungroup %>% 
+    select(data, -dataset) %>% 
+    unnest(data) %>% 
+    select(ends_with("_id"), id_col, dataset, review_data) %>% 
+    unnest(review_data)
+  
+  effect_ids <- ManyEcoEvo_results %>% 
+    filter(exclusion_set == "complete", 
+           publishable_subset == "All") %>% 
+    select(MA_mod, effects_analysis) %>% 
+    group_by(estimate_type, dataset) %>% 
+    mutate(tidy_mod = map(MA_mod, 
+                          ~ broom::tidy(.x, 
+                                        conf.int = TRUE, 
+                                        include_studies = TRUE) %>% 
+                            rename(study_id = term)), .keep = "none") %>% 
+    unnest(tidy_mod) %>% 
+    filter(type == "study") %>% 
+    ungroup %>% 
+    select(study_id) %>% 
+    rename(id_col = study_id) %>% #TODO duplicates for "Bell-2-2-1" and "Bonalbo-1-1-1 WHY?
+    distinct()
+  
+  prediction_ids <- ManyEcoEvo_yi_results %>% #TODO Euc mod_data_logged not here!
+    filter(exclusion_set == "complete", 
+           # dataset == "blue tit"
+    ) %>% 
+    select(MA_mod, effects_analysis, -exclusion_set) %>% 
+    group_by(estimate_type, dataset) %>% 
+    mutate(tidy_mod = map(MA_mod, 
+                          ~ broom::tidy(.x, conf.int = TRUE, include_studies = TRUE) %>% 
+                            rename(study_id = term)), .keep = "none") %>% 
+    unnest(tidy_mod) %>% 
+    filter(type == "study") %>% 
+    ungroup %>% 
+    select(study_id) %>% 
+    rename(id_col = study_id) %>% 
+    distinct()
+  
+  effects <- review_data %>% #TODO consider generalising, so for each 'estimate_type' group: repeat.
+    right_join(effect_ids, by = c("id_col")) %>%  # repeat for each
+    filter(!is.na(dataset)) #TODO id source of NAs  in dataset!
+  
+  predictions <- review_data %>% 
+    right_join(prediction_ids, by = c("id_col"))
+  
+  summarised_data_analyses <- map_dfr(.x = list(effects, predictions) %>% 
+                               purrr::set_names("effects", "predictions"),
+                              .f = summarise_analyses_by_reviewer,
+                             .id = "subset")
+  
+  summarised_data_reviews <- map_dfr(.x = list(effects, predictions) %>% 
+                                       purrr::set_names("effects", "predictions"),
+                                     .f = summarise_reviews_per_analysis,
+                                     .id = "subset")
+  
+  summarised_data <- list(summarised_data_analyses, 
+                          summarised_data_reviews) %>% 
+    purrr::set_names("summarised_data_analyses", 
+                     "summarised_data_reviews")
+    
+  return(summarised_data)
+  }
+
+
+
+#' Summarise analyses reviewed by reviewer
+#'
+#' @param review_data A dataframe containing the variables `dataset`, `response_id`, and `ReviewerId`.
+#'
+#' @return A dataframe summarising the `mean`, `sd`, `min`, and `max` of the number of reviews provided by each unique reviewer across *all* analyses from all `dataset`s in `review_data`.
+#' @export
+#' @importFrom dplyr group_by
+#' @importFrom dplyr summarise
+#' @importFrom dplyr n_distinct
+#' @importFrom magrittr "%>%"
+#'
+#' @examples
+#' ManyEcoEvo %>%
+#' ungroup %>%
+#' select(data, -dataset) %>%
+#' unnest(data) %>%
+#' select(ends_with("_id"), id_col, dataset, review_data) %>%
+#' unnest(review_data) %>%
+#' summarise_analyses_by_reviewer()
+summarise_analyses_by_reviewer <- function(review_data) {
+  # analyses reviewed per reviewer across all datasets
+  review_data %>% 
+    group_by(ReviewerId) %>% 
+    summarise(analyses = n_distinct(response_id)) %>% 
+    summarise(mean = mean(analyses),
+              min = min(analyses),
+              max = max(analyses)) 
+}
+
+#' Summarise reviews per each analysis
+#'
+#' @param review_data A dataframe containing the variables `dataset`, `response_id`, and `ReviewerId`.
+#'
+#' @return A dataframe with the variables `dataset`, and the `mean`, `sd`, `min`, `max` of the number of times each analysis was reviewed
+#' @export
+#' @importFrom dplyr group_by
+#' @importFrom dplyr summarise
+#' @importFrom dplyr n_distinct
+#' @importFrom magrittr "%>%"
+#'
+#' @examples
+# ManyEcoEvo %>%
+# ungroup %>%
+# select(data, -dataset) %>%
+# unnest(data) %>%
+# select(ends_with("_id"), id_col, dataset, review_data) %>%
+# unnest(review_data) %>%
+# summarise_reviews_per_analysis()
+summarise_reviews_per_analysis <- function(review_data) {
+  # number of times analyses reviewed across all datasets
+  review_data %>% 
+    group_by(dataset, response_id) %>% 
+    summarise(reviews = n_distinct(ReviewerId)) %>% 
+    group_by(dataset) %>% 
+    summarise(mean = mean(reviews),
+              sd = sd(reviews),
+              min = min(reviews),
+              max = max(reviews))
+}
