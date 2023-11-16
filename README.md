@@ -5,7 +5,7 @@ v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/li
 [![Contributor
 Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](code_of_conduct.md)
 
-# ManyEcoEvo <img src="man/figures/ManyEcoEvoHex.jpg" align="right" width="120"/>
+# ManyEcoEvo <img src="man/figures/logo.png" align="right" width="120"/>
 
 The `ManyEcoEvo` package provides a suite of functions for:
 
