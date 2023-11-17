@@ -2,7 +2,6 @@
 #'@description
 #' Applies [ManyEcoEvo::fit_metafor_mv()] to fit a multivariate meta-analysis model using the `metafor` package. Nested random effects are included for `TeamIdentifier` and `TeamIdentifier/study_id `.
 #'
-#'
 #' @param effects_analysis A dataframe containing containing effect-sizes  and their variances.
 #' @param Z_colname Name of the variable containing standardised effect-sizes.
 #' @param VZ_colname Name of the variable containing the variance of standardised effect-sizes.
