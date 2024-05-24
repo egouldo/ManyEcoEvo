@@ -27,7 +27,7 @@ pkgs <- c("tidyverse",
 
 tar_option_set(
   packages = pkgs,
-  imports = "ManyEcoEvo",
+  imports = "ManyEcoEvo"
   # debug = c("augmented_data_3efd9941")#, #augmented_data_a4d78efa
   # cue = tar_cue(mode = "never") #because we have silent errors!
 )
