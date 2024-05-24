@@ -4,7 +4,7 @@ library(targets)
 library(usethis)
 
 # ---- Run targets pipeline ----
-# tar_destroy() # Uncomment and run if want to reproduce from scratch, run locally only
+tar_destroy() # Uncomment and run if want to reproduce from scratch, run locally only
 tar_make()
 
 # ---- Read targets and use data ----
