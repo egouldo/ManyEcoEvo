@@ -23,7 +23,7 @@ pkgs <- c("tidyverse",
           "rsvg",
           "multilevelmod",
           "metafor",
-          "ManyEcoEvo")
+          "ManyEcoEvo") #TODO rm from here and just call in tar_option_set(), but will need to rm all namespacing
 
 tar_option_set(
   packages = pkgs,

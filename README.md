@@ -1,4 +1,5 @@
 
+
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10046153.svg)](https://doi.org/10.5281/zenodo.10046153)
 [![License: GPL
 v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
@@ -42,7 +43,7 @@ analysis in *Gould et al.*, complete the following steps:
     repository](https://github.com/egouldo/ManyEcoEvo)
 2.  Run `renv::restore()` to load the packages used in the analysis
     pipeline locally on your machine (see
-    \[`renv::`\]https://rstudio.github.io/renv/index.html) for details)
+    [`renv::`](https://rstudio.github.io/renv/index.html) for details)
 3.  Run `tar_destroy()` to remove any record and caches of existing
     targets
 4.  Run `targets::tar_make()` in your console, depending on the power of
