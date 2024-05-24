@@ -42,8 +42,8 @@ fit_boxcox_ratings_cat <- function(.data, outcome, outcome_var, interceptless = 
                                    (1 | ReviewerId) # + (1 | study_id ) RE ommitted due to convergence issues
                             ))
     mod <- lme4::lmer(f,
-                      data = data_tbl #,
-                      #weights = I(1/pull(data_tbl,{{outcome_var}}))
+                      data = data_tbl ,
+                      weights = I(1/pull(data_tbl,{{outcome_var}}))
                       )
   }else(#interceptless: for plotting
     mod <- lme4::lmer(rlang::new_formula(rlang::ensym(outcome), 
