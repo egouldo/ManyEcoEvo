@@ -49,8 +49,6 @@ Imports:
 Suggests:
     targets,
     broom.mixed,
-    orchaRd,
-    ggforestplot,
     metaviz,
     ggeffects,
     parameters,
