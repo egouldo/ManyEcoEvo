@@ -24,6 +24,8 @@
 #' generate_rating_subsets() |>
 #' generate_expertise_subsets(expert_subset)
 generate_expertise_subsets <- function(ManyEcoEvo, expert_subset) {
+  #TODO idea, allow ellipses arg in function and pass those expressions to filter.
+  # that way isn't hardcoded in the function. Repeat for all other generate / exclude map funs
   # NOTE: should be run *after* computing Zr with compute_MA_inputs() 
   out <- ManyEcoEvo %>% 
     filter(publishable_subset == "All" & exclusion_set == "complete") %>% 
