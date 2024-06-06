@@ -29,7 +29,7 @@ tar_option_set(
   packages = pkgs,
   imports = "ManyEcoEvo",
   # debug = c("augmented_data_3efd9941")#, #augmented_data_a4d78efa
-  cue = tar_cue(mode = "always") #because we have silent errors!
+  # cue = tar_cue(mode = "always") #because we have silent errors!
 )
 
 list(tarchetypes::tar_file_read(name = euc_reviews, 
@@ -80,6 +80,7 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
                            generate_exclusion_subsets(estimate_type = "Zr") |> 
                            generate_rating_subsets() |> 
                            generate_expertise_subsets(expert_subset) |>
+                           generate_collinearity_subset(ManyEcoEvo:::collinearity_subset) |>
                            compute_MA_inputs(estimate_type = "Zr") |> 
                            generate_outlier_subsets() |> # TODO run before MA_inputs? diversity indices need to be recalculated!!
                            filter(expertise_subset != "expert" | exclusion_set != "complete-rm_outliers") |> #TODO mv into generate_outlier_subsets() so aren't created in the first place
