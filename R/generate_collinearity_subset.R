@@ -51,7 +51,7 @@ generate_collinearity_subset <- function(ManyEcoEvo, collinearity_subset) {
     filter(publishable_subset == "All" & exclusion_set == "complete" & expertise_subset == "All",
            dataset %in% collinearity_subset_dataset) %>%
     mutate(data = map(.x = data, 
-                      .f = dplyr::semi_join, collinearity_subset,  
+                      .f = dplyr::anti_join, collinearity_subset,  
                       by = join_by(response_id, id_col, dataset) )) %>% 
     mutate(diversity_data = 
              map2(.x = diversity_data, 
