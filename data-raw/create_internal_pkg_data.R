@@ -1,7 +1,8 @@
 # ------- Create tibble of analysis IDs of analyses with collinear variables -------
 
-library(tibble)
+library(tidyverse)
 library(usethis)
+library(ManyEcoEvo)
 
 collinearity_subset <-
   tibble::tribble(
@@ -21,5 +22,18 @@ collinearity_subset <-
     "R_3lMQ3NmmjrzpbM2",  "Caigun-2-2-1", "blue tit"
   )
 
+# ---- Make Parameter Tables for Standardising out-of-sample Predictions ----
 
-usethis::use_data(collinearity_subset, internal = TRUE, overwrite = TRUE)
+#NOTE: relies on package being built after running `data-raw/osf_load_analyst_datasets.R`
+
+analysis_data_param_tables <- 
+  bind_rows(
+    make_param_table(ManyEcoEvo::blue_tit_data) %>% 
+      mutate(dataset = "blue tit"),
+    make_param_table(ManyEcoEvo::euc_data) %>% 
+      mutate(dataset = "eucalyptus")
+  )
+
+# ------- Write data internally -------
+
+usethis::use_data(analysis_data_param_tables, collinearity_subset, internal = TRUE, overwrite = TRUE)
