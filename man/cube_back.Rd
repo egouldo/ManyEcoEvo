@@ -21,8 +21,8 @@ Back transform beta estimates for models with $x^3$-link
 }
 \seealso{
 Other back transformation: 
-\code{\link{conversion_2}()},
 \code{\link{conversion}()},
+\code{\link{conversion_2}()},
 \code{\link{divide_back}()},
 \code{\link{identity_back}()},
 \code{\link{inverse_back}()},

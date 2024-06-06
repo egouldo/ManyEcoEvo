@@ -23,8 +23,8 @@ Back transform beta estimates for models with power-link
 }
 \seealso{
 Other back transformation: 
-\code{\link{conversion_2}()},
 \code{\link{conversion}()},
+\code{\link{conversion_2}()},
 \code{\link{cube_back}()},
 \code{\link{divide_back}()},
 \code{\link{identity_back}()},
