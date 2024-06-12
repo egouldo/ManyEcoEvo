@@ -58,6 +58,26 @@
       ],
       "Hash": "72f87e0092e39384aee16df8d67d7410"
     },
+    "EnvStats": {
+      "Package": "EnvStats",
+      "Version": "2.8.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "RemoteType": "standard",
+      "RemotePkgRef": "EnvStats",
+      "RemoteRef": "EnvStats",
+      "RemoteRepos": "https://cran.rstudio.com",
+      "RemoteReposName": "CRAN",
+      "RemotePkgPlatform": "aarch64-apple-darwin20",
+      "RemoteSha": "2.8.1",
+      "Requirements": [
+        "MASS",
+        "R",
+        "ggplot2",
+        "nortest"
+      ],
+      "Hash": "1b55a740dea99c9d226e75acc2c0a85e"
+    },
     "KernSmooth": {
       "Package": "KernSmooth",
       "Version": "2.23-22",
@@ -120,6 +140,16 @@
         "stats"
       ],
       "Hash": "0776bf7526869e0286b0463cb72fb211"
+    },
+    "NatParksPalettes": {
+      "Package": "NatParksPalettes",
+      "Version": "0.2.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "ggplot2"
+      ],
+      "Hash": "05ed62d3fd9859d386a6ecb875dcbeb7"
     },
     "R6": {
       "Package": "R6",
@@ -1063,6 +1093,29 @@
       ],
       "Hash": "bb097fccb22d156624fd07cd2894ddb6"
     },
+    "correlation": {
+      "Package": "correlation",
+      "Version": "0.8.4",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "RemoteType": "standard",
+      "RemotePkgRef": "correlation",
+      "RemoteRef": "correlation",
+      "RemoteRepos": "https://cran.rstudio.com",
+      "RemoteReposName": "CRAN",
+      "RemotePkgPlatform": "aarch64-apple-darwin20",
+      "RemoteSha": "0.8.4",
+      "Requirements": [
+        "R",
+        "bayestestR",
+        "datasets",
+        "datawizard",
+        "insight",
+        "parameters",
+        "stats"
+      ],
+      "Hash": "d8bd29a9abda6eed9aaab3ba5769f231"
+    },
     "corrplot": {
       "Package": "corrplot",
       "Version": "0.92",
@@ -1525,6 +1578,30 @@
         "vctrs"
       ],
       "Hash": "54ed3ea01b11e81a86544faaecfef8e2"
+    },
+    "effectsize": {
+      "Package": "effectsize",
+      "Version": "0.8.8",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "RemoteType": "standard",
+      "RemotePkgRef": "effectsize",
+      "RemoteRef": "effectsize",
+      "RemoteRepos": "https://cran.rstudio.com",
+      "RemoteReposName": "CRAN",
+      "RemotePkgPlatform": "aarch64-apple-darwin20",
+      "RemoteSha": "0.8.8",
+      "Requirements": [
+        "R",
+        "bayestestR",
+        "datawizard",
+        "insight",
+        "parameters",
+        "performance",
+        "stats",
+        "utils"
+      ],
+      "Hash": "6709e156cf7869d95d8fd6e365337d2c"
     },
     "ellipsis": {
       "Package": "ellipsis",
@@ -3576,6 +3653,32 @@
       ],
       "Hash": "aba060ef3c097b26a4d304ea39d87f32"
     },
+    "modelbased": {
+      "Package": "modelbased",
+      "Version": "0.8.7",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "RemoteType": "standard",
+      "RemotePkgRef": "modelbased",
+      "RemoteRef": "modelbased",
+      "RemoteRepos": "https://cran.rstudio.com",
+      "RemoteReposName": "CRAN",
+      "RemotePkgPlatform": "aarch64-apple-darwin20",
+      "RemoteSha": "0.8.7",
+      "Requirements": [
+        "R",
+        "bayestestR",
+        "datawizard",
+        "effectsize",
+        "graphics",
+        "insight",
+        "parameters",
+        "performance",
+        "stats",
+        "utils"
+      ],
+      "Hash": "857859a5dd55f53a2c6ab14fbdb6acc1"
+    },
     "modelenv": {
       "Package": "modelenv",
       "Version": "0.1.1",
@@ -3783,6 +3886,23 @@
         "stats"
       ],
       "Hash": "82d9d75b78bc83553c034cd5c7ed2b3c"
+    },
+    "nortest": {
+      "Package": "nortest",
+      "Version": "1.0-4",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "RemoteType": "standard",
+      "RemotePkgRef": "nortest",
+      "RemoteRef": "nortest",
+      "RemoteRepos": "https://cran.rstudio.com",
+      "RemoteReposName": "CRAN",
+      "RemotePkgPlatform": "aarch64-apple-darwin20",
+      "RemoteSha": "1.0-4",
+      "Requirements": [
+        "stats"
+      ],
+      "Hash": "e587e7a30c737ad415590976481332e4"
     },
     "nullabor": {
       "Package": "nullabor",
@@ -5326,6 +5446,35 @@
         "R"
       ],
       "Hash": "c476c18b22b21849c9f4d29b3cd720a5"
+    },
+    "see": {
+      "Package": "see",
+      "Version": "0.8.4",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "RemoteType": "standard",
+      "RemotePkgRef": "see",
+      "RemoteRef": "see",
+      "RemoteRepos": "https://cran.rstudio.com",
+      "RemoteReposName": "CRAN",
+      "RemotePkgPlatform": "aarch64-apple-darwin20",
+      "RemoteSha": "0.8.4",
+      "Requirements": [
+        "R",
+        "bayestestR",
+        "correlation",
+        "datawizard",
+        "effectsize",
+        "ggplot2",
+        "grDevices",
+        "graphics",
+        "insight",
+        "modelbased",
+        "parameters",
+        "performance",
+        "stats"
+      ],
+      "Hash": "3d2fd0b72314499e6af4fd20d39309dc"
     },
     "selectr": {
       "Package": "selectr",
