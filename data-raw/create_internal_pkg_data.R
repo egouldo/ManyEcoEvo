@@ -19,7 +19,9 @@ collinearity_subset <-
     "R_210APF6gYFATf7Y",   "Borde-1-1-1", "blue tit",
     "R_1dzfML4yheLxG0D",    "Bruc-1-1-1", "blue tit",
     "R_3lMQ3NmmjrzpbM2",  "Caigun-1-1-1", "blue tit",
-    "R_3lMQ3NmmjrzpbM2",  "Caigun-2-2-1", "blue tit"
+    "R_3lMQ3NmmjrzpbM2",  "Caigun-2-2-1", "blue tit",
+    "R_3rIdpCqsQtsmgqT", "Adelong-1-1-1", "blue tit",
+    "R_3rIdpCqsQtsmgqT", "Adelong-2-2-1", "blue tit",
   )
 
 # ---- Make Parameter Tables for Standardising out-of-sample Predictions ----
