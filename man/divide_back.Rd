@@ -23,8 +23,8 @@ Back transform beta estimates or out-of-sample predictions from models whose res
 }
 \seealso{
 Other back transformation: 
-\code{\link{conversion_2}()},
 \code{\link{conversion}()},
+\code{\link{conversion_2}()},
 \code{\link{cube_back}()},
 \code{\link{identity_back}()},
 \code{\link{inverse_back}()},

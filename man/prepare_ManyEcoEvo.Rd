@@ -30,8 +30,8 @@ Other Multi-dataset Wrapper Functions:
 \code{\link{make_viz}()},
 \code{\link{meta_analyse_datasets}()},
 \code{\link{prepare_ManyEcoEvo_yi}()},
-\code{\link{prepare_response_variables_yi}()},
 \code{\link{prepare_response_variables}()},
+\code{\link{prepare_response_variables_yi}()},
 \code{\link{summarise_analysis_types}()},
 \code{\link{summarise_conclusions}()},
 \code{\link{summarise_model_composition}()},
@@ -44,8 +44,8 @@ Other targets-pipeline functions:
 \code{\link{generate_rating_subsets}()},
 \code{\link{make_viz}()},
 \code{\link{prepare_ManyEcoEvo_yi}()},
-\code{\link{prepare_response_variables_yi}()},
 \code{\link{prepare_response_variables}()},
+\code{\link{prepare_response_variables_yi}()},
 \code{\link{prepare_review_data}()}
 }
 \concept{Multi-dataset Wrapper Functions}

@@ -18,11 +18,11 @@ tar_load(ManyEcoEvo_viz)
 tar_load(ManyEcoEvo_yi_viz)
 
 usethis::use_data(ManyEcoEvo, 
-                  ManyEcoEvo_yi,
+                  ManyEcoEvo_yi, # consider making internal
                   ManyEcoEvo_results,
-                  ManyEcoEvo_yi_results,
+                  ManyEcoEvo_yi_results, #consider making internal
                   ManyEcoEvo_viz,
-                  ManyEcoEvo_yi_viz,
+                  ManyEcoEvo_yi_viz, #TODO consider making internal
                   overwrite = TRUE)
 
 # TODO also need to add raw files to demonstrate pipeline / package functionality in package vignette and software manuscript.

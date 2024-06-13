@@ -13,12 +13,12 @@ generate_outlier_subsets <- function(ManyEcoEvo){
   # TODO: will nolonger work on Zr dataset, because this doesn't contain an estimate_type col?
   # TODO: Don't run with the reduced publishability subset.... some of these already only have 10 data points!!
   # apply conditional behaviour to trigger both
-  # 
+  # TODO: do not run for collinearity_removed datasets
   if(str_detect(ManyEcoEvo$estimate_type, "Zr") %>% any(na.rm = TRUE)){
     ManyEcoEvo_Zr <-  ManyEcoEvo %>% 
       filter(estimate_type == "Zr") %>% 
       bind_rows(., {ManyEcoEvo %>% 
-          filter(estimate_type == "Zr") %>% 
+          filter(estimate_type == "Zr", collinearity_subset != "collinearity_removed") %>% 
           mutate(effects_analysis = map(effects_analysis, 
                                         ~ slice_max(.x, Zr, n = -2) %>% 
                                           slice_min(Zr, n = -2))) %>% 
