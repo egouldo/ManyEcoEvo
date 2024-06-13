@@ -27,6 +27,8 @@ collinearity_subset <-
 # ---- Make Parameter Tables for Standardising out-of-sample Predictions ----
 
 #NOTE: relies on package being built after running `data-raw/osf_load_analyst_datasets.R`
+# alternatively, devtools::load_all() is needed to access the fns to build `analysis_data_param_tables`
+# devtools::load_all() #TODO
 
 analysis_data_param_tables <- 
   bind_rows(
