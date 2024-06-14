@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ManyEcoEvo</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.5.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -100,15 +100,11 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">✖</span> <span style="color: #0000BB;">dplyr</span>::<span style="color: #00BB00;">lag()</span>    masks <span style="color: #0000BB;">stats</span>::lag()</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Use the conflicted package (<span style="color: #0000BB; font-style: italic;">&lt;http://conflicted.r-lib.org/&gt;</span>) to force all conflicts to become errors</span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://docs.ropensci.org/targets/" class="external-link">targets</a></span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">targets</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html" class="external-link">tar_load</a></span><span class="op">(</span><span class="va">ManyEcoEvo</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> targets data store _targets not found. Utility functions like tar_read() and tar_load() require a pre-existing targets data store (default: _targets/) created by tar_make(), tar_make_clustermq(), or tar_make_future(). Details: https://books.ropensci.org/targets/data.html</span>
-<span class="r-in"><span><span class="fu">targets</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/targets/reference/tar_load.html" class="external-link">tar_load</a></span><span class="op">(</span><span class="va">expert_subset</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> targets data store _targets not found. Utility functions like tar_read() and tar_load() require a pre-existing targets data store (default: _targets/) created by tar_make(), tar_make_clustermq(), or tar_make_future(). Details: https://books.ropensci.org/targets/data.html</span>
 <span class="r-in"><span><span class="va">ManyEcoEvo</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
 <span class="r-in"><span><span class="fu"><a href="prepare_response_variables.html">prepare_response_variables</a></span><span class="op">(</span>estimate_type <span class="op">=</span> <span class="st">"Zr"</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="generate_exclusion_subsets.html">generate_exclusion_subsets</a></span><span class="op">(</span>estimate_type <span class="op">=</span> <span class="st">"Zr"</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="generate_rating_subsets.html">generate_rating_subsets</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
-<span class="r-in"><span><span class="fu">generate_expertise_subsets</span><span class="op">(</span><span class="va">expert_subset</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">generate_expertise_subsets</span><span class="op">(</span><span class="fu">ManyEcoEvo</span><span class="fu">:::</span><span class="va">expert_subset</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Applying exclusion rules and generating exclusion subsets</span> <span style="color: #00BBBB;">───────────────────</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
@@ -493,15 +489,29 @@
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Joining with `by = join_by(id_col)`</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Joining with `by = join_by(id_col)`</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Joining with `by = join_by(id_col)`</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in mutate(., data = map(.x = data, .f = dplyr::semi_join, expert_subset)):</span> <span style="color: #00BBBB;">ℹ</span> In argument: `data = map(.x = data, .f = dplyr::semi_join,</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span>   expert_subset)`.</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> In group 1: `dataset = "blue tit"`, `exclusion_set = "complete"`,</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span>   `estimate_type = "Zr"`.</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Caused by error in `map()`:</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> In index: 1.</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> With name: subset_complete.</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Caused by error:</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> object 'expert_subset' not found</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Joining with `by = join_by(response_id)`</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Joining with `by = join_by(response_id)`</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Joining with `by = join_by(id_col, dataset)`</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Joining with `by = join_by(id_col, dataset)`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 14 × 7</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># Groups:   dataset, exclusion_set, estimate_type [4]</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    dataset    exclusion_set estimate_type data                diversity_data    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;named list&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;named list&gt;</span>      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> blue tit   complete      Zr            <span style="color: #949494;">&lt;tibble [131 × 40]&gt;</span> <span style="color: #949494;">&lt;tibble&gt;</span>          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> eucalyptus complete      Zr            <span style="color: #949494;">&lt;tibble [79 × 40]&gt;</span>  <span style="color: #949494;">&lt;tibble [79 × 61]&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> blue tit   partial       Zr            <span style="color: #949494;">&lt;tibble [118 × 40]&gt;</span> <span style="color: #949494;">&lt;tibble&gt;</span>          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> eucalyptus partial       Zr            <span style="color: #949494;">&lt;tibble [70 × 40]&gt;</span>  <span style="color: #949494;">&lt;tibble [70 × 61]&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> blue tit   complete      Zr            <span style="color: #949494;">&lt;tibble [109 × 6]&gt;</span>  <span style="color: #949494;">&lt;tibble&gt;</span>          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> blue tit   complete      Zr            <span style="color: #949494;">&lt;tibble [32 × 6]&gt;</span>   <span style="color: #949494;">&lt;tibble [32 × 54]&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> eucalyptus complete      Zr            <span style="color: #949494;">&lt;tibble [55 × 6]&gt;</span>   <span style="color: #949494;">&lt;tibble [55 × 61]&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> eucalyptus complete      Zr            <span style="color: #949494;">&lt;tibble [13 × 6]&gt;</span>   <span style="color: #949494;">&lt;tibble [13 × 61]&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> blue tit   partial       Zr            <span style="color: #949494;">&lt;tibble [100 × 6]&gt;</span>  <span style="color: #949494;">&lt;tibble&gt;</span>          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> blue tit   partial       Zr            <span style="color: #949494;">&lt;tibble [32 × 6]&gt;</span>   <span style="color: #949494;">&lt;tibble [32 × 54]&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> eucalyptus partial       Zr            <span style="color: #949494;">&lt;tibble [52 × 6]&gt;</span>   <span style="color: #949494;">&lt;tibble [52 × 61]&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> eucalyptus partial       Zr            <span style="color: #949494;">&lt;tibble [10 × 6]&gt;</span>   <span style="color: #949494;">&lt;tibble [10 × 61]&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> blue tit   complete      Zr            <span style="color: #949494;">&lt;tibble [89 × 40]&gt;</span>  <span style="color: #949494;">&lt;tibble [89 × 54]&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span> eucalyptus complete      Zr            <span style="color: #949494;">&lt;tibble [34 × 40]&gt;</span>  <span style="color: #949494;">&lt;tibble [34 × 61]&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 2 more variables: publishable_subset &lt;chr&gt;, expertise_subset &lt;chr&gt;</span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
