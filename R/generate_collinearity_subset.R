@@ -18,6 +18,10 @@
 #' - `generate_rating_subsets()`
 #' 
 #' `generate_collinearity_subset()` only creates expertise subsets based on the full dataset where `exclusion_set == "complete"` and `publishable_subset == "All"` and `expertise_subset == "All"`.
+#' @import dplyr
+#' @importFrom purrr map
+#' @importFrom purrr map2
+#' @importFrom purrr pluck
 #' @examples
 #' ManyEcoEvo %>%
 #' prepare_response_variables(estimate_type = "Zr") |>
