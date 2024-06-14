@@ -14,6 +14,10 @@
 #'
 #' @return A nested dataframe with all columns of object parsed to arg `MA_data`, but with additional columns for the results of each analysis: `MA_mod`, `sorensen_glm`, `box_cox_ratings_cont`, `box_cox_ratings_cat`, `box_cox_rating_cat_no_int`, `uni_mixed_effects`
 #' @export
+#' @import purrr
+#' @import dplyr
+#' @import cli
+#' @import rlang
 #' @family Multi-dataset Wrapper Functions
 #'
 #' @examples
@@ -34,7 +38,7 @@ meta_analyse_datasets <- function(MA_data){
   fit_MA_mv <- function(effects_analysis, Z_colname, VZ_colname, estimate_type){
     Zr <- effects_analysis %>%  pull({{Z_colname}})
     VZr <- effects_analysis %>%  pull({{VZ_colname}})
-    mod <- fit_metafor_mv(estimate = Zr, 
+    mod <- poss_fit_metafor_mv(estimate = Zr, 
                           variance = VZr, 
                           estimate_type = estimate_type, 
                           data = effects_analysis)
@@ -45,7 +49,7 @@ meta_analyse_datasets <- function(MA_data){
     # Must group by cols else multiple "effects_analysis" elements
     # get passed to fit_MA_mv()
     MA_data <- MA_data %>% 
-      group_by(estimate_type, dataset, exclusion_set, publishable_subset, expertise_subset)
+      group_by(estimate_type, dataset, exclusion_set, publishable_subset, expertise_subset, collinearity_subset)
   } else {
     MA_data <- MA_data %>% 
       group_by(estimate_type, dataset, exclusion_set)
