@@ -65,9 +65,6 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
      tarchetypes::tar_file_read(name = list_of_new_prediction_files,
                                 command = "data-raw/analyst_data/S2/list_of_new_csv_files.csv",
                                 read = readr::read_csv(!!.x)),
-     tarchetypes::tar_file_read(name = expert_subset,
-                                command = "data-raw/metadata_and_key_data/Good_Statistician_ResponseIds.csv",
-                                read = readr::read_csv(file = !!.x)),
      targets::tar_target(name = all_review_data,
                          command = prepare_review_data(bt_reviews,euc_reviews)),
      targets::tar_target(ManyEcoEvo,
@@ -79,7 +76,7 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
                            prepare_response_variables(estimate_type = "Zr") |>  
                            generate_exclusion_subsets(estimate_type = "Zr") |> 
                            generate_rating_subsets() |> 
-                           generate_expertise_subsets(expert_subset) |>
+                           generate_expertise_subsets(ManyEcoEvo:::expert_subset) |>
                            generate_collinearity_subset(ManyEcoEvo:::collinearity_subset) |>
                            compute_MA_inputs(estimate_type = "Zr") |> 
                            generate_outlier_subsets() |> # TODO run before MA_inputs? diversity indices need to be recalculated!!

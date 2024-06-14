@@ -18,12 +18,16 @@
 #' - `generate_rating_subsets()`
 #' 
 #' `generate_collinearity_subset()` only creates expertise subsets based on the full dataset where `exclusion_set == "complete"` and `publishable_subset == "All"` and `expertise_subset == "All"`.
+#' @import dplyr
+#' @importFrom purrr map
+#' @importFrom purrr map2
+#' @importFrom purrr pluck
 #' @examples
 #' ManyEcoEvo %>%
 #' prepare_response_variables(estimate_type = "Zr") |>
 #' generate_exclusion_subsets(estimate_type = "Zr") |>
 #' generate_rating_subsets() |>
-#' generate_expertise_subsets(expert_subset) |>
+#' generate_expertise_subsets(ManyEcoEvo:::expert_subset) |>
 #' generate_collinearity_subset(collinearity_subset = collinearity_subset)
 generate_collinearity_subset <- function(ManyEcoEvo, collinearity_subset) {
   # Check if the inputs are a dataframe
@@ -56,7 +60,7 @@ generate_collinearity_subset <- function(ManyEcoEvo, collinearity_subset) {
     mutate(diversity_data = 
              map2(.x = diversity_data, 
                   .y = data, 
-                  .f = ~ semi_join(.x, .y) %>% distinct),
+                  .f = ~ semi_join(.x, .y, join_by(id_col, dataset)) %>% distinct),
            collinearity_subset = "collinearity_removed")
   
   out <- bind_rows(

@@ -1,8 +1,16 @@
 # ------- Create tibble of analysis IDs of analyses with collinear variables -------
-
+library(here)
 library(tidyverse)
 library(usethis)
 library(ManyEcoEvo)
+
+# ----- Load Expert Subset -----
+
+expert_subset <- readr::read_csv(here::here("data-raw", 
+                                            "metadata_and_key_data",
+                                            "Good_Statistician_ResponseIds.csv"))
+
+# ------- Create tibble of analysis IDs of analyses with highly collinear variables -------
 
 collinearity_subset <-
   tibble::tribble(
@@ -30,6 +38,8 @@ collinearity_subset <-
 # alternatively, devtools::load_all() is needed to access the fns to build `analysis_data_param_tables`
 # devtools::load_all() #TODO
 
+#TODO consider moving *_data creation into this script to avoid dependence on pkg before built..
+
 analysis_data_param_tables <- 
   bind_rows(
     make_param_table(ManyEcoEvo::blue_tit_data) %>% 
@@ -40,4 +50,4 @@ analysis_data_param_tables <-
 
 # ------- Write data internally -------
 
-usethis::use_data(analysis_data_param_tables, collinearity_subset, internal = TRUE, overwrite = TRUE)
+usethis::use_data(expert_subset, analysis_data_param_tables, collinearity_subset, internal = TRUE, overwrite = TRUE)
