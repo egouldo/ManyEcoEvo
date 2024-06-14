@@ -27,7 +27,7 @@
 #' prepare_response_variables(estimate_type = "Zr") |>
 #' generate_exclusion_subsets(estimate_type = "Zr") |>
 #' generate_rating_subsets() |>
-#' generate_expertise_subsets(expert_subset) |>
+#' generate_expertise_subsets(ManyEcoEvo:::expert_subset) |>
 #' generate_collinearity_subset(collinearity_subset = collinearity_subset)
 generate_collinearity_subset <- function(ManyEcoEvo, collinearity_subset) {
   # Check if the inputs are a dataframe
