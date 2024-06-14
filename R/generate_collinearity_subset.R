@@ -53,10 +53,13 @@ generate_collinearity_subset <- function(ManyEcoEvo, collinearity_subset) {
     mutate(data = map(.x = data, 
                       .f = dplyr::anti_join, collinearity_subset,  
                       by = join_by(response_id, id_col, dataset) )) %>% 
+    mutate(effects_analysis = map(.x = effects_analysis, 
+                      .f = dplyr::anti_join, collinearity_subset,  
+                      by = join_by(response_id, study_id == id_col, dataset) )) %>% 
     mutate(diversity_data = 
              map2(.x = diversity_data, 
                   .y = data, 
-                  .f = ~ semi_join(.x, .y) %>% distinct),
+                  .f = ~ semi_join(.x, .y, join_by(id_col, dataset)) %>% distinct),
            collinearity_subset = "collinearity_removed")
   
   out <- bind_rows(
