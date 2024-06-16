@@ -2,13 +2,20 @@
 library(here)
 library(tidyverse)
 library(usethis)
-library(ManyEcoEvo)
+library(ManyEcoEvo) #todo switch to getting the tar_make object. Consider putting in tar_make
 
 # ----- Load Expert Subset -----
 
 expert_subset <- readr::read_csv(here::here("data-raw", 
                                             "metadata_and_key_data",
-                                            "Good_Statistician_ResponseIds.csv"))
+                                            "Good_Statistician_ResponseIds.csv")) %>% 
+  distinct()
+
+expert_subset <- ManyEcoEvo::ManyEcoEvo$data %>% 
+  list_rbind() %>% 
+  select(response_id, TeamIdentifier) %>% 
+  distinct() %>% 
+  semi_join(expert_subset) 
 
 # ------- Create tibble of analysis IDs of analyses with highly collinear variables -------
 
