@@ -90,7 +90,7 @@ prepare_sorenson_summary_data <- function(data, data_subset_name = "all", id_sub
     select(dataset, diversity_indices) %>% 
     unnest(diversity_indices) %>% 
     list(.,
-         {map(id_subsets, right_join, ., by = join_by("id_col"))}) %>% 
+         {map(id_subsets, left_join, ., by = join_by("id_col"))}) %>% 
     list_flatten() %>% 
     tibble(data = ., subset_name = c(data_subset_name, subset_names))
 
