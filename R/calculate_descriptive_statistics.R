@@ -193,17 +193,43 @@ prepare_analyst_summary_data <- function(data, data_subset_name = "all", id_subs
   
 }
 
-id_subsets <- list(ManyEcoEvo:::effect_ids, ManyEcoEvo:::prediction_ids)
-subset_names <- c("effects", "predictions")
-filter_vars <- rlang::exprs(exclusion_set == "complete",
-                            estimate_type == "Zr",
-                            publishable_subset == "All",
-                            expertise_subset == "All",
-                            collinearity_subset == "All")
-
-summarise_study(ManyEcoEvo::ManyEcoEvo, ManyEcoEvo::ManyEcoEvo_results, id_subsets, subset_names, filter_vars = filter_vars)
-
+#' Summarise ManyAnalyst study data
+#' 
+#' @description
+#' Summarises the ManyAnalyst study data by calculating summary statistics for each subset of data.
+#' 
+#' @param ManyEcoEvo A ManyAnalyst style tibble containing the data to be analysed.
+#' @param ManyEcoEvo_results A ManyAnalyst results style tibble containing the results of the data to be analysed.
+#' @param id_subsets A list of tibbles containing the `id_col` for each subset of `data`.
+#' @param subset_names A character vector equal to the length of `id_subsets`; the name of data subsets in `id_subsets`.
+#' @param filter_vars A list of expressions to filter `ManyEcoEvo_results` data
+#' 
+#' @return A tibble containing summary statistics for each subset of data.
+#' 
+#' @export
+#' @importFrom cli cli_abort
+#' @import dplyr
+#' @importFrom purrr map
+#' @importFrom purrr reduce
+#' @importFrom purrr reduce2
+#' @importFrom purrr pmap
+#' @importFrom purrr list_rbind
+#' @importFrom purrr set_names
+#' @importFrom tidyr pivot_longer
+#' @importFrom tidyr pivot_wider
+#' @importFrom tidyr unnest
+#' @importFrom tibble enframe
+#' @examples
+#' id_subsets <- list(ManyEcoEvo:::effect_ids, ManyEcoEvo:::prediction_ids)
+#' subset_names <- c("effects", "predictions")
+#' filter_vars <- rlang::exprs(exclusion_set == "complete",
+#'                             estimate_type == "Zr",
+#'                             publishable_subset == "All",
+#'                             expertise_subset == "All",
+#'                             collinearity_subset == "All")
+#' summarise_study(ManyEcoEvo::ManyEcoEvo, ManyEcoEvo::ManyEcoEvo_results, id_subsets, subset_names, filter_vars = filter_vars)
 summarise_study <- function(ManyEcoEvo, ManyEcoEvo_results, id_subsets, subset_names, filter_vars = NULL) {
+  
   if(length(id_subsets) != length(subset_names)){
     cli::cli_abort("Length of `id_subsets` and `subset_names` must be equal")
   }
@@ -265,7 +291,7 @@ summarise_study <- function(ManyEcoEvo, ManyEcoEvo_results, id_subsets, subset_n
     ~ pmap(subsets_tibble, .x) %>% 
       list_rbind) %>% 
     reduce(full_join, 
-           by = join_by(dataset, subset))
+           by = join_by("dataset", "subset"))
   
   
   # Calculate Summary Statistics for Binary and Numeric Variables
@@ -283,7 +309,7 @@ summarise_study <- function(ManyEcoEvo, ManyEcoEvo_results, id_subsets, subset_n
     pmap(calc_summary_stats_binary) %>% 
     list_rbind() %>% 
     full_join(Team_Analyses,
-              by = join_by(dataset, subset)) %>% 
+              by = join_by("dataset", "subset")) %>% 
     arrange(dataset, subset) %>% 
     relocate(dataset, 
              subset, 
@@ -317,20 +343,20 @@ summarise_study <- function(ManyEcoEvo, ManyEcoEvo_results, id_subsets, subset_n
   ## ----- Sorensen all_diversity_data Index Data -----
   SorensenSummary <- 
     subsets_tibble_sorensen %>% 
-    unnest(data) %>% 
+    unnest(cols = "data") %>% 
     drop_na(dataset) %>% 
     group_by(dataset, subset_name) %>% 
-    summarise(mean=mean(mean_diversity_index,na.rm=T),
-              sd=sd(mean_diversity_index,na.rm=T),
-              min=min(mean_diversity_index,na.rm=T),
-              max=max(mean_diversity_index,na.rm=T), 
+    summarise(mean = mean(mean_diversity_index, na.rm = TRUE),
+              sd = sd(mean_diversity_index, na.rm = TRUE),
+              min = min(mean_diversity_index, na.rm = TRUE),
+              max = max(mean_diversity_index, na.rm = TRUE), 
               .groups = "drop") %>% 
     rename(subset = subset_name)
   
   # ----- Combine Outputs -----
   
   list(subsets_tibble, subsets_tibble_variables, subsets_tibble_sorensen) %>% 
-    reduce(left_join, by = join_by(data, subset_name)) %>% 
+    reduce(left_join, by = join_by("data", "subset_name")) %>% 
     left_join(Total_Teams_Per_Analysis, 
               by = join_by("subset_name" == "subset")) %>% 
     reduce2(.x = list( SorensenSummary, teams_per_subset, Table4, Table3, Table2, Table1),
@@ -346,8 +372,7 @@ summarise_study <- function(ManyEcoEvo, ManyEcoEvo_results, id_subsets, subset_n
             keep = NULL,
             .init = .) %>% 
     relocate(data, .after = subset_name)
-  
-  
+
 }
 
 # ----- Summary Statistics Functions -----
