@@ -15,5 +15,6 @@ count_conclusions(data, subset_name = character(1L))
 A tibble containing counts of each conclusion type made by analysts across each dataset, for a given subset.
 }
 \description{
-Count the number of different conclusions made by analysts across each dataset.
+Takes the first analysis per team per dataset, not each analysis that was submitted.
+Thus filters for analyses where split_id == 1 and where analysis_id == 1
 }

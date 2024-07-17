@@ -187,6 +187,10 @@ calculate_variable_counts <- function(data, subset_name = character(1L)){
 #' @param subset_name A character vector of length 1, the name of the subset of data being analysed.
 #'
 #' @return A tibble containing counts of each conclusion type made by analysts across each dataset, for a given subset.
+#' @description
+#' Takes the first analysis per team per dataset, not each analysis that was submitted. 
+#' Thus filters for analyses where split_id == 1 and where analysis_id == 1
+#' 
 #' @export
 #' @import dplyr
 count_conclusions <- function(data, subset_name = character(1L)){
