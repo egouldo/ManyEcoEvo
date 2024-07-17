@@ -36,6 +36,66 @@ prepare_df_for_summarising <- function(data){
            glm = ifelse(linear_model == "generalised", 1, 0))
 }
 
+#' Prepare data for summarising Sorensen diversity indices
+#' 
+#' @description
+#' Prepares the data for summarising Sorensen diversity indices across an entire study by unnesting the
+#' diversity indices and joining them to the prepared data in preparation for
+#' summarising subsets of data with `summarise_study()`.
+#' 
+#' @param data A ManyAnalyst style tibble containing the data to be analysed.
+#' @param data_subset_name A character vector of length 1, the name of the subset of `data`.
+#' @param id_subsets A list of tibbles containing the `id_col` for each subset of `data`.
+#' @param subset_names A character vector equal to the length of `id_subsets`; the name of data subsets in `id_subsets`.
+#' @param filter_expressions A list of expressions to filter the data by.
+#' 
+#' @return A tibble containing subsets of Sorensen diversity indices `data`.
+#' 
+#' @export
+#' @importFrom cli cli_abort
+#' @import dplyr
+#' @importFrom tidyr unnest
+#' @importFrom purrr map
+#' @importFrom purrr list_flatten
+#' @importFrom tibble tibble
+#' @examples
+#' id_subsets <- list(ManyEcoEvo:::effect_ids, ManyEcoEvo:::prediction_ids)
+#' subset_names <- c("effects", "predictions")
+#' filter_vars <- rlang::exprs(exclusion_set == "complete", 
+#' estimate_type == "Zr", 
+#' publishable_subset == "All", 
+#' expertise_subset == "All", 
+#' collinearity_subset == "All")
+#' prepare_sorenson_summary_data(ManyEcoEvo::ManyEcoEvo_results, 
+#' "all", 
+#' id_subsets, 
+#' subset_names, 
+#' filter_expressions = filter_vars)
+prepare_sorenson_summary_data <- function(data, data_subset_name = "all", id_subsets = list(), subset_names = character(0L), filter_expressions = NULL) {
+
+  if(length(id_subsets) != length(subset_names)){
+    cli::cli_abort("Length of `id_subsets` and `subset_names` must be equal")
+  }
+  
+  out <- 
+    data %>% 
+    ungroup
+  
+  if(!is.null(filter_expressions)){
+    out <- out %>% 
+      filter(!!!filter_expressions)
+  }
+  
+  out %>% 
+    select(dataset, diversity_indices) %>% 
+    unnest(diversity_indices) %>% 
+    list(.,
+         {map(id_subsets, right_join, ., by = join_by("id_col"))}) %>% 
+    list_flatten() %>% 
+    tibble(data = ., subset_name = c(data_subset_name, subset_names))
+
+}
+
 #'  Calculate the number of teams per dataset for a given subset
 #'
 #' @param data A tibble containing the data to be analysed.
