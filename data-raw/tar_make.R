@@ -16,6 +16,7 @@ tar_load(ManyEcoEvo_results)
 tar_load(ManyEcoEvo_yi_results)
 tar_load(ManyEcoEvo_viz)
 tar_load(ManyEcoEvo_yi_viz)
+tar_load(ManyEcoEvo_study_summary)
 
 usethis::use_data(ManyEcoEvo, 
                   ManyEcoEvo_yi, # consider making internal
@@ -23,6 +24,7 @@ usethis::use_data(ManyEcoEvo,
                   ManyEcoEvo_yi_results, #consider making internal
                   ManyEcoEvo_viz,
                   ManyEcoEvo_yi_viz, #TODO consider making internal
+                  ManyEcoEvo_study_summary,
                   overwrite = TRUE)
 
 # TODO also need to add raw files to demonstrate pipeline / package functionality in package vignette and software manuscript.
