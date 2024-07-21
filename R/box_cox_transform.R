@@ -23,7 +23,7 @@ box_cox_transform <- function(data, dataset) {
       recipes::prep(training = data, retain = TRUE) #estimate lambda + box cox transform vars
     
     if(box_cox_recipe %>% 
-       recipes::tidy(number = 1) %>% nrow() > 0){
+       recipes::tidy(number = 1) %>% nrow() > 0){ #TODO pull execution of if/else and check result in if() so not executing twice (next line)
       lambda <- box_cox_recipe %>% 
         recipes::tidy(number = 1) %>% 
         pull(., lambda) %>% 
