@@ -5,6 +5,18 @@
 #'
 #' @return data with additional columns of box-cox transformed deviation scores and variance
 #' @export
+#' @import dplyr
+#' @importFrom purrr map2
+#' @import rlang
+#' @importFrom glue glue
+#' @importFrom cli cli_alert_warning
+#' @importFrom cli cli_h2
+#' @import recipes
+#' @importFrom timetk step_box_cox
+#' @importFrom cli cli_alert_info
+#' @importFrom purrr keep
+#' @importFrom tidyr hoist
+#' 
 box_cox_transform <- function(data, dataset) {
   if(rlang::is_na(data) | rlang::is_null(data)){
     cli::cli_alert_warning(text =  glue::glue("Cannot box-cox transform data for", 
@@ -57,7 +69,7 @@ box_cox_transform <- function(data, dataset) {
       result <- recipes::juice(box_cox_recipe) %>% 
         rename_with(.fn = ~ paste0("box_cox_", .x)) %>% 
         bind_cols(data, .) %>% 
-        mutate(fold_params = folded_params(abs_deviation_score_estimate, !!as.name(VZ_colname))) %>% 
+        mutate(fold_params = map2(.x = abs_deviation_score_estimate, .y = !!as.name(VZ_colname), .f = folded_params)) %>% 
         hoist(fold_params, folded_mu_val = 1, folded_v_val = 2 ) %>% 
         mutate(box_cox_var = variance_box_cox(folded_mu_val, folded_v_val, lambda[[1]]),
                lambda = lambda[[1]])
