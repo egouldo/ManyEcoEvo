@@ -226,14 +226,15 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
                            compute_MA_inputs() %>%  #TODO lone join by "estimate_type" amongst join_by ("id_col") is suspicious!
                            
                            generate_outlier_subsets() %>% #TODO swapped order with previous line, but untested
-                           meta_analyse_datasets() #TODO requires col exclusion_set from generate_exclusino_subsets() but don't need that fun in this pipeline anymore
+                           meta_analyse_datasets() #TODO requires col exclusion_set from generate_exclusion_subsets() but don't need that fun in this pipeline anymore
      ),
      targets::tar_target( name = ManyEcoEvo_yi_viz,
                           command = make_viz(ManyEcoEvo_yi_results)),
      targets::tar_target(name = ManyEcoEvo_study_summary,
                          command = summarise_study(ManyEcoEvo::ManyEcoEvo, 
                                                    ManyEcoEvo::ManyEcoEvo_results, 
-                                                   id_subsets = list(ManyEcoEvo:::effect_ids, ManyEcoEvo:::prediction_ids), 
+                                                   id_subsets = list(ManyEcoEvo:::effect_ids, 
+                                                                     ManyEcoEvo:::prediction_ids), 
                                                    subset_names = c("effects", "predictions"), 
                                                    filter_vars = rlang::exprs(exclusion_set == "complete",
                                                                               estimate_type == "Zr",
