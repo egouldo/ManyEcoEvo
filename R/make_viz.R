@@ -1,12 +1,25 @@
 #' Make visualisations wrapper function
 #' @description Computes model summaries, tidy model summaries, model fit stats, funnel plots and forest plots for a dataframe of multiple fitted models
 #'
-#' @param data a nested dataframe with processed and standardised data stored in list-column `data`, grouped by variables `exclusion_set`, `dataset`, `estimate_type`
+#' @param data a nested dataframe with processed and standardised data stored in list-column `data`, grouped by variables `exclusion_set`, `dataset`, `estimate_type`, `publishable_subset`, `expertise_subset`, `collinearity_subset`. Each group contains a list-column `model` containing fitted models of class `rma.uni`, `rma.mv` or `merMod`.
 #'
-#' @return a nested dataframe grouped by variables `exclusion_set`, `dataset`, `estimate_type`, 
+#' @return a nested dataframe grouped by variables `exclusion_set`, `dataset`, `estimate_type`, `publishable_subset`, `expertise_subset`, `collinearity_subset` containing model summaries, tidy model summaries, model fit stats, funnel plots and forest plots
 #' @export
 #' @family targets-pipeline functions
 #' @family Multi-dataset Wrapper Functions
+#' @import dplyr
+#' @importFrom purrr map_if map2 pmap possibly
+#' @importFrom stringr str_detect
+#' @importFrom broom.mixed tidy
+#' @importFrom performance performance
+#' @importFrom metaviz viz_funnel
+#' @importFrom ggplot2 ggplot
+#' @importFrom parameters parameters
+#' @import metafor
+#' @import lme4
+#' @importFrom tidyr pivot_longer
+#' @importFrom tidyr unnest
+#' @importFrom rlang is_na
 make_viz <- function(data) {
   # targets wrapper function
   # define map helper fun
@@ -15,7 +28,7 @@ make_viz <- function(data) {
   }
   # remove unnecessary inputs, create summary tables and visualisations
   # repeat for yi and Zr
-  if(any(str_detect(unique(data$estimate_type),pattern = "Zr"))){
+  if (any(str_detect(unique(data$estimate_type),pattern = "Zr"))) {
     data_Zr <- data %>% 
       filter(estimate_type == "Zr") %>% 
       group_by(exclusion_set, dataset, estimate_type, publishable_subset, expertise_subset, collinearity_subset, data) %>% 
@@ -59,13 +72,14 @@ make_viz <- function(data) {
       mutate(publishable_subset = NA)
   }
   
-  if(exists("data_Zr") & exists("data_yi")){
+  if (exists("data_Zr") & exists("data_yi")) {
     all_data <- bind_rows(data_Zr, data_yi)
   } else if (exists("data_Zr")) {
     all_data <- data_Zr
   } else {
     all_data <- data_yi
   }
+  
   viz_funnel_2 <- function(x){metaviz::viz_funnel(x, y_axis = "precision")}
   
   poss_viz_funnel <- possibly(viz_funnel_2, otherwise = NA)
@@ -111,6 +125,15 @@ make_viz <- function(data) {
                               .x = model,
                               .p = ~ "rma.mv" %in% class(.x),
                               .f = purrr::possibly(get_MA_fit_stats, otherwise = NA),
+                              .else = ~return(NA)
+                            ),
+                            NA
+      ),
+      model_params = ifelse(model_name == "MA_mod_mv" & !rlang::is_na(model), #TODO apply for other models and model types
+                            map_if(
+                              .x = model,
+                              .p = ~ "merMod" %in% class(.x), #TODO apply for other model types
+                              .f = purrr::possibly(parameters::parameters, otherwise = NA),
                               .else = ~return(NA)
                             ),
                             NA
