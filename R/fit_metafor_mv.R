@@ -31,11 +31,11 @@ fit_metafor_mv <- function(estimate, variance, estimate_type = character(1L), da
   
   mod <- metafor::rma.mv(yi = estimate, # of type "Zr" or "ymed", "y25", "y75"
                   V = variance, 
-                  random=list(~1|TeamIdentifier/study_id),
+                  random = list(~1|TeamIdentifier/study_id),
                   data = data,
                   sparse = TRUE,
                   # verbose = TRUE,
-                  control=list(optimizer="nloptr", maxeval=1000),
+                  control = list(optimizer="nloptr", maxeval=1000),
                   slab = data$study_id)
   return(mod)
 }
@@ -85,8 +85,30 @@ fit_metafor_mv_reduced <- function(estimate, variance, estimate_type = character
                   data = data,
                   sparse = TRUE,
                   sigma2 =  c(0, NA))
+  
 }
 
 poss_fit_metafor_mv <- purrr::possibly(fit_metafor_mv,
                                        otherwise = NA,
                                        quiet = FALSE)
+
+#' Fit Multivariate Metaregression using metafoR
+#' @description Fit a multivariate metaregression model using the `rma.mv` function from the `metafor` package.
+#' @param effects_analysis A dataframe containing the estimates and variances for the meta-analysis.
+#' @param Z_colname The name of the column containing the estimates.
+#' @param VZ_colname The name of the column containing the variances.
+#' @param estimate_type The type of estimate to be used in the model. One of "Zr", "y50", "y25", "y75", or "yi".
+#' @return An object of class `rma.mv`.
+#' @import metafor
+#' @import dplyr
+#' @details
+#' This function is a wrapper around the `rma.mv` function from the `metafor` package. It takes a dataframe containing the estimates and variances for the meta-analysis, the name of the column containing the estimates, the name of the column containing the variances, and the type of estimate to be used in the model. It then fits a multivariate metaregression model using the `rma.mv` function called in [fit_metafor_mv()] and returns the fitted model.
+fit_MA_mv <- function(effects_analysis, Z_colname, VZ_colname, estimate_type){ 
+  Zr <- effects_analysis %>%  pull({{Z_colname}}) 
+  VZr <- effects_analysis %>%  pull({{VZ_colname}}) 
+  mod <- ManyEcoEvo::fit_metafor_mv(estimate = Zr,  
+                                    variance = VZr,  
+                                    estimate_type = estimate_type,  
+                                    data = effects_analysis) 
+  return(mod) 
+} 
