@@ -4,10 +4,12 @@
 \alias{meta_analyse_datasets}
 \title{Meta-analyses multiple datasets or subsets of datasets of analyst data}
 \usage{
-meta_analyse_datasets(MA_data)
+meta_analyse_datasets(MA_data, filter_vars)
 }
 \arguments{
 \item{MA_data}{A nested-dataframe grouped by \code{dataset} and / or \code{exclusion_set}, \code{estimate_type}, containing the list-column of prepared analyst subset data \code{effects_analysis} ready for meta-analysis.}
+
+\item{filter_vars}{A list of expressions to filter the \code{MA_data} dataframe by. E.g. \code{rlang::exprs(exclusion_set == "complete", expertise_subset == "All", publishable_subset == "All", collinearity_subset == "All")}}
 }
 \value{
 A nested dataframe with all columns of object parsed to arg \code{MA_data}, but with additional columns for the results of each analysis: \code{MA_mod}, \code{sorensen_glm}, \code{box_cox_ratings_cont}, \code{box_cox_ratings_cat}, \code{box_cox_rating_cat_no_int}, \code{uni_mixed_effects}
@@ -27,11 +29,10 @@ Runs all meta-analyses and regression models for the ManyEcoEvo project analysis
 }
 }
 \examples{
-  # meta_analyse_datasets(targets::tar_read(round_2_survey_meta_analysis))
-  # remove_problematic_responses <- 
-  #   preprocessed_dataset \%>\% 
-  #   dplyr::filter(dataset == "eucalyptus",
-  #          (max(VZr, na.rm = TRUE) == VZr)) TODO, do we need to include now that INF's removed?
+    filter_vars <- rlang::exprs(exclusion_set == "complete",
+                                expertise_subset == "All",
+                                publishable_subset == "All",
+                                collinearity_subset == "All")
 }
 \seealso{
 Other Multi-dataset Wrapper Functions: 
