@@ -2,7 +2,7 @@
 % Please edit documentation in R/fit_metafor_mv.R
 \name{fit_metafor_mv_reduced}
 \alias{fit_metafor_mv_reduced}
-\title{Fit reduced multivariate metaregression model}
+\title{Fit reduced metaregression model}
 \usage{
 fit_metafor_mv_reduced(estimate, variance, estimate_type = character(1L), data)
 }
@@ -19,7 +19,7 @@ fit_metafor_mv_reduced(estimate, variance, estimate_type = character(1L), data)
 Object of class \code{rma.mv}
 }
 \description{
-Fit reduced multivariate metaregression model
+Fit reduced metaregression model
 }
 \examples{
   #TODO -- is this the best way of setting up this fun?? (i.e. to take numeric vectors)?

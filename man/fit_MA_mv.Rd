@@ -2,7 +2,7 @@
 % Please edit documentation in R/fit_MA_mv.R
 \name{fit_MA_mv}
 \alias{fit_MA_mv}
-\title{Fit Multivariate Meta-regression}
+\title{Fit Meta-regression with random-effects}
 \usage{
 fit_MA_mv(
   effects_analysis = data.frame(),
@@ -24,10 +24,10 @@ fit_MA_mv(
 A fitted model of class \code{c("rma.mv","rma")}.
 }
 \description{
-Fit a multivariate meta-regression model using the \link[metafor:rma.mv]{metafor::rma.mv} function from the \code{metafor} package to a dataframe containing the estimates and variances for the meta-analysis.
+Fit a meta-regression model with random effects using the \code{\link[metafor:rma.mv]{metafor::rma.mv()}} function from the \code{metafor} package to a dataframe containing the estimates and variances for the meta-analysis.
 }
 \details{
-This function is a wrapper around the \code{\link[metafor:rma.mv]{metafor::rma.mv()}} function from the \code{metafor} package. It takes a dataframe containing the estimates and variances for the meta-analysis, the name of the column containing the estimates, the name of the column containing the variances, and the type of estimate to be used in the model. It then fits a multivariate metaregression model using the \code{\link[metafor:rma.mv]{metafor::rma.mv()}} function called in \code{\link[=fit_metafor_mv]{fit_metafor_mv()}} and returns the fitted model.
+This function is a wrapper around the \code{\link[metafor:rma.mv]{metafor::rma.mv()}} function from the \code{metafor} package. It takes a dataframe containing the estimates and variances for the meta-analysis, the name of the column containing the estimates, the name of the column containing the variances, and the type of estimate to be used in the model. It then fits a metaregression model with random-effects using the \code{\link[metafor:rma.mv]{metafor::rma.mv()}} function called in \code{\link[=fit_metafor_mv]{fit_metafor_mv()}} and returns the fitted model.
 
 Nested random effects are included for \code{TeamIdentifier} and \code{TeamIdentifier/study_id}.
 }
