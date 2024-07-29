@@ -21,8 +21,8 @@ Back transform beta estimates for models with identity-link
 }
 \seealso{
 Other back transformation: 
-\code{\link{conversion_2}()},
 \code{\link{conversion}()},
+\code{\link{conversion_2}()},
 \code{\link{cube_back}()},
 \code{\link{divide_back}()},
 \code{\link{inverse_back}()},

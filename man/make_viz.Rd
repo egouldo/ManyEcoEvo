@@ -19,10 +19,10 @@ Computes model summaries, tidy model summaries, model fit stats, funnel plots an
 Other targets-pipeline functions: 
 \code{\link{generate_outlier_subsets}()},
 \code{\link{generate_rating_subsets}()},
-\code{\link{prepare_ManyEcoEvo_yi}()},
 \code{\link{prepare_ManyEcoEvo}()},
-\code{\link{prepare_response_variables_yi}()},
+\code{\link{prepare_ManyEcoEvo_yi}()},
 \code{\link{prepare_response_variables}()},
+\code{\link{prepare_response_variables_yi}()},
 \code{\link{prepare_review_data}()}
 
 Other Multi-dataset Wrapper Functions: 
@@ -33,10 +33,10 @@ Other Multi-dataset Wrapper Functions:
 \code{\link{generate_rating_subsets}()},
 \code{\link{generate_yi_subsets}()},
 \code{\link{meta_analyse_datasets}()},
-\code{\link{prepare_ManyEcoEvo_yi}()},
 \code{\link{prepare_ManyEcoEvo}()},
-\code{\link{prepare_response_variables_yi}()},
+\code{\link{prepare_ManyEcoEvo_yi}()},
 \code{\link{prepare_response_variables}()},
+\code{\link{prepare_response_variables_yi}()},
 \code{\link{summarise_analysis_types}()},
 \code{\link{summarise_conclusions}()},
 \code{\link{summarise_model_composition}()},
