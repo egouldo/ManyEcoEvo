@@ -22,7 +22,7 @@
 #'          !is.infinite(VZr)) %>%
 #' fit_metafor_mv(estimate = .$Zr, variance = .$VZr, estimate_type = "Zr", data = .)
 fit_metafor_mv <- function(estimate, variance, estimate_type = character(1L), data){
-  cli::cli_h2(glue::glue("Fitting multivariate metaregression"))
+  cli::cli_h2(glue::glue("Fitting metaregression"))
   match.arg(estimate_type, choices = c("Zr", "y50", "y25", "y75", "yi"), several.ok = FALSE) 
   
   if(estimate_type != "Zr"){ # you need to put SE^2 for y
@@ -41,7 +41,7 @@ fit_metafor_mv <- function(estimate, variance, estimate_type = character(1L), da
 }
 
 
-#' Fit reduced multivariate metaregression model
+#' Fit reduced metaregression model
 #'
 #' @param estimate Numeric vector
 #' @param variance Numeric vector

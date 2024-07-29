@@ -1,5 +1,5 @@
-#' Fit Multivariate Meta-regression
-#' @description Fit a multivariate meta-regression model using the [metafor::rma.mv] function from the `metafor` package to a dataframe containing the estimates and variances for the meta-analysis.
+#' Fit Meta-regression with random-effects
+#' @description Fit a meta-regression model with random effects using the [metafor::rma.mv()] function from the `metafor` package to a dataframe containing the estimates and variances for the meta-analysis.
 #'
 #' @param effects_analysis A dataframe containing the estimates and variances for the meta-analysis.
 #' @param Z_colname The name of the column containing the estimates.
@@ -13,7 +13,7 @@
 #' @import metafor
 #' @importFrom pointblank stop_if_not
 #' @details
-#' This function is a wrapper around the [metafor::rma.mv()] function from the `metafor` package. It takes a dataframe containing the estimates and variances for the meta-analysis, the name of the column containing the estimates, the name of the column containing the variances, and the type of estimate to be used in the model. It then fits a multivariate metaregression model using the [metafor::rma.mv()] function called in [fit_metafor_mv()] and returns the fitted model.
+#' This function is a wrapper around the [metafor::rma.mv()] function from the `metafor` package. It takes a dataframe containing the estimates and variances for the meta-analysis, the name of the column containing the estimates, the name of the column containing the variances, and the type of estimate to be used in the model. It then fits a metaregression model with random-effects using the [metafor::rma.mv()] function called in [fit_metafor_mv()] and returns the fitted model.
 #' 
 #' Nested random effects are included for `TeamIdentifier` and `TeamIdentifier/study_id`.
 #' @examples
