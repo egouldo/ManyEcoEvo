@@ -2,7 +2,7 @@
 % Please edit documentation in R/fit_MA_mv.R
 \name{fit_MA_mv}
 \alias{fit_MA_mv}
-\title{Fit multivariate meta-analysis of effect-sizes}
+\title{Fit Multivariate Meta-regression}
 \usage{
 fit_MA_mv(
   effects_analysis = data.frame(),
@@ -12,21 +12,26 @@ fit_MA_mv(
 )
 }
 \arguments{
-\item{effects_analysis}{A dataframe containing containing effect-sizes  and their variances.}
+\item{effects_analysis}{A dataframe containing the estimates and variances for the meta-analysis.}
 
-\item{Z_colname}{Name of the variable containing standardised effect-sizes.}
+\item{Z_colname}{The name of the column containing the estimates.}
 
-\item{estimate_type}{character string, one of "Zr", "yi", "y25", "y50", "y75".}
+\item{estimate_type}{The type of estimate to be used in the model. One of "Zr", "y50", "y25", "y75", or "yi".}
 
-\item{VZ_colname}{Name of the variable containing the variance of standardised effect-sizes.}
+\item{VZ_colname}{The name of the column containing the variances.}
 }
 \value{
-A fitted model of class \code{rma.mv} and \code{rma}.
+A fitted model of class \code{c("rma.mv","rma")}.
 }
 \description{
-Applies \code{\link[=fit_metafor_mv]{fit_metafor_mv()}} to fit a multivariate meta-analysis model using the \code{metafor} package. Nested random effects are included for \code{TeamIdentifier} and \code{TeamIdentifier/study_id }.
+Fit a multivariate meta-regression model using the \link[metafor:rma.mv]{metafor::rma.mv} function from the \code{metafor} package to a dataframe containing the estimates and variances for the meta-analysis.
+}
+\details{
+This function is a wrapper around the \code{\link[metafor:rma.mv]{metafor::rma.mv()}} function from the \code{metafor} package. It takes a dataframe containing the estimates and variances for the meta-analysis, the name of the column containing the estimates, the name of the column containing the variances, and the type of estimate to be used in the model. It then fits a multivariate metaregression model using the \code{\link[metafor:rma.mv]{metafor::rma.mv()}} function called in \code{\link[=fit_metafor_mv]{fit_metafor_mv()}} and returns the fitted model.
+
+Nested random effects are included for \code{TeamIdentifier} and \code{TeamIdentifier/study_id}.
 }
 \examples{
 ManyEcoEvo_results$effects_analysis[[1]] \%>\% 
-fit_MA_mv(beta_estimate, beta_SE, "Zr")
+  fit_MA_mv(beta_estimate, beta_SE, "Zr")
 }
