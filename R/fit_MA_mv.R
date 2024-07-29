@@ -1,30 +1,30 @@
-#' Fit multivariate meta-analysis of effect-sizes
-#'@description
-#' Applies [ManyEcoEvo::fit_metafor_mv()] to fit a multivariate meta-analysis model using the `metafor` package. Nested random effects are included for `TeamIdentifier` and `TeamIdentifier/study_id `.
+#' Fit Multivariate Meta-regression
+#' @description Fit a multivariate meta-regression model using the [metafor::rma.mv] function from the `metafor` package to a dataframe containing the estimates and variances for the meta-analysis.
 #'
-#' @param effects_analysis A dataframe containing containing effect-sizes  and their variances.
-#' @param Z_colname Name of the variable containing standardised effect-sizes.
-#' @param VZ_colname Name of the variable containing the variance of standardised effect-sizes.
-#' @param estimate_type character string, one of "Zr", "yi", "y25", "y50", "y75".
+#' @param effects_analysis A dataframe containing the estimates and variances for the meta-analysis.
+#' @param Z_colname The name of the column containing the estimates.
+#' @param VZ_colname The name of the column containing the variances.
+#' @param estimate_type The type of estimate to be used in the model. One of "Zr", "y50", "y25", "y75", or "yi".
 #'
-#' @return A fitted model of class `rma.mv` and `rma`.
-#' 
+#' @return A fitted model of class `c("rma.mv","rma")`.
 #' @export
-#' @importFrom dplyr pull
+#' @import dplyr
 #' @importFrom rlang enquo
-#' @importFrom magrittr "%>%"
 #' @import metafor
-#' @importFrom pointblank stopifnot
-#'
+#' @importFrom pointblank stop_if_not
+#' @details
+#' This function is a wrapper around the [metafor::rma.mv()] function from the `metafor` package. It takes a dataframe containing the estimates and variances for the meta-analysis, the name of the column containing the estimates, the name of the column containing the variances, and the type of estimate to be used in the model. It then fits a multivariate metaregression model using the [metafor::rma.mv()] function called in [fit_metafor_mv()] and returns the fitted model.
+#' 
+#' Nested random effects are included for `TeamIdentifier` and `TeamIdentifier/study_id`.
 #' @examples
 #' ManyEcoEvo_results$effects_analysis[[1]] %>% 
-#' fit_MA_mv(beta_estimate, beta_SE, "Zr")
+#'   fit_MA_mv(beta_estimate, beta_SE, "Zr")
 fit_MA_mv <- function(effects_analysis = data.frame(), Z_colname, VZr_colname, estimate_type = character(1L)){
-  stop_if_not(estimate_type %in% c("Zr", "yi", "y25", "y50", "y75"))
+  pointblank::stop_if_not(estimate_type %in% c("Zr", "yi", "y25", "y50", "y75"))
   
-  Zr <- effects_analysis %>%  pull({{Z_colname}})
-  VZr <- effects_analysis %>%  pull({{VZr_colname}})
-  mod <- ManyEcoEvo::fit_metafor_mv(estimate = Zr, #TODO why is this a separate function?!
+  Zr <- effects_analysis %>%  dplyr::pull({{Z_colname}})
+  VZr <- effects_analysis %>%  dplyr::pull({{VZr_colname}})
+  mod <- ManyEcoEvo::fit_metafor_mv(estimate = Zr,
                                     variance = VZr, 
                                     estimate_type = estimate_type, 
                                     data = effects_analysis)
