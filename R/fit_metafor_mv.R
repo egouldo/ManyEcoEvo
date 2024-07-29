@@ -6,6 +6,7 @@
 #' @param data Dataframe containing estimates and variances with case id column \code{study_id}.
 #'
 #' @return Object of class \code{rma.mv}
+#' @import metafor
 #' @export
 #'
 #' @examples
@@ -21,7 +22,7 @@
 #'          !is.infinite(VZr)) %>%
 #' fit_metafor_mv(estimate = .$Zr, variance = .$VZr, estimate_type = "Zr", data = .)
 fit_metafor_mv <- function(estimate, variance, estimate_type = character(1L), data){
-  cli::cli_h2(glue::glue("Fitting multivariate metaregression"))
+  cli::cli_h2(glue::glue("Fitting metaregression"))
   match.arg(estimate_type, choices = c("Zr", "y50", "y25", "y75", "yi"), several.ok = FALSE) 
   
   if(estimate_type != "Zr"){ # you need to put SE^2 for y
@@ -30,17 +31,17 @@ fit_metafor_mv <- function(estimate, variance, estimate_type = character(1L), da
   
   mod <- metafor::rma.mv(yi = estimate, # of type "Zr" or "ymed", "y25", "y75"
                   V = variance, 
-                  random=list(~1|TeamIdentifier/study_id),
+                  random = list(~1|TeamIdentifier/study_id),
                   data = data,
                   sparse = TRUE,
                   # verbose = TRUE,
-                  control=list(optimizer="nloptr", maxeval=1000),
+                  control = list(optimizer="nloptr", maxeval=1000),
                   slab = data$study_id)
   return(mod)
 }
 
 
-#' Fit reduced multivariate metaregression model
+#' Fit reduced metaregression model
 #'
 #' @param estimate Numeric vector
 #' @param variance Numeric vector
@@ -48,6 +49,10 @@ fit_metafor_mv <- function(estimate, variance, estimate_type = character(1L), da
 #' @param data Dataframe containing estimates and variances with case id column \code{study_id}.
 #'
 #' @return Object of class \code{rma.mv}
+#' @import metafor
+#' @import dplyr
+#' @importFrom glue glue
+#' @importFrom cli cli_h2
 #' @export
 #'
 #' @examples
@@ -80,6 +85,7 @@ fit_metafor_mv_reduced <- function(estimate, variance, estimate_type = character
                   data = data,
                   sparse = TRUE,
                   sigma2 =  c(0, NA))
+  
 }
 
 poss_fit_metafor_mv <- purrr::possibly(fit_metafor_mv,

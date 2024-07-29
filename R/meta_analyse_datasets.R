@@ -34,16 +34,6 @@ meta_analyse_datasets <- function(MA_data){
   
   cli::cli_h1(text = "Meta-analysing Datasets")
   
-  fit_MA_mv <- function(effects_analysis, Z_colname, VZ_colname, estimate_type){
-    Zr <- effects_analysis %>%  pull({{Z_colname}})
-    VZr <- effects_analysis %>%  pull({{VZ_colname}})
-    mod <- poss_fit_metafor_mv(estimate = Zr, 
-                          variance = VZr, 
-                          estimate_type = estimate_type, 
-                          data = effects_analysis)
-    return(mod)
-  }
-  
   if( any(str_detect(unique(MA_data$estimate_type), pattern = "Zr")) ){
     # Must group by cols else multiple "effects_analysis" elements
     # get passed to fit_MA_mv()
