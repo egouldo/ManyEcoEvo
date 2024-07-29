@@ -9,3 +9,5 @@ _targets.R
 ^docs$
 ^pkgdown$
 ^\.github$
+^doc$
+^Meta$

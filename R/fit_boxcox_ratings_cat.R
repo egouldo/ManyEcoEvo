@@ -37,20 +37,19 @@ fit_boxcox_ratings_cat <- function(.data, outcome, outcome_var, interceptless = 
            obs_id = 1:n()) 
   
   if(interceptless == FALSE){
+    
     f <- rlang::new_formula(rlang::ensym(outcome), 
                             expr(PublishableAsIs + 
                                    (1 | ReviewerId) # + (1 | study_id ) RE ommitted due to convergence issues
                             ))
-    mod <- lme4::lmer(f,
-                      data = data_tbl #,
-                      #weights = I(1/pull(data_tbl,{{outcome_var}}))
-                      )
+    
+    mod <- lme4::lmer(formula = f, data = data_tbl)
+    
   }else(#interceptless: for plotting
+    
     mod <- lme4::lmer(rlang::new_formula(rlang::ensym(outcome), 
-                                         expr(-1 + PublishableAsIs + (1 | ReviewerId))), #+ (1 | study_id) #problem with the groups
-                      data = data_tbl #,
-                      # weights = I(1/pull(data_tbl,{{outcome_var}}))
-                      )
+                                         expr(-1 + PublishableAsIs + (1 | ReviewerId))),
+                      data = data_tbl)
   )
   
   return(mod)

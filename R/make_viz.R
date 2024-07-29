@@ -18,7 +18,7 @@ make_viz <- function(data) {
   if(any(str_detect(unique(data$estimate_type),pattern = "Zr"))){
     data_Zr <- data %>% 
       filter(estimate_type == "Zr") %>% 
-      group_by(exclusion_set, dataset, estimate_type, publishable_subset, expertise_subset, data) %>% 
+      group_by(exclusion_set, dataset, estimate_type, publishable_subset, expertise_subset, collinearity_subset, data) %>% 
       pivot_longer(names_to = "model_name", 
                    values_to = "model", 
                    cols = c(-exclusion_set, 
@@ -29,7 +29,8 @@ make_viz <- function(data) {
                             -diversity_indices, 
                             -effects_analysis,
                             -publishable_subset,
-                            -expertise_subset)) %>% 
+                            -expertise_subset,
+                            -collinearity_subset)) %>% 
       ungroup %>% 
       select(-data, 
              -diversity_data, 

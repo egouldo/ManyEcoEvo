@@ -126,8 +126,8 @@ augment_prediction_data <- function(.data, checks, dataset){
       submission_data %>% 
         group_by(scenario) %>% 
         mutate(scenario = ifelse(is.character(scenario), parse_number(scenario), scenario),
-               across(where(~ is.character(.x) && str_detect(.x, ",")), 
-                      ~ parse_number(.x, locale = locale(decimal_mark = ","))))
+               across(where(is.character), 
+                      ~ ifelse(str_detect(., ","), parse_number(., locale = locale(decimal_mark = ",")), as.numeric(.))))
     }
     
     new_names <- 

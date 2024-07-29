@@ -14,6 +14,10 @@
 #'
 #' @return A nested dataframe with all columns of object parsed to arg `MA_data`, but with additional columns for the results of each analysis: `MA_mod`, `sorensen_glm`, `box_cox_ratings_cont`, `box_cox_ratings_cat`, `box_cox_rating_cat_no_int`, `uni_mixed_effects`
 #' @export
+#' @importFrom purrr map_chr map2 map possibly pmap
+#' @import dplyr
+#' @import cli
+#' @importFrom rlang na_chr is_null na_chr
 #' @family Multi-dataset Wrapper Functions
 #'
 #' @examples
@@ -23,8 +27,7 @@
 #'   #   dplyr::filter(dataset == "eucalyptus",
 #'   #          (max(VZr, na.rm = TRUE) == VZr)) TODO, do we need to include now that INF's removed?
 meta_analyse_datasets <- function(MA_data){
-  #example:
-  
+
   poss_fit_metafor_mv <- purrr::possibly(fit_metafor_mv,
                                          otherwise = NA,
                                          quiet = FALSE)

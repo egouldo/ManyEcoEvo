@@ -4,7 +4,7 @@ library(targets)
 library(usethis)
 
 # ---- Run targets pipeline ----
-# tar_destroy() # Uncomment and run if want to reproduce from scratch, run locally only
+tar_destroy() # Uncomment and run if want to reproduce from scratch, run locally only
 tar_make()
 
 # ---- Read targets and use data ----
@@ -16,13 +16,15 @@ tar_load(ManyEcoEvo_results)
 tar_load(ManyEcoEvo_yi_results)
 tar_load(ManyEcoEvo_viz)
 tar_load(ManyEcoEvo_yi_viz)
+tar_load(ManyEcoEvo_study_summary)
 
 usethis::use_data(ManyEcoEvo, 
-                  ManyEcoEvo_yi,
+                  ManyEcoEvo_yi, # consider making internal
                   ManyEcoEvo_results,
-                  ManyEcoEvo_yi_results,
+                  ManyEcoEvo_yi_results, #consider making internal
                   ManyEcoEvo_viz,
-                  ManyEcoEvo_yi_viz,
+                  ManyEcoEvo_yi_viz, #TODO consider making internal
+                  ManyEcoEvo_study_summary,
                   overwrite = TRUE)
 
 # TODO also need to add raw files to demonstrate pipeline / package functionality in package vignette and software manuscript.

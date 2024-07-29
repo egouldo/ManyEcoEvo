@@ -23,13 +23,13 @@ pkgs <- c("tidyverse",
           "rsvg",
           "multilevelmod",
           "metafor",
-          "ManyEcoEvo")
+          "ManyEcoEvo") #TODO rm from here and just call in tar_option_set(), but will need to rm all namespacing
 
 tar_option_set(
   packages = pkgs,
   imports = "ManyEcoEvo",
   # debug = c("augmented_data_3efd9941")#, #augmented_data_a4d78efa
-  # cue = tar_cue(mode = "never") #because we have silent errors!
+  # cue = tar_cue(mode = "always") #because we have silent errors!
 )
 
 list(tarchetypes::tar_file_read(name = euc_reviews, 
@@ -65,9 +65,6 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
      tarchetypes::tar_file_read(name = list_of_new_prediction_files,
                                 command = "data-raw/analyst_data/S2/list_of_new_csv_files.csv",
                                 read = readr::read_csv(!!.x)),
-     tarchetypes::tar_file_read(name = expert_subset,
-                                command = "data-raw/metadata_and_key_data/Good_Statistician_ResponseIds.csv",
-                                read = readr::read_csv(file = !!.x)),
      targets::tar_target(name = all_review_data,
                          command = prepare_review_data(bt_reviews,euc_reviews)),
      targets::tar_target(ManyEcoEvo,
@@ -79,7 +76,8 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
                            prepare_response_variables(estimate_type = "Zr") |>  
                            generate_exclusion_subsets(estimate_type = "Zr") |> 
                            generate_rating_subsets() |> 
-                           generate_expertise_subsets(expert_subset) |>
+                           generate_expertise_subsets(ManyEcoEvo:::expert_subset) |>
+                           generate_collinearity_subset(ManyEcoEvo:::collinearity_subset) |>
                            compute_MA_inputs(estimate_type = "Zr") |> 
                            generate_outlier_subsets() |> # TODO run before MA_inputs? diversity indices need to be recalculated!!
                            filter(expertise_subset != "expert" | exclusion_set != "complete-rm_outliers") |> #TODO mv into generate_outlier_subsets() so aren't created in the first place
@@ -228,10 +226,21 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
                            compute_MA_inputs() %>%  #TODO lone join by "estimate_type" amongst join_by ("id_col") is suspicious!
                            
                            generate_outlier_subsets() %>% #TODO swapped order with previous line, but untested
-                           meta_analyse_datasets() #TODO requires col exclusion_set from generate_exclusino_subsets() but don't need that fun in this pipeline anymore
+                           meta_analyse_datasets() #TODO requires col exclusion_set from generate_exclusion_subsets() but don't need that fun in this pipeline anymore
      ),
      targets::tar_target( name = ManyEcoEvo_yi_viz,
                           command = make_viz(ManyEcoEvo_yi_results)),
+     targets::tar_target(name = ManyEcoEvo_study_summary,
+                         command = summarise_study(ManyEcoEvo::ManyEcoEvo, 
+                                                   ManyEcoEvo::ManyEcoEvo_results, 
+                                                   id_subsets = list(ManyEcoEvo:::effect_ids, 
+                                                                     ManyEcoEvo:::prediction_ids), 
+                                                   subset_names = c("effects", "predictions"), 
+                                                   filter_vars = rlang::exprs(exclusion_set == "complete",
+                                                                              estimate_type == "Zr",
+                                                                              publishable_subset == "All",
+                                                                              expertise_subset == "All",
+                                                                              collinearity_subset == "All"))),
      tarchetypes::tar_quarto(name = README,
                              path = "README.qmd")
      # tarchetypes::tar_quarto(full_analysis, "analysis/analysis_revised_data.qmd")
