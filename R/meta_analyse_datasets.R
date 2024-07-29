@@ -35,7 +35,7 @@ meta_analyse_datasets <- function(MA_data){
     # Must group by cols else multiple "effects_analysis" elements
     # get passed to fit_MA_mv()
     MA_data <- MA_data %>% 
-      group_by(estimate_type, dataset, exclusion_set, publishable_subset, expertise_subset)
+      group_by(estimate_type, dataset, exclusion_set, publishable_subset, expertise_subset, collinearity_subset)
   } else {
     MA_data <- MA_data %>% 
       group_by(estimate_type, dataset, exclusion_set)
