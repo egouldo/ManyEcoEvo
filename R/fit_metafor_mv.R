@@ -6,6 +6,7 @@
 #' @param data Dataframe containing estimates and variances with case id column \code{study_id}.
 #'
 #' @return Object of class \code{rma.mv}
+#' @import metafor
 #' @export
 #'
 #' @examples
@@ -48,6 +49,10 @@ fit_metafor_mv <- function(estimate, variance, estimate_type = character(1L), da
 #' @param data Dataframe containing estimates and variances with case id column \code{study_id}.
 #'
 #' @return Object of class \code{rma.mv}
+#' @import metafor
+#' @import dplyr
+#' @importFrom glue glue
+#' @importFrom cli cli_h2
 #' @export
 #'
 #' @examples
