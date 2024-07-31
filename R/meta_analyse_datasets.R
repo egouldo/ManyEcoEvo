@@ -26,7 +26,7 @@
 #'                                 expertise_subset == "All",
 #'                                 publishable_subset == "All",
 #'                                 collinearity_subset == "All")
-meta_analyse_datasets <- function(MA_data, filter_vars){
+meta_analyse_datasets <- function(MA_data, filter_vars = NULL){
 
   poss_fit_metafor_mv <- purrr::possibly(fit_metafor_mv,
                                          otherwise = NA,
