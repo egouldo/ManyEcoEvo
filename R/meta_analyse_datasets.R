@@ -151,6 +151,12 @@ meta_analyse_datasets <- function(MA_data, filter_vars = NULL){
       select(-ends_with("_colname"))
   }
   
+  out <- 
+    out %>% #replace any NULL values with NA
+    mutate(across(everything(), 
+                  .fns = ~ coalesce(.x, list(NA)))
+    )
+  
   return(out)
   
 }
