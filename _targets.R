@@ -32,6 +32,8 @@ tar_option_set(
   # cue = tar_cue(mode = "always") #because we have silent errors!
 )
 
+future::plan(future::multicore)
+
 list(tarchetypes::tar_file_read(name = euc_reviews, 
                                 command = "data-raw/anonymised_data/euc_reviews.csv", 
                                 read = readr::read_csv(file = !!.x)),
