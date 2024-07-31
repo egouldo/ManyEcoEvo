@@ -27,7 +27,7 @@
 #'                                 publishable_subset == "All",
 #'                                 collinearity_subset == "All")
 meta_analyse_datasets <- function(MA_data, filter_vars = NULL){
-
+  
   # poss_fit_metafor_mv <- purrr::possibly(fit_metafor_mv,
   #                                        otherwise = NA,
   #                                        quiet = FALSE)
@@ -53,9 +53,9 @@ meta_analyse_datasets <- function(MA_data, filter_vars = NULL){
                               dplyr::select(.x, 
                                             starts_with("Z")) %>% 
                                 colnames()
-                              } else {
-                                rlang::na_chr
-                              } ),
+                            } else {
+                              rlang::na_chr
+                            } ),
                   VZ_colname = 
                     map_chr(effects_analysis,
                             ~if(!is_null(.x)){
@@ -144,7 +144,7 @@ meta_analyse_datasets <- function(MA_data, filter_vars = NULL){
     
     out <- left_join(out, multivar_mods, by) %>% 
       select(-ends_with("_colname"))
-      
+    
   } else {
     out <- out %>% 
       mutate(MA_mod_mv = map(effects_analysis, fit_multivar_MA)) %>% 
