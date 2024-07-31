@@ -30,29 +30,55 @@
 #' - `mixed_model`: binary variable indicating whether the analysis used a mixed effects model or not
 #' - `ReviewerId`: reviewer identifier
 fit_multivar_MA <- function(data_tbl, N = 5, ..., env = rlang::caller_env()){
+  
+  data_tbl %>% 
+    pointblank::expect_col_exists(columns = c(box_cox_abs_deviation_score_estimate, 
+                                              RateAnalysis, PublishableAsIs,
+                                              mean_diversity_index, 
+                                              ReviewerId, 
+                                              mixed_model))
+  # Define Models
   f1 <- rlang::new_formula(rlang::expr(box_cox_abs_deviation_score_estimate), 
                            rlang::expr(RateAnalysis + 
-                                  PublishableAsIs + 
-                                  mean_diversity_index + 
-                                  (1 | ReviewerId)), env = env)
+                                         PublishableAsIs + 
+                                         mean_diversity_index + 
+                                         (1 | ReviewerId)), env = env)
   
   f2 <- rlang::new_formula(rlang::expr(box_cox_abs_deviation_score_estimate), 
                            rlang::expr(RateAnalysis + 
-                                  PublishableAsIs + 
-                                  mean_diversity_index + 
-                                  mixed_model +
-                                  (1 | ReviewerId)), env = env)
+                                         PublishableAsIs + 
+                                         mean_diversity_index + 
+                                         mixed_model +
+                                         (1 | ReviewerId)), env = env)
+  
+  cli::cli_h2("Fitting multivariate meta-regression model")
   
   pass_threshold <- 
     data_tbl %>% 
     count(mixed_model) %>% 
     pointblank::test_col_vals_gte(n, N)
   
+  cur_group_bullets <- dplyr::cur_group() %>% 
+    transpose() %>% 
+    list_flatten() %>% 
+    enframe() %>%  
+    mutate(value = list_c(value)) %>% 
+    unite(group, everything(), 
+          sep = ": ") %>% 
+    pull(group)
+  
   if (pass_threshold == TRUE) {
-    cli::cli_alert_info("Model with random effects included")
-  } else (
-    cli::cli_alert_info("Model with random effects excluded")
-  )
+    cli::cli_alert_info(glue::glue("Presence of random effects in analyses ", 
+                                   cli::style_italic("included"), 
+                                   " as predictor in model for data subset:"))
+    cli::cli_bullets(c(setNames(cur_group_bullets, rep("*",length(cur_group_bullets)))))
+  } else {
+    cli::cli_alert_info(glue::glue("Presence of random effects in analyses ", 
+                                   cli::style_italic("excluded"), 
+                                   " as predictor in model for data subset:"))
+    cli::cli_bullets(c(setNames(cur_group_bullets, rep("*",length(cur_group_bullets)))))
+  }
+  
   #TODO MAKE SURE GIVES CORRECT EX
   f <- if (pass_threshold) f2 else f1 # MAKE SURE RETURNS APPROPIRATELY
   
