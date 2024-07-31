@@ -125,18 +125,22 @@ meta_analyse_datasets <- function(MA_data, filter_vars = NULL){
   # --- Fit Multivariate Models --- 
   #TODO apply same strategy below for filtering any other models out that we might not want
   if (!is.null(filter_vars)) { #TODO check if this is the correct way to check for NULL 
-    filter_var_names <- map(filter_vars, ~ call_args(.x) %>% pluck(1))
+    filter_var_syms <- map(filter_vars, ~ rlang::call_args(.x) %>% pluck(1)) 
+    
+    filter_var_names <- filter_var_syms %>% 
+      map(rlang::quo_name) %>% 
+      purrr::list_c()
     
     multivar_mods <- 
-      ManyEcoEvo_results %>% 
+      out %>% 
       dplyr::filter(!!!filter_vars) %>% 
-      group_by(dataset, !!!filter_var_names) %>% 
-      select(dataset, effects_analysis) %>% 
+      group_by(dataset, !!!filter_var_syms) %>% #retain grouping, but add additional dataset grouping
       mutate(effects_analysis = map(effects_analysis, ~ .x %>% 
                                       unnest(review_data))) %>% 
-      mutate(MA_mod_mv = map(effects_analysis, fit_multivar_MA), .keep = "none") #retain output and grouping cols only
+      mutate(MA_mod_mv = map(effects_analysis, fit_multivar_MA), 
+             .keep = "none") #retain output and grouping cols only
     
-    by <- join_by(dataset, !!!filter_var_names)
+    by <- join_by("dataset", !!!filter_var_names)
     
     out <- nest_join(out, multivar_mods, by) %>% 
       select(-ends_with("_colname"))
