@@ -38,9 +38,6 @@ fit_boxcox_ratings_cont <- function(.data, outcome, outcome_var, ..., env = rlan
   f <- rlang::new_formula(rlang::ensym(outcome), 
                           expr(RateAnalysis + 
                                  (1 | study_id) #NOTE: ReviewerId removed due to singularity
-  mod <- lme4::lmer(f,
-                    data = data_tbl,
-                    weights = I(1/pull(data_tbl,{{outcome_var}})))
                           ) , env = env)
   
   mod <- rlang::inject(lme4::lmer(!!f, data = data_tbl, ...))
