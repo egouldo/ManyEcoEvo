@@ -28,10 +28,10 @@
 #'                                 collinearity_subset == "All")
 meta_analyse_datasets <- function(MA_data, filter_vars = NULL){
 
-  poss_fit_metafor_mv <- purrr::possibly(fit_metafor_mv,
-                                         otherwise = NA,
-                                         quiet = FALSE)
-  
+  # poss_fit_metafor_mv <- purrr::possibly(fit_metafor_mv,
+  #                                        otherwise = NA,
+  #                                        quiet = FALSE)
+  # 
   cli::cli_h1(text = "Meta-analysing Datasets")
   
   if( any(str_detect(unique(MA_data$estimate_type), pattern = "Zr")) ){
