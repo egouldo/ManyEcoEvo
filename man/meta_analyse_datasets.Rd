@@ -4,7 +4,7 @@
 \alias{meta_analyse_datasets}
 \title{Meta-analyses multiple datasets or subsets of datasets of analyst data}
 \usage{
-meta_analyse_datasets(MA_data, filter_vars)
+meta_analyse_datasets(MA_data, filter_vars = NULL)
 }
 \arguments{
 \item{MA_data}{A nested-dataframe grouped by \code{dataset} and / or \code{exclusion_set}, \code{estimate_type}, containing the list-column of prepared analyst subset data \code{effects_analysis} ready for meta-analysis.}
