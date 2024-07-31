@@ -81,7 +81,10 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
                            compute_MA_inputs(estimate_type = "Zr") |> 
                            generate_outlier_subsets() |> # TODO run before MA_inputs? diversity indices need to be recalculated!!
                            filter(expertise_subset != "expert" | exclusion_set != "complete-rm_outliers") |> #TODO mv into generate_outlier_subsets() so aren't created in the first place
-                           meta_analyse_datasets()),
+                           meta_analyse_datasets(filter_vars = rlang::exprs(exclusion_set == "complete",
+                                                                            expertise_subset == "All",
+                                                                            publishable_subset == "All",
+                                                                            collinearity_subset == "All"))),
      targets::tar_target(updated_prediction_files,
                          preprocess_updated_prediction_files(list_of_new_prediction_files)),
      targets::tar_target(prediction_submissions,
@@ -226,7 +229,7 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
                            compute_MA_inputs() %>%  #TODO lone join by "estimate_type" amongst join_by ("id_col") is suspicious!
                            
                            generate_outlier_subsets() %>% #TODO swapped order with previous line, but untested
-                           meta_analyse_datasets() #TODO requires col exclusion_set from generate_exclusion_subsets() but don't need that fun in this pipeline anymore
+                           meta_analyse_datasets(filter_vars = NULL) #TODO requires col exclusion_set from generate_exclusion_subsets() but don't need that fun in this pipeline anymore
      ),
      targets::tar_target( name = ManyEcoEvo_yi_viz,
                           command = make_viz(ManyEcoEvo_yi_results)),
