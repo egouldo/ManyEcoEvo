@@ -147,7 +147,9 @@ meta_analyse_datasets <- function(MA_data, filter_vars = NULL){
     
   } else {
     out <- out %>% 
-      mutate(MA_mod_mv = map(effects_analysis, fit_multivar_MA)) %>% 
+      mutate(effects_analysis = map(effects_analysis, ~ .x %>% 
+                                      unnest(review_data))) %>% 
+      mutate(MA_mod_mv = map(effects_analysis, fit_multivar_MA)) %>%
       select(-ends_with("_colname"))
   }
   
