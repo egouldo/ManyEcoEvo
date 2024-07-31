@@ -142,7 +142,7 @@ meta_analyse_datasets <- function(MA_data, filter_vars = NULL){
     
     by <- join_by("dataset", !!!filter_var_names)
     
-    out <- nest_join(out, multivar_mods, by) %>% 
+    out <- left_join(out, multivar_mods, by) %>% 
       select(-ends_with("_colname"))
       
   } else {
