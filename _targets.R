@@ -21,8 +21,10 @@ pkgs <- c("tidyverse",
           "performance",
           "janitor",
           "rsvg",
+          "lme4",
           "multilevelmod",
           "metafor",
+          "parameters", # must be directly loaded else parameters::parameters() fails on lmerMod for some reason...
           "ManyEcoEvo") #TODO rm from here and just call in tar_option_set(), but will need to rm all namespacing
 
 tar_option_set(
