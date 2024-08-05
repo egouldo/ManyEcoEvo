@@ -1,15 +1,19 @@
-# Load Analyst Datasets from OSF - creates exported datasets: `euc_data` and `blue_tit_data`
+# Load Analyst Datasets from OSF - creates exported datasets: 
+# `euc_data` and `blue_tit_data`
 
 library(tidyverse)
-library(osfr) # Must have personal access token stored
 library(here)
+library(osfr) # Must have personal access token stored
+# to authenticate, follow these instructions: 
+# https://cran.r-project.org/web/packages/osfr/vignettes/auth.html
 
-#Download the Euc data from the OSF:
-osf_repo <- osfr::osf_retrieve_node("https://osf.io/mn5aj/") # to authenticate, follow these instructions: https://cran.r-project.org/web/packages/osfr/vignettes/auth.html
+# ----- Download analysis datasets from the OSF -----
+# 
+osf_repo <- osfr::osf_retrieve_node("https://osf.io/mn5aj/") 
 
 evo_eco_data_node <- osfr::osf_retrieve_node("34fzc")
 
-# Download Eucalyptus Data
+## ----- Download Eucalyptus Data -----
 
 osf_repo %>% 
   osfr::osf_ls_nodes() %>% 
@@ -21,10 +25,10 @@ osf_repo %>%
   dplyr::pull("id") %>% 
   osfr::osf_retrieve_file() %>% 
   osfr::osf_download(path = here::here("data-raw/analysis_datasets/"), 
-               progress = TRUE,
-               conflicts = "overwrite")
+                     progress = TRUE,
+                     conflicts = "overwrite")
 
-# Download Blue Tit Data
+## ----- Download Blue Tit Data -----
 osf_repo %>% 
   osfr::osf_ls_nodes() %>% 
   dplyr::filter(name == "Evolutionary Ecology Data") %>% 
@@ -35,23 +39,26 @@ osf_repo %>%
   dplyr::pull("id") %>% 
   osfr::osf_retrieve_file() %>% 
   osfr::osf_download(path = here::here("data-raw/analysis_datasets/"), 
-               progress = TRUE,
-               conflicts = "overwrite")
+                     progress = TRUE,
+                     conflicts = "overwrite")
 
-# Load Analyst Datasets
 
-euc_data <- readr::read_csv(here::here("data-raw/analysis_datasets/Euc_data.csv")) %>% 
+# ----- Calculate Analyst Constructed Variables -----
+
+## ------ Load Analyst Datasets ------
+
+euc_data <- readr::read_csv(
+  here::here("data-raw/analysis_datasets/Euc_data.csv")
+) %>% 
   dplyr::mutate(SurveyID = as.factor(SurveyID),
                 Date = as.Date(Date, "%d/%m/%Y"))
 
-blue_tit_data <- readr::read_csv(here::here("data-raw/analysis_datasets/blue_tit_data_updated_2020-04-18.csv"))
+blue_tit_data <- 
+  readr::read_csv(
+    here::here("data-raw/analysis_datasets/blue_tit_data_updated_2020-04-18.csv")
+  )
 
-# Load Master Data File (obtain standardised names of analyst variables)
-
-# master_data<-read_excel("C:/Users/hanna/OneDrive/Documents/ManyEcoEvo/data-raw/Combined_Master_2022.06.29.xlsx")
-# standardised_names<-unique(master_data$response_name_standardized)
-
-# Add analyst-constructed variables to analysis data
+## ----- Construct Variables -----
 euc_data <- euc_data %>% 
   mutate(euc_sdlgs_all = euc_sdlgs0_50cm + 
            `euc_sdlgs50cm-2m` + 
@@ -65,27 +72,27 @@ euc_data <- euc_data %>%
   rename(euc_sdlgs50cm_2m = `euc_sdlgs50cm-2m`)
 
 euc_data <- euc_data %>% 
-  left_join({euc_data %>% 
-      mutate(euc_sdlgs_allbinary = ifelse(euc_sdlgs_all>0,1,0)) %>% 
-      group_by(Season,Property) %>% 
-      summarise(proportion_plots_seedlings=(sum(euc_sdlgs_allbinary)/n())) %>% 
+  left_join( { euc_data %>% 
+      mutate(euc_sdlgs_allbinary = ifelse(euc_sdlgs_all > 0, 1 , 0)) %>% 
+      group_by(Season, Property) %>% 
+      summarise(proportion_plots_seedlings = sum(euc_sdlgs_allbinary) / n()) %>% 
       group_by(Property) %>% 
-      summarise(average.proportion.of.plots.containing.at.least.one.euc.seedling.of.any.size = mean(proportion_plots_seedlings)) %>% 
-      ungroup()})
+      summarise(average.proportion.of.plots.containing.at.least.one.euc.seedling.of.any.size = 
+                  mean(proportion_plots_seedlings)) %>% 
+      ungroup() 
+  } )
 
-
-# Blue Tit Data
 blue_tit_data <- 
   blue_tit_data %>% 
-  mutate(`day 14 weight` = 
+  mutate(`day 14 weight` = #TODO should recode the raw analyst data, rather than including here?? Don't want to double count variables!!
            day_14_weight,
          `day_14_weight/(day_14_tarsus_length^2)` = 
-           day_14_weight/(day_14_tarsus_length^2),
+           day_14_weight / (day_14_tarsus_length^2),
          `day_14_weight/day_14_tarsus_length` = 
-           day_14_weight/(day_14_tarsus_length),
+           day_14_weight / (day_14_tarsus_length),
          `day_14_weight*day_14_tarsus_length` =  
-           day_14_weight*day_14_tarsus_length)
+           day_14_weight * day_14_tarsus_length)
 
-
+# ----- Use Data in Package -----
 usethis::use_data(euc_data, overwrite = TRUE)
 usethis::use_data(blue_tit_data, overwrite = TRUE)
