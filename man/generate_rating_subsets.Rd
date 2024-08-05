@@ -40,7 +40,6 @@ Other targets-pipeline functions:
 \code{\link{make_viz}()},
 \code{\link{prepare_ManyEcoEvo}()},
 \code{\link{prepare_ManyEcoEvo_yi}()},
-\code{\link{prepare_response_variables}()},
 \code{\link{prepare_response_variables_yi}()},
 \code{\link{prepare_review_data}()}
 }

@@ -24,7 +24,7 @@ A tibble of nested list-columns
 Prepare response variable data for nested ManyEcoEvo dataset - out of sample predictions only
 }
 \details{
-Operates on nested list-columns of data
+Operates on nested list-columns of data. The function back-transforms the response variables from the link to the response scale for each dataset in the ManyEcoEvo dataset. The back-transformed data is stored in a list-column called \code{back_transformed_data}. It is useful for when wanting to conduct a meta-analysis on the response scale, e.g. for the \emph{Eucalyptus} count data.
 }
 \seealso{
 Other targets-pipeline functions: 
@@ -33,7 +33,6 @@ Other targets-pipeline functions:
 \code{\link{make_viz}()},
 \code{\link{prepare_ManyEcoEvo}()},
 \code{\link{prepare_ManyEcoEvo_yi}()},
-\code{\link{prepare_response_variables}()},
 \code{\link{prepare_review_data}()}
 
 Other Multi-dataset Wrapper Functions: 

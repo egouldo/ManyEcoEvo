@@ -21,7 +21,6 @@ Other targets-pipeline functions:
 \code{\link{generate_rating_subsets}()},
 \code{\link{prepare_ManyEcoEvo}()},
 \code{\link{prepare_ManyEcoEvo_yi}()},
-\code{\link{prepare_response_variables}()},
 \code{\link{prepare_response_variables_yi}()},
 \code{\link{prepare_review_data}()}
 
