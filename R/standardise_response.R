@@ -6,6 +6,9 @@
 #' @param dataset One of either "blue tit" or "eucalyptus"
 #'
 #' @return A tibble of analyst data with standardised values contained in a list-column called 'back_transformed_data'
+#' @details
+#' Note that for $y_i$ or out of sample predictions that are standardised, if param_table is `NA` or `NULL` for a given variable, then the response variable will not be standardised, and NA will be returned for that entry in `back_transformed_data`.
+#' 
 #' @export 
 #' @family analyst-data
 standardise_response <-  function(dat, 
@@ -78,6 +81,7 @@ standardise_response <-  function(dat,
                                   }else{NA}))
   }
   
+  #TODO for any analyses implicitly excluded, return a message to the user
   return(dat)
   
 }
