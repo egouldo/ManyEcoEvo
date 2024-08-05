@@ -12,6 +12,8 @@ The `ManyEcoEvo` package provides a suite of functions for:
 -   Tidying and cleaning many-analyst style data for further analysis
 -   Reproducing the analysis in *Gould et al.* using your own many-analyst style data
 
+[^1]: Gould, E., Fraser, H., Parker, T. *et al.* (2023). Same data, different analysts: Variation in effect sizes due to analytical decisions in ecology and evolutionary biology \[Preprint\]. Ecology and Evolutionary Biology. https://doi.org/10.32942/X2GG62
+
 > Note that the manuscript source-code for *Gould et al.* is located in a separate repository at <https://github.com/egouldo/ManyAnalysts>, which can be viewed at <https://egouldo.github.io/ManyAnalysts/>.
 
 ## Installation
@@ -24,8 +26,7 @@ devtools::install_github("egouldo/ManyEcoEvo")
 
 # Regenerating the ManyEcoEvo dataset
 
-The data processing and analysis can be freely reproduced with the help of the [`targets::`](https://github.com/ropensci/targets) package.
-Please see the documentation at <https://docs.ropensci.org/targets/> for further detail.
+The data processing and analysis can be freely reproduced with the help of the [`targets::`](https://github.com/ropensci/targets) package. Please see the documentation at <https://docs.ropensci.org/targets/> for further detail.
 
 Should you wish to completely reproduce the dataset generation and analysis in *Gould et al.*, complete the following steps:
 
@@ -43,6 +44,8 @@ suppressPackageStartupMessages(library(targets))
 ```{r}
 targets::tar_read("ManyEcoEvo")
 ```
+
+The script that generates the ManyEcoEvo package datasets is located in [`ManyEcoEvo/data-raw/tar_make.R`](https://github.com/egouldo/ManyEcoEvo/blob/main/data-raw/tar_make.R).
 
 ## License
 
@@ -71,9 +74,3 @@ A BibTeX entry for LaTeX users is
     url = {https://github.com/egouldo/ManyEcoEvo},
   }
 ```
-
-[^1]: Gould, E., Fraser, H., Parker, T.
-    *et al.* (2023).
-    Same data, different analysts: Variation in effect sizes due to analytical decisions in ecology and evolutionary biology \[Preprint\].
-    Ecology and Evolutionary Biology.
-    https://doi.org/10.32942/X2GG62

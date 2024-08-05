@@ -242,6 +242,7 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
                                                                               expertise_subset == "All",
                                                                               collinearity_subset == "All"))),
      tarchetypes::tar_quarto(name = README,
-                             path = "README.qmd")
-     # tarchetypes::tar_quarto(full_analysis, "analysis/analysis_revised_data.qmd")
+                             path = "README.qmd"),
+     tarchetypes::tar_quarto(name = README_data_raw,
+                             path = here::here("data-raw/analysis_datasets/", "README.qmd"))
 )

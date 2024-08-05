@@ -5,7 +5,7 @@
 #' @param param_table A table of parameters \(mean, sd\) for *most* response variables used by analysts. This tibble is pulled from the named object exported by `ManyEcoEvo::`. but can be overwritten with the users's own `param_table` dataset.
 #'
 #' @return A tibble of nested list-columns
-#' @details Operates on nested list-columns of data
+#' @details Operates on nested list-columns of data. The function back-transforms the response variables from the link to the response scale for each dataset in the ManyEcoEvo dataset. The back-transformed data is stored in a list-column called `back_transformed_data`. It is useful for when wanting to conduct a meta-analysis on the response scale, e.g. for the *Eucalyptus* count data.
 #' @family targets-pipeline functions
 #' @family Multi-dataset Wrapper Functions
 #' @export 

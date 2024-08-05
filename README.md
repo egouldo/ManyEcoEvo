@@ -64,6 +64,9 @@ targets::tar_read("ManyEcoEvo")
     1 blue tit   <tibble [174 × 38]> <tibble [174 × 54]> Zr           
     2 eucalyptus <tibble [128 × 38]> <tibble [128 × 61]> Zr           
 
+The script that generates the ManyEcoEvo package datasets is located in
+[`ManyEcoEvo/data-raw/tar_make.R`](https://github.com/egouldo/ManyEcoEvo/blob/main/data-raw/tar_make.R).
+
 ## License
 
 This software is licensed with the GNU GPL 3 license.
