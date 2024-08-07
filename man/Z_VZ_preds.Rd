@@ -2,7 +2,7 @@
 % Please edit documentation in R/Z_VZ_preds.R
 \name{Z_VZ_preds}
 \alias{Z_VZ_preds}
-\title{Calculate Z and VZ of out-of-sample predictions}
+\title{Standardize out-of-sample predictions}
 \usage{
 Z_VZ_preds(yi, yi_se, mu_p, sd_p)
 }
@@ -19,6 +19,6 @@ Z_VZ_preds(yi, yi_se, mu_p, sd_p)
 A tibble with columns \code{Z} and \code{VZ}
 }
 \description{
-Calculate Z and VZ of out-of-sample predictions
+Standardize out-of-sample predictions
 }
 \concept{Analysis-level functions}
