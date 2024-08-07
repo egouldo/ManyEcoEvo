@@ -236,24 +236,24 @@ summarise_study <- function(ManyEcoEvo, ManyEcoEvo_results, id_subsets, subset_n
   
   # ------ Prepare Summary Data Subsets ------
   
-  subsets_tibble <- ManyEcoEvo::ManyEcoEvo %>% 
+  subsets_tibble <- ManyEcoEvo %>% 
     prepare_analyst_summary_data("all",
                                  id_subsets,
                                  subset_names)
   
-  subsets_tibble_sorensen <- ManyEcoEvo::ManyEcoEvo_results %>% 
+  subsets_tibble_sorensen <- ManyEcoEvo_results %>% 
     prepare_sorenson_summary_data("all",
                                   id_subsets,
                                   subset_names,
                                   filter_expressions = filter_vars)
   
-  subsets_tibble_variables <- ManyEcoEvo::ManyEcoEvo %>%
+  subsets_tibble_variables <- ManyEcoEvo %>%
     prepare_diversity_summary_data("all",
                                    id_subsets,
                                    subset_names)
   
   var_names <- 
-    ManyEcoEvo::ManyEcoEvo %>% 
+    ManyEcoEvo %>% 
     pull(diversity_data) %>% 
     map(~ .x %>% select(-id_col, -dataset) 
         %>% colnames) %>% 
