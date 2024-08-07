@@ -15,7 +15,8 @@ toc()
 
 # ---- Read targets and use data ----
 
-# Targets required for main manuscript:
+# Load targets required for main manuscript / package:
+tic()
 tar_load(ManyEcoEvo)
 tar_load(ManyEcoEvo_yi)
 tar_load(ManyEcoEvo_results)
@@ -23,7 +24,10 @@ tar_load(ManyEcoEvo_yi_results)
 tar_load(ManyEcoEvo_viz)
 tar_load(ManyEcoEvo_yi_viz)
 tar_load(ManyEcoEvo_study_summary)
+toc()
 
+# Write targets to data folder:
+tic()
 usethis::use_data(ManyEcoEvo, 
                   ManyEcoEvo_yi, # consider making internal
                   ManyEcoEvo_results,
@@ -31,7 +35,9 @@ usethis::use_data(ManyEcoEvo,
                   ManyEcoEvo_viz,
                   ManyEcoEvo_yi_viz, #TODO consider making internal
                   ManyEcoEvo_study_summary,
-                  overwrite = TRUE)
+                  overwrite = TRUE,
+                  compress = "gzip")
+toc()
 
 # TODO also need to add raw files to demonstrate pipeline / package functionality in package vignette and software manuscript.
 
