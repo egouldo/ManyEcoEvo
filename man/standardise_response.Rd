@@ -26,6 +26,9 @@ A tibble of analyst data with standardised values contained in a list-column cal
 \description{
 Standardise Response Variable
 }
+\details{
+Note that for $y_i$ or out of sample predictions that are standardised, if param_table is \code{NA} or \code{NULL} for a given variable, then the response variable will not be standardised, and NA will be returned for that entry in \code{back_transformed_data}.
+}
 \seealso{
 Other analyst-data: 
 \code{\link{back_transform_response_vars_yi}()}
