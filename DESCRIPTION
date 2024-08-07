@@ -25,7 +25,6 @@ Description: The ManyEcoEvo package provides a set of functions for
     ManyEcoEvo project for reproducing the ManyEcoEvo analysis.
 License: GPL (>= 3)
 Depends: 
-    qs,
     R (>= 2.10)
 Imports:
     betapart,
@@ -49,6 +48,7 @@ Imports:
     tidyselect
 Suggests:
     targets,
+    qs,
     broom.mixed,
     metaviz,
     ggeffects,
