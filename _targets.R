@@ -83,30 +83,30 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
                                 command = "data-raw/analyst_data/S2/list_of_new_csv_files.csv",
                                 read = readr::read_csv(!!.x)),
      targets::tar_target(name = all_review_data,
-                         command = ManyEcoEvo::prepare_review_data(bt_reviews,euc_reviews)),
+                         command = prepare_review_data(bt_reviews,euc_reviews)),
      targets::tar_target(ManyEcoEvo,
-                         command = ManyEcoEvo::prepare_ManyEcoEvo(master_data, 
+                         command = prepare_ManyEcoEvo(master_data, 
                                                                   master_metadata, 
                                                                   all_review_data)),
      targets::tar_target(name = ManyEcoEvo_results,
                          command = ManyEcoEvo %>% 
-                           ManyEcoEvo::prepare_response_variables(estimate_type = "Zr") |>  
-                           ManyEcoEvo::generate_exclusion_subsets(estimate_type = "Zr") |> 
-                           ManyEcoEvo::generate_rating_subsets() |> 
-                           ManyEcoEvo::generate_expertise_subsets(ManyEcoEvo:::expert_subset) |>
-                           ManyEcoEvo::generate_collinearity_subset(ManyEcoEvo:::collinearity_subset) |>
-                           ManyEcoEvo::compute_MA_inputs(estimate_type = "Zr") |> 
-                           ManyEcoEvo::generate_outlier_subsets() |> # TODO run before MA_inputs? diversity indices need to be recalculated!!
+                           prepare_response_variables(estimate_type = "Zr") |>  
+                           generate_exclusion_subsets(estimate_type = "Zr") |> 
+                           generate_rating_subsets() |> 
+                           generate_expertise_subsets(ManyEcoEvo:::expert_subset) |>
+                           generate_collinearity_subset(ManyEcoEvo:::collinearity_subset) |>
+                           compute_MA_inputs(estimate_type = "Zr") |> 
+                           generate_outlier_subsets() |> # TODO run before MA_inputs? diversity indices need to be recalculated!!
                            filter(expertise_subset != "expert" | exclusion_set != "complete-rm_outliers") |> #TODO mv into generate_outlier_subsets() so aren't created in the first place
-                           ManyEcoEvo::meta_analyse_datasets(filter_vars = 
+                           meta_analyse_datasets(filter_vars = 
                                                                rlang::exprs(exclusion_set == "complete",
                                                                             expertise_subset == "All",
                                                                             publishable_subset == "All",
                                                                             collinearity_subset == "All"))),
      targets::tar_target(updated_prediction_files,
-                         ManyEcoEvo::preprocess_updated_prediction_files(list_of_new_prediction_files)),
+                         preprocess_updated_prediction_files(list_of_new_prediction_files)),
      targets::tar_target(prediction_submissions,
-                         ManyEcoEvo::preprocess_prediction_files(
+                         preprocess_prediction_files(
                            predictions_validation_coded, 
                            ManyEcoEvo %>% 
                              select(data) %>% 
@@ -183,7 +183,7 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
      ),
      tar_target(augmented_data,
                 command = if(!rlang::is_na(submission_data)){ 
-                  ManyEcoEvo::augment_prediction_data(.data = submission_data, 
+                  augment_prediction_data(.data = submission_data, 
                                                       checks = groups$checks, 
                                                       dataset = groups$dataset)
                 }else{
@@ -194,7 +194,7 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
                 pattern = map(submission_data, groups)),
      tar_target(validated_augmented_data,
                 command = if(!rlang::is_na(augmented_data)){
-                  ManyEcoEvo::validate_predictions(data_set = groups$dataset, 
+                  validate_predictions(data_set = groups$dataset, 
                                                    input = augmented_data %>% 
                                                      ungroup(), 
                                                    type = "df")
@@ -228,9 +228,9 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
                            flatten_dbl(.) %>% 
                            as.logical(.))),
      targets::tar_target(name = ManyEcoEvo_viz,
-                         command =  ManyEcoEvo::make_viz(ManyEcoEvo_results)),
+                         command =  make_viz(ManyEcoEvo_results)),
      targets::tar_target(name = ManyEcoEvo_yi,
-                         command = ManyEcoEvo::prepare_ManyEcoEvo_yi(master_data, 
+                         command = prepare_ManyEcoEvo_yi(master_data, 
                                                                      master_metadata, 
                                                                      all_prediction_data)),
      targets::tar_target(name = ManyEcoEvo_yi_results,
@@ -241,20 +241,20 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
                                                                       stringr::str_detect(response_variable_type, 
                                                                                           "constructed", 
                                                                                           negate = TRUE)))) %>% 
-                           ManyEcoEvo::prepare_response_variables(estimate_type = "yi",
+                           prepare_response_variables(estimate_type = "yi",
                                                                   param_table = ManyEcoEvo:::analysis_data_param_tables) %>%
-                           ManyEcoEvo::generate_yi_subsets() %>% #TODO: must be run after prepare_response_variables??
-                           ManyEcoEvo::apply_VZ_exclusions(3) %>%
-                           ManyEcoEvo::generate_exclusion_subsets() %>% #TODO: runs on ManyEcoEvo that contains Zr and yi results.
-                           ManyEcoEvo::compute_MA_inputs() %>%  #TODO lone join by "estimate_type" amongst join_by ("id_col") is suspicious!
+                           generate_yi_subsets() %>% #TODO: must be run after prepare_response_variables??
+                           apply_VZ_exclusions(3) %>%
+                           generate_exclusion_subsets() %>% #TODO: runs on ManyEcoEvo that contains Zr and yi results.
+                           compute_MA_inputs() %>%  #TODO lone join by "estimate_type" amongst join_by ("id_col") is suspicious!
                            
-                           ManyEcoEvo::generate_outlier_subsets() %>% #TODO swapped order with previous line, but untested
-                           ManyEcoEvo::meta_analyse_datasets(filter_vars = NULL) #TODO requires col exclusion_set from generate_exclusion_subsets() but don't need that fun in this pipeline anymore
+                           generate_outlier_subsets() %>% #TODO swapped order with previous line, but untested
+                           meta_analyse_datasets(filter_vars = NULL) #TODO requires col exclusion_set from generate_exclusion_subsets() but don't need that fun in this pipeline anymore
      ),
      targets::tar_target(name = ManyEcoEvo_yi_viz,
-                         command = ManyEcoEvo::make_viz(ManyEcoEvo_yi_results)),
+                         command = make_viz(ManyEcoEvo_yi_results)),
      targets::tar_target(name = ManyEcoEvo_study_summary,
-                         command = ManyEcoEvo::summarise_study(
+                         command = summarise_study(
                            ManyEcoEvo, 
                            ManyEcoEvo_results, 
                            id_subsets = list(ManyEcoEvo:::effect_ids, 
