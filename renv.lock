@@ -1447,7 +1447,7 @@
     },
     "ggeffects": {
       "Package": "ggeffects",
-      "Version": "1.6.0",
+      "Version": "1.7.0",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -1457,7 +1457,7 @@
         "stats",
         "utils"
       ],
-      "Hash": "a49ad77aaf50137a88b5a4aed2d63d13"
+      "Hash": "b9c75fc800834b7428101341a8c6ebdc"
     },
     "ggforce": {
       "Package": "ggforce",
@@ -1830,7 +1830,7 @@
     },
     "hardhat": {
       "Package": "hardhat",
-      "Version": "1.3.1",
+      "Version": "1.4.0",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -1841,7 +1841,7 @@
         "tibble",
         "vctrs"
       ],
-      "Hash": "921fd010cd788de75a9c71c2c3aee1f2"
+      "Hash": "e7aabf81944f6c6cbbcec1f85827a279"
     },
     "haven": {
       "Package": "haven",
@@ -1876,14 +1876,14 @@
     },
     "highr": {
       "Package": "highr",
-      "Version": "0.10",
+      "Version": "0.11",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
         "R",
         "xfun"
       ],
-      "Hash": "06230136b2d2b9ba5805e1963fa6e890"
+      "Hash": "d65ba49117ca223614f71b60d85b8ab7"
     },
     "hms": {
       "Package": "hms",
@@ -2016,7 +2016,7 @@
     },
     "insight": {
       "Package": "insight",
-      "Version": "0.19.11",
+      "Version": "0.20.2",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -2025,7 +2025,7 @@
         "stats",
         "utils"
       ],
-      "Hash": "53172afebe4b773ed2c405332aa465d7"
+      "Hash": "74a0751aafb4d4bc140531e46deda4ab"
     },
     "ipred": {
       "Package": "ipred",
@@ -2252,7 +2252,7 @@
     },
     "lme4": {
       "Package": "lme4",
-      "Version": "1.1-35.3",
+      "Version": "1.1-35.5",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -2274,7 +2274,7 @@
         "stats",
         "utils"
       ],
-      "Hash": "862f9d995f528f3051f524791955b20c"
+      "Hash": "16a08fc75007da0d08e0c0388c7c33e6"
     },
     "lmtest": {
       "Package": "lmtest",
@@ -2786,7 +2786,7 @@
     },
     "parameters": {
       "Package": "parameters",
-      "Version": "0.21.7",
+      "Version": "0.22.1",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -2799,7 +2799,7 @@
         "stats",
         "utils"
       ],
-      "Hash": "9f8ce76f256b193e1536c827c7adc125"
+      "Hash": "d54adeaf90f744bd8a342a46153a3fe5"
     },
     "parsnip": {
       "Package": "parsnip",
@@ -2879,7 +2879,7 @@
     },
     "performance": {
       "Package": "performance",
-      "Version": "0.11.0",
+      "Version": "0.12.2",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -2890,7 +2890,7 @@
         "stats",
         "utils"
       ],
-      "Hash": "eb8ecde248cd610ae3097f5d00718cbd"
+      "Hash": "6d0d9762077b82869a0ea9b17787b01e"
     },
     "permute": {
       "Package": "permute",
@@ -3387,7 +3387,7 @@
     },
     "recipes": {
       "Package": "recipes",
-      "Version": "1.0.10",
+      "Version": "1.1.0",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -3396,7 +3396,6 @@
         "cli",
         "clock",
         "dplyr",
-        "ellipsis",
         "generics",
         "glue",
         "gower",
@@ -3416,7 +3415,7 @@
         "vctrs",
         "withr"
       ],
-      "Hash": "69783cdd607c58fffb21c5c26c6ededf"
+      "Hash": "fc6672e55fcd1b5c461a3529ff6b1b08"
     },
     "rematch": {
       "Package": "rematch",
@@ -3469,14 +3468,14 @@
     },
     "rlang": {
       "Package": "rlang",
-      "Version": "1.1.3",
+      "Version": "1.1.4",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
         "R",
         "utils"
       ],
-      "Hash": "42548638fae05fd9a9b5f3f437fbbbe2"
+      "Hash": "3eec01f8b1dee337674b2e34ab1f9bc1"
     },
     "rmarkdown": {
       "Package": "rmarkdown",
@@ -3846,7 +3845,7 @@
     },
     "targets": {
       "Package": "targets",
-      "Version": "1.7.0",
+      "Version": "1.7.1",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -3870,7 +3869,7 @@
         "vctrs",
         "yaml"
       ],
-      "Hash": "27ee47827a89430be0d38b78c0cb8fb7"
+      "Hash": "d79b21ef513564351577d7064e1fc4dd"
     },
     "testthat": {
       "Package": "testthat",
