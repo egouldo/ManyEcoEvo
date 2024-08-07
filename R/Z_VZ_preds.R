@@ -1,4 +1,4 @@
-#' Calculate Z and VZ of out-of-sample predictions
+#' Standardize out-of-sample predictions
 #'
 #' @param yi point-estimate prediction, on response scale
 #' @param yi_se standard error of \code{yi}
