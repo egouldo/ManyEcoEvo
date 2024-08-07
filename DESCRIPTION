@@ -25,6 +25,7 @@ Description: The ManyEcoEvo package provides a set of functions for
     ManyEcoEvo project for reproducing the ManyEcoEvo analysis.
 License: GPL (>= 3)
 Depends: 
+    qs,
     R (>= 2.10)
 Imports:
     betapart,
@@ -32,20 +33,20 @@ Imports:
     tidyselect,
     pointblank,
     tibble,
-    cli, 
-    data.table, 
-    forcats, 
-    fs, 
-    glue, 
-    here, 
-    lme4, 
-    metafor, 
+    cli,
+    data.table,
+    forcats,
+    fs,
+    glue,
+    here,
+    lme4,
+    metafor,
     naniar,
     magrittr,
     tidyr,
     rlang,
     purrr,
-    tidyselect,
+    tidyselect
 Suggests:
     targets,
     broom.mixed,
