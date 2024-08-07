@@ -129,14 +129,11 @@ make_viz <- function(data) {
                             ),
                             NA
       ),
-      model_params = ifelse(!rlang::is_na(model), 
-                            map_if(
-                              .x = model,
-                              .p = ~ class(.x) %in% parameters::supported_models() %>% any(), 
-                              .f = parameters::parameters,
-                              .else = ~return(NA)
-                            ),
-                            NA
+      model_params = map_if(
+        .x = model,
+        .p = possibly(\(x) class(x) %in% parameters::supported_models() %>% any(), otherwise = NA), 
+        .f = possibly(parameters::parameters, NA),
+        .else = ~ return(NA),
       )
     )
   
