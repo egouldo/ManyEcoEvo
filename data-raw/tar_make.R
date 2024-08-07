@@ -2,13 +2,13 @@
 library(tidyverse)
 library(targets)
 library(usethis)
-library(future)
+library(crew)
 library(tictoc)
 
 # ---- Run targets pipeline ----
 tar_destroy() # Uncomment and run if want to reproduce from scratch, run locally only
 tic()
-tar_make_future()
+tar_make()
 toc()
 # tar_make(names = ManyEcoEvo_results)
 # tar_make(shortcut = T, callr_function = NULL) #`callr_function` is set to NULL for debugging

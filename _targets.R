@@ -4,6 +4,8 @@ library(targets)
 library(tarchetypes)
 options(tidyverse.quiet = TRUE)
 library(tidyverse)
+library(rlang)
+library(crew)
 
 pkgs <- c("tidyverse", 
           "naniar", 
@@ -19,23 +21,33 @@ pkgs <- c("tidyverse",
           "workflows",
           "ggplot2",
           "performance",
+          "targets",
           "janitor",
           "rsvg",
           "lme4",
           "multilevelmod",
           "metafor",
           "parameters", # must be directly loaded else parameters::parameters() fails on lmerMod for some reason...
-          "ManyEcoEvo") #TODO rm from here and just call in tar_option_set(), but will need to rm all namespacing
+          "ManyEcoEvo" #TODO rm from here and just call in tar_option_set(), but will need to rm all namespacing
+) 
+
+controller <- crew::crew_controller_local(
+  garbage_collection = TRUE,
+  name = "Elliot_MBP",
+  workers = 10,
+  seconds_idle = 5
+)
 
 tar_option_set(
   packages = pkgs,
   imports = "ManyEcoEvo",
+  storage = "worker",
+  retrieval = "worker",
+  controller = controller,
   format = "qs"
   # debug = c("augmented_data_3efd9941")#, #augmented_data_a4d78efa
   # cue = tar_cue(mode = "always") #because we have silent errors!
 )
-
-future::plan(future::multicore)
 
 list(tarchetypes::tar_file_read(name = euc_reviews, 
                                 command = "data-raw/anonymised_data/euc_reviews.csv", 
