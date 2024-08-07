@@ -30,6 +30,7 @@ pkgs <- c("tidyverse",
 tar_option_set(
   packages = pkgs,
   imports = "ManyEcoEvo",
+  format = "qs"
   # debug = c("augmented_data_3efd9941")#, #augmented_data_a4d78efa
   # cue = tar_cue(mode = "always") #because we have silent errors!
 )
@@ -85,10 +86,11 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
                            compute_MA_inputs(estimate_type = "Zr") |> 
                            generate_outlier_subsets() |> # TODO run before MA_inputs? diversity indices need to be recalculated!!
                            filter(expertise_subset != "expert" | exclusion_set != "complete-rm_outliers") |> #TODO mv into generate_outlier_subsets() so aren't created in the first place
-                           meta_analyse_datasets(filter_vars = rlang::exprs(exclusion_set == "complete",
-                                                                            expertise_subset == "All",
-                                                                            publishable_subset == "All",
-                                                                            collinearity_subset == "All"))),
+                           meta_analyse_datasets(filter_vars = 
+                                                   rlang::exprs(exclusion_set == "complete",
+                                                                expertise_subset == "All",
+                                                                publishable_subset == "All",
+                                                                collinearity_subset == "All"))),
      targets::tar_target(updated_prediction_files,
                          preprocess_updated_prediction_files(list_of_new_prediction_files)),
      targets::tar_target(prediction_submissions,
@@ -221,10 +223,12 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
                                                          all_prediction_data)),
      targets::tar_target(name = ManyEcoEvo_yi_results,
                          command =  ManyEcoEvo_yi %>% 
-                           dplyr::mutate(data = purrr::map(data, 
-                                                           ~ dplyr::filter(.x, stringr::str_detect(response_variable_type, 
-                                                                                                   "constructed", 
-                                                                                                   negate = TRUE)))) %>% 
+                           dplyr::mutate(data = 
+                                           purrr::map(data, 
+                                                      ~ dplyr::filter(.x, 
+                                                                      stringr::str_detect(response_variable_type, 
+                                                                                          "constructed", 
+                                                                                          negate = TRUE)))) %>% 
                            prepare_response_variables(estimate_type = "yi",
                                                       param_table = ManyEcoEvo:::analysis_data_param_tables) %>%
                            generate_yi_subsets() %>% #TODO: must be run after prepare_response_variables??
@@ -235,19 +239,21 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
                            generate_outlier_subsets() %>% #TODO swapped order with previous line, but untested
                            meta_analyse_datasets(filter_vars = NULL) #TODO requires col exclusion_set from generate_exclusion_subsets() but don't need that fun in this pipeline anymore
      ),
-     targets::tar_target( name = ManyEcoEvo_yi_viz,
-                          command = make_viz(ManyEcoEvo_yi_results)),
+     targets::tar_target(name = ManyEcoEvo_yi_viz,
+                         command = make_viz(ManyEcoEvo_yi_results)),
      targets::tar_target(name = ManyEcoEvo_study_summary,
-                         command = summarise_study(ManyEcoEvo::ManyEcoEvo, 
-                                                   ManyEcoEvo::ManyEcoEvo_results, 
-                                                   id_subsets = list(ManyEcoEvo:::effect_ids, 
-                                                                     ManyEcoEvo:::prediction_ids), 
-                                                   subset_names = c("effects", "predictions"), 
-                                                   filter_vars = rlang::exprs(exclusion_set == "complete",
-                                                                              estimate_type == "Zr",
-                                                                              publishable_subset == "All",
-                                                                              expertise_subset == "All",
-                                                                              collinearity_subset == "All"))),
+                         command = summarise_study(
+                           ManyEcoEvo::ManyEcoEvo, 
+                           ManyEcoEvo::ManyEcoEvo_results, 
+                           id_subsets = list(ManyEcoEvo:::effect_ids, 
+                                             ManyEcoEvo:::prediction_ids), 
+                           subset_names = c("effects", "predictions"), 
+                           filter_vars = rlang::exprs(exclusion_set == "complete",
+                                                      estimate_type == "Zr",
+                                                      publishable_subset == "All",
+                                                      expertise_subset == "All",
+                                                      collinearity_subset == "All")
+                         )),
      tarchetypes::tar_quarto(name = README,
                              path = "README.qmd")
      # tarchetypes::tar_quarto(full_analysis, "analysis/analysis_revised_data.qmd")
