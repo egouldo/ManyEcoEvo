@@ -132,7 +132,7 @@ make_viz <- function(data) {
       model_params = ifelse(model_name == "MA_mod_mv" & !rlang::is_na(model), #TODO apply for other models and model types
                             map_if(
                               .x = model,
-                              .p = ~ "merMod" %in% class(.x), #TODO apply for other model types
+                              .p = ~ "lme4" %in% class(.x), #TODO apply for other model types
                               .f = purrr::possibly(parameters::parameters, otherwise = NA),
                               .else = ~return(NA)
                             ),
