@@ -7,10 +7,10 @@
 make_viz(data)
 }
 \arguments{
-\item{data}{a nested dataframe with processed and standardised data stored in list-column \code{data}, grouped by variables \code{exclusion_set}, \code{dataset}, \code{estimate_type}}
+\item{data}{a nested dataframe with processed and standardised data stored in list-column \code{data}, grouped by variables \code{exclusion_set}, \code{dataset}, \code{estimate_type}, \code{publishable_subset}, \code{expertise_subset}, \code{collinearity_subset}. Each group contains a list-column \code{model} containing fitted models of class \code{rma.uni}, \code{rma.mv} or \code{merMod}.}
 }
 \value{
-a nested dataframe grouped by variables \code{exclusion_set}, \code{dataset}, \code{estimate_type},
+a nested dataframe grouped by variables \code{exclusion_set}, \code{dataset}, \code{estimate_type}, \code{publishable_subset}, \code{expertise_subset}, \code{collinearity_subset} containing model summaries, tidy model summaries, model fit stats, funnel plots and forest plots
 }
 \description{
 Computes model summaries, tidy model summaries, model fit stats, funnel plots and forest plots for a dataframe of multiple fitted models

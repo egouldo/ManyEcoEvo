@@ -19,13 +19,13 @@
 #' @examples
 #' ManyEcoEvo_results$effects_analysis[[1]] %>% 
 #'   fit_MA_mv(beta_estimate, beta_SE, "Zr")
-fit_MA_mv <- function(effects_analysis = data.frame(), Z_colname, VZr_colname, estimate_type = character(1L)){
+fit_MA_mv <- function(effects_analysis = data.frame(), Z_colname, VZ_colname, estimate_type = character(1L)){
   pointblank::stop_if_not(estimate_type %in% c("Zr", "yi", "y25", "y50", "y75"))
   
-  Zr <- effects_analysis %>%  dplyr::pull({{Z_colname}})
-  VZr <- effects_analysis %>%  dplyr::pull({{VZr_colname}})
-  mod <- ManyEcoEvo::fit_metafor_mv(estimate = Zr,
-                                    variance = VZr, 
+  Z <- effects_analysis %>%  dplyr::pull({{Z_colname}})
+  VZ <- effects_analysis %>%  dplyr::pull({{VZ_colname}})
+  mod <- ManyEcoEvo::fit_metafor_mv(estimate = Z,
+                                    variance = VZ, 
                                     estimate_type = estimate_type, 
                                     data = effects_analysis)
   return(mod)

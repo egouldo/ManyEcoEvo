@@ -18,7 +18,7 @@
 #' #   fit_boxcox_ratings_cont(.,
 #' #                                   box_cox_abs_deviation_score_estimate,
 #' #                                   VZr )
-fit_boxcox_ratings_cont <- function(.data, outcome, outcome_var) {
+fit_boxcox_ratings_cont <- function(.data, outcome, outcome_var, ..., env = rlang::caller_env()) {
   cli::cli_h2(glue::glue("Fitting metaregression with continuous ratings predictor on box_cox_transformed outcomes"))
 
   # TODO @egouldo stopifnot data doesn't contain variables named eval(box_cox_outcome_var), eval(sampling_variance_var), review_data
@@ -38,11 +38,10 @@ fit_boxcox_ratings_cont <- function(.data, outcome, outcome_var) {
   f <- rlang::new_formula(rlang::ensym(outcome), 
                           expr(RateAnalysis + 
                                  (1 | study_id) #NOTE: ReviewerId removed due to singularity
-                          ))
-  mod <- lme4::lmer(f,
-                    data = data_tbl,
-                    weights = I(1/pull(data_tbl,{{outcome_var}})))
+                          ) , env = env)
   
+  mod <- rlang::inject(lme4::lmer(!!f, data = data_tbl, ...))
+
   return(mod)
   
 }

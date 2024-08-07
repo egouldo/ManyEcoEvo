@@ -4,7 +4,13 @@
 \alias{fit_boxcox_ratings_cont}
 \title{Fit model of boxcox deviation scores as function of continuous ratings}
 \usage{
-fit_boxcox_ratings_cont(.data, outcome, outcome_var)
+fit_boxcox_ratings_cont(
+  .data,
+  outcome,
+  outcome_var,
+  ...,
+  env = rlang::caller_env()
+)
 }
 \arguments{
 \item{.data}{Data for model fitting}

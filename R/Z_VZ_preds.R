@@ -1,4 +1,4 @@
-#' Calculate Z and VZ of out-of-sample predictions
+#' Standardize out-of-sample predictions
 #'
 #' @param yi point-estimate prediction, on response scale
 #' @param yi_se standard error of \code{yi}
@@ -11,7 +11,7 @@
 Z_VZ_preds <- function(yi, yi_se, mu_p, sd_p ){
   #TODO should we pass in whole DF as arg instead of yi + yi_se??
   # We want to be able to keep the values linked to their corresponding
-  # scenario_ value!
+  # scenario_value!
   na_args <- purrr::discard(c(yi, yi_se, mu_p, sd_p), is.na) %>% 
     length()
   
@@ -26,8 +26,8 @@ Z_VZ_preds <- function(yi, yi_se, mu_p, sd_p ){
   }
   
   
-  Z <- (yi-mu_p)/sd_p
-  VZ <- yi_se/sd_p
+  Z <- (yi - mu_p) / sd_p
+  VZ <- yi_se / sd_p
   
   return(tibble(Z, VZ)) 
 }

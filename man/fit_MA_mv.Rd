@@ -7,7 +7,7 @@
 fit_MA_mv(
   effects_analysis = data.frame(),
   Z_colname,
-  VZr_colname,
+  VZ_colname,
   estimate_type = character(1L)
 )
 }
@@ -16,9 +16,9 @@ fit_MA_mv(
 
 \item{Z_colname}{The name of the column containing the estimates.}
 
-\item{estimate_type}{The type of estimate to be used in the model. One of "Zr", "y50", "y25", "y75", or "yi".}
-
 \item{VZ_colname}{The name of the column containing the variances.}
+
+\item{estimate_type}{The type of estimate to be used in the model. One of "Zr", "y50", "y25", "y75", or "yi".}
 }
 \value{
 A fitted model of class \code{c("rma.mv","rma")}.
