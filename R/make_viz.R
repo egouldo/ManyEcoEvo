@@ -129,11 +129,11 @@ make_viz <- function(data) {
                             ),
                             NA
       ),
-      model_params = ifelse(model_name == "MA_mod_mv" & !rlang::is_na(model), #TODO apply for other models and model types
+      model_params = ifelse(!rlang::is_na(model), 
                             map_if(
                               .x = model,
-                              .p = ~ "lme4" %in% class(.x), #TODO apply for other model types
-                              .f = purrr::possibly(parameters::parameters, otherwise = NA),
+                              .p = ~ class(.x) %in% parameters::supported_models() %>% any(), 
+                              .f = parameters::parameters,
                               .else = ~return(NA)
                             ),
                             NA
