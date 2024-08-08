@@ -1,6 +1,6 @@
 #' Negative Value Matching
-#' 
-#' See \code{base::[](`%in%`)} for details. %nin% is a binary operator, returning a logical vector indicating if there is a negative match or not. 
+#'
+#' See \code{base::[](`%in%`)} for details. %nin% is a binary operator, returning a logical vector indicating if there is a negative match or not.
 #'
 #' @name %in%
 #' @rdname NotIn
@@ -17,38 +17,39 @@
 #' Subsetting Functions for Zr analysis
 #'
 #' @description Generates a list of functions that are used to subset the processed ManyEcoEvo dataset
-#' 
+#'
 #' @return A named list of `lambda` functions
 #' @export
-subset_fns_Zr <- function() { #TODO update calling of this fn (switch to fn rather than object)
+subset_fns_Zr <- function() { # TODO update calling of this fn (switch to fn rather than object)
   out <- list(
-    subset_complete = rlang::as_function(~ .x %>% 
-                                           filter(exclusions_all == "retain",
-                                                  exclusions_effect_analysis %in% 
-                                                    c("retain", "exclude_partial")
-                                           )), 
-    subset_partial = rlang::as_function(~ .x %>% 
-                                          filter(exclusions_all == "retain",
-                                                 exclusions_effect_analysis %in% 
-                                                   c("retain")
-                                          ))
+    subset_complete = rlang::as_function(~ .x %>%
+      filter(
+        exclusions_all == "retain",
+        exclusions_effect_analysis %in%
+          c("retain", "exclude_partial")
+      )),
+    subset_partial = rlang::as_function(~ .x %>%
+      filter(
+        exclusions_all == "retain",
+        exclusions_effect_analysis %in%
+          c("retain")
+      ))
   )
   return(out)
-} 
+}
 
 #' Subsetting Functions for yi analysis
 #'
 #' @description Generates a list of functions that are used to subset the processed ManyEcoEvo dataset containing out-of-sample predictions \(\code{y\_i}\)
-#' 
+#'
 #' @return A named list of `lambda` functions
 #' @export
 subset_fns_yi <- function() {
-  out <- list( #TODO: which dataset and variable are the prediction exclusions contained??
-    subset_complete = rlang::as_function(~ .x %>% 
-                                           filter(exclusions_all == "retain"
-                                           ))
+  out <- list( # TODO: which dataset and variable are the prediction exclusions contained??
+    subset_complete = rlang::as_function(~ .x %>%
+      filter(exclusions_all == "retain"))
   )
-  
+
   return(out)
 }
 
@@ -63,9 +64,16 @@ subset_fns_yi <- function() {
 #' @examples
 #' capwords("bah, bah, black sheep")
 capwords <- function(s, strict = FALSE) {
-  cap <- function(s) paste(toupper(substring(s, 1, 1)),
-                           {s <- substring(s, 2); if(strict) tolower(s) else s},
-                           sep = "", collapse = " " )
+  cap <- function(s) {
+    paste(toupper(substring(s, 1, 1)),
+      {
+        s <- substring(s, 2)
+        if (strict) tolower(s) else s
+      },
+      sep = "",
+      collapse = " "
+    )
+  }
   sapply(strsplit(s, split = " "), cap, USE.NAMES = !is.null(names(s)))
 }
 
@@ -73,18 +81,20 @@ capwords <- function(s, strict = FALSE) {
 
 #' Removes infinite and NA values from a dataframe of standardised effects
 #'
-#' @param effects_analysis 
+#' @param effects_analysis
 #' @param Z_colname unquoted or bare column name with the Z or Zr estimates
 #' @param VZ_colname unquoted or bare column name containing the VZ or VZr estimates
 #'
 #' @return a dataframe without
 #' @export
-rm_inf_na <- function(effects_analysis, Z_colname, VZ_colname){
-  effects_analysis %>% 
-    filter(!is.na({{Z_colname}}),
-           !is.na({{VZ_colname}}),
-           !is.infinite({{Z_colname}}), 
-           !is.infinite({{VZ_colname}}))
+rm_inf_na <- function(effects_analysis, Z_colname, VZ_colname) {
+  effects_analysis %>%
+    filter(
+      !is.na({{ Z_colname }}),
+      !is.na({{ VZ_colname }}),
+      !is.infinite({{ Z_colname }}),
+      !is.infinite({{ VZ_colname }})
+    )
 }
 
 #' Split data frame by groups and name elements
@@ -98,14 +108,18 @@ rm_inf_na <- function(effects_analysis, Z_colname, VZ_colname){
 #' @export
 #' @importFrom dplyr group_split
 #' @examples
-#' named_group_split(ManyEcoEvo::euc_data , Property)
+#' named_group_split(ManyEcoEvo::euc_data, Property)
 #' named_group_split(ManyEcoEvo::blue_tit_data, hatch_Area)
-named_group_split <- function(.data,grouping_variable ) {
-  .data %>% 
-    group_by({{grouping_variable}}) %>% 
-    group_split(.keep = TRUE) %>% 
-    set_names(., {map_chr(., 
-                          ~ pluck(.x, paste0(rlang::ensym(grouping_variable))) %>% 
-                            unique())}) %>% 
-    map(., ~ select(.x, -{{grouping_variable}}))
+named_group_split <- function(.data, grouping_variable) {
+  .data %>%
+    group_by({{ grouping_variable }}) %>%
+    group_split(.keep = TRUE) %>%
+    set_names(., {
+      map_chr(
+        .,
+        ~ pluck(.x, paste0(rlang::ensym(grouping_variable))) %>%
+          unique()
+      )
+    }) %>%
+    map(., ~ select(.x, -{{ grouping_variable }}))
 }

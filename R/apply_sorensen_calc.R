@@ -4,15 +4,16 @@
 #'
 #' @return A tibble containing the variables `id_col`, `mean_diversity_index` and `num_variables`
 #' @export
-apply_sorensen_calc <- function(.data){
+apply_sorensen_calc <- function(.data) {
   out <- .data
-  
-  out %>% 
-    select(-dataset) %>% #TODO THEN REMOVE DUPES
-    filter(id_col %nin% 
-             {out %>% 
-                 count(id_col) %>% 
-                 filter(n>1) %>% 
-                 pull(id_col)}) %>% 
+
+  out %>%
+    select(-dataset) %>% # TODO THEN REMOVE DUPES
+    filter(id_col %nin% {
+      out %>%
+        count(id_col) %>%
+        filter(n > 1) %>%
+        pull(id_col)
+    }) %>%
     calculate_sorensen_diversity_index(., "id_col")
 }

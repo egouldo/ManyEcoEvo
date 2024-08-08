@@ -28,16 +28,16 @@ toc()
 
 # Write targets to data folder:
 tic()
-usethis::use_data(ManyEcoEvo, 
-                  ManyEcoEvo_yi, # consider making internal
-                  ManyEcoEvo_results,
-                  ManyEcoEvo_yi_results, #consider making internal
-                  ManyEcoEvo_viz,
-                  ManyEcoEvo_yi_viz, #TODO consider making internal
-                  ManyEcoEvo_study_summary,
-                  overwrite = TRUE,
-                  compress = "gzip")
+usethis::use_data(ManyEcoEvo,
+  ManyEcoEvo_yi, # consider making internal
+  ManyEcoEvo_results,
+  ManyEcoEvo_yi_results, # consider making internal
+  ManyEcoEvo_viz,
+  ManyEcoEvo_yi_viz, # TODO consider making internal
+  ManyEcoEvo_study_summary,
+  overwrite = TRUE,
+  compress = "gzip"
+)
 toc()
 
 # TODO also need to add raw files to demonstrate pipeline / package functionality in package vignette and software manuscript.
-

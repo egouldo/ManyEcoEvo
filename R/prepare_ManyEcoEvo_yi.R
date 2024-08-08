@@ -10,37 +10,43 @@
 #' @family targets-pipeline functions
 #' @family Multi-dataset Wrapper Functions
 
-prepare_ManyEcoEvo_yi <- function(master_data_raw, 
-                                  master_raw_metadata, 
+prepare_ManyEcoEvo_yi <- function(master_data_raw,
+                                  master_raw_metadata,
                                   all_prediction_data) {
-  diversity_data_raw <- 
+  diversity_data_raw <-
     master_data_raw %>%
-    prepare_diversity_raw(., master_raw_metadata) #TODO think about removing to separate target, since this code is duplicated across both prepare_ManyEcoEvo* funs.
-  
-  ManyEcoEvo_yi <- 
-    all_prediction_data %>% 
-    drop_na(augmented_data, validation_fail) %>% 
+    prepare_diversity_raw(., master_raw_metadata) # TODO think about removing to separate target, since this code is duplicated across both prepare_ManyEcoEvo* funs.
+
+  ManyEcoEvo_yi <-
+    all_prediction_data %>%
+    drop_na(augmented_data, validation_fail) %>%
     filter(validation_fail == FALSE) %>%
-    select(-validation_fail) %>% 
-    mutate(response_transformation_status = 
-             clean_response_transformation(response_transformation_status)) %>% 
+    select(-validation_fail) %>%
+    mutate(
+      response_transformation_status =
+        clean_response_transformation(response_transformation_status)
+    ) %>%
     # left_join({ManyEcoEvo %>% #TODO do we need to retain other columns here to facilitate downstream analysis?? chekc index.qmd where this is happening!
-    #     select(data) %>%  
-    #     unnest(cols = c(data)) %>% 
+    #     select(data) %>%
+    #     unnest(cols = c(data)) %>%
     #     select(starts_with("id"), #TODO can we remove if all_prediction_data could get review_data?
     #            ends_with("id"),
     #            TeamIdentifier,
-    #            -file_id, 
+    #            -file_id,
     #            review_data)}) %>% # could go in preprocessprediction files
-    ungroup %>% 
-    nest_by(dataset,.key = "data", .keep = FALSE) %>% 
-    hoist(data) %>% 
-    left_join(diversity_data_raw) %>% 
-    mutate(diversity_data = # this step filters diversity_data according to matches in data, is also applied in prepare_yi
-             map2(.x = diversity_data, 
-                  .y = data,
-                  .f = ~ semi_join(ungroup(.x), .y))) #TODO do 
-    
-  
+    ungroup() %>%
+    nest_by(dataset, .key = "data", .keep = FALSE) %>%
+    hoist(data) %>%
+    left_join(diversity_data_raw) %>%
+    mutate(
+      diversity_data = # this step filters diversity_data according to matches in data, is also applied in prepare_yi
+        map2(
+          .x = diversity_data,
+          .y = data,
+          .f = ~ semi_join(ungroup(.x), .y)
+        )
+    ) # TODO do
+
+
   return(ManyEcoEvo_yi)
 }

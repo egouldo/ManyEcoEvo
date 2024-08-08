@@ -1,11 +1,11 @@
 #' Summarise Analysis Types
 #' @description
 #' Generates a summary of the number of analysis teams, total analyses, models with normal error distributions, mixed effects models, and models developed using Bayesian statistical methods for a given analysis type.
-#' 
+#'
 #' @details
 #' Applies both [count_binary_coded_features()] and [count_teams_analyses()] to generate data summaries.
-#' 
-#' 
+#'
+#'
 #' @param ManyEcoEvo_results A tibble of `ManyEcoEvo_results`
 #' @param ManyEcoEvo_yi_results A tibble of `ManyEcoEvo_yi_results`
 #' @param ManyEcoEvo A tibble of `ManyEcoEvo`
@@ -34,72 +34,91 @@
 #' @examples
 #' summarise_analysis_types(ManyEcoEvo_results, ManyEcoEvo_yi_results, ManyEcoEvo)
 summarise_analysis_types <- function(ManyEcoEvo_results, ManyEcoEvo_yi_results, ManyEcoEvo) {
-  effect_ids <- ManyEcoEvo_results %>% 
-    filter(exclusion_set == "complete", 
-           publishable_subset == "All") %>% 
-    select(MA_mod, effects_analysis) %>% 
-    group_by(estimate_type, dataset) %>% 
-    mutate(tidy_mod = map(MA_mod, 
-                             ~ broom::tidy(.x, 
-                                           conf.int = TRUE, 
-                                           include_studies = TRUE) %>% 
-                               rename(study_id = term)), .keep = "none") %>% 
-    unnest(tidy_mod) %>% 
-    filter(type =="study") %>% 
-    ungroup %>% 
-    select(study_id) %>% 
-    rename(id_col = study_id) %>% #TODO duplicates for "Bell-2-2-1" and "Bonalbo-1-1-1 WHY?
+  effect_ids <- ManyEcoEvo_results %>%
+    filter(
+      exclusion_set == "complete",
+      publishable_subset == "All"
+    ) %>%
+    select(MA_mod, effects_analysis) %>%
+    group_by(estimate_type, dataset) %>%
+    mutate(tidy_mod = map(
+      MA_mod,
+      ~ broom::tidy(.x,
+        conf.int = TRUE,
+        include_studies = TRUE
+      ) %>%
+        rename(study_id = term)
+    ), .keep = "none") %>%
+    unnest(tidy_mod) %>%
+    filter(type == "study") %>%
+    ungroup() %>%
+    select(study_id) %>%
+    rename(id_col = study_id) %>% # TODO duplicates for "Bell-2-2-1" and "Bonalbo-1-1-1 WHY?
     distinct()
-  
-  prediction_ids <- ManyEcoEvo_yi_results %>% #TODO Euc mod_data_logged not here!
-    filter(exclusion_set == "complete", 
-           # dataset == "blue tit"
-           ) %>% 
-    select(MA_mod, effects_analysis, -exclusion_set) %>% 
-    group_by(estimate_type, dataset) %>% 
-    mutate(tidy_mod = map(MA_mod, 
-                             ~ broom::tidy(.x, conf.int = TRUE, include_studies = TRUE) %>% 
-                               rename(study_id = term)), .keep = "none") %>% 
-    unnest(tidy_mod) %>% filter(type == "study") %>% 
-    ungroup %>% 
-    select(study_id) %>% 
-    rename(id_col = study_id) %>% 
+
+  prediction_ids <- ManyEcoEvo_yi_results %>% # TODO Euc mod_data_logged not here!
+    filter(
+      exclusion_set == "complete",
+      # dataset == "blue tit"
+    ) %>%
+    select(MA_mod, effects_analysis, -exclusion_set) %>%
+    group_by(estimate_type, dataset) %>%
+    mutate(tidy_mod = map(
+      MA_mod,
+      ~ broom::tidy(.x, conf.int = TRUE, include_studies = TRUE) %>%
+        rename(study_id = term)
+    ), .keep = "none") %>%
+    unnest(tidy_mod) %>%
+    filter(type == "study") %>%
+    ungroup() %>%
+    select(study_id) %>%
+    rename(id_col = study_id) %>%
     distinct()
-  
+
   Master <-
-    ManyEcoEvo %>% 
-    ungroup %>% 
-    select(data) %>% 
-    unnest(data) %>% 
-    mutate(across(c(num_fixed_variables,
-                    num_random_variables,
-                    sample_size,
-                    num_interactions,
-                    Bayesian,
-                    mixed_model), 
-                  as.numeric),
-           lm = ifelse(linear_model == "linear", 1, 0), 
-           glm = ifelse(linear_model == "generalised", 1, 0)) #TODO move this into master processing so don't have to repeat else where!!
-  
-  effects <- Master %>% 
+    ManyEcoEvo %>%
+    ungroup() %>%
+    select(data) %>%
+    unnest(data) %>%
+    mutate(
+      across(
+        c(
+          num_fixed_variables,
+          num_random_variables,
+          sample_size,
+          num_interactions,
+          Bayesian,
+          mixed_model
+        ),
+        as.numeric
+      ),
+      lm = ifelse(linear_model == "linear", 1, 0),
+      glm = ifelse(linear_model == "generalised", 1, 0)
+    ) # TODO move this into master processing so don't have to repeat else where!!
+
+  effects <- Master %>%
     right_join(effect_ids, by = c("id_col")) # repeat for each
-  
-  predictions <- Master %>% 
+
+  predictions <- Master %>%
     right_join(prediction_ids, by = c("id_col"))
-  
+
   summarised_data <- full_join(
-  map_dfr(.x = list(effects, predictions) %>% 
-            purrr::set_names("effects", "predictions"),
-          count_teams_analyses, 
-          .id = "subset"),
-      map_dfr(.x = list(effects, predictions) %>% 
-            purrr::set_names("effects", "predictions"),
-          count_binary_coded_features,
-          .id = "subset")
+    map_dfr(
+      .x = list(effects, predictions) %>%
+        purrr::set_names("effects", "predictions"),
+      count_teams_analyses,
+      .id = "subset"
+    ),
+    map_dfr(
+      .x = list(effects, predictions) %>%
+        purrr::set_names("effects", "predictions"),
+      count_binary_coded_features,
+      .id = "subset"
+    )
   )
-  
+
   return(summarised_data)
-  #TODO next: set up so can run on just one object ManyEcoEvo_results, and account for subsets too!
+  # TODO next: set up so can run on just one object ManyEcoEvo_results, and account for subsets too!
 }
 
 
@@ -116,18 +135,20 @@ summarise_analysis_types <- function(ManyEcoEvo_results, ManyEcoEvo_yi_results, 
 #' @author Hannah S. Fraser
 #' @author Elliot Gould
 #' @examples
-#' ManyEcoEvo %>% 
-#' filter(dataset == "blue tit") %>% 
-#' ungroup %>% 
-#' select(data) %>% 
-#' unnest(data) %>% 
-#' count_teams_analyses()
+#' ManyEcoEvo %>%
+#'   filter(dataset == "blue tit") %>%
+#'   ungroup() %>%
+#'   select(data) %>%
+#'   unnest(data) %>%
+#'   count_teams_analyses()
 count_teams_analyses <- function(data) {
-  data %>% 
-  count(dataset, TeamIdentifier) %>% #TODO consider renaming col
-    group_by(dataset) %>% 
-    summarise(total_teams = n(), 
-              total_analyses = sum(n))
+  data %>%
+    count(dataset, TeamIdentifier) %>% # TODO consider renaming col
+    group_by(dataset) %>%
+    summarise(
+      total_teams = n(),
+      total_analyses = sum(n)
+    )
 }
 
 #' Summarise binary coded features of analyses
@@ -143,19 +164,23 @@ count_teams_analyses <- function(data) {
 #' @author Elliot Gould
 #' @examples
 #' ManyEcoEvo %>%
-#' filter(dataset == "eucalyptus") %>%
-#' ungroup %>%
-#'  select(data) %>%
-#'  unnest(data) %>%
-#'  mutate(lm = ifelse(linear_model == "linear", 1, 0), #TODO move into master processing
-#'         glm = ifelse(linear_model == "generalised", 1, 0),
-#'         Bayesian = as.numeric(Bayesian)) %>% 
-#'  count_binary_coded_features()
-count_binary_coded_features <- function(data){
-  data %>% 
-    group_by(dataset) %>%  
-    summarise(sum_linear = sum(lm, na.rm = TRUE), 
-              sum_mixed = sum(mixed_model,na.rm = TRUE),
-              sum_Bayesian = sum(Bayesian,na.rm = TRUE),
-              sum_glm = sum(glm, na.rm = TRUE))
+#'   filter(dataset == "eucalyptus") %>%
+#'   ungroup() %>%
+#'   select(data) %>%
+#'   unnest(data) %>%
+#'   mutate(
+#'     lm = ifelse(linear_model == "linear", 1, 0), # TODO move into master processing
+#'     glm = ifelse(linear_model == "generalised", 1, 0),
+#'     Bayesian = as.numeric(Bayesian)
+#'   ) %>%
+#'   count_binary_coded_features()
+count_binary_coded_features <- function(data) {
+  data %>%
+    group_by(dataset) %>%
+    summarise(
+      sum_linear = sum(lm, na.rm = TRUE),
+      sum_mixed = sum(mixed_model, na.rm = TRUE),
+      sum_Bayesian = sum(Bayesian, na.rm = TRUE),
+      sum_glm = sum(glm, na.rm = TRUE)
+    )
 }

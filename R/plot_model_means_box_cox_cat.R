@@ -15,39 +15,50 @@
 #' @importFrom EnvStats stat_n_text
 #' @importFrom forcats fct_relevel
 #' @importFrom sae bxcx
-plot_model_means_box_cox_cat <- function(dat, 
-                                         variable, 
-                                         predictor_means, 
-                                         new_order, 
-                                         title, 
+plot_model_means_box_cox_cat <- function(dat,
+                                         variable,
+                                         predictor_means,
+                                         new_order,
+                                         title,
                                          lambda,
                                          back_transform = FALSE) {
-  dat <- mutate(dat, 
-                "{{variable}}" := # 
-                  fct_relevel(.f = {{variable}}, 
-                              new_order)
+  dat <- mutate(
+    dat,
+    "{{variable}}" := #
+      fct_relevel(
+        .f = {{ variable }},
+        new_order
+      )
   )
-  
-  if(back_transform == TRUE){
-    dat <- dat %>% 
-      mutate(box_cox_abs_deviation_score_estimate = 
-               sae::bxcx(unique(lambda),
-                         x = box_cox_abs_deviation_score_estimate, InverseQ = TRUE))
-    
-    predictor_means <- predictor_means %>% 
-      as_tibble() %>% 
-      mutate(lambda = lambda %>% unique()) %>%  
-      mutate(across(.cols = -PublishableAsIs,
-                    ~ sae::bxcx(unique(lambda),x = .x, InverseQ = TRUE)))
+
+  if (back_transform == TRUE) {
+    dat <- dat %>%
+      mutate(
+        box_cox_abs_deviation_score_estimate =
+          sae::bxcx(unique(lambda),
+            x = box_cox_abs_deviation_score_estimate, InverseQ = TRUE
+          )
+      )
+
+    predictor_means <- predictor_means %>%
+      as_tibble() %>%
+      mutate(lambda = lambda %>% unique()) %>%
+      mutate(across(
+        .cols = -PublishableAsIs,
+        ~ sae::bxcx(unique(lambda), x = .x, InverseQ = TRUE)
+      ))
   }
-  
-  p <- ggplot(dat, aes(x = {{variable}},
-                       y = box_cox_abs_deviation_score_estimate)) +
+
+  p <- ggplot(dat, aes(
+    x = {{ variable }},
+    y = box_cox_abs_deviation_score_estimate
+  )) +
     # Add base dat
-    geom_violin(aes(fill = {{variable}}),
-                trim = TRUE, 
-                # scale = "count", #TODO consider toggle on/off?
-                colour = "white") +
+    geom_violin(aes(fill = {{ variable }}),
+      trim = TRUE,
+      # scale = "count", #TODO consider toggle on/off?
+      colour = "white"
+    ) +
     see::geom_jitter2(width = 0.05, alpha = 0.5) +
     # Add pointrange and line from means
     geom_line(dat = predictor_means, aes(y = Mean, group = 1), linewidth = 1) +
@@ -59,26 +70,32 @@ plot_model_means_box_cox_cat <- function(dat,
       alpha = 0.5
     ) +
     # Improve colors
-    see::scale_fill_material_d(discrete = TRUE, 
-                               name = "",
-                               palette = "ice",
-                               labels = pull(dat, {{variable}}) %>% 
-                                 levels() %>% 
-                                 capwords(),
-                               reverse = TRUE) +
+    see::scale_fill_material_d(
+      discrete = TRUE,
+      name = "",
+      palette = "ice",
+      labels = pull(dat, {{ variable }}) %>%
+        levels() %>%
+        capwords(),
+      reverse = TRUE
+    ) +
     EnvStats::stat_n_text() +
     see::theme_modern() +
     theme(axis.text.x = element_text(angle = 90)) #+
   # ggtitle(label = title)
-  
-  if(back_transform == TRUE){
-    p <- p + 
-      labs(x = "Categorical Peer Review Rating", 
-           y = "Absolute Deviation from\n Meta-Anaytic Mean Zr") 
+
+  if (back_transform == TRUE) {
+    p <- p +
+      labs(
+        x = "Categorical Peer Review Rating",
+        y = "Absolute Deviation from\n Meta-Anaytic Mean Zr"
+      )
   } else {
-    p <- p + labs(x = "Categorical Peer Review Rating", 
-                  y = "Deviation from\nMeta-Analytic Mean Effect Size") 
+    p <- p + labs(
+      x = "Categorical Peer Review Rating",
+      y = "Deviation from\nMeta-Analytic Mean Effect Size"
+    )
   }
-  
+
   return(p)
 }

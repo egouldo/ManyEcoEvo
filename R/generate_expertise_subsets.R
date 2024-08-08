@@ -10,36 +10,40 @@
 #' - `prepare_response_variables()`
 #' - `generate_exclusion_subsets()`
 #' - `generate_rating_subsets()`
-#' 
+#'
 #' `generate_rating_subsets()` only creates expertise subsets based on the full dataset where `exclusion_set == "complete"` and `publishable_subset == "All"`.
 #' @examples
 #' library(ManyEcoEvo)
 #' library(tidyverse)
 #' library(targets)
 #' ManyEcoEvo %>%
-#' prepare_response_variables(estimate_type = "Zr") |>
-#' generate_exclusion_subsets(estimate_type = "Zr") |>
-#' generate_rating_subsets() |>
-#' generate_expertise_subsets(ManyEcoEvo:::expert_subset)
+#'   prepare_response_variables(estimate_type = "Zr") |>
+#'   generate_exclusion_subsets(estimate_type = "Zr") |>
+#'   generate_rating_subsets() |>
+#'   generate_expertise_subsets(ManyEcoEvo:::expert_subset)
 generate_expertise_subsets <- function(ManyEcoEvo, expert_subset) {
-  #TODO idea, allow ellipses arg in function and pass those expressions to filter.
+  # TODO idea, allow ellipses arg in function and pass those expressions to filter.
   # that way isn't hardcoded in the function. Repeat for all other generate / exclude map funs
-  # NOTE: should be run *after* computing Zr with compute_MA_inputs() 
-  out <- ManyEcoEvo %>% 
-    filter(publishable_subset == "All" & exclusion_set == "complete") %>% 
-    mutate(data = map(.x = data, .f = dplyr::semi_join, expert_subset )) %>% 
-    mutate(diversity_data = 
-             map2(.x = diversity_data, 
-                  .y = data, 
-                  .f = ~ semi_join(.x, .y) %>% distinct)) %>% 
+  # NOTE: should be run *after* computing Zr with compute_MA_inputs()
+  out <- ManyEcoEvo %>%
+    filter(publishable_subset == "All" & exclusion_set == "complete") %>%
+    mutate(data = map(.x = data, .f = dplyr::semi_join, expert_subset)) %>%
+    mutate(
+      diversity_data =
+        map2(
+          .x = diversity_data,
+          .y = data,
+          .f = ~ semi_join(.x, .y) %>% distinct()
+        )
+    ) %>%
     mutate(expertise_subset = "expert")
-  
+
   # THEN BIND ROWS WITH PREVIOUS DATASETS
   out <- bind_rows(
-    ManyEcoEvo %>% 
+    ManyEcoEvo %>%
       mutate(expertise_subset = "All"),
     out
   )
-  
+
   return(out)
 }

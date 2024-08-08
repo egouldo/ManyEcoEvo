@@ -4,14 +4,14 @@
 #' @export
 get_MA_fit_stats <- function(MA_mod) {
   stopifnot("MA_mod must be an object of class rma.mv" = "rma.mv" %in% class(MA_mod))
-  
+
   res <- bind_cols(
-    pluck(MA_mod, "sigma2") %>% 
-      set_names("sigma2_1", "sigma2_2") %>% 
+    pluck(MA_mod, "sigma2") %>%
+      set_names("sigma2_1", "sigma2_2") %>%
       as_tibble_row(),
     orchaRd::i2_ml(MA_mod) %>%
       as_tibble_row(),
   )
-  
+
   return(res)
 }

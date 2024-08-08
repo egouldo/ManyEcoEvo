@@ -2,7 +2,7 @@
 #'
 #' @param Zr Standardized beta-estimate
 #' @param VZr Standardised standard error of the beta estimate
-#' @param data Dataframe containing estimates and variances 
+#' @param data Dataframe containing estimates and variances
 #' @param slab Vector of case identifiers
 #'
 #' @return A fitted model of class rma
@@ -21,15 +21,18 @@
 #' #                      VZr = .$VZr,
 #' #                      data = .,
 #' #                      slab = .$study_id)
-fit_metafor_uni <- function(Zr, VZr, data, slab){
+fit_metafor_uni <- function(Zr, VZr, data, slab) {
   cli::cli_h2(glue::glue("Fitting univariate metaregression"))
-  metafor::rma(yi = Zr, 
-               vi = VZr,
-               data = data,
-               control=list(maxiter=1000),
-               slab = slab)
+  metafor::rma(
+    yi = Zr,
+    vi = VZr,
+    data = data,
+    control = list(maxiter = 1000),
+    slab = slab
+  )
 }
 
-poss_fit_metafor_uni <- purrr::possibly(fit_metafor_uni, 
-                                        otherwise = NA,
-                                        quiet = FALSE)
+poss_fit_metafor_uni <- purrr::possibly(fit_metafor_uni,
+  otherwise = NA,
+  quiet = FALSE
+)
