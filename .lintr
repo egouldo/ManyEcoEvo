@@ -1,0 +1,10 @@
+linters: linters_with_defaults(
+  commented_code_linter = NULL,
+  object_usage_linter = NULL,
+  seq_linter = NULL, #fine for forloops, not great in mutate calls
+  line_length_linter(120)
+  ) # see vignette("lintr")
+encoding: "UTF-8"
+exclusions: list(
+  "data-raw/analyst_data"
+  )

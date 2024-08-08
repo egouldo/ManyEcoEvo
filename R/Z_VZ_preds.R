@@ -24,7 +24,7 @@ Z_VZ_preds <- function(yi, yi_se, mu_p, sd_p) {
       "mu_p {.val {mu_p}}",
       "sd_p {.val {sd_p}}"
     ))
-    return(NA) # TODO single NA value OR, tibble with NA's?
+    return(NA)
   }
 
 

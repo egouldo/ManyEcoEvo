@@ -1,10 +1,13 @@
 #' Fit model of boxcox deviation scores as function of continuous ratings
-#' @description Fit an lmer model of the box-cox transformed deviation from the meta-analytic mean scores as a function of continuous peer-review ratings
+#' @description 
+#' Fit an lmer model of the box-cox transformed deviation from the meta-analytic 
+#' mean scores as a function of continuous peer-review ratings
 #'
 #' @param .data Data for model fitting
 #' @param outcome outcome variable, unquoted.
 #' @param outcome_var Variance of the `outcome` variable
-#' @param interceptless A logical relating to whether the model should be interceptless or not. Defaults to `FALSE`.
+#' @param interceptless A logical relating to whether the model should be 
+#' interceptless or not. Defaults to `FALSE`.
 #'
 #' @return An object of class lmer.
 #' @export

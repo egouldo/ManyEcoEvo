@@ -96,8 +96,7 @@ euc_data <- euc_data %>%
 blue_tit_data <-
   blue_tit_data %>%
   mutate(
-    `day 14 weight` = # TODO should recode the raw analyst data, rather than including here?? Don't want to double count variables!!
-      day_14_weight,
+    `day 14 weight` = day_14_weight, 
     `day_14_weight/(day_14_tarsus_length^2)` =
       day_14_weight / (day_14_tarsus_length^2),
     `day_14_weight/day_14_tarsus_length` =
