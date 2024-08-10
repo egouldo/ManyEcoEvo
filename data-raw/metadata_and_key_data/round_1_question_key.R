@@ -96,10 +96,10 @@ covariates_key <-
   ) %>%
     paste(
       str_split(variable_name, "_") %>%
-        flatten_chr() %>% 
-        pluck(2), 
-      sep = "_")
-  )
+        flatten_chr() %>%
+        pluck(2),
+      sep = "_"
+    ))
 
 q_text <- process_survey_questions_r1("SV_8FU0Y2y0TaFLQXP") %>%
   filter(qname %in% c("Q37", "Q38")) %>%

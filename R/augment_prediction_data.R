@@ -1,15 +1,15 @@
 #' Augment analyst out-of-sample prediction data according to the outcome of pointblank interrogation
-#' @description 
-#' `augment_prediction_data()` will relabel and remove extraneous columns from 
+#' @description
+#' `augment_prediction_data()` will relabel and remove extraneous columns from
 #' out-of-sample prediction data.
-#' @details 
-#' Where there are missing variables in `.data` or `checks` is missing, 
+#' @details
+#' Where there are missing variables in `.data` or `checks` is missing,
 #' `NA` will be returned for the augmented prediction data instead.
 #' @param .data A data.frame of out of-sample-predictions analyst submission data
 #' @param checks A data.frame of pointblank interrogation output for `.data`
 #' @param dataset A character string equal to either "blue tit" or "eucalyptus"
 #'
-#' @return A dataframe. Individual analyst submission containing augmented 
+#' @return A dataframe. Individual analyst submission containing augmented
 #' out-of-sample prediction data ready for meta-analysis.
 #' @export
 #'
