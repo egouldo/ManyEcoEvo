@@ -71,6 +71,11 @@ reference:
   contents:
   - starts_with("summarise")
   - starts_with("count")
+  - calc_analyses_per_team
+  - calc_summary_stats_binary
+  - calc_summary_stats_numeric
+  - calc_teams_per_dataset
+  - calculate_variable_counts
 - title: 'Scaling Up: Working with data subsets or multiple datasets'
   desc: |
     Functions for working with multiple datasets or data subsets within a 
