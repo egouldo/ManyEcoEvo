@@ -1,76 +1,71 @@
 Package: ManyEcoEvo
 Title: Meta-analyse data from 'Many-Analysts' style studies
 Version: 2.3.0
-Authors@R: c(person(given = "Elliot",
-                    family = "Gould", 
-                    email =  "elliot.gould@unimelb.edu.au", 
-                    role = c("aut", "cre"), 
-                    comment = c(ORCID = "https://orcid.org/0000-0002-6585-538X")),
-             person(given = "Hannah S.", 
-                    family = "Fraser", 
-                    role = "aut",
-                    comment = c(ORCID = "https://orcid.org/0000-0003-2443-4463")),
-             person(given = "Shinichi",
-                    family = "Nakagawa",
-                    role = "aut",
-                    comment = c(ORCID = "https://orcid.org/0000-0002-7765-5182")),
-             person(given = "Timothy H.",
-                    family = "Parker",
-                    role = "aut",
-                    comment = c(ORCID = "https://orcid.org/0000-0003-2995-5284"))
-           )
-Description: The ManyEcoEvo package provides a set of functions for
-    aiding data cleaning, preparation and conducting analysis for
-    multi-analyst style studies. It also contains datasets from the
-    ManyEcoEvo project for reproducing the ManyEcoEvo analysis.
+Authors@R: c(
+    person("Elliot", "Gould", , "elliot.gould@unimelb.edu.au", role = c("aut", "cre"),
+           comment = c(ORCID = "https://orcid.org/0000-0002-6585-538X")),
+    person("Hannah S.", "Fraser", role = "aut",
+           comment = c(ORCID = "https://orcid.org/0000-0003-2443-4463")),
+    person("Shinichi", "Nakagawa", role = "aut",
+           comment = c(ORCID = "https://orcid.org/0000-0002-7765-5182")),
+    person("Timothy H.", "Parker", role = "aut",
+           comment = c(ORCID = "https://orcid.org/0000-0003-2995-5284"))
+  )
+Description: The ManyEcoEvo package provides a set of functions for aiding
+    data cleaning, preparation and conducting analysis for multi-analyst
+    style studies. It also contains datasets from the ManyEcoEvo project
+    for reproducing the ManyEcoEvo analysis.
 License: GPL (>= 3)
+URL: https://github.com/egouldo/ManyEcoEvo,
+    https://egouldo.github.io/ManyEcoEvo/
+BugReports: https://github.com/egouldo/ManyEcoEvo/issues
 Depends: 
     R (>= 2.10)
 Imports:
     betapart,
-    dplyr,
-    tidyselect,
-    pointblank,
-    tibble,
     cli,
     data.table,
+    dplyr,
     forcats,
     fs,
     glue,
     here,
+    lifecycle,
     lme4,
+    magrittr,
     metafor,
     naniar,
-    magrittr,
-    tidyr,
-    rlang,
+    pointblank,
     purrr,
-    tidyselect
+    rlang,
+    tibble,
+    tidyr,
+    tidyselect,
+    tidyselect,
+    withr
 Suggests:
-    targets,
-    qs,
     broom.mixed,
-    metaviz,
     ggeffects,
+    knitr,
+    metaviz,
     parameters,
-    performance,
     parsnip,
-    workflows,
-    timetk,
-    recipes,
-    sae,
+    performance,
     pracma,
     progress,
-    knitr,
-    rmarkdown
+    qs,
+    recipes,
+    rmarkdown,
+    sae,
+    targets,
+    timetk,
+    workflows
+VignetteBuilder: 
+    knitr
 Remotes:
-  daniel1noble/orchaRd,
-  NightingaleHealth/ggforestplot
+    daniel1noble/orchaRd,
+    NightingaleHealth/ggforestplot
 Encoding: UTF-8
 LazyData: false
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
-URL: https://github.com/egouldo/ManyEcoEvo,
-     https://egouldo.github.io/ManyEcoEvo/
-BugReports: https://github.com/egouldo/ManyEcoEvo/issues
-VignetteBuilder: knitr

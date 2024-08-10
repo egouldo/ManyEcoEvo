@@ -10,25 +10,26 @@
 #' @return The outputs of a back-transformation function, see family back-transformations
 #' @family back transformation
 #' @export
-conversion_2 <-function(beta, se, response_transformation, link_fun, sim = 10000){
-  
-  na_args <- purrr::discard(c(beta, se, response_transformation, link_fun), is.na) %>% 
+conversion_2 <- function(beta, se, response_transformation, link_fun, sim = 10000) {
+  na_args <- purrr::discard(c(beta, se, response_transformation, link_fun), is.na) %>%
     length()
-  
-  
-  if(na_args < 4){
+
+
+  if (na_args < 4) {
     cli::cli_alert_danger("Required values for back-transformation missing:")
     cli::cli_alert_warning("Returning {.val NA} for quadruple:")
-    cli::cli_ol(c("beta_estimate {.val {beta}},",
-                  "beta_se {.val {se}},", 
-                  "with {.val {response_transformation}} response transformation and",
-                  "link function {.val {link_fun}}."))
+    cli::cli_ol(c(
+      "beta_estimate {.val {beta}},",
+      "beta_se {.val {se}},",
+      "with {.val {response_transformation}} response transformation and",
+      "link function {.val {link_fun}}."
+    ))
     return(NA)
   }
 
-  set <- if(link_fun == "log"){
+  set <- if (link_fun == "log") {
     log_back(set$beta, set$se, sim)
-  } else if (link_fun == "logit"){
+  } else if (link_fun == "logit") {
     logit_back(set$beta, set$se, sim)
   } else if (link_fun == "probit") {
     probit_back(set$beta, set$se, sim)
@@ -39,12 +40,12 @@ conversion_2 <-function(beta, se, response_transformation, link_fun, sim = 10000
   } else if (link_fun == "inverse") {
     inverse_back(set$beta, set$se, sim)
   } else {
-    identity_back(set$beta, set$se, sim) 
+    identity_back(set$beta, set$se, sim)
   }
-    
-  set <- if(response_transformation == "log"){
+
+  set <- if (response_transformation == "log") {
     log_back(set$beta, set$se, sim)
-  } else if (response_transformation == "logit"){
+  } else if (response_transformation == "logit") {
     logit_back(set$beta, set$se, sim)
   } else if (response_transformation == "probit") {
     probit_back(set$beta, set$se, sim)
@@ -55,9 +56,8 @@ conversion_2 <-function(beta, se, response_transformation, link_fun, sim = 10000
   } else if (response_transformation == "inverse") {
     inverse_back(set$beta, set$se, sim)
   } else {
-    identity_back(set$beta, set$se, sim) 
+    identity_back(set$beta, set$se, sim)
   }
-  
+
   return(set)
-  
 }

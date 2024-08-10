@@ -2,56 +2,58 @@
 library(here)
 library(tidyverse)
 library(usethis)
-library(ManyEcoEvo) #todo switch to getting the tar_make object. Consider putting in tar_make
+library(ManyEcoEvo) # todo switch to getting the tar_make object. Consider putting in tar_make
 
 # ----- Load Expert Subset -----
 
-expert_subset <- readr::read_csv(here::here("data-raw", 
-                                            "metadata_and_key_data",
-                                            "Good_Statistician_ResponseIds.csv")) %>% 
+expert_subset <- readr::read_csv(here::here(
+  "data-raw",
+  "metadata_and_key_data",
+  "Good_Statistician_ResponseIds.csv"
+)) %>%
   distinct()
 
-expert_subset <- ManyEcoEvo::ManyEcoEvo$data %>% 
-  list_rbind() %>% 
-  select(response_id, TeamIdentifier) %>% 
-  distinct() %>% 
-  semi_join(expert_subset) 
+expert_subset <- ManyEcoEvo::ManyEcoEvo$data %>%
+  list_rbind() %>%
+  select(response_id, TeamIdentifier) %>%
+  distinct() %>%
+  semi_join(expert_subset)
 
 # ------- Create tibble of analysis IDs of analyses with highly collinear variables -------
 
 collinearity_subset <-
   tibble::tribble(
-    ~response_id,         ~id_col,   ~dataset,
+    ~response_id, ~id_col, ~dataset,
     "R_DoCdsvLclGEF14Z", "Armadal-1-1-1", "blue tit",
     "R_eqzPwjXV6eOi2zv", "Babinda-1-1-1", "blue tit",
     "R_eqzPwjXV6eOi2zv", "Babinda-2-2-1", "blue tit",
-    "R_2Tzp6JznvkvCY4h",  "Barham-1-1-1", "blue tit",
-    "R_2Tzp6JznvkvCY4h",  "Barham-2-2-1", "blue tit",
-    "R_126erjKKuN3IwSJ",    "Bega-1-1-1", "blue tit",
-    "R_126erjKKuN3IwSJ",    "Bega-1-1-2", "blue tit",
-    "R_126erjKKuN3IwSJ",    "Bega-2-2-1", "blue tit",
-    "R_126erjKKuN3IwSJ",    "Bega-2-2-2", "blue tit",
-    "R_210APF6gYFATf7Y",   "Borde-1-1-1", "blue tit",
-    "R_1dzfML4yheLxG0D",    "Bruc-1-1-1", "blue tit",
-    "R_3lMQ3NmmjrzpbM2",  "Caigun-1-1-1", "blue tit",
-    "R_3lMQ3NmmjrzpbM2",  "Caigun-2-2-1", "blue tit",
+    "R_2Tzp6JznvkvCY4h", "Barham-1-1-1", "blue tit",
+    "R_2Tzp6JznvkvCY4h", "Barham-2-2-1", "blue tit",
+    "R_126erjKKuN3IwSJ", "Bega-1-1-1", "blue tit",
+    "R_126erjKKuN3IwSJ", "Bega-1-1-2", "blue tit",
+    "R_126erjKKuN3IwSJ", "Bega-2-2-1", "blue tit",
+    "R_126erjKKuN3IwSJ", "Bega-2-2-2", "blue tit",
+    "R_210APF6gYFATf7Y", "Borde-1-1-1", "blue tit",
+    "R_1dzfML4yheLxG0D", "Bruc-1-1-1", "blue tit",
+    "R_3lMQ3NmmjrzpbM2", "Caigun-1-1-1", "blue tit",
+    "R_3lMQ3NmmjrzpbM2", "Caigun-2-2-1", "blue tit",
     "R_3rIdpCqsQtsmgqT", "Adelong-1-1-1", "blue tit",
     "R_3rIdpCqsQtsmgqT", "Adelong-2-2-1", "blue tit",
   )
 
 # ---- Make Parameter Tables for Standardising out-of-sample Predictions ----
 
-#NOTE: relies on package being built after running `data-raw/osf_load_analyst_datasets.R`
+# NOTE: relies on package being built after running `data-raw/osf_load_analyst_datasets.R`
 # alternatively, devtools::load_all() is needed to access the fns to build `analysis_data_param_tables`
 # devtools::load_all() #TODO
 
-#TODO consider moving *_data creation into this script to avoid dependence on pkg before built..
+# TODO consider moving *_data creation into this script to avoid dependence on pkg before built..
 
-analysis_data_param_tables <- 
+analysis_data_param_tables <-
   bind_rows(
-    make_param_table(ManyEcoEvo::blue_tit_data) %>% 
+    make_param_table(ManyEcoEvo::blue_tit_data) %>%
       mutate(dataset = "blue tit"),
-    make_param_table(ManyEcoEvo::euc_data) %>% 
+    make_param_table(ManyEcoEvo::euc_data) %>%
       mutate(dataset = "eucalyptus")
   )
 
@@ -362,15 +364,16 @@ prediction_ids <- tibble::tribble(
   "Childers-1-1-1",
   "Childers-2-2-1",
   "Cessnock-1-1-1"
-) #TODO ask HF where/how derived (used data pasta to copy from HF's files)
+) # TODO ask HF where/how derived (used data pasta to copy from HF's files)
 
 
 # ------- Write data internally -------
 
-usethis::use_data(expert_subset, 
-                  analysis_data_param_tables, 
-                  collinearity_subset, 
-                  prediction_ids,
-                  effect_ids,
-                  internal = TRUE, 
-                  overwrite = TRUE)
+usethis::use_data(expert_subset,
+  analysis_data_param_tables,
+  collinearity_subset,
+  prediction_ids,
+  effect_ids,
+  internal = TRUE,
+  overwrite = TRUE
+)

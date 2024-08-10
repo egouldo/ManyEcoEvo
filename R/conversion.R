@@ -21,71 +21,65 @@
 #' * "powerX", where `X` is a numeric
 #' * "divided.by.X", where `X` is a numeric
 #' @export
-conversion <-function(beta, se, transformation, sim = 10000){
+conversion <- function(beta, se, transformation, sim = 10000) {
   # Ensure Correct Number of Arguments Supplied
-  na_args <- purrr::discard(c(beta, se, transformation), is.na) %>% 
+  na_args <- purrr::discard(c(beta, se, transformation), is.na) %>%
     length()
 
-  if(na_args < 3){
+  if (na_args < 3) {
     cli::cli_alert_danger("Required values for back-transformation missing:")
     cli::cli_alert_warning("Returning {.val NA} for tupple:")
-    cli::cli_ol(c("beta_estimate {.val {beta}},",
-                  "beta_se {.val {se}},", 
-                  "with {.val {transformation}} transformation."))
+    cli::cli_ol(c(
+      "beta_estimate {.val {beta}},",
+      "beta_se {.val {se}},",
+      "with {.val {transformation}} transformation."
+    ))
     return(NA)
   }
   # Ensure Correct Type of Arguments Supplied
   stopifnot(purrr::is_scalar_vector(sim))
   stopifnot(is.numeric(beta))
   stopifnot(is.numeric(se))
-  
+
   # Apply Back Transformations
-  if(transformation == "log"){
+  if (transformation == "log") {
     log_back(beta, se, sim)
-  } 
-  else if (transformation == "logit"){
+  } else if (transformation == "logit") {
     logit_back(beta, se, sim)
-  }
-  else if (transformation == "probit") {
+  } else if (transformation == "probit") {
     probit_back(beta, se, sim)
-  } 
-  else if (transformation == "square") {
+  } else if (transformation == "square") {
     square_back(beta, se, sim)
-  }
-  else if (transformation == "cube") {
+  } else if (transformation == "cube") {
     cube_back(beta, se, sim)
-  }
-  else if (transformation == "inverse") {
+  } else if (transformation == "inverse") {
     inverse_back(beta, se, sim)
-  } 
-  else if(transformation == "square_root"){
+  } else if (transformation == "square_root") {
     square_root_back(beta, se, sim)
-  }
-  else if(transformation == "(power3)/100"){
+  } else if (transformation == "(power3)/100") {
     x100 <- divide_back(beta, se, sim, 100)
     cube_back(x100$mean_origin, x100$se_origin, sim = 1000)
-  }
-  else if (stringr::str_detect(transformation, "power")) {
-    n <- str_split(transformation, "power") %>% pluck(1,2) %>% as.numeric()
-    if(rlang::is_na(n)){
+  } else if (stringr::str_detect(transformation, "power")) {
+    n <- str_split(transformation, "power") %>%
+      pluck(1, 2) %>%
+      as.numeric()
+    if (rlang::is_na(n)) {
       return(data.frame(mean_origin = NA, m_est = NA, se_origin = NA, lower = NA, upper = NA))
     } else {
       power_back(beta, se, sim, n)
     }
-  } 
-  else if(stringr::str_detect(transformation, "divided")){ # divided by n
-    n <- stringr::str_split(string = transformation, pattern = "[.]") %>% pluck(1,3) %>% as.numeric()
-    if(rlang::is_na(n)){
+  } else if (stringr::str_detect(transformation, "divided")) { # divided by n
+    n <- stringr::str_split(string = transformation, pattern = "[.]") %>%
+      pluck(1, 3) %>%
+      as.numeric()
+    if (rlang::is_na(n)) {
       return(data.frame(mean_origin = NA, m_est = NA, se_origin = NA, lower = NA, upper = NA))
     } else {
       divide_back(beta, se, sim, n)
     }
-  }
-  else if(transformation == "double_transformation"){
+  } else if (transformation == "double_transformation") {
     return(data.frame(mean_origin = NA, m_est = NA, se_origin = NA, lower = NA, upper = NA))
+  } else {
+    identity_back(beta, se, sim) # TODO change conditional logic to ensure strange transformations not put through here
   }
-  else {
-    identity_back(beta, se, sim) #TODO change conditional logic to ensure strange transformations not put through here
-  }
-  
 }

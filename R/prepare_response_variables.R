@@ -5,23 +5,29 @@
 #' @param param_table A table of parameters \(mean, sd\) for *most* response variables used by analysts. This tibble is pulled from the named object exported by `ManyEcoEvo::`. but can be overwritten with the users's own `param_table` dataset.
 #'
 #' @return A tibble of nested list-columns
-#' @details Operates on nested list-columns of dataframes, where each dataframe contains the response variable data for a single analysis. The function standardises the response variable data for each analysis, and returns the modified dataset to the `data` list-column. 
-#' @family targets-pipeline functions. 
+#' @details Operates on nested list-columns of dataframes, where each dataframe contains the response variable data for a single analysis. The function standardises the response variable data for each analysis, and returns the modified dataset to the `data` list-column.
+#' @family targets-pipeline functions.
 #' @family Multi-dataset Wrapper Functions
-#' @export 
-prepare_response_variables <- function(ManyEcoEvo, 
-                                       estimate_type =  character(1L),
-                                       param_table = NULL){
+#' @export
+prepare_response_variables <- function(ManyEcoEvo,
+                                       estimate_type = character(1L),
+                                       param_table = NULL) {
   stopifnot(is.data.frame(ManyEcoEvo))
-  #TODO run checks on ManyEcoEvo
+  # TODO run checks on ManyEcoEvo
   match.arg(estimate_type, choices = c("Zr", "yi", "y25", "y50", "y75"), several.ok = FALSE)
-  out <- ManyEcoEvo %>% 
-    ungroup() %>% 
+  out <- ManyEcoEvo %>%
+    ungroup() %>%
     # dplyr::group_by(dataset) %>% #NOTE: mapping doesn't work properly when tibble is rowwise!
-    dplyr::mutate(data = purrr::map2(.x = data, .y = dataset,
-                       .f = ~ standardise_response(dat = .x, 
-                                                   estimate_type =  !!{estimate_type}, 
-                                                   param_table, 
-                                                   dataset = .y)))
+    dplyr::mutate(data = purrr::map2(
+      .x = data, .y = dataset,
+      .f = ~ standardise_response(
+        dat = .x,
+        estimate_type = !!{
+          estimate_type
+        },
+        param_table,
+        dataset = .y
+      )
+    ))
   return(out)
 }

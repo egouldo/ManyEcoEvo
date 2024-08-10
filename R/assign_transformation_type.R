@@ -3,20 +3,19 @@
 #' @param response_transformation Character vector of length 1L containing the analysis response transformation
 #' @param link_fun Character vector of length 1L containing the analysis link function
 #'
-#' @return A character vector of length 1L 
+#' @return A character vector of length 1L
 #' @export
 #' @importFrom dplyr case_when
 #' @importFrom rlang is_na
 #' @importFrom rlang na_chr
 assign_transformation_type <- function(response_transformation = character(1L),
                                        link_fun = character(1L)) {
-  
   # # Link-Fun: Set back.transformed to "identity"
   # link_fun <- dplyr::case_when(
   #   link_fun == "back.transformed" ~ "identity",
   #   TRUE ~ link_fun
   # )
-  # 
+  #
   # # Response Variable Transformation: Set back.transformed to NA
   # response_transformation <- dplyr::case_when(
   #   response_transformation == "back.transformed" ~ NA,
@@ -37,6 +36,6 @@ assign_transformation_type <- function(response_transformation = character(1L),
     !is_na(response_transformation) & response_transformation %nin% "back.transformed" & is_na(link_fun) & link_fun %nin% "back.transformed" & link_fun %nin% "identity" ~ "double_transformation",
     TRUE ~ na_chr
   )
-  
+
   return(transformation_type)
 }

@@ -12,36 +12,40 @@
 #' @import dplyr
 #' @import see
 #' @importFrom forcats fct_relevel
-plot_model_means_orchard <- function(dat, 
-                                     variable, 
-                                     predictor_means, 
-                                     new_order, 
-                                     title){
-  
-  dat <- dat %>% 
-    rename(weights = `(weights)`) %>% 
-    mutate("{{variable}}" := # 
-             fct_relevel(.f = {{variable}}, 
-                         new_order),
-           weights = as.numeric(weights)
+plot_model_means_orchard <- function(dat,
+                                     variable,
+                                     predictor_means,
+                                     new_order,
+                                     title) {
+  dat <- dat %>%
+    rename(weights = `(weights)`) %>%
+    mutate(
+      "{{variable}}" := #
+        fct_relevel(
+          .f = {{ variable }},
+          new_order
+        ),
+      weights = as.numeric(weights)
     )
-  
+
   ggplot() +
-    ggbeeswarm::geom_quasirandom(data = dat, 
-                                 mapping = ggplot2::aes(y = box_cox_abs_deviation_score_estimate, 
-                                                        x = {{variable}}, 
-                                                        size = weights, 
-                                                        colour = {{variable}}),
-                                 alpha = 0.7) +
+    ggbeeswarm::geom_quasirandom(
+      data = dat,
+      mapping = ggplot2::aes(
+        y = box_cox_abs_deviation_score_estimate,
+        x = {{ variable }},
+        size = weights,
+        colour = {{ variable }}
+      ),
+      alpha = 0.7
+    ) +
     geom_pointrange(
       dat = predictor_means,
-      aes(x = {{variable}}, y = Mean, ymin = CI_low, ymax = CI_high, color = {{variable}}),
+      aes(x = {{ variable }}, y = Mean, ymin = CI_low, ymax = CI_high, color = {{ variable }}),
       size = 1,
       alpha = 1
     ) +
     see::theme_modern() +
     theme(axis.text.x = element_text(angle = 90)) +
     ggtitle(label = title)
-  
-  
 }
