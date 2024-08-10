@@ -45,7 +45,9 @@ Imports:
     tidyr,
     rlang,
     purrr,
-    tidyselect
+    tidyselect,
+    lifecycle,
+    withr
 Suggests:
     targets,
     qs,
