@@ -366,6 +366,28 @@ prediction_ids <- tibble::tribble(
   "Cessnock-1-1-1"
 ) # TODO ask HF where/how derived (used data pasta to copy from HF's files)
 
+# ------ Create transformation_tbl -----
+
+transformation_tbl <- tribble(
+  ~transformation_orig, ~cleaned_transformation,
+  "^2", "square",
+  "power2", "square",
+  "^3", "cube",
+  "power3", "cube",
+  "squared", "square",
+  "cubed", "cube",
+  "scaled and centered", "identity",
+  "scaling and centering", "identity",
+  "mean centered and standardized", "identity",
+  "log", "log",
+  "orderNorm", NA, # TODO, ensure that this is the best behaviour - we need to exclude this first, rather than let it through here.. because else it gets passed through identity_back() inside conversion()
+  "divided.by.14", "divided.by.14",
+  "square.root", "square_root",
+  "back.transformed", "back.transformed",
+  "z.score", "identity",
+  "(power3)/100", "(power3)/100"
+) 
+
 
 # ------- Write data internally -------
 
@@ -374,6 +396,7 @@ usethis::use_data(expert_subset,
   collinearity_subset,
   prediction_ids,
   effect_ids,
+  transformation_tbl,
   internal = TRUE,
   overwrite = TRUE
 )

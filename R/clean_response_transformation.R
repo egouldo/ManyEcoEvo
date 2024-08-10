@@ -1,34 +1,22 @@
 #' Clean response transformation variable
 #' @description Cleans the response transformation variable to the names of the back-transformation functions
 #'
-#' @param response_transformation A character vector with the
+#' @param response_transformation A character vector with the response transformation values
+#' @param transformation_tbl A tibble of the response transformation values `transformation_orig` and their cleaned names `cleaned_transformation`
+#' 
 #'
 #' @return A character vector of cleaned response transformation values equal to the required `transformation` values in `conversion()`
 #' @export
-#'
+#' @details
+#' The `transformation_tbl` is a tibble of the response transformation values `transformation_orig` and their cleaned
+#' names `cleaned_transformation`. The `transformation_orig` values are the original response transformation values
+#' used by the analyst. The `cleaned_transformation` values are the cleaned response transformation values that are equal to the required `transformation` values in [conversion()]. 
+#' The user can supply an alternate table of transformations depending on what is required for the back-transformation functions.
 #' @family back-transformation functions
-clean_response_transformation <- function(response_transformation) {
+clean_response_transformation <- function(response_transformation, 
+                                          transformation_tbl = ManyEcoEvo:::transformation_tbl) {
   original_data <- tibble(transformation_orig = response_transformation)
-
-  transformation_tbl <- tribble(
-    ~transformation_orig, ~cleaned_transformation,
-    "^2", "square",
-    "power2", "square",
-    "^3", "cube",
-    "power3", "cube",
-    "squared", "square",
-    "cubed", "cube",
-    "scaled and centered", "identity",
-    "scaling and centering", "identity",
-    "mean centered and standardized", "identity",
-    "log", "log",
-    "orderNorm", NA, # TODO, ensure that this is the best behaviour - we need to exclude this first, rather than let it through here.. because else it gets passed through identity_back() inside conversion()
-    "divided.by.14", "divided.by.14",
-    "square.root", "square_root",
-    "back.transformed", "back.transformed",
-    "z.score", "identity",
-    "(power3)/100", "(power3)/100"
-  ) # TODO double-check treatment of z.score
+  
   out <- original_data %>%
     left_join(transformation_tbl) %>%
     select(cleaned_transformation) %>% # TODO WHAT ABOUT MISSING NON-STANDARD TRANSFORMATIONS??
