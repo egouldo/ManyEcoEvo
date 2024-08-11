@@ -31,7 +31,7 @@ Analysts may report estimates on various scales, for example they may report val
 In order to proceed with standardisation of effect-sizes or out-of-sample estimates, we back-transform analysts' reported estimates to the original response scale in the datasets `euc_data` and `blue_tit_data`, rather than the link- or transformed- scale.
 
 1.  `assign_transformation_type()` takes information about the `response_transformation` and the `link_fun` for a given analysis, and assigns the analysis to an appropriate back-transformation rule to be applied, one of either `"identity"`, the value of the link-function or response-transformation, `"double.transformation"`, or `NA` if an appropriate transformation type cannot be assigned.
-2.  
+2.  Next, the type of response transformation is cleaned using `clean_response_transformation()`, which cleans any value returned by `assign_transformation_type()` in step 1 that is not in `c("identity", "double.transformation", NA)` to
 
 Firstly we apply `clean_response_transformation()`
 
