@@ -41,7 +41,7 @@ prepare_response_variables_yi <- function(ManyEcoEvo,
 
 #' Back Transform Response Variables - yi
 #'
-#' @param data
+#' @param dat A dataframe of out of sample predictions analyst submission data
 #' @param estimate_type The type of estimate to be standardised. Character vector of length 1, whose value may be  "yi", "y25", "y50", "y75".
 #' @param param_table A table of estimated 'population' parameters for each variable in the analysis datasets.
 #' @param dataset One of either "blue tit" or "eucalyptus"

@@ -1,6 +1,6 @@
 #' Standardise Response Variable
 #'
-#' @param data
+#' @param dat A tibble of analyst data with a list-column called 
 #' @param estimate_type The type of estimate to be standardised. Character vector of length 1, whose value may be "Zr", "yi", "y25", "y50", "y75".
 #' @param param_table A table of estimated 'population' parameters for each variable in the analysis datasets.
 #' @param dataset One of either "blue tit" or "eucalyptus"

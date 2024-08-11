@@ -1,6 +1,6 @@
 #' Get Diversity Data
 #'
-#' @param raw_data
+#' @param raw_data A tibble of raw data
 #' @param dataset character string of either "eucalyptus" or "blue tit"
 #' @param variables character vector of any length containing names of variables to get diversity data for
 #'

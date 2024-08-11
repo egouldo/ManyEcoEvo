@@ -1,6 +1,6 @@
 #' Exclude extreme values of VZ from a dataframe of standardised predictions
 #'
-#' @param df
+#' @param df A dataframe containing the columns `Z` and `VZ`
 #' @param VZ_cutoff A numeric vector of length 1, values equal to or greater than this value of VZ will be filtered out of `df`.
 #'
 #' @return A dataframe with observations removed where the value is less than that of `VZ\_cutoff`.

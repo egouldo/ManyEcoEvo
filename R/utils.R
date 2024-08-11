@@ -81,9 +81,9 @@ capwords <- function(s, strict = FALSE) {
 
 #' Removes infinite and NA values from a dataframe of standardised effects
 #'
-#' @param effects_analysis
 #' @param Z_colname unquoted or bare column name with the Z or Zr estimates
 #' @param VZ_colname unquoted or bare column name containing the VZ or VZr estimates
+#' @param effects_analysis A dataframe containing the standardised effects
 #'
 #' @return a dataframe without
 #' @export
