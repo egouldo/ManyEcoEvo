@@ -1,17 +1,21 @@
 # --- Back-transformation Conversion Functions ---
-# convertion functions
-# we assume estimates are normally distributed
-# TODO Question - all natural log (no log10)
-
-#' Back transform beta estimates for models with log-link
-#'
-#' @param beta Analyst beta estimate or yi estimate
-#' @param se Standard error of analyst's beta estimate or yi estimate.
+#' Back-transform effect-sizes to response scale.
+#' @description
+#' Transforms effect-sizes and their standard errors to the response scale.
+#' 
+#' @details We assume analysts' estimates are normally distributed. Each function uses a normal distribution to simulate the a distribution of effect-sizes and their standard errors. Next this distribution is back-transformed to the desired response scale. The mean `m_est`, standard error `se_est`, and quantiles (`lower` and `upper`) of the back-transformed distribution are returned within a dataframe.
+#' @param beta Analyst beta estimate
+#' @param se Standard error of analyst's effect size estimate $\\beta$ 
+#' or out-of-sample prediction estimate $y\\_i$.
 #' @param sim numeric vector of length 1. number of simulations.
-#'
-#' @return data frame containing the mean estimate, its standard error, and quantiles
-#' @export
+#' @return data frame containing the mean estimate, its standard error, and quantiles.
 #' @family back transformation
+#' @name back
+NULL
+#> NULL
+
+#' @describeIn back Back transform beta estimates for models with log-link
+#' @export
 log_back <- function(beta, se, sim) {
   simulated <- rnorm(sim, beta, se)
   original <- exp(simulated) %>% # exponential = inverse of log
@@ -29,14 +33,8 @@ log_back <- function(beta, se, sim) {
   return(set)
 }
 
-#' Back transform beta estimates for models with logit-link
-#' @param beta Analyst beta estimate
-#' @param se Standard error of analyst's beta estimate.
-#' @param sim numeric vector of length 1. number of simulations.
-#'
-#' @return data frame containing the mean estimate, its standard error, and quantiles
+#' @describeIn back Back transform beta estimates for models with logit-link
 #' @export
-#' @family back transformation
 logit_back <- function(beta, se, sim) {
   simulated <- rnorm(sim, beta, se)
   original <- plogis(simulated) %>% # invlogit
@@ -54,14 +52,8 @@ logit_back <- function(beta, se, sim) {
   return(set)
 }
 
-#' Back transform beta estimates for models with probit-link
-#' @param beta Analyst beta estimate
-#' @param se Standard error of analyst's beta estimate.
-#' @param sim numeric vector of length 1. number of simulations.
-#'
-#' @return data frame containing the mean estimate, its standard error, and quantiles
+#' @describeIn back Back transform beta estimates for models with probit-link
 #' @export
-#' @family back transformation
 probit_back <- function(beta, se, sim) {
   simulated <- rnorm(sim, beta, se)
   original <- pnorm(simulated) %>% # inv-probit
@@ -79,14 +71,8 @@ probit_back <- function(beta, se, sim) {
   return(set)
 }
 
-#' Back transform beta estimates for models with $1/x$ link
-#' @param beta Analyst beta estimate
-#' @param se Standard error of analyst's beta estimate.
-#' @param sim numeric vector of length 1. number of simulations.
-#'
-#' @return data frame containing the mean estimate, its standard error, and quantiles
+#' @describeIn back Back transform beta estimates for models with $1/x$ link
 #' @export
-#' @family back transformation
 inverse_back <- function(beta, se, sim) {
   simulated <- rnorm(sim, beta, se)
   original <- 1 / simulated %>% # inverse
@@ -104,14 +90,8 @@ inverse_back <- function(beta, se, sim) {
   return(set)
 }
 
-#' Back transform beta estimates for models with $x^2$-link
-#' @param beta Analyst beta estimate
-#' @param se Standard error of analyst's beta estimate.
-#' @param sim numeric vector of length 1. number of simulations.
-#'
-#' @return data frame containing the mean estimate, its standard error, and quantiles
+#' @describeIn back Back transform beta estimates for models with $x^2$-link
 #' @export
-#' @family back transformation
 square_back <- function(beta, se, sim) {
   simulated <- rnorm(sim, beta, se)
   original <- sqrt(simulated) %>% # inverse of x^2
@@ -129,14 +109,8 @@ square_back <- function(beta, se, sim) {
   return(set)
 }
 
-#' Back transform beta estimates for models with $x^3$-link
-#' @param beta Analyst beta estimate
-#' @param se Standard error of analyst's beta estimate.
-#' @param sim numeric vector of length 1. number of simulations.
-#'
-#' @return data frame containing the mean estimate, its standard error, and quantiles
+#' @describeIn back Back transform beta estimates for models with $x^3$-link
 #' @export
-#' @family back transformation
 cube_back <- function(beta, se, sim) {
   simulated <- rnorm(sim, beta, se)
   original <- pracma::nthroot(simulated, n = 3) %>% # inverse of x^3, use non-base to allow for -ve numbers
@@ -154,14 +128,8 @@ cube_back <- function(beta, se, sim) {
   return(set)
 }
 
-#' Back transform beta estimates for models with identity-link
-#' @param beta Analyst beta estimate
-#' @param se Standard error of analyst's beta estimate.
-#' @param sim numeric vector of length 1. number of simulations.
-#'
-#' @return data frame containing the mean estimate, its standard error, and quantiles
+#' @describeIn back Back transform beta estimates for models with identity-link
 #' @export
-#' @family back transformation
 identity_back <- function(beta, se, sim) { # identity (typo) TODO
   simulated <- rnorm(sim, beta, se)
   original <- simulated %>% #  no transformation
@@ -180,15 +148,8 @@ identity_back <- function(beta, se, sim) { # identity (typo) TODO
 }
 
 
-#' Back transform beta estimates for models with power-link
-#' @param beta Analyst beta estimate. Numeric vector of length 1.
-#' @param se Standard error of analyst's beta estimate. Numeric vector of length 1.
-#' @param sim Number of simulations. Numeric vector of length 1.
-#' @param n Numeric vector of length 1 describing power which values were raised to in transformation.
-#'
-#' @return data frame containing the mean estimate, its standard error, and quantiles
+#' @describeIn back Back transform beta estimates for models with power-link
 #' @export
-#' @family back transformation
 power_back <- function(beta, se, sim, n) {
   simulated <- rnorm(sim, beta, se)
   original <- pracma::nthroot(simulated, n = n) %>% # inverse of x^n, use non-base to allow for -ve numbers
@@ -206,15 +167,9 @@ power_back <- function(beta, se, sim, n) {
   return(set)
 }
 
-#' Back transform beta estimates or out-of-sample predictions from models whose response variable has been divided by some number
-#' @param beta Analyst beta estimate. Numeric vector of length 1.
-#' @param se Standard error of analyst's beta estimate. Numeric vector of length 1.
-#' @param sim Number of simulations. Numeric vector of length 1.
-#' @param n Numeric vector of length 1 describing the value of the divisor.
-#'
-#' @return data frame containing the mean estimate, its standard error, and quantiles
+#' @describeIn back Back transform beta estimates or out-of-sample predictions from models whose response variable has been divided by some number, `n`.
+#' @param n Denominator used by analyst to divide the response variable.
 #' @export
-#' @family back transformation
 divide_back <- function(beta, se, sim, n) {
   simulated <- rnorm(sim, beta, se)
   original <- simulated * n %>%
@@ -243,14 +198,8 @@ divide_back <- function(beta, se, sim, n) {
   return(set)
 }
 
-#' Back transform beta estimates or out-of-sample predictions from models whose response variable has been transformed by the square root
-#' @param beta Analyst beta estimate. Numeric vector of length 1.
-#' @param se Standard error of analyst's beta estimate. Numeric vector of length 1.
-#' @param sim Number of simulations. Numeric vector of length 1.
-#'
-#' @return data frame containing the mean estimate, its standard error, and quantiles
+#' @describeIn back Back transform beta estimates or out-of-sample predictions from models whose response variable has been transformed by the square root
 #' @export
-#' @family back transformation
 square_root_back <- function(beta, se, sim) {
   simulated <- rnorm(sim, beta, se)
   original <- simulated^2 %>%
