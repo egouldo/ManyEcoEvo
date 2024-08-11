@@ -19,57 +19,64 @@ library(ManyEcoEvo)
 ```
 
 ## Data Cleaning
-Analysts may report estimates on various scales, for example they may report values on the link or response scales, they may also ....
-In order to proceed with effect size standardisation or other standardisation, some transformations or back-transformations need to be applied. 
 
-- Anonymising submissions - `anonymise_teams()` / `anonymise_id_col()`
-- back-transformation:
-	- We asked for estimates to be provided on the `______` scale.
-		- `clean_response_transformation()`
-		- `assign_back_transformation_type()` 
-			- Depends on what scale the values are reported on (link / response), what transformation has been applied to the response variable, and to the predictor variable. 
+### Anonymising Data
 
-## Data Preprocessing
+We have anonymised our public dataset `data(ManyEcoEvo)` `anonymise_teams()`, which takes a look-up table of new and old identifier names with which to replace each analysis identifier. The lookup table and original non-anonymised data can be stored in a private repository or component, on the OSF for example, while the anonymised dataset can be released publicly.
 
-what is the distinction between processing and cleaning?
+### Cleaning response-transformation values and assigning a back-transformation
+
+Analysts may report estimates on various scales, for example they may report values on the link or response scales, they may also, or may have transformed the response-variable prior to model-fitting and reported effect-sizes on the transformed scale, rather than the scale of the original variable.
+
+In order to proceed with standardisation of effect-sizes or out-of-sample estimates, we back-transform analysts' reported estimates to the original response scale in the datasets `euc_data` and `blue_tit_data`, rather than the link- or transformed- scale.
+
+1.  `assign_transformation_type()` takes information about the `response_transformation` and the `link_fun` for a given analysis, and assigns the analysis to an appropriate back-transformation rule to be applied, one of either `"identity"`, the value of the link-function or response-transformation, `"double.transformation"`, or `NA` if an appropriate transformation type cannot be assigned.
+2.  
+
+Firstly we apply `clean_response_transformation()`
+
+-   back-transformation:
+    -   We asked for estimates to be provided on the `______` scale.
+        -   `clean_response_transformation()`
+        -   `assign_transformation_type()`
+            -   Depends on what scale the values are reported on (link / response), what transformation has been applied to the response variable, and to the predictor variable.
+
+## Data Pre-processing for Meta-analysis
+
+The meta-analysis requires that all estimates are on the same scale. This is because the meta-analysis is based on the assumption that the effect sizes are comparable.
+
+Before standardising effect sizes, we need to ensure that all estimates are on the same scale. Some analysts may report estimates on the link scale, while others may report estimates on the response scale, for instance. `ManyEcoEvo::` provides a suite of functions for both back-transforming estimates prior to standardising effect sizes.
 
 ### Back-transforming response variables
 
-in meta-analysis units need to be standardized because analysts use different response / outcome variables, and we may need to ensure that we are talking about units on the correct scale before we can standardize. 
-
-| function name     | description |
-| ----------------- | --------- |
-| `log_back()`      |           |
-| `logit_back()`    |           |
-| `probit_back()`   |           |
-| `inverse_back()`  |           |
-| `square_back()`   |           |
-| `cube_back()`     |           |
-| `identity_back()` |           |
-| `power_back()`    |           |
-| `divide_back()`   |           |
-| `square_root_back()`                  |           |
-
-
+| Function Name        | Description                                                                                                                            |
+|-------------------|-----------------------------------------------------|
+| `log_back()`         | Back-transform beta estimates for models with log-link                                                                                 |
+| `logit_back()`       | Back-transform beta estimates for models with logit-link                                                                               |
+| `probit_back()`      | Back-transform beta estimates for models with probit-link                                                                              |
+| `inverse_back()`     | Back-transform beta estimates for models with $1/x$ link                                                                               |
+| `square_back()`      | Back-transform beta estimates for models with $x^2$-link                                                                               |
+| `cube_back()`        | Back-transform beta estimates for models with $x^3$-link                                                                               |
+| `identity_back()`    | Back-transform beta estimates for models with identity-link                                                                            |
+| `power_back()`       | Back-transform beta estimates for models with power-link                                                                               |
+| `divide_back()`      | Back-transform beta estimates or out-of-sample predictions from models whose response variable has been divided by some number, `n`    |
+| `square_root_back()` | Back-transform beta estimates or out-of-sample predictions from models whose response variable has been transformed by the square root |
 
 ### Standardising effect sizes
-- Standardisation of effect-sizes (fishers' Z), however other transformations could be applied using other packages if need be (Gurrindgi green meta-analsis handbook).
-	- Predictions
-		-  `pred_to_Z()` (data frame level), `Z_VZ_preds()`
-	- Coefficients
-		- `est_to_Zr()`
+
+-   Standardisation of effect-sizes (fishers' Z), however other transformations could be applied using other packages if need be (Gurrindgi green meta-analsis handbook).
+    -   Predictions
+        -   `pred_to_Z()` (data frame level), `Z_VZ_preds()`
+    -   Coefficients
+        -   `est_to_Zr()`
 
 ### Calculating Sorensen similarity index
 
-- `apply_sorensen_calc()`
-- `calculate_sorensen_diversity_index()` (also needs to be renamed)
+-   `apply_sorensen_calc()`
+-   `calculate_sorensen_diversity_index()` (also needs to be renamed)
 
 ### Box-cox transforming deviation from meta-analytic mean
 
 ### Excluding Data
 
-- exclude_extreme_VZ()
-
-
-
-
+-   exclude_extreme_VZ() - exclude extreme values of VZ
