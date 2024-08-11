@@ -4,6 +4,12 @@
 #' @return A tibble of out of sample predictions on the response variable scale of the response variable used by the analyst
 #' @family analysis-values
 #' @export
+#' @import dplyr
+#' @import purrr
+#' @import rlang
+#' @import cli
+#' @importFrom data.table setnames
+#' @importFrom pointblank has_columns
 convert_predictions <- function(augmented_data,
                                 transformation_type,
                                 response_transformation,
@@ -92,7 +98,6 @@ convert_predictions <- function(augmented_data,
         cli::cli_alert_warning("Missing Value for {.arg response_transformation}, returning {.val NA}")
         out <- rlang::na_cpl
       }
-
 
       vconvert_double_transformation(
         beta = beta_vals,
