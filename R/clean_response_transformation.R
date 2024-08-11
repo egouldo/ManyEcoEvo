@@ -13,12 +13,17 @@
 #' used by the analyst. The `cleaned_transformation` values are the cleaned response transformation values that are equal to the required `transformation` values in [conversion()]. 
 #' The user can supply an alternate table of transformations depending on what is required for the back-transformation functions.
 #' @family back-transformation functions
+#' @seealso To be called after to [assign_transformation_type()]
+#' @examples
+#' clean_response_transformation("power2", ManyEcoEvo:::transformation_tbl) 
+#' clean_response_transformation("log", ManyEcoEvo:::transformation_tbl)
+#' clean_response_transformation("new_transformation", ManyEcoEvo:::transformation_tbl ) # Returns NA if not found
 clean_response_transformation <- function(response_transformation, 
                                           transformation_tbl = ManyEcoEvo:::transformation_tbl) {
   original_data <- tibble(transformation_orig = response_transformation)
   
   out <- original_data %>%
-    left_join(transformation_tbl) %>%
+    left_join(transformation_tbl, by = join_by(transformation_orig)) %>%
     select(cleaned_transformation) %>% # TODO WHAT ABOUT MISSING NON-STANDARD TRANSFORMATIONS??
     flatten_chr()
 
