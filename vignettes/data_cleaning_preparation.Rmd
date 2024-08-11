@@ -16,6 +16,7 @@ knitr::opts_chunk$set(
 
 ```{r setup}
 library(ManyEcoEvo)
+suppressPackageStartupMessages(library(tidyverse))
 ```
 
 ## Data Cleaning
@@ -24,30 +25,96 @@ library(ManyEcoEvo)
 
 We have anonymised our public dataset `data(ManyEcoEvo)` `anonymise_teams()`, which takes a look-up table of new and old identifier names with which to replace each analysis identifier. The lookup table and original non-anonymised data can be stored in a private repository or component, on the OSF for example, while the anonymised dataset can be released publicly.
 
-### Cleaning response-transformation values and assigning a back-transformation
+## Data Pre-processing for Meta-analysis
+
+The meta-analysis requires that all estimates are on the same scale. This is because the meta-analysis is based on the assumption that the effect sizes are comparable.
+
+We provide the function `standardise_response()` to standardise a data-frame of analyst-data.
+
+```{r demo_standardise_response_Zr}
+
+data("ManyEcoEvo")
+
+blue_tit_effect_sizes <- 
+  ManyEcoEvo %>% 
+  dplyr::filter(dataset == "blue tit") %>% 
+  pluck("data", 1) %>% 
+  slice(1:10) %>% 
+  select(contains("id"), 
+         -response_id_S2,
+         contains("beta"), 
+         adjusted_df)
+
+blue_tit_effect_sizes
+
+standardise_response(dat = blue_tit_effect_sizes, 
+                     estimate_type = "Zr",
+                     param_table = NULL, 
+                     dataset = "blue tit") %>% 
+  select(id_col, contains("beta"), adjusted_df, Zr, VZr )
+```
+
+Note that if any of `beta_estimate`, `beta_SE` or `adjusted_df` are missing, `standardise_response()` is unable to compute standardised correlation coefficients $Z_r$ and the associated variance $\text{VZ}_r$.
+
+Below we standardise a data frame containing out-of-sample point-estimate predictions, which are stored in a list-column of dataframes, called `augmented_data`, notice some additional console messages about back-transformations, as well as an additional step *Transforming out of sample predictions from link to response scale*. That's because, depending on what `estimate_type` is being standardised, a different workflow will be implemented by `standardise_response()`.
+
+```{r demo_standardise_response_yi}
+data("ManyEcoEvo_yi")
+
+blue_tit_predictions <- 
+  ManyEcoEvo_yi %>% 
+  dplyr::filter(dataset == "blue tit") %>% 
+  pluck("data", 1) %>% 
+  slice(1:5)
+
+blue_tit_standardised <- 
+  standardise_response(
+    dat = blue_tit_predictions, 
+    estimate_type = "yi" ,
+    param_table = ManyEcoEvo:::analysis_data_param_tables, 
+    dataset = "blue tit"
+    ) %>% 
+  ungroup %>% 
+  select(
+    id_col,
+    params, 
+    contains("transformation"), 
+    augmented_data, 
+    back_transformed_data
+  )
+
+
+```
+
+### Standardising effect-sizes to $Z_r$ {#sec-standardisation}
+
+-   Standardisation of effect-sizes (fishers' Z), however other transformations could be applied using other packages if need be (Gurrindgi green meta-analsis handbook).
+
+```{=html}
+<!-- -->
+```
+-   Coefficients
+    -   `est_to_Zr()`
+
+### Standardising out-of-sample predictions to $Z_{y_i}$
+
+Before standardising out-of-sample predictions, we need to ensure that all estimates are on the same scale. Some analysts may report estimates on the link scale, while others may report estimates on the response scale, for instance. `ManyEcoEvo::` provides a suite of functions for both back-transforming estimates prior to standardising effect sizes.
+
+#### Cleaning response-transformation values and assigning a back-transformation
 
 Analysts may report estimates on various scales, for example they may report values on the link or response scales, they may also, or may have transformed the response-variable prior to model-fitting and reported effect-sizes on the transformed scale, rather than the scale of the original variable.
 
 In order to proceed with standardisation of effect-sizes or out-of-sample estimates, we back-transform analysts' reported estimates to the original response scale in the datasets `euc_data` and `blue_tit_data`, rather than the link- or transformed- scale.
 
 1.  `assign_transformation_type()` takes information about the `response_transformation` and the `link_fun` for a given analysis, and assigns the analysis to an appropriate back-transformation rule to be applied, one of either `"identity"`, the value of the link-function or response-transformation, `"double.transformation"`, or `NA` if an appropriate transformation type cannot be assigned.
-2.  Next, the type of response transformation is cleaned using `clean_response_transformation()`, which cleans any value returned by `assign_transformation_type()` in step 1 that is not in `c("identity", "double.transformation", NA)` to
+2.  Next, the type of response transformation is cleaned using `clean_response_transformation()`, which cleans any value returned by `assign_transformation_type()` in step 1 that is not in `c("identity", "double.transformation", NA)` to a value in a lookup-tibble that assigns the appropriate transformation to apply. Users can supply their own lookup table, or else use or modify the version supplied in `ManyEcoEvo:::transformation_tbl`.
+3.  The estimates are now ready for back-transformation \ref{@sec-back-transformation} and/or standardisation \ref{@sec-standardisation}.
 
-Firstly we apply `clean_response_transformation()`
+```{r}
+#TODO demonstrate assign transformation and clean response transformation
+```
 
--   back-transformation:
-    -   We asked for estimates to be provided on the `______` scale.
-        -   `clean_response_transformation()`
-        -   `assign_transformation_type()`
-            -   Depends on what scale the values are reported on (link / response), what transformation has been applied to the response variable, and to the predictor variable.
-
-## Data Pre-processing for Meta-analysis
-
-The meta-analysis requires that all estimates are on the same scale. This is because the meta-analysis is based on the assumption that the effect sizes are comparable.
-
-Before standardising effect sizes, we need to ensure that all estimates are on the same scale. Some analysts may report estimates on the link scale, while others may report estimates on the response scale, for instance. `ManyEcoEvo::` provides a suite of functions for both back-transforming estimates prior to standardising effect sizes.
-
-### Back-transforming response variables
+#### Back-transforming analysts' reported out-of-sample predictions {#sec-back-transformation}
 
 | Function Name        | Description                                                                                                                            |
 |-------------------|-----------------------------------------------------|
@@ -62,13 +129,19 @@ Before standardising effect sizes, we need to ensure that all estimates are on t
 | `divide_back()`      | Back-transform beta estimates or out-of-sample predictions from models whose response variable has been divided by some number, `n`    |
 | `square_root_back()` | Back-transform beta estimates or out-of-sample predictions from models whose response variable has been transformed by the square root |
 
-### Standardising effect sizes
+We provide the `conversion()` function, which applies the relevant `back()` function depending on the required transformation assigned to that analysis:
 
--   Standardisation of effect-sizes (fishers' Z), however other transformations could be applied using other packages if need be (Gurrindgi green meta-analsis handbook).
-    -   Predictions
-        -   `pred_to_Z()` (data frame level), `Z_VZ_preds()`
-    -   Coefficients
-        -   `est_to_Zr()`
+```{r}
+#TODO demonstrate conversion() with back functions
+```
+
+#### Standardising out-of-sample predictions
+
+-   `pred_to_Z()` (data frame level), `Z_VZ_preds()`
+
+```{r}
+#TODO demonstrate application of V_Zr_preds() and or pred_to_z()
+```
 
 ### Calculating Sorensen similarity index
 
