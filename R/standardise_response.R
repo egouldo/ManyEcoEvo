@@ -11,7 +11,7 @@
 #' When the `estimate_type` is `"Zr"`, [standardise_response()] standardises effect-sizes with [est_to_zr()], assuming that the `beta_estimate` and `beta_SE` values have already been back-transformed to the appropriate scale. #TODO check this.
 #' 
 #' When the `estimate-type` is `"yi"` or otherwise, the function:
-#' 1. assigns a `transformation_type` with [assign_transformation_type()]
+#' 1. assigns a `transformation_type` with [assign_transformation_type()], assumes that 
 #' 2. Converts the out-of-sample predictions on the link- or transformed-response scale back to the original response scale using [convert_predictions()].
 #' 3. Standardises predictions on the original response-scale to the Z-scale, with [pred_to_Z()].
 #' 
@@ -19,6 +19,7 @@
 #'
 #' @export
 #' @family analyst-data
+#' @seealso [est_to_zr(), assign_transformation_type()]
 standardise_response <- function(dat,
                                  estimate_type = character(1L),
                                  param_table = NULL,
