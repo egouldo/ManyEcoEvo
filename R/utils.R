@@ -89,7 +89,7 @@ capwords <- function(s, strict = FALSE) {
 #'
 #' @param effects_analysis A dataframe containing the standardised effects
 #' @param Z_colname unquoted or bare column name with the $Z$ or $Z_r$ estimates
-#' @param VZ_colname unquoted or bare column name containing the $VZ$ or $\text{VZ}_r$ estimates
+#' @param VZ_colname unquoted or bare column name containing the $VZ$ or $\\text{VZ}_r$ estimates
 #'
 #' @return a dataframe without
 #' @export

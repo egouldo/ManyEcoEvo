@@ -7,6 +7,14 @@
 #'
 #' @return A tibble of analyst data with standardised values contained in a list-column called 'back_transformed_data'
 #' @details
+#' 
+#' When the `estimate_type` is `"Zr"`, [standardise_response()] standardises effect-sizes with [est_to_zr()], assuming that the `beta_estimate` and `beta_SE` values have already been back-transformed to the appropriate scale. #TODO check this.
+#' 
+#' When the `estimate-type` is `"yi"` or otherwise, the function:
+#' 1. assigns a `transformation_type` with [assign_transformation_type()]
+#' 2. Converts the out-of-sample predictions on the link- or transformed-response scale back to the original response scale using [convert_predictions()].
+#' 3. Standardises predictions on the original response-scale to the Z-scale, with [pred_to_Z()].
+#' 
 #' Note that for $y_i$ or out of sample predictions that are standardised, if param_table is `NA` or `NULL` for a given variable, then the response variable will not be standardised, and NA will be returned for that entry in `back_transformed_data`.
 #'
 #' @export
@@ -20,7 +28,7 @@ standardise_response <- function(dat,
   match.arg(estimate_type, choices = c("Zr", "yi", "y25", "y50", "y75"), several.ok = FALSE)
   match.arg(dataset, choices = c("eucalyptus", "blue tit"), several.ok = FALSE)
   cli::cli_h1(glue::glue("Computing meta-analysis inputs", "for estimate type ", "{estimate_type}"))
-
+  
   if (estimate_type == "Zr") {
     # Convert Effect Sizes to Zr -------
     cli::cli_h2(paste0("Computing standardised effect sizes ", "{.code Zr}", " and variance ", "{.code VZr}"))
@@ -56,20 +64,23 @@ standardise_response <- function(dat,
         analysis_id,
         split_id
       ) %>%
-      dplyr::mutate(params = purrr::map(
-        .x = response_variable_name,
-        .y = param_table,
-        .f = ~ dplyr::filter(.y, variable == .x)
-      )) %>%
-      dplyr::mutate(nrow_params = purrr::map_int(params, nrow)) %>%
-      dplyr::mutate(params = purrr::map2(params,
-        nrow_params,
-        .f = ~ if (.y > 0) {
-          .x
-        } else {
-          NA
-        }
-      )) %>%
+      dplyr::mutate(params = 
+                      purrr::map(
+                        .x = response_variable_name,
+                        .y = param_table,
+                        .f = ~ dplyr::filter(.y, variable == .x)
+                      )) %>%
+      dplyr::mutate(nrow_params = 
+                      purrr::map_int(params, nrow)) %>%
+      dplyr::mutate(params = 
+                      purrr::map2(params,
+                                  nrow_params,
+                                  .f = ~ if (.y > 0) {
+                                    .x
+                                  } else {
+                                    NA
+                                  }
+                      )) %>%
       dplyr::select(-nrow_params) %>%
       dplyr::mutate(
         transformation_type =
@@ -99,9 +110,9 @@ standardise_response <- function(dat,
             }
           )
       )
-
+    
     cli::cli_h2(paste0("Standardising out-of-sample predictions"))
-
+    
     dat <- dat %>%
       dplyr::mutate(
         back_transformed_data = # TODO rename standardised_data and fix up downstream dependencies
@@ -119,7 +130,7 @@ standardise_response <- function(dat,
           )
       )
   }
-
+  
   # TODO for any analyses implicitly excluded, return a message to the user
   return(dat)
 }
