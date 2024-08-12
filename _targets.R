@@ -236,7 +236,7 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
      targets::tar_target(name = ManyEcoEvo_yi_results,
                          command =  ManyEcoEvo_yi %>% 
                            dplyr::mutate(data = 
-                                           purrr::map(data, 
+                                           purrr::map(data, #TODO rm this filtering
                                                       ~ dplyr::filter(.x, 
                                                                       stringr::str_detect(response_variable_type, 
                                                                                           "constructed", 
