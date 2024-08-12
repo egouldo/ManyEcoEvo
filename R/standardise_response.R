@@ -54,13 +54,9 @@ standardise_response <- function(dat,
       pointblank::col_exists(
         columns =
           pointblank::vars(
-            "TeamIdentifier",
-            "submission_id",
-            "analysis_id",
-            "split_id",
+            "id_col",
             "augmented_data",
-            "transformation",
-            "response_transformation_status"
+            "response_variable_name"
           )
       ) %>% # add check for  response transformation
       dplyr::group_by(id_col) %>%
