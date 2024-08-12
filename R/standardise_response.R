@@ -28,11 +28,13 @@ standardise_response <- function(dat,
   # TODO apply to data and check that all cases accounted for!
   match.arg(estimate_type, choices = c("Zr", "yi", "y25", "y50", "y75"), several.ok = FALSE)
   match.arg(dataset, choices = c("eucalyptus", "blue tit"), several.ok = FALSE)
+  
   cli::cli_h1(glue::glue("Computing meta-analysis inputs", "for estimate type ", "{estimate_type}"))
   
   if (estimate_type == "Zr") {
-    # Convert Effect Sizes to Zr -------
+    # ------ Convert Effect Sizes to Zr -------
     cli::cli_h2(paste0("Computing standardised effect sizes ", "{.code Zr}", " and variance ", "{.code VZr}"))
+    
     dat <- dat %>%
       # unnest(back_transformed_estimate) %>%
       dplyr::mutate(Zr_VZr = purrr::pmap(
@@ -44,8 +46,10 @@ standardise_response <- function(dat,
         .f = est_to_zr
       )) %>%
       tidyr::unnest(cols = c(Zr_VZr))
-  } else { # estimate_type != Zr, i.e. == "y*"
-    cli::cli_h2(paste0("Transforming out of sample predictions from link to response scale"))
+  } else { 
+    # ------ Convert predictions to Z -------
+    cli::cli_h2(paste0("Standardising out-of-sample predictions"))
+    
     dat <- dat %>%
       pointblank::col_exists(
         columns =
@@ -82,41 +86,9 @@ standardise_response <- function(dat,
                                     NA
                                   }
                       )) %>%
-      dplyr::select(-nrow_params) %>%
+      dplyr::select(-nrow_params) %>% 
       dplyr::mutate(
-        transformation_type =
-          assign_transformation_type(
-            response_transformation = response_transformation_status,
-            link_fun = transformation
-          )
-      ) %>%
-      dplyr::mutate(
-        back_transformed_data =
-          purrr::pmap(
-            .l = list(
-              augmented_data,
-              transformation_type, # TODO update, gh issue 162
-              response_transformation_status,
-              transformation
-            ), # TODO update, gh issue 162 #NOTE: see #127 / #38 on GH.
-            .f = ~ if (!rlang::is_na(..1) | !rlang::is_na(..2)) {
-              convert_predictions(
-                augmented_data = ..1,
-                transformation_type = ..2,
-                response_transformation = ..3,
-                link_fun = ..4
-              )
-            } else {
-              rlang::na_lgl
-            }
-          )
-      )
-    
-    cli::cli_h2(paste0("Standardising out-of-sample predictions"))
-    
-    dat <- dat %>%
-      dplyr::mutate(
-        back_transformed_data = # TODO rename standardised_data and fix up downstream dependencies
+        back_transformed_data = # TODO rename standardised_data and fix up downstream (and upstream wrappers, when not standardised) dependencies
           purrr::pmap(
             list(
               back_transformed_data,
@@ -124,7 +96,10 @@ standardise_response <- function(dat,
               dataset
             ),
             .f = ~ if (!rlang::is_na(..1) | !rlang::is_na(..2)) {
-              pred_to_Z(..1, params = ..2, dataset = ..3)
+              pred_to_Z(
+                back_transformed_data = ..1, 
+                params = ..2, 
+                dataset = ..3)
             } else {
               NA
             }

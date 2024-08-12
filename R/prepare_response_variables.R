@@ -15,11 +15,51 @@ prepare_response_variables <- function(ManyEcoEvo,
   stopifnot(is.data.frame(ManyEcoEvo))
   # TODO run checks on ManyEcoEvo
   match.arg(estimate_type, choices = c("Zr", "yi", "y25", "y50", "y75"), several.ok = FALSE)
+  
+  if (estimate_type != "Zr") {
+    if (is.null(param_table)) {
+      
+      cli::cli_abort("{.arg param_table} must be supplied for {.val {estimate_type}} data")
+    }
+    
+    # ------ Back transform if estimate_type is yi only ------
+    out <- ManyEcoEvo %>%
+      ungroup() %>%
+      # dplyr::group_by(dataset) %>% #NOTE: mapping doesn't work properly when tibble is rowwise!
+      dplyr::mutate(
+        data = purrr::map2(
+          .x = data, 
+          .y = dataset,
+          .f = ~ back_transform_response_vars_yi(
+            dat = .x,
+            estimate_type = !!{
+              estimate_type
+            },
+            dataset = .y
+          )
+        ),
+        diversity_data = 
+          map2(
+            .x = diversity_data,
+            .y = data,
+            .f = ~ semi_join(.x, .y) %>% 
+              distinct()
+          )
+      )
+    return(out)
+  } else{
+    if (!is.null(param_table)) {
+      cli::cli_abort("{.arg param_table} must be NULL for {.val {estimate_type}} data")
+    }
+  }
+  
+  # ------ Standardise Response Variables for Meta-analysis ------
   out <- ManyEcoEvo %>%
     ungroup() %>%
     # dplyr::group_by(dataset) %>% #NOTE: mapping doesn't work properly when tibble is rowwise!
     dplyr::mutate(data = purrr::map2(
-      .x = data, .y = dataset,
+      .x = data, 
+      .y = dataset,
       .f = ~ standardise_response(
         dat = .x,
         estimate_type = !!{
@@ -29,5 +69,7 @@ prepare_response_variables <- function(ManyEcoEvo,
         dataset = .y
       )
     ))
+  
   return(out)
+  
 }
