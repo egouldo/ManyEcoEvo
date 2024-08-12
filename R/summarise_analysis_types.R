@@ -12,22 +12,11 @@
 #'
 #' @return A summarised tibble with the variables `subset`, `dataset`, `num_teams`, `total_analyses`, `sum_linear`, `sum_mixed`, `sum_Bayesian`.
 #' @export
-#' @importFrom dplyr filter
-#' @importFrom dplyr select
-#' @importFrom dplyr group_by
-#' @importFrom dplyr rename
-#' @importFrom purrr map
-#' @importFrom broom tidy
-#' @importFrom tidyr unnest
-#' @importFrom magrittr "%>%"
-#' @importFrom dplyr distinct
-#' @importFrom dplyr mutate
+#' @import dplyr
+#' @import broom
+#' @import tidyr
 #' @import metafor
-#' @importFrom dplyr across
-#' @importFrom dplyr left_join
-#' @importFrom dplyr right_join
-#' @importFrom dplyr full_join
-#' @importFrom purrr map_dfr
+#' @import purrr
 #' @family Multi-dataset Wrapper Functions
 #' @author Hannah S. Fraser
 #' @author Elliot Gould
@@ -128,10 +117,7 @@ summarise_analysis_types <- function(ManyEcoEvo_results, ManyEcoEvo_yi_results, 
 #'
 #' @return A dataframe with the columns  `dataset`, `total_teams` and `total_analyses` equal in number of rows to the number of unique values within the `dataset` variable of the input `data`.
 #' @export
-#' @importFrom dplyr count
-#' @importFrom dplyr group_by
-#' @importFrom dplyr summarise
-#' @importFrom magrittr "%>%"
+#' @import dplyr
 #' @author Hannah S. Fraser
 #' @author Elliot Gould
 #' @examples
@@ -157,9 +143,7 @@ count_teams_analyses <- function(data) {
 #'
 #' @return A dataframe with the variables
 #' @export
-#' @importFrom dplyr group_by
-#' @importFrom dplyr summarise
-#' @importFrom magrittr "%>%"
+#' @import dplyr
 #' @author Hannah S. Fraser
 #' @author Elliot Gould
 #' @examples

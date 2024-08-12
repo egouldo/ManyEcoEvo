@@ -12,19 +12,9 @@
 #'
 #' @return A dataframe
 #' @export
-#' @importFrom dplyr filter
-#' @importFrom dplyr select
-#' @importFrom tidyr unnest
-#' @importFrom dplyr mutate
-#' @importFrom dplyr rename
-#' @importFrom dplyr group_by
-#' @importFrom dplyr distinct
-#' @importFrom magrittr "%>%"
-#' @importFrom dplyr right_join
-#' @importFrom dplyr across
-#' @importFrom tidyr pivot_longer
-#' @importFrom purrr map_dfr
-#' @importFrom purrr set_names
+#' @import dplyr
+#' @import tidyr
+#' @import purrr
 #' @author Hannah S. Fraser
 #' @author Elliot Gould
 #' @family Multi-dataset Wrapper Functions
