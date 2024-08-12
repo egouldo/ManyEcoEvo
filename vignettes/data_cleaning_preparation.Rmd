@@ -68,42 +68,74 @@ Note that if any of `beta_estimate`, `beta_SE` or `adjusted_df` are missing, `st
 Below we standardise a data frame containing out-of-sample point-estimate predictions, which are stored in a list-column of dataframes, called `augmented_data`, notice some additional console messages about back-transformations, as well as an additional step *Transforming out of sample predictions from link to response scale*. That's because, depending on what `estimate_type` is being standardised, a different workflow will be implemented by `standardise_response()`.
 
 ```{r demo_standardise_response_yi}
-data("ManyEcoEvo_yi")
+# ----- Create example blue tit dataset ----
 
+data("ManyEcoEvo_yi")
 blue_tit_predictions <- 
   ManyEcoEvo_yi %>% 
   dplyr::filter(dataset == "blue tit") %>% 
   pluck("data", 1) %>% 
-  slice(1:5)
+  head()
+
+# ----- back-transform analyst estimates to original response scale ----
+blue_tit_back_transformed <- 
+  blue_tit_predictions %>% 
+  back_transform_response_vars_yi(estimate_type = "yi",
+                                  dataset = "blue tit") %>% 
+  ungroup %>% 
+  select(
+    id_col,
+    response_variable_name,
+    contains("transformation"),
+    augmented_data, 
+    back_transformed_data
+  ) #TODO transformation column seems wrong! but output from convert_predictions() suggests correct transformation occured!
+
+blue_tit_back_transformed
+
+# ----- standardize to Z scale ------
 
 blue_tit_standardised <- 
+  blue_tit_back_transformed %>% 
   standardise_response(
-    dat = blue_tit_predictions, 
     estimate_type = "yi" ,
     param_table = ManyEcoEvo:::analysis_data_param_tables, 
     dataset = "blue tit"
-    ) %>% 
+  ) %>% 
   ungroup %>% 
   select(
     id_col,
     params, 
-    contains("transformation"), 
+    transformation,
     augmented_data, 
     back_transformed_data
   )
 
 blue_tit_standardised
 
+# ----- parameters ---- 
+blue_tit_standardised %>% pluck("params", 1) 
+blue_tit_standardised %>% pluck("params", 2) # gets a different set depending on the variable
+
+# ---- raw predictions data ----
+blue_tit_back_transformed %>% pluck("augmented_data", 1)
+blue_tit_back_transformed %>% pluck("back_transformed_data", 1)
+
+# ---- back-transformed & standardised predictions_data ----
+blue_tit_standardised %>% pluck("back_transformed_data", 1) 
+
+MA_data_yi <- blue_tit_standardised %>% 
+  select(id_col, back_transformed_data) %>% 
+  unnest(back_transformed_data) %>% 
+  pointblank::col_vals_between(columns = "Z", left = -3, right = 3, inclusive = TRUE)
 ```
 
 ### Standardising effect-sizes to $Z_r$ {#sec-standardisation}
 
 -   Standardisation of effect-sizes (fishers' Z), however other transformations could be applied using other packages if need be (Gurrindgi green meta-analsis handbook).
 
-<!-- -->
 
--   Coefficients
-    -   `est_to_Zr()`
+-   Coefficients `est_to_Zr()`
 
 ### Standardising out-of-sample predictions to $Z_{y_i}$
 
