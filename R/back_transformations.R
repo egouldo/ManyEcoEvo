@@ -5,8 +5,8 @@
 #' 
 #' @details We assume analysts' estimates are normally distributed. Each function uses a normal distribution to simulate the a distribution of effect-sizes and their standard errors. Next this distribution is back-transformed to the desired response scale. The mean `m_est`, standard error `se_est`, and quantiles (`lower` and `upper`) of the back-transformed distribution are returned within a dataframe.
 #' @param beta Analyst beta estimate
-#' @param se Standard error of analyst's effect size estimate $\\beta$ 
-#' or out-of-sample prediction estimate $y\\_i$.
+#' @param se Standard error of analyst's effect size estimate \eqn{\beta} 
+#' or out-of-sample prediction estimate \eqn{y_i}.
 #' @param sim numeric vector of length 1. number of simulations.
 #' @return data frame containing the mean estimate, its standard error, and quantiles.
 #' @family back transformation
@@ -71,7 +71,7 @@ probit_back <- function(beta, se, sim) {
   return(set)
 }
 
-#' @describeIn back Back transform beta estimates for models with $1/x$ link
+#' @describeIn back Back transform beta estimates for models with \eqn{1/x} link
 #' @export
 inverse_back <- function(beta, se, sim) {
   simulated <- rnorm(sim, beta, se)
@@ -90,7 +90,7 @@ inverse_back <- function(beta, se, sim) {
   return(set)
 }
 
-#' @describeIn back Back transform beta estimates for models with $x^2$-link
+#' @describeIn back Back transform beta estimates for models with \eqn{x^2}-link
 #' @export
 square_back <- function(beta, se, sim) {
   simulated <- rnorm(sim, beta, se)
@@ -109,7 +109,7 @@ square_back <- function(beta, se, sim) {
   return(set)
 }
 
-#' @describeIn back Back transform beta estimates for models with $x^3$-link
+#' @describeIn back Back transform beta estimates for models with \eqn{x^3}-link
 #' @export
 cube_back <- function(beta, se, sim) {
   simulated <- rnorm(sim, beta, se)
