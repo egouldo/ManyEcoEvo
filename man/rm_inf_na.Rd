@@ -9,9 +9,9 @@ rm_inf_na(effects_analysis, Z_colname, VZ_colname)
 \arguments{
 \item{effects_analysis}{A dataframe containing the standardised effects}
 
-\item{Z_colname}{unquoted or bare column name with the $Z$ or $Z_r$ estimates}
+\item{Z_colname}{unquoted or bare column name with the \eqn{Z} or \eqn{Z_r} estimates}
 
-\item{VZ_colname}{unquoted or bare column name containing the $VZ$ or $\\text{VZ}_r$ estimates}
+\item{VZ_colname}{unquoted or bare column name containing the \eqn{VZ} or \eqn{\text{VZ}_r} estimates}
 }
 \value{
 a dataframe without

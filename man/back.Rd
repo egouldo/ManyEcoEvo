@@ -37,8 +37,8 @@ square_root_back(beta, se, sim)
 \arguments{
 \item{beta}{Analyst beta estimate}
 
-\item{se}{Standard error of analyst's effect size estimate $\\beta$
-or out-of-sample prediction estimate $y\\_i$.}
+\item{se}{Standard error of analyst's effect size estimate \eqn{\beta}
+or out-of-sample prediction estimate \eqn{y_i}.}
 
 \item{sim}{numeric vector of length 1. number of simulations.}
 
@@ -61,11 +61,11 @@ We assume analysts' estimates are normally distributed. Each function uses a nor
 
 \item \code{probit_back()}: Back transform beta estimates for models with probit-link
 
-\item \code{inverse_back()}: Back transform beta estimates for models with $1/x$ link
+\item \code{inverse_back()}: Back transform beta estimates for models with \eqn{1/x} link
 
-\item \code{square_back()}: Back transform beta estimates for models with $x^2$-link
+\item \code{square_back()}: Back transform beta estimates for models with \eqn{x^2}-link
 
-\item \code{cube_back()}: Back transform beta estimates for models with $x^3$-link
+\item \code{cube_back()}: Back transform beta estimates for models with \eqn{x^3}-link
 
 \item \code{identity_back()}: Back transform beta estimates for models with identity-link
 
