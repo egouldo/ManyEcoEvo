@@ -87,14 +87,13 @@ standardise_response <- function(dat,
           purrr::pmap(
             list(
               back_transformed_data,
-              params,
-              dataset
+              params
             ),
             .f = ~ if (all(!rlang::is_na(..1), !rlang::is_na(..2))) {
               pred_to_Z(
                 back_transformed_data = ..1, 
                 params = ..2, 
-                dataset = ..3)
+                dataset = dataset)
             } else {
               NA
             }
