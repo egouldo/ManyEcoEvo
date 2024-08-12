@@ -40,13 +40,13 @@ compute_metaanalysis_inputs <- function(.data, estimate_type = character(1L)) {
       mutate(
         back_transformed_data =
           pmap(
-            .l = list(
+            .l = list( #TODO bug, missing argument
               augmented_data,
               link_function,
               response_transformation_description
             ),
             .f = ~ if (!rlang::is_na(..1) | !rlang::is_na(..2)) {
-              convert_predictions(
+              convert_predictions( #TODO bug, missing argument
                 augmented_data = ..1,
                 link_fun = ..2,
                 response_transformation = ..3
