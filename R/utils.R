@@ -95,8 +95,8 @@ capwords <- function(s, strict = FALSE) {
 #'
 #' @return a dataframe without
 #' @export
-#' @examples
 #' @import dplyr
+#' @examples
 #' data(ManyEcoEvo_results)
 #' ManyEcoEvo_results %>% 
 #' pluck("effects_analysis", 1) %>% 
