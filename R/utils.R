@@ -52,6 +52,8 @@ subset_fns_Zr <- function() { # TODO update calling of this fn (switch to fn rat
 #'
 #' @return A named list of `lambda` functions
 #' @export
+#' @import rlang
+#' @import dplyr
 subset_fns_yi <- function() {
   out <- list( # TODO: which dataset and variable are the prediction exclusions contained??
     subset_complete = rlang::as_function(~ .x %>%
@@ -94,6 +96,7 @@ capwords <- function(s, strict = FALSE) {
 #' @return a dataframe without
 #' @export
 #' @examples
+#' @import dplyr
 #' data(ManyEcoEvo_results)
 #' ManyEcoEvo_results %>% 
 #' pluck("effects_analysis", 1) %>% 
@@ -117,7 +120,9 @@ rm_inf_na <- function(effects_analysis, Z_colname, VZ_colname) {
 #'
 #' @return A named list of tibbles. Each tibble contains the rows of .tbl for the associated group and all the columns, including the grouping variables. Note that this returns a list_of which is slightly stricter than a simple list but is useful for representing lists where every element has the same type.
 #' @export
-#' @importFrom dplyr group_split
+#' @import dplyr
+#' @import rlang
+#' @import purrr
 #' @examples
 #' data(euc_data)
 #' data(blue_tit_data)
