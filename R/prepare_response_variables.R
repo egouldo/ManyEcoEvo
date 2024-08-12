@@ -42,7 +42,7 @@ prepare_response_variables <- function(ManyEcoEvo,
           map2(
             .x = diversity_data,
             .y = data,
-            .f = ~ semi_join(.x, .y) %>% 
+            .f = ~ semi_join(.x, .y, by = join_by(id_col)) %>% 
               distinct()
           )
       )
