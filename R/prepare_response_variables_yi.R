@@ -72,12 +72,7 @@ back_transform_response_vars_yi <- function(dat,
           "response_transformation_status"
         )
     ) %>% # add check for  response transformation
-    dplyr::group_by( #TODO group on id_col
-      TeamIdentifier,
-      submission_id,
-      analysis_id,
-      split_id
-    ) %>% 
+    dplyr::group_by(id_col) %>% 
     dplyr::mutate(
       transformation_type =
         assign_transformation_type(

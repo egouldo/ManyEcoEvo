@@ -63,12 +63,7 @@ standardise_response <- function(dat,
             "response_transformation_status"
           )
       ) %>% # add check for  response transformation
-      dplyr::group_by(
-        TeamIdentifier,
-        submission_id,
-        analysis_id,
-        split_id
-      ) %>%
+      dplyr::group_by(id_col) %>%
       dplyr::mutate(params = 
                       purrr::map(
                         .x = response_variable_name,
