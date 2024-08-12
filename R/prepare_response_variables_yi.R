@@ -89,7 +89,7 @@ back_transform_response_vars_yi <- function(dat,
             response_transformation_status,
             transformation
           ), # TODO update, gh issue 162 #NOTE: see #127 / #38 on GH.
-          .f = ~ if (!rlang::is_na(..1) | !rlang::is_na(..2)) {
+          .f = ~ if (all(!rlang::is_na(..1), !rlang::is_na(..2))) {
             convert_predictions(
               augmented_data = ..1,
               transformation_type = ..2,

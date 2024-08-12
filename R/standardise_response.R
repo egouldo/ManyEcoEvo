@@ -90,7 +90,7 @@ standardise_response <- function(dat,
               params,
               dataset
             ),
-            .f = ~ if (!rlang::is_na(..1) | !rlang::is_na(..2)) {
+            .f = ~ if (all(!rlang::is_na(..1), !rlang::is_na(..2))) {
               pred_to_Z(
                 back_transformed_data = ..1, 
                 params = ..2, 
