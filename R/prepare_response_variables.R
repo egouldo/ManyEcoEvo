@@ -16,6 +16,8 @@ prepare_response_variables <- function(ManyEcoEvo,
   # TODO run checks on ManyEcoEvo
   match.arg(estimate_type, choices = c("Zr", "yi", "y25", "y50", "y75"), several.ok = FALSE)
   
+  out <- ManyEcoEvo
+  
   if (estimate_type != "Zr") {
     if (is.null(param_table)) {
       
@@ -23,7 +25,7 @@ prepare_response_variables <- function(ManyEcoEvo,
     }
     
     # ------ Back transform if estimate_type is yi only ------
-    out <- ManyEcoEvo %>%
+    out <- out %>%
       ungroup() %>%
       # dplyr::group_by(dataset) %>% #NOTE: mapping doesn't work properly when tibble is rowwise!
       dplyr::mutate(
@@ -46,15 +48,15 @@ prepare_response_variables <- function(ManyEcoEvo,
               distinct()
           )
       )
-    return(out)
-  } else{
+
+      } else{
     if (!is.null(param_table)) {
       cli::cli_abort("{.arg param_table} must be NULL for {.val {estimate_type}} data")
     }
   }
   
   # ------ Standardise Response Variables for Meta-analysis ------
-  out <- ManyEcoEvo %>%
+  out <- out %>%
     ungroup() %>%
     # dplyr::group_by(dataset) %>% #NOTE: mapping doesn't work properly when tibble is rowwise!
     dplyr::mutate(data = purrr::map2(
