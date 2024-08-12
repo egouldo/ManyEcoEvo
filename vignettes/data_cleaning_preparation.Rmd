@@ -1,6 +1,12 @@
 ---
 title: "Data Cleaning & Preparation for Analysis"
-output: rmarkdown::html_vignette
+output: 
+  bookdown::html_document2:
+      base_format: rmarkdown::html_vignette
+      fig_caption: yes
+      toc: true
+pkgdown:
+  as_is: true
 vignette: >
   %\VignetteIndexEntry{data_cleaning_preparation}
   %\VignetteEngine{knitr::rmarkdown}
@@ -83,6 +89,7 @@ blue_tit_standardised <-
     back_transformed_data
   )
 
+blue_tit_standardised
 
 ```
 
@@ -90,9 +97,8 @@ blue_tit_standardised <-
 
 -   Standardisation of effect-sizes (fishers' Z), however other transformations could be applied using other packages if need be (Gurrindgi green meta-analsis handbook).
 
-```{=html}
 <!-- -->
-```
+
 -   Coefficients
     -   `est_to_Zr()`
 
@@ -108,7 +114,7 @@ In order to proceed with standardisation of effect-sizes or out-of-sample estima
 
 1.  `assign_transformation_type()` takes information about the `response_transformation` and the `link_fun` for a given analysis, and assigns the analysis to an appropriate back-transformation rule to be applied, one of either `"identity"`, the value of the link-function or response-transformation, `"double.transformation"`, or `NA` if an appropriate transformation type cannot be assigned.
 2.  Next, the type of response transformation is cleaned using `clean_response_transformation()`, which cleans any value returned by `assign_transformation_type()` in step 1 that is not in `c("identity", "double.transformation", NA)` to a value in a lookup-tibble that assigns the appropriate transformation to apply. Users can supply their own lookup table, or else use or modify the version supplied in `ManyEcoEvo:::transformation_tbl`.
-3.  The estimates are now ready for back-transformation \ref{@sec-back-transformation} and/or standardisation \ref{@sec-standardisation}.
+3.  The estimates are now ready for back-transformation (section \@ref(sec-back-transformation)) and/or standardisation (section \@ref(sec-standardisation)).
 
 ```{r}
 #TODO demonstrate assign transformation and clean response transformation
@@ -117,7 +123,7 @@ In order to proceed with standardisation of effect-sizes or out-of-sample estima
 #### Back-transforming analysts' reported out-of-sample predictions {#sec-back-transformation}
 
 | Function Name        | Description                                                                                                                            |
-|-------------------|-----------------------------------------------------|
+|---------------------|---------------------------------------------------|
 | `log_back()`         | Back-transform beta estimates for models with log-link                                                                                 |
 | `logit_back()`       | Back-transform beta estimates for models with logit-link                                                                               |
 | `probit_back()`      | Back-transform beta estimates for models with probit-link                                                                              |
