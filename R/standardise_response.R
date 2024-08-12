@@ -99,7 +99,8 @@ standardise_response <- function(dat,
               NA
             }
           )
-      )
+      ) %>% 
+      ungroup()
   }
   
   # TODO for any analyses implicitly excluded, return a message to the user

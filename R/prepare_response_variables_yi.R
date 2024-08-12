@@ -98,7 +98,8 @@ back_transform_response_vars_yi <- function(dat,
             rlang::na_lgl
           }
         )
-    ) 
+    ) %>% 
+    ungroup()
   
   return(dat)
 }
