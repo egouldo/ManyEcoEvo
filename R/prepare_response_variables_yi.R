@@ -57,8 +57,6 @@ back_transform_response_vars_yi <- function(dat,
   match.arg(estimate_type, choices = c("yi", "y25", "y50", "y75"), several.ok = FALSE)
   match.arg(dataset, choices = c("eucalyptus", "blue tit"), several.ok = FALSE)
   
-  cli::cli_h2(paste0("Transforming out of sample predictions from link to response scale"))
-  
   dat <- dat %>%
     pointblank::col_exists(
       columns =
