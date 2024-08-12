@@ -8,7 +8,7 @@
 compute_metaanalysis_inputs <- function(.data, estimate_type = character(1L)) {
   # TODO insert checks that appropriate columns exist
   match.arg(estimate_type, choices = c("Zr", "yi", "y25", "y50", "y75"), several.ok = FALSE)
-  cli::cli_h1(glue::glue("Computing meta-analysis inputs", "for estimate type ", "{estimate_type}"))
+  cli::cli_h1(glue::glue("Computing meta-analysis inputs", " for estimate type ", "{estimate_type}"))
 
   if (estimate_type == "Zr") {
     # Convert Effect Sizes to Zr -------
@@ -40,13 +40,13 @@ compute_metaanalysis_inputs <- function(.data, estimate_type = character(1L)) {
       mutate(
         back_transformed_data =
           pmap(
-            .l = list(
+            .l = list( #TODO bug, missing argument
               augmented_data,
               link_function,
               response_transformation_description
             ),
             .f = ~ if (!rlang::is_na(..1) | !rlang::is_na(..2)) {
-              convert_predictions(
+              convert_predictions( #TODO bug, missing argument
                 augmented_data = ..1,
                 link_fun = ..2,
                 response_transformation = ..3

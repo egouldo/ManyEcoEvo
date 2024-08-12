@@ -1,5 +1,5 @@
-#' Conditionally apply back-transformation
-#' @description Conditionally apply back-transformation functions depending on the value of `transformation`
+#' Apply back-transformation to beta estimates
+#' @description Conditionally apply back-transformation functions depending on the value of `transformation`.
 #'
 #' @param beta Beta estimate, numeric vector of length 1.
 #' @param se Standard error of the `beta` estimate, numeric vector of length 1
@@ -21,6 +21,11 @@
 #' * "powerX", where `X` is a numeric
 #' * "divided.by.X", where `X` is a numeric
 #' @export
+#' @import dplyr
+#' @import purrr
+#' @import cli
+#' @import rlang
+#' @import stringr
 conversion <- function(beta, se, transformation, sim = 10000) {
   # Ensure Correct Number of Arguments Supplied
   na_args <- purrr::discard(c(beta, se, transformation), is.na) %>%

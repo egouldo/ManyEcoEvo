@@ -1,6 +1,12 @@
 ---
 title: "Scaling Up: working with multiple subsets or multiple datasets"
-output: rmarkdown::html_vignette
+output: 
+  bookdown::html_document2:
+      base_format: rmarkdown::html_vignette
+      fig_caption: yes
+      toc: true
+pkgdown:
+  as_is: true
 vignette: >
   %\VignetteIndexEntry{multiple_datasets}
   %\VignetteEngine{knitr::rmarkdown}

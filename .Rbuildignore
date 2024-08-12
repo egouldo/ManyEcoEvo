@@ -5,10 +5,10 @@
 ^\.Rproj\.user$
 _targets.R
 _targets/
-
 ^_pkgdown\.yml$
 ^docs$
 ^pkgdown$
 ^\.github$
 ^doc$
 ^Meta$
+^data-raw/analyst_data/S2$
