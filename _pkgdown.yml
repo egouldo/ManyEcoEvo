@@ -5,14 +5,15 @@ template:
   bootstrap: 5
 reference:
 - title: Unprocessed data cleaning and checking
-  desc: Functions for cleaning and QA checking unprocessed analyst data
+  desc: |
+    Functions for cleaning and QA checking unprocessed analyst data
 - subtitle: Miscellaneous cleaning functions
   contents:
   - rm_inf_na
   - anonymise_teams
   - clean_response_transformation
   - assign_transformation_type
-- subtitle: Working with analyst-provided out-of-sample predictions
+- subtitle: Tidying analyst out-of-sample predictions
   desc: ~
   contents:
   - augment_prediction_data
@@ -21,27 +22,37 @@ reference:
   - read_submission_data
   - starts_with("validate_predictions")
 - title: Data Processing for Meta-analysis and Modelling
-  desc: Calculating and standardising variables for analysis
+  desc: |
+    Calculating and standardising variables for meta-analysis and modelling
+- subtitle: Back-transforming / standardising analyst estimates
   contents:
+  - ends_with("_back")
+  - starts_with("back")
+  - conversion
+  - conversion_2
+  - convert_predictions
   - est_to_zr
   - Z_VZ_preds
   - pred_to_Z
+  - standardise_response
+- subtitle: Excluding Data from Meta-analysis
+  contents:
   - apply_VZ_exclusions
+  - starts_with("exclude_")
+  - starts_with("subset_fns")
+- subtitle: Transforming and standardising meta-analysis variables
+  desc: |
+    Functions for computing and standardising response and predictor 
+    variables for meta-analysis.
+  contents:
   - box_cox_transform
   - log_transform
   - calculate_deviation_score
   - calculate_sorensen_diversity_index
   - apply_sorensen_calc
-  - conversion
-  - conversion_2
-  - convert_predictions
-  - ends_with("_back")
-  - back_transform_response_vars_yi
-  - starts_with("exclude_")
-  - starts_with("subset_fns")
-  - standardise_response
 - title: Process and create datasets for analysis
-  desc: Functions for creating datasets ready for meta-analysis or other analyses
+  desc: |
+    Functions for creating datasets ready for meta-analysis and modelling
   contents:
   - make_param_table
   - compute_MA_inputs
@@ -49,17 +60,24 @@ reference:
   - get_diversity_data
   - starts_with("prepare_")
 - title: Model Fitting & Meta-analysis
-  desc: Functions for fitting meta-analysis and other models described ion *Gould
+  desc: |
+    Functions for fitting meta-analysis and other models described in *Gould
     et al. (2023)*
   contents: starts_with("fit_")
 - title: Extracting Analysis Outputs & Visualisation
-  desc: Functions for extracting model outputs, and visualising analysis results
+  desc: |
+    Functions for extracting model outputs, and visualising analysis results
+- subtitle: Extracting meta-analysis outputs
   contents:
-  - gg_forest
-  - starts_with("plot_")
   - i2_ml
   - calc_I2_ml
   - apportion_heterogeneity_ml
+- subtitle: Plotting
+  contents:
+  - gg_forest
+  - starts_with("plot_")
+- subtitle: Model Checking and Comparison
+  contents:
   - compare_ml_MA
   - get_MA_fit_stats
   - run_model_checks
@@ -94,4 +112,4 @@ reference:
   contents:
   - capwords
   - named_group_split
-
+  - "%nin%"
