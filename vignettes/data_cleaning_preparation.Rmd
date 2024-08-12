@@ -11,6 +11,7 @@ vignette: >
   %\VignetteIndexEntry{data_cleaning_preparation}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+bibliography: vignettes.bib
 ---
 
 ```{r, include = FALSE}
@@ -33,7 +34,9 @@ We have anonymised our public dataset `data(ManyEcoEvo)` `anonymise_teams()`, wh
 
 ## Data Pre-processing for Meta-analysis
 
-The meta-analysis requires that all estimates are on the same scale. This is because the meta-analysis is based on the assumption that the effect sizes are comparable.
+The meta-analysis requires that all estimates are on the same scale. This is because the meta-analysis is based on the assumption that the outcome measures are comparable. Note that the ManyAnalysts project utilises two different outcomes for meta-analysis, standardised effect-sizes, or $Z_r$ and out-of-sample predictions $y_i$, But alternative effect-size measures may be utilised instead[^1].
+
+[^1]: See Table 2 in @nakagawa2023: <https://environmentalevidencejournal.biomedcentral.com/articles/10.1186/s13750-023-00301-6/tables/2>
 
 We provide the function `standardise_response()` to standardise a data-frame of analyst-data.
 
@@ -123,7 +126,7 @@ In order to proceed with standardisation of effect-sizes or out-of-sample estima
 #### Back-transforming analysts' reported out-of-sample predictions {#sec-back-transformation}
 
 | Function Name        | Description                                                                                                                            |
-|---------------------|---------------------------------------------------|
+|-----------------------|-------------------------------------------------|
 | `log_back()`         | Back-transform beta estimates for models with log-link                                                                                 |
 | `logit_back()`       | Back-transform beta estimates for models with logit-link                                                                               |
 | `probit_back()`      | Back-transform beta estimates for models with probit-link                                                                              |
@@ -159,3 +162,5 @@ We provide the `conversion()` function, which applies the relevant `back()` func
 ### Excluding Data
 
 -   exclude_extreme_VZ() - exclude extreme values of VZ
+
+## References
