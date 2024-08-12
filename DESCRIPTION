@@ -20,7 +20,9 @@ URL: https://github.com/egouldo/ManyEcoEvo,
     https://egouldo.github.io/ManyEcoEvo/
 BugReports: https://github.com/egouldo/ManyEcoEvo/issues
 Depends: 
-    R (>= 2.10)
+    R (>= 2.10),
+    rmarkdown,
+    bookdown
 Imports:
     betapart,
     cli,
@@ -40,7 +42,6 @@ Imports:
     rlang,
     tibble,
     tidyr,
-    tidyselect,
     tidyselect,
     withr
 Suggests:
