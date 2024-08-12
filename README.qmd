@@ -45,7 +45,7 @@ suppressPackageStartupMessages(library(targets))
 targets::tar_read("ManyEcoEvo")
 ```
 
-The script that generates the ManyEcoEvo package datasets is located in [`ManyEcoEvo/data-raw/tar_make.R`](https://github.com/egouldo/ManyEcoEvo/blob/main/data-raw/tar_make.R).
+The script that generates datasets used in the `ManyEcoEvo::` package is located in [`ManyEcoEvo/data-raw/tar_make.R`](https://github.com/egouldo/ManyEcoEvo/blob/main/data-raw/tar_make.R).
 
 ## License
 
