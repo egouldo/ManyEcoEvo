@@ -16,12 +16,12 @@ A dataframe in tidy format yielding descriptive summary statistics (mean, sd, mi
 Summarise model composition for a single dataframe of out of sample predictions or out or effect sizes
 }
 \examples{
-ManyEcoEvo \%>\% 
-ungroup \%>\% 
-filter(dataset == "blue tit") \%>\% 
-select(data) \%>\% 
-unnest(data) \%>\% 
-summarise_model_composition_data()
+ManyEcoEvo \%>\%
+  ungroup() \%>\%
+  filter(dataset == "blue tit") \%>\%
+  select(data) \%>\%
+  unnest(data) \%>\%
+  summarise_model_composition_data()
 }
 \author{
 Hannah S. Fraser

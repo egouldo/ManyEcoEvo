@@ -21,8 +21,8 @@ See \code{\link[=prepare_df_for_summarising]{prepare_df_for_summarising()}} for 
 }
 \examples{
 ManyEcoEvo::ManyEcoEvo \%>\%
-select(data) \%>\%
-unnest(everything()) \%>\%
-prepare_df_for_summarising() \%>\%
-calc_summary_stats_binary("All")
+  select(data) \%>\%
+  unnest(everything()) \%>\%
+  prepare_df_for_summarising() \%>\%
+  calc_summary_stats_binary("All")
 }

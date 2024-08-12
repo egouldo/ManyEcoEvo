@@ -32,6 +32,6 @@ This function is a wrapper around the \code{\link[metafor:rma.mv]{metafor::rma.m
 Nested random effects are included for \code{TeamIdentifier} and \code{TeamIdentifier/study_id}.
 }
 \examples{
-ManyEcoEvo_results$effects_analysis[[1]] \%>\% 
+ManyEcoEvo_results$effects_analysis[[1]] \%>\%
   fit_MA_mv(beta_estimate, beta_SE, "Zr")
 }

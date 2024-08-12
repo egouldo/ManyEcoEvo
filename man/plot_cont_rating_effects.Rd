@@ -34,11 +34,11 @@ Plot Marginal Effects for Numeric Rating Model
 }
 \examples{
 # ManyEcoEvo_results$effects_analysis[[1]] \%>\% #TODO use package data object instead of targets object
-# unnest(review_data) \%>\% 
-#   plot_cont_rating_effects(response = "box_cox_abs_deviation_score_estimate", 
-#                            predictor = "RateAnalysis", 
-#                            group = "ReviewerId", 
-#                            back_transform = TRUE) \%>\% 
+# unnest(review_data) \%>\%
+#   plot_cont_rating_effects(response = "box_cox_abs_deviation_score_estimate",
+#                            predictor = "RateAnalysis",
+#                            group = "ReviewerId",
+#                            back_transform = TRUE) \%>\%
 #   pluck(2) +
 #   ggforce::facet_zoom(xlim = c(0,100), ylim = c(0,0.55)) +
 #   ggpubr::theme_pubclean() +

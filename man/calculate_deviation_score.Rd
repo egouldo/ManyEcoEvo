@@ -18,7 +18,7 @@ calculate_deviation_score(data, meta_analytic_model)
 Calculate the absolute deviation of the standardised effect size from the meta-analytic mean
 }
 \examples{
-  # Example Usage: TODO - this is incorrect bc box-cox transformation is included in meta_analyse_datasets_wrapper
+# Example Usage: TODO - this is incorrect bc box-cox transformation is included in meta_analyse_datasets_wrapper
 # library(tidyverse); library(targets)
 # tar_load(meta_analysis_outputs)
 # calculate_deviation_score(meta_analysis_outputs$data[[1]],

@@ -16,12 +16,12 @@ A dataframe with the columns  \code{dataset}, \code{total_teams} and \code{total
 Summarise number of analyst teams and total analyses per dataset
 }
 \examples{
-ManyEcoEvo \%>\% 
-filter(dataset == "blue tit") \%>\% 
-ungroup \%>\% 
-select(data) \%>\% 
-unnest(data) \%>\% 
-count_teams_analyses()
+ManyEcoEvo \%>\%
+  filter(dataset == "blue tit") \%>\%
+  ungroup() \%>\%
+  select(data) \%>\%
+  unnest(data) \%>\%
+  count_teams_analyses()
 }
 \author{
 Hannah S. Fraser

@@ -20,13 +20,13 @@ A ggplot with the original data,  predicted values and confidence values from th
 Marginal Effects Plot of Diversity Index Model
 }
 \examples{
-#targets::tar_load(ManyEcoEvo_results) #TODO change this to package data
-#library(tidyverse)
-#plot_effects_diversity(mod = ManyEcoEvo_results$sorensen_glm[[5]], 
-#df = ManyEcoEvo_results$effects_analysis[[5]] \%>\% #dat
-#select(mean_diversity_index, study_id, 
-#          starts_with("box_cox"), 
+# targets::tar_load(ManyEcoEvo_results) #TODO change this to package data
+# library(tidyverse)
+# plot_effects_diversity(mod = ManyEcoEvo_results$sorensen_glm[[5]],
+# df = ManyEcoEvo_results$effects_analysis[[5]] \%>\% #dat
+# select(mean_diversity_index, study_id,
+#          starts_with("box_cox"),
 #                   starts_with("abs_dev"),
-#                            lambda), 
-#                            back_transform = TRUE) 
+#                            lambda),
+#                            back_transform = TRUE)
 }

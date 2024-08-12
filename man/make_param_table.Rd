@@ -2,27 +2,33 @@
 % Please edit documentation in R/make_param_table.R
 \name{make_param_table}
 \alias{make_param_table}
-\title{Make paramater table}
+\title{Make parameter table}
 \usage{
-make_param_table(analysis_data)
+make_param_table(analysis_data, na.rm = TRUE)
 }
 \arguments{
 \item{analysis_data}{A dataframe or tibble.}
+
+\item{na.rm}{Logical. Should missing values be removed?}
 }
 \value{
 A tibble.
 }
 \description{
-\code{make_param_table()} calculates the mean and standard deviation of
+Calculates the mean and standard deviation of
 all numeric variables in a dataframe or tibble.
 }
 \details{
 The parameter table is used in the computation of Z-values during the standardisation of out-of-sample predictions with \code{pred_to_Zr()}. \code{make_param_table()} returns a tidy, long-form tibble with the variable names of \code{analysis_data} stored in column\code{variable}, the corresponding \code{parameter} ("mean" or "sd"), and the \code{value} of that \code{parameter}.
 }
-\note{
+\section{Note}{
 Currently variable names of \code{analysis_data} must not contain \code{.} because this character is used to split the \code{variable} from the \code{parameter} during \code{pivot_longer()}
 }
+
 \examples{
 make_param_table(ManyEcoEvo::blue_tit_data)
 make_param_table(ManyEcoEvo::euc_data)
+}
+\seealso{
+The table from this function is used to standardize out-of-sample predictions $y_i$ in \code{\link[=pred_to_Z]{pred_to_Z()}}
 }

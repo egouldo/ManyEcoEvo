@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{subset_fns_yi}
 \alias{subset_fns_yi}
-\title{Subsetting Functions for yi analysis}
+\title{Subsetting Functions for out-of-sample predictions meta-analysis}
 \usage{
 subset_fns_yi()
 }
@@ -10,5 +10,11 @@ subset_fns_yi()
 A named list of \code{lambda} functions
 }
 \description{
-Generates a list of functions that are used to subset the processed ManyEcoEvo dataset containing out-of-sample predictions \(\code{y\_i}\)
+Generates a list of functions that are used to subset the
+processed ManyEcoEvo dataset (e.g.\verb{data(ManyEcoEvo_results}) containing
+out-of-sample predictions $y_i$.
+}
+\details{
+The subset functions are used to filter out predictions that are not
+to be included in the meta-analysis.
 }

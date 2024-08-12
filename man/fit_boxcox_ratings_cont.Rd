@@ -26,9 +26,9 @@ An object of class lmer.
 Fit an lmer model of the box-cox transformed deviation from the meta-analytic mean scores as a function of continuous peer-review ratings
 }
 \examples{
-  # Example Usage:
+# Example Usage:
 # Note, outcome = the name using NSE of the response variable, otucome_var = the
-# variance associated with that variable. 
+# variance associated with that variable.
 # library(tidyverse);library(targets);library(metafor);library(tidymodels);library(multilevelmod)
 # tar_load(meta_analysis_outputs)
 # meta_analysis_outputs$data[[1]] \%>\%

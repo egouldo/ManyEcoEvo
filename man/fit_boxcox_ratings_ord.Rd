@@ -13,11 +13,13 @@ fit_boxcox_ratings_ord(.data, outcome, outcome_var, interceptless = FALSE)
 
 \item{outcome_var}{Variance of the \code{outcome} variable}
 
-\item{interceptless}{A logical relating to whether the model should be interceptless or not. Defaults to \code{FALSE}.}
+\item{interceptless}{A logical relating to whether the model should be
+interceptless or not. Defaults to \code{FALSE}.}
 }
 \value{
 An object of class lmer.
 }
 \description{
-Fit an lmer model of the box-cox transformed deviation from the meta-analytic mean scores as a function of continuous peer-review ratings
+Fit an lmer model of the box-cox transformed deviation from the meta-analytic
+mean scores as a function of continuous peer-review ratings
 }

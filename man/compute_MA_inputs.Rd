@@ -9,7 +9,7 @@ compute_MA_inputs(ManyEcoEvo, estimate_type = NULL)
 \arguments{
 \item{ManyEcoEvo}{A dataframe grouped by the character columns \code{dataset}, \code{estimate_type}, \code{exclusion_set}. Each group corresponds to a subset of the full \code{dataset}, and has the subset analyst data  stored in \code{data}, with its corresponding subset \code{diversity_data}.}
 
-\item{estimate_type}{}
+\item{estimate_type}{character string, one of "Zr", "yi", "y25", "y50", "y75".}
 }
 \value{
 A dataframe that includes the additional columns in \code{ManyEcoEvo}, but with added columns \code{diversity_indices} and \code{effects_analysis}.

@@ -23,7 +23,10 @@ Summarise counts of qualitative conclusions across all datasets
 Data summary is generated with \code{\link[=summarise_conclusions_data]{summarise_conclusions_data()}}.
 }
 \examples{
-summarise_conclusions(ManyEcoEvo_results,ManyEcoEvo_yi_results,ManyEcoEvo)
+data(ManyEcoEvo_results)
+data(ManyEcoEvo_yi_results)
+data(ManyEcoEvo)
+summarise_conclusions(ManyEcoEvo_results, ManyEcoEvo_yi_results, ManyEcoEvo)
 }
 \seealso{
 Other Multi-dataset Wrapper Functions: 

@@ -7,7 +7,7 @@
 get_diversity_data(raw_data, dataset, variables = character())
 }
 \arguments{
-\item{raw_data}{}
+\item{raw_data}{A tibble of raw data}
 
 \item{dataset}{character string of either "eucalyptus" or "blue tit"}
 

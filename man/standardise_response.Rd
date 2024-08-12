@@ -12,13 +12,13 @@ standardise_response(
 )
 }
 \arguments{
+\item{dat}{A tibble of analyst data with a list-column called}
+
 \item{estimate_type}{The type of estimate to be standardised. Character vector of length 1, whose value may be "Zr", "yi", "y25", "y50", "y75".}
 
 \item{param_table}{A table of estimated 'population' parameters for each variable in the analysis datasets.}
 
 \item{dataset}{One of either "blue tit" or "eucalyptus"}
-
-\item{data}{}
 }
 \value{
 A tibble of analyst data with standardised values contained in a list-column called 'back_transformed_data'
@@ -27,9 +27,20 @@ A tibble of analyst data with standardised values contained in a list-column cal
 Standardise Response Variable
 }
 \details{
+When the \code{estimate_type} is \code{"Zr"}, \code{\link[=standardise_response]{standardise_response()}} standardises effect-sizes with \code{\link[=est_to_zr]{est_to_zr()}}, assuming that the \code{beta_estimate} and \code{beta_SE} values have already been back-transformed to the appropriate scale. #TODO check this.
+
+When the \code{estimate-type} is \code{"yi"} or otherwise, the function:
+\enumerate{
+\item assigns a \code{transformation_type} with \code{\link[=assign_transformation_type]{assign_transformation_type()}}, assumes that
+\item Converts the out-of-sample predictions on the link- or transformed-response scale back to the original response scale using \code{\link[=convert_predictions]{convert_predictions()}}.
+\item Standardises predictions on the original response-scale to the Z-scale, with \code{\link[=pred_to_Z]{pred_to_Z()}}.
+}
+
 Note that for $y_i$ or out of sample predictions that are standardised, if param_table is \code{NA} or \code{NULL} for a given variable, then the response variable will not be standardised, and NA will be returned for that entry in \code{back_transformed_data}.
 }
 \seealso{
+\code{\link[=est_to_zr(), assign_transformation_type]{est_to_zr(), assign_transformation_type()}}
+
 Other analyst-data: 
 \code{\link{back_transform_response_vars_yi}()}
 }

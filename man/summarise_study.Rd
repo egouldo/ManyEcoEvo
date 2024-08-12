@@ -32,10 +32,12 @@ Summarises the ManyAnalyst study data by calculating summary statistics for each
 \examples{
 id_subsets <- list(ManyEcoEvo:::effect_ids, ManyEcoEvo:::prediction_ids)
 subset_names <- c("effects", "predictions")
-filter_vars <- rlang::exprs(exclusion_set == "complete",
-                            estimate_type == "Zr",
-                            publishable_subset == "All",
-                            expertise_subset == "All",
-                            collinearity_subset == "All")
+filter_vars <- rlang::exprs(
+  exclusion_set == "complete",
+  estimate_type == "Zr",
+  publishable_subset == "All",
+  expertise_subset == "All",
+  collinearity_subset == "All"
+)
 summarise_study(ManyEcoEvo::ManyEcoEvo, ManyEcoEvo::ManyEcoEvo_results, id_subsets, subset_names, filter_vars = filter_vars)
 }

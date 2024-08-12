@@ -18,9 +18,9 @@ A tibble containing the number of \code{analyses} per \code{team} for each \code
 Calculates the number of analyses conducted by each team for each dataset in a given subset.
 }
 \examples{
-ManyEcoEvo::ManyEcoEvo \%>\% 
-select(data) \%>\% 
-  unnest(everything()) \%>\% 
-  prepare_df_for_summarising() \%>\% 
+ManyEcoEvo::ManyEcoEvo \%>\%
+  select(data) \%>\%
+  unnest(everything()) \%>\%
+  prepare_df_for_summarising() \%>\%
   calc_analyses_per_team("All")
 }

@@ -18,9 +18,9 @@ A tibble containing the number of \code{teams} per \code{dataset} for a given \c
 Calculate the number of teams per dataset for a given subset
 }
 \examples{
-ManyEcoEvo::ManyEcoEvo \%>\% 
-select(data) \%>\% 
-unnest(everything()) \%>\% 
-prepare_df_for_summarising() \%>\% 
-calc_teams_per_dataset("all")
+ManyEcoEvo::ManyEcoEvo \%>\%
+  select(data) \%>\%
+  unnest(everything()) \%>\%
+  prepare_df_for_summarising() \%>\%
+  calc_teams_per_dataset("all")
 }

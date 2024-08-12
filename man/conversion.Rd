@@ -2,7 +2,7 @@
 % Please edit documentation in R/conversion.R
 \name{conversion}
 \alias{conversion}
-\title{Conditionally apply back-transformation}
+\title{Apply back-transformation to beta estimates}
 \usage{
 conversion(beta, se, transformation, sim = 10000)
 }
@@ -19,7 +19,7 @@ conversion(beta, se, transformation, sim = 10000)
 The outputs of a back-transformation function, see family back-transformations
 }
 \description{
-Conditionally apply back-transformation functions depending on the value of \code{transformation}
+Conditionally apply back-transformation functions depending on the value of \code{transformation}.
 }
 \details{
 \code{transformation} character strings may take the values:
@@ -39,16 +39,7 @@ Conditionally apply back-transformation functions depending on the value of \cod
 }
 \seealso{
 Other back transformation: 
-\code{\link{conversion_2}()},
-\code{\link{cube_back}()},
-\code{\link{divide_back}()},
-\code{\link{identity_back}()},
-\code{\link{inverse_back}()},
-\code{\link{log_back}()},
-\code{\link{logit_back}()},
-\code{\link{power_back}()},
-\code{\link{probit_back}()},
-\code{\link{square_back}()},
-\code{\link{square_root_back}()}
+\code{\link{back}},
+\code{\link{conversion_2}()}
 }
 \concept{back transformation}

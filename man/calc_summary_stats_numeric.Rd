@@ -26,9 +26,9 @@ within the analysis, number of random variables within the analysis,
 analysis samplesize, number of interaction terms within the analysis\).
 }
 \examples{
-ManyEcoEvo::ManyEcoEvo \%>\% 
-select(data) \%>\% 
-  unnest(everything()) \%>\% 
-  prepare_df_for_summarising() \%>\% 
+ManyEcoEvo::ManyEcoEvo \%>\%
+  select(data) \%>\%
+  unnest(everything()) \%>\%
+  prepare_df_for_summarising() \%>\%
   calc_summary_stats_numeric("All")
 }

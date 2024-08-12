@@ -17,11 +17,13 @@ Summarises Sorensen's index estimates for a single dataframe of estimates
 }
 \examples{
 ManyEcoEvo_results \%>\%
-filter(exclusion_set == "complete",
-      publishable_subset == "All",
-      expertise_subset == "All") \%>\%
- ungroup \%>\%
- select(dataset, diversity_indices) \%>\%
- unnest(diversity_indices) \%>\% 
- summarise_sorensen_index_data()
+  filter(
+    exclusion_set == "complete",
+    publishable_subset == "All",
+    expertise_subset == "All"
+  ) \%>\%
+  ungroup() \%>\%
+  select(dataset, diversity_indices) \%>\%
+  unnest(diversity_indices) \%>\%
+  summarise_sorensen_index_data()
 }
