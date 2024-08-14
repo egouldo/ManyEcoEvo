@@ -242,7 +242,6 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
                                                          all_prediction_data)),
      targets::tar_target(name = ManyEcoEvo_yi_results,
                          command =  ManyEcoEvo_yi %>% 
-                           dplyr::mutate(
                              prepare_response_variables(
                                estimate_type = "yi",
                                param_table = ManyEcoEvo:::analysis_data_param_tables, 
@@ -277,4 +276,3 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
                                                  path = 
                                                    here::here("data-raw/analysis_datasets/",
                                                               "README.qmd"))
-     )
