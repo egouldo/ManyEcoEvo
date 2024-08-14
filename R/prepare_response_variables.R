@@ -68,7 +68,6 @@ prepare_response_variables <- function(ManyEcoEvo,
   if (is.null(dataset_standardise)) {
     out <- out %>%
       ungroup() %>%
-      # dplyr::group_by(dataset) %>% #NOTE: mapping doesn't work properly when tibble is rowwise!
       dplyr::mutate(data = purrr::map2(
         .x = data, 
         .y = dataset,
@@ -92,12 +91,19 @@ prepare_response_variables <- function(ManyEcoEvo,
       fns = list(standardise_response)
     )
     
+    pmap_prepare_response <- function(data, estimate_type, param_table, dataset, fns, ...){
+      fns(data, estimate_type, param_table, dataset)
+    }
+    
     out <- out %>%
       ungroup() %>%
       left_join(datasets_to_standardise, by = "dataset") %>% 
       mutate(fns = coalesce(fns, list(process_response)),
-             data = map2(.x = data, .y = fns, ~ .y(.x))
-             )
+             data = pmap(.l = ., 
+                         .f = pmap_prepare_response, 
+                         estimate_type = estimate_type, 
+                         param_table = param_table)) %>% 
+      select(-fns)
   }
   return(out)
 }
