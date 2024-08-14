@@ -175,7 +175,7 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
                   drop_na(split_id) %>% #TODO, remove this `drop_na()` once we have fixed missing NA `gh issue view 109 -w`; `gh issue view 102 -w`
                   anti_join(., #TODO remove analyses where there are multiple submissions per split_id (~20) `gh issue view 109 -w`; `gh issue view 102 -w`
                             {count(., response_id, submission_id, analysis_id, split_id) %>% 
-                                filter(n>1)}) %>% 
+                                filter(n > 1)}) %>% 
                   group_by(response_id, submission_id, analysis_id, split_id) %>% 
                   tar_group(),
                 iteration = "group"),
@@ -243,14 +243,14 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
      targets::tar_target(name = ManyEcoEvo_yi_results,
                          command =  ManyEcoEvo_yi %>% 
                            dplyr::mutate(
-                             prepare_response_variables(estimate_type = "yi",
-                                                        param_table = ManyEcoEvo:::analysis_data_param_tables, 
-                                                        dataset_standardise = "blue tit") %>%
+                             prepare_response_variables(
+                               estimate_type = "yi",
+                               param_table = ManyEcoEvo:::analysis_data_param_tables, 
+                               dataset_standardise = "blue tit") %>%
                                generate_yi_subsets() %>% #TODO: must be run after prepare_response_variables??
                                apply_VZ_exclusions(3) %>%
                                generate_exclusion_subsets() %>% #TODO: runs on ManyEcoEvo that contains Zr and yi results.
                                compute_MA_inputs() %>%  #TODO lone join by "estimate_type" amongst join_by ("id_col") is suspicious!
-                               
                                generate_outlier_subsets() %>% #TODO swapped order with previous line, but untested
                                meta_analyse_datasets(filter_vars = NULL) #TODO requires col exclusion_set from generate_exclusion_subsets() but don't need that fun in this pipeline anymore
                            ),
@@ -274,6 +274,7 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
                          tarchetypes::tar_quarto(name = README,
                                                  path = "README.qmd"),
                          tarchetypes::tar_quarto(name = README_data_raw,
-                                                 path = here::here("data-raw/analysis_datasets/", "README.qmd"))
+                                                 path = 
+                                                   here::here("data-raw/analysis_datasets/",
+                                                              "README.qmd"))
      )
-     
