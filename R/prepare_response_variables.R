@@ -39,7 +39,7 @@ prepare_response_variables <- function(ManyEcoEvo,
     out <- out %>%
       ungroup() %>%
       dplyr::mutate(
-        data = purrr::map2(
+        data = purrr::map2( #TODO assign to data or not?
           .x = data, 
           .y = dataset,
           .f = ~ back_transform_response_vars_yi(
