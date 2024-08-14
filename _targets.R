@@ -189,7 +189,7 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
                 error = "continue" #TODO, run without continue and check for problems
      ),
      tar_target(augmented_data,
-                command = if(!rlang::is_na(submission_data)){ 
+                command = if(!rlang::is_na(submission_data)) { 
                   augment_prediction_data(.data = submission_data, 
                                           checks = groups$checks, 
                                           dataset = groups$dataset)
@@ -200,7 +200,7 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
                 error = "stop",
                 pattern = map(submission_data, groups)),
      tar_target(validated_augmented_data,
-                command = if(!rlang::is_na(augmented_data)){
+                command = if (!rlang::is_na(augmented_data)) {
                   validate_predictions(data_set = groups$dataset, 
                                        input = augmented_data %>% 
                                          ungroup(), 
@@ -213,7 +213,7 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
                 pattern = map(augmented_data, groups)
      ),
      tar_target(prediction_checks,
-                command = if(!rlang::is_na(validated_augmented_data)){
+                command = if(!rlang::is_na(validated_augmented_data)) {
                   pointblank::interrogate(validated_augmented_data) %>% 
                     pointblank::get_agent_report(., display_table = FALSE)
                 }else{
@@ -242,37 +242,38 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
                                                          all_prediction_data)),
      targets::tar_target(name = ManyEcoEvo_yi_results,
                          command =  ManyEcoEvo_yi %>% 
-                             prepare_response_variables(
-                               estimate_type = "yi",
-                               param_table = ManyEcoEvo:::analysis_data_param_tables, 
-                               dataset_standardise = "blue tit") %>%
-                               generate_yi_subsets() %>% #TODO: must be run after prepare_response_variables??
-                               apply_VZ_exclusions(3) %>%
-                               generate_exclusion_subsets() %>% #TODO: runs on ManyEcoEvo that contains Zr and yi results.
-                               compute_MA_inputs() %>%  #TODO lone join by "estimate_type" amongst join_by ("id_col") is suspicious!
-                               generate_outlier_subsets() %>% #TODO swapped order with previous line, but untested
-                               meta_analyse_datasets(filter_vars = NULL) #TODO requires col exclusion_set from generate_exclusion_subsets() but don't need that fun in this pipeline anymore
-                           ),
-                         targets::tar_target(name = ManyEcoEvo_yi_viz,
-                                             command = make_viz(ManyEcoEvo_yi_results)),
-                         targets::tar_target(name = ManyEcoEvo_study_summary,
-                                             command = summarise_study(
-                                               ManyEcoEvo, 
-                                               ManyEcoEvo_results, 
-                                               id_subsets = 
-                                                 list(ManyEcoEvo:::effect_ids, 
-                                                      ManyEcoEvo:::prediction_ids), 
-                                               subset_names = c("effects", "predictions"), 
-                                               filter_vars = 
-                                                 rlang::exprs(exclusion_set == "complete",
-                                                              estimate_type == "Zr",
-                                                              publishable_subset == "All",
-                                                              expertise_subset == "All",
-                                                              collinearity_subset == "All")
-                                             )),
-                         tarchetypes::tar_quarto(name = README,
-                                                 path = "README.qmd"),
-                         tarchetypes::tar_quarto(name = README_data_raw,
-                                                 path = 
-                                                   here::here("data-raw/analysis_datasets/",
-                                                              "README.qmd"))
+                           prepare_response_variables(
+                             estimate_type = "yi",
+                             param_table = ManyEcoEvo:::analysis_data_param_tables, 
+                             dataset_standardise = "blue tit") %>%
+                           generate_yi_subsets() %>% #TODO: must be run after prepare_response_variables??
+                           apply_VZ_exclusions(3) %>%
+                           generate_exclusion_subsets() %>% #TODO: runs on ManyEcoEvo that contains Zr and yi results.
+                           compute_MA_inputs() %>%  #TODO lone join by "estimate_type" amongst join_by ("id_col") is suspicious!
+                           generate_outlier_subsets() %>% #TODO swapped order with previous line, but untested
+                           meta_analyse_datasets(filter_vars = NULL) #TODO requires col exclusion_set from generate_exclusion_subsets() but don't need that fun in this pipeline anymore
+     ),
+     targets::tar_target(name = ManyEcoEvo_yi_viz,
+                         command = make_viz(ManyEcoEvo_yi_results)),
+     targets::tar_target(name = ManyEcoEvo_study_summary,
+                         command = summarise_study(
+                           ManyEcoEvo, 
+                           ManyEcoEvo_results, 
+                           id_subsets = 
+                             list(ManyEcoEvo:::effect_ids, 
+                                  ManyEcoEvo:::prediction_ids), 
+                           subset_names = c("effects", "predictions"), 
+                           filter_vars = 
+                             rlang::exprs(exclusion_set == "complete",
+                                          estimate_type == "Zr",
+                                          publishable_subset == "All",
+                                          expertise_subset == "All",
+                                          collinearity_subset == "All")
+                         )),
+     tarchetypes::tar_quarto(name = README,
+                             path = "README.qmd"),
+     tarchetypes::tar_quarto(name = README_data_raw,
+                             path = 
+                               here::here("data-raw/analysis_datasets/",
+                                          "README.qmd"))
+)
