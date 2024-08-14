@@ -75,7 +75,7 @@ reference:
 - subtitle: Plotting
   contents:
   - gg_forest
-  - starts_with("plot_")
+  - contains("plot_")
 - subtitle: Model Checking and Comparison
   contents:
   - compare_ml_MA
