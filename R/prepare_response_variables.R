@@ -23,7 +23,7 @@ prepare_response_variables <- function(ManyEcoEvo,
   if (!is.null(dataset_standardise)) {
     stopifnot(is.character(dataset_standardise))
     stopifnot(length(dataset_standardise) >= 1)
-    stopifnot(length(dataset_standardise) == length(unique(ManyEcoEvo$dataset)))
+    stopifnot(length(dataset_standardise) <= length(unique(ManyEcoEvo$dataset)))
     match.arg(dataset_standardise, choices = ManyEcoEvo$dataset, several.ok = TRUE)
   }
   
@@ -84,10 +84,6 @@ prepare_response_variables <- function(ManyEcoEvo,
       ))
   } else {
     
-    process_response <- function(dat){
-      dat #TODO replace dummy function with actual function
-    }
-    
     datasets_to_standardise <- tibble(
       dataset = dataset_standardise,
       fns = list(standardise_response)
@@ -100,12 +96,12 @@ prepare_response_variables <- function(ManyEcoEvo,
     out <- out %>%
       ungroup() %>%
       left_join(datasets_to_standardise, by = "dataset") %>% 
-      mutate(fns = coalesce(fns, list(process_response)),
-             data = pmap(.l = ., 
+      mutate(fns = coalesce(fns, list(process_response))) %>%
+      mutate(data = pmap(.l = ., 
                          .f = pmap_prepare_response, 
                          estimate_type = estimate_type, 
                          param_table = param_table)) %>% 
-      select(-fns)
+      select(-fns) #TODO drop ci cols or not??
   }
   return(out)
 }

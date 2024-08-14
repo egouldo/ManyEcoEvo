@@ -16,6 +16,8 @@ NULL
 #' Standardise Response Variable
 #' @return A tibble of analyst data with standardised values contained in a list-column called 'back_transformed_data'
 #' @details
+#' # `standardise_response()`
+#'
 #' When the `estimate_type` is `"Zr"`, [standardise_response()] standardises 
 #' effect-sizes with [est_to_zr()], assuming that the `beta_estimate` and 
 #' `beta_SE` values have already been back-transformed to the appropriate scale. #TODO check this.
@@ -120,10 +122,18 @@ standardise_response <- function(dat,
 #' @description
 #' This function generates the response data for meta-analysis without standardising the effect sizes / out-of-sample predictions.
 #' @describeIn process_analyst_data Process response data for meta-analysis but do not standardise effect-sizes
-process_response <- function(dat,
-                             estimate_type = NULL,
-                             param_table = NULL,
-                             dataset = NULL){ #TODO what to do about args in pmap_prepare_response? allow ... args in fns(x,y,z, ...)?
+#' @details
+#' # `process_response()`
+#' 
+#' Formats tibbles in the list-column `back_transformed_data` to ensure that the 
+#' correct columns are present for meta-analysis, matching the outputs of
+#'  [standardise_response()]. For blue tit data `dat$back_transformed_data$fit` 
+#'  and for eucalyptus data, `dat$back_transformed_data$estimate` is renamed `Z`. 
+#'  `se.fit` is renamed `VZ`.
+#' @import dplyr
+#' @import purrr
+#' @import tidyr
+process_response <- function(dat, ...){
   
   Z_names_lookup <- c(Z = "estimate", #blue tit
                       Z = "fit", #eucalyptus
@@ -135,5 +145,4 @@ process_response <- function(dat,
                  rename, 
                  any_of(Z_names_lookup)), 
            params = NA)
-   #TODO replace dummy function with actual function
 }
