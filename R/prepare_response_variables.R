@@ -87,16 +87,17 @@ prepare_response_variables <- function(ManyEcoEvo,
       dat #TODO replace dummy function with actual function
     }
     
+    datasets_to_standardise <- tibble(
+      dataset = dataset_standardise,
+      fns = list(standardise_response)
+    )
+    
     out <- out %>%
       ungroup() %>%
-      mutate(fns = map(dataset, 
-                       ~ case_match(.x, 
-                                    !!{dataset_standardise} ~ "standardise_response", 
-                                    .default = "process_response") %>% 
-                         rlang::as_function()))
-    
+      left_join(datasets_to_standardise, by = "dataset") %>% 
+      mutate(fns = coalesce(fns, list(process_response)),
+             data = map2(.x = data, .y = fns, ~ .y(.x))
+             )
   }
-  
   return(out)
-  
 }
