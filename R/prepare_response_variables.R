@@ -11,10 +11,14 @@
 #' @export
 prepare_response_variables <- function(ManyEcoEvo,
                                        estimate_type = character(1L),
-                                       param_table = NULL) {
+                                       param_table = NULL,
+                                       dataset_standardise = NULL) {
+  
   stopifnot(is.data.frame(ManyEcoEvo))
   # TODO run checks on ManyEcoEvo
   match.arg(estimate_type, choices = c("Zr", "yi", "y25", "y50", "y75"), several.ok = FALSE)
+  # TODO insert check that non-All dataset_standardise is a valid dataset name, i.e.
+  # present in ManyEcoEvo$dataset
   
   out <- ManyEcoEvo
   
@@ -48,29 +52,46 @@ prepare_response_variables <- function(ManyEcoEvo,
               distinct()
           )
       )
-
-      } else{
+    
+  } else{
     if (!is.null(param_table)) {
       cli::cli_abort("{.arg param_table} must be NULL for {.val {estimate_type}} data")
     }
   }
   
   # ------ Standardise Response Variables for Meta-analysis ------
-  out <- out %>%
-    ungroup() %>%
-    # dplyr::group_by(dataset) %>% #NOTE: mapping doesn't work properly when tibble is rowwise!
-    dplyr::mutate(data = purrr::map2(
-      .x = data, 
-      .y = dataset,
-      .f = ~ standardise_response(
-        dat = .x,
-        estimate_type = !!{
-          estimate_type
-        },
-        param_table,
-        dataset = .y
-      )
-    ))
+  
+  if (is.null(dataset_standardise)) {
+    out <- out %>%
+      ungroup() %>%
+      # dplyr::group_by(dataset) %>% #NOTE: mapping doesn't work properly when tibble is rowwise!
+      dplyr::mutate(data = purrr::map2(
+        .x = data, 
+        .y = dataset,
+        .f = ~ standardise_response(
+          dat = .x,
+          estimate_type = !!{
+            estimate_type
+          },
+          param_table,
+          dataset = .y
+        )
+      ))
+  } else {
+    
+    process_response <- function(dat){
+      dat #TODO replace dummy function with actual function
+    }
+    
+    out <- out %>%
+      ungroup() %>%
+      mutate(fns = map(dataset, 
+                       ~ case_match(.x, 
+                                    !!{dataset_standardise} ~ "standardise_response", 
+                                    .default = "process_response") %>% 
+                         rlang::as_function()))
+    
+  }
   
   return(out)
   
