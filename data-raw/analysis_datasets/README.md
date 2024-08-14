@@ -39,6 +39,44 @@ predictions meta-analysis:
 
 ``` r
 library(ManyEcoEvo)
+```
+
+</details>
+
+    Warning: replacing previous import 'purrr::%@%' by 'rlang::%@%' when loading
+    'ManyEcoEvo'
+
+    Warning: replacing previous import 'purrr::flatten_lgl' by 'rlang::flatten_lgl'
+    when loading 'ManyEcoEvo'
+
+    Warning: replacing previous import 'purrr::splice' by 'rlang::splice' when
+    loading 'ManyEcoEvo'
+
+    Warning: replacing previous import 'purrr::flatten_chr' by 'rlang::flatten_chr'
+    when loading 'ManyEcoEvo'
+
+    Warning: replacing previous import 'purrr::flatten_raw' by 'rlang::flatten_raw'
+    when loading 'ManyEcoEvo'
+
+    Warning: replacing previous import 'purrr::flatten' by 'rlang::flatten' when
+    loading 'ManyEcoEvo'
+
+    Warning: replacing previous import 'purrr::flatten_dbl' by 'rlang::flatten_dbl'
+    when loading 'ManyEcoEvo'
+
+    Warning: replacing previous import 'purrr::invoke' by 'rlang::invoke' when
+    loading 'ManyEcoEvo'
+
+    Warning: replacing previous import 'purrr::flatten_int' by 'rlang::flatten_int'
+    when loading 'ManyEcoEvo'
+
+    Warning: replacing previous import 'recipes::fixed' by 'stringr::fixed' when
+    loading 'ManyEcoEvo'
+
+<details class="code-fold">
+<summary>Code</summary>
+
+``` r
 library(dplyr)
 library(purrr)
 library(stringr)
@@ -108,4 +146,3 @@ all_constructed_vars %>%
 | day_14_tarsus_length_deviation                                               | FALSE                            |
 | residual_day14_weight                                                        | FALSE                            |
 | residual_day_14_weight_males                                                 | FALSE                            |
-| euc_sdlgs\>2m                                                                | FALSE                            |
