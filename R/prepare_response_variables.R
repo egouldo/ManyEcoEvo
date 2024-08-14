@@ -17,12 +17,15 @@ prepare_response_variables <- function(ManyEcoEvo,
                                        estimate_type = character(1L),
                                        param_table = NULL,
                                        dataset_standardise = NULL) {
-  
-  stopifnot(is.data.frame(ManyEcoEvo))
-  # TODO run checks on ManyEcoEvo
   match.arg(estimate_type, choices = c("Zr", "yi", "y25", "y50", "y75"), several.ok = FALSE)
-  # TODO insert check that non-All dataset_standardise is a valid dataset name, i.e.
-  # present in ManyEcoEvo$dataset
+  stopifnot(is.data.frame(ManyEcoEvo))
+  pointblank::expect_col_exists(object = ManyEcoEvo, columns = c(dataset, data))
+  if (!is.null(dataset_standardise)) {
+    stopifnot(is.character(dataset_standardise))
+    stopifnot(length(dataset_standardise) >= 1)
+    stopifnot(length(dataset_standardise) == length(unique(ManyEcoEvo$dataset)))
+    match.arg(dataset_standardise, choices = ManyEcoEvo$dataset, several.ok = TRUE)
+  }
   
   out <- ManyEcoEvo
   
@@ -35,7 +38,6 @@ prepare_response_variables <- function(ManyEcoEvo,
     # ------ Back transform if estimate_type is yi only ------
     out <- out %>%
       ungroup() %>%
-      # dplyr::group_by(dataset) %>% #NOTE: mapping doesn't work properly when tibble is rowwise!
       dplyr::mutate(
         data = purrr::map2(
           .x = data, 
@@ -57,7 +59,7 @@ prepare_response_variables <- function(ManyEcoEvo,
           )
       )
     
-  } else{
+  } else {
     if (!is.null(param_table)) {
       cli::cli_abort("{.arg param_table} must be NULL for {.val {estimate_type}} data")
     }
