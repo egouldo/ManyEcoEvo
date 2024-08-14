@@ -86,8 +86,8 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
                          command = prepare_review_data(bt_reviews,euc_reviews)),
      targets::tar_target(ManyEcoEvo,
                          command = prepare_ManyEcoEvo(master_data, 
-                                                                  master_metadata, 
-                                                                  all_review_data)),
+                                                      master_metadata, 
+                                                      all_review_data)),
      targets::tar_target(name = ManyEcoEvo_results,
                          command = ManyEcoEvo %>% 
                            prepare_response_variables(estimate_type = "Zr") |>  
@@ -99,10 +99,10 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
                            generate_outlier_subsets() |> # TODO run before MA_inputs? diversity indices need to be recalculated!!
                            filter(expertise_subset != "expert" | exclusion_set != "complete-rm_outliers") |> #TODO mv into generate_outlier_subsets() so aren't created in the first place
                            meta_analyse_datasets(filter_vars = 
-                                                               rlang::exprs(exclusion_set == "complete",
-                                                                            expertise_subset == "All",
-                                                                            publishable_subset == "All",
-                                                                            collinearity_subset == "All"))),
+                                                   rlang::exprs(exclusion_set == "complete",
+                                                                expertise_subset == "All",
+                                                                publishable_subset == "All",
+                                                                collinearity_subset == "All"))),
      targets::tar_target(updated_prediction_files,
                          preprocess_updated_prediction_files(list_of_new_prediction_files)),
      targets::tar_target(prediction_submissions,
@@ -184,8 +184,8 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
      tar_target(augmented_data,
                 command = if(!rlang::is_na(submission_data)){ 
                   augment_prediction_data(.data = submission_data, 
-                                                      checks = groups$checks, 
-                                                      dataset = groups$dataset)
+                                          checks = groups$checks, 
+                                          dataset = groups$dataset)
                 }else{
                   NA
                 },
@@ -195,9 +195,9 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
      tar_target(validated_augmented_data,
                 command = if(!rlang::is_na(augmented_data)){
                   validate_predictions(data_set = groups$dataset, 
-                                                   input = augmented_data %>% 
-                                                     ungroup(), 
-                                                   type = "df")
+                                       input = augmented_data %>% 
+                                         ungroup(), 
+                                       type = "df")
                 }else{
                   NA
                 },
@@ -231,8 +231,8 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
                          command =  make_viz(ManyEcoEvo_results)),
      targets::tar_target(name = ManyEcoEvo_yi,
                          command = prepare_ManyEcoEvo_yi(master_data, 
-                                                                     master_metadata, 
-                                                                     all_prediction_data)),
+                                                         master_metadata, 
+                                                         all_prediction_data)),
      targets::tar_target(name = ManyEcoEvo_yi_results,
                          command =  ManyEcoEvo_yi %>% 
                            dplyr::mutate(data = 
