@@ -101,3 +101,26 @@ standardise_response <- function(dat,
   # TODO for any analyses implicitly excluded, return a message to the user
   return(dat)
 }
+
+#' Process response data for meta-analysis
+#' 
+#' @description
+#' This function generates the response data for meta-analysis without standardising the effect sizes / out-of-sample predictions.
+#' @describeIn process_analyst_data Process response data for meta-analysis but do not standardise effect-sizes
+process_response <- function(dat,
+                             estimate_type = NULL,
+                             param_table = NULL,
+                             dataset = NULL){ #TODO what to do about args in pmap_prepare_response? allow ... args in fns(x,y,z, ...)?
+  
+  Z_names_lookup <- c(Z = "estimate", #blue tit
+                      Z = "fit", #eucalyptus
+                      VZ = "se.fit") # both datasets
+  
+  dat %>%  
+    mutate(back_transformed_data = 
+             map(back_transformed_data, 
+                 rename, 
+                 any_of(Z_names_lookup)), 
+           params = NA)
+   #TODO replace dummy function with actual function
+}
