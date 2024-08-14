@@ -1,25 +1,39 @@
-#' Standardise Response Variable
-#'
-#' @param dat A tibble of analyst data with a list-column called 
+#' Process Response Data for Meta-Analysis
+#' @param dat A tibble of analyst data with a list-column called
 #' @param estimate_type The type of estimate to be standardised. Character vector of length 1, whose value may be "Zr", "yi", "y25", "y50", "y75".
 #' @param param_table A table of estimated 'population' parameters for each variable in the analysis datasets.
 #' @param dataset One of either "blue tit" or "eucalyptus"
-#'
+#' @import cli
+#' @import dplyr
+#' @import tidyr
+#' @import purrr
+#' @import rlang
+#' @importFrom pointblank col_exists vars
+#' @name process_analyst_data
+NULL
+#> NULL
+ 
+#' Standardise Response Variable
 #' @return A tibble of analyst data with standardised values contained in a list-column called 'back_transformed_data'
 #' @details
-#' 
-#' When the `estimate_type` is `"Zr"`, [standardise_response()] standardises effect-sizes with [est_to_zr()], assuming that the `beta_estimate` and `beta_SE` values have already been back-transformed to the appropriate scale. #TODO check this.
+#' When the `estimate_type` is `"Zr"`, [standardise_response()] standardises 
+#' effect-sizes with [est_to_zr()], assuming that the `beta_estimate` and 
+#' `beta_SE` values have already been back-transformed to the appropriate scale. #TODO check this.
 #' 
 #' When the `estimate-type` is `"yi"` or otherwise, the function:
-#' 1. assigns a `transformation_type` with [assign_transformation_type()], assumes that 
-#' 2. Converts the out-of-sample predictions on the link- or transformed-response scale back to the original response scale using [convert_predictions()].
+#' 1. assigns a `transformation_type` with [assign_transformation_type()], 
+#' assumes that 
+#' 2. Converts the out-of-sample predictions on the link- or transformed-response 
+#' scale back to the original response scale using [convert_predictions()].
 #' 3. Standardises predictions on the original response-scale to the Z-scale, with [pred_to_Z()].
 #' 
-#' Note that for $y_i$ or out of sample predictions that are standardised, if param_table is `NA` or `NULL` for a given variable, then the response variable will not be standardised, and NA will be returned for that entry in `back_transformed_data`.
-#'
+#' Note that for $y_i$ or out of sample predictions that are standardised, 
+#' if param_table is `NA` or `NULL` for a given variable, then the response 
+#' variable will not be standardised, and NA will be returned for that entry in `back_transformed_data`.
 #' @export
+#' @describeIn process_analyst_data Standardise response data for meta-analysis
 #' @family analyst-data
-#' @seealso [est_to_zr(), assign_transformation_type()]
+#' @seealso [est_to_zr()],  [assign_transformation_type()]
 standardise_response <- function(dat,
                                  estimate_type = character(1L),
                                  param_table = NULL,
@@ -97,7 +111,6 @@ standardise_response <- function(dat,
       ) %>% 
       ungroup()
   }
-  
   # TODO for any analyses implicitly excluded, return a message to the user
   return(dat)
 }
