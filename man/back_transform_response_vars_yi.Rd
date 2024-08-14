@@ -25,6 +25,6 @@ Back Transform Response Variables - yi
 }
 \seealso{
 Other analyst-data: 
-\code{\link{standardise_response}()}
+\code{\link{process_analyst_data}}
 }
 \concept{analyst-data}
