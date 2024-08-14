@@ -13,7 +13,7 @@ standardise_response(
   dataset = character(1L)
 )
 
-process_response(dat, estimate_type = NULL, param_table = NULL, dataset = NULL)
+process_response(dat, ...)
 }
 \arguments{
 \item{dat}{A tibble of analyst data with a list-column called}
@@ -30,7 +30,14 @@ A tibble of analyst data with standardised values contained in a list-column cal
 \description{
 This function generates the response data for meta-analysis without standardising the effect sizes / out-of-sample predictions.
 }
-\details{
+\section{Functions}{
+\itemize{
+\item \code{standardise_response()}: Standardise response data for meta-analysis
+
+\item \code{process_response()}: Process response data for meta-analysis but do not standardise effect-sizes
+
+}}
+\section{\code{standardise_response()}}{
 When the \code{estimate_type} is \code{"Zr"}, \code{\link[=standardise_response]{standardise_response()}} standardises
 effect-sizes with \code{\link[=est_to_zr]{est_to_zr()}}, assuming that the \code{beta_estimate} and
 \code{beta_SE} values have already been back-transformed to the appropriate scale. #TODO check this.
@@ -48,13 +55,15 @@ Note that for $y_i$ or out of sample predictions that are standardised,
 if param_table is \code{NA} or \code{NULL} for a given variable, then the response
 variable will not be standardised, and NA will be returned for that entry in \code{back_transformed_data}.
 }
-\section{Functions}{
-\itemize{
-\item \code{standardise_response()}: Standardise response data for meta-analysis
 
-\item \code{process_response()}: Process response data for meta-analysis but do not standardise effect-sizes
+\section{\code{process_response()}}{
+Formats tibbles in the list-column \code{back_transformed_data} to ensure that the
+correct columns are present for meta-analysis, matching the outputs of
+\code{\link[=standardise_response]{standardise_response()}}. For blue tit data \code{dat$back_transformed_data$fit}
+and for eucalyptus data, \code{dat$back_transformed_data$estimate} is renamed \code{Z}.
+\code{se.fit} is renamed \code{VZ}.
+}
 
-}}
 \seealso{
 \code{\link[=est_to_zr]{est_to_zr()}},  \code{\link[=assign_transformation_type]{assign_transformation_type()}}
 
