@@ -124,23 +124,30 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
                            ungroup() %>% 
                            mutate(
                              no_updated_checks = map_lgl(updated_checks, is_null),
-                             checks = ifelse(no_updated_checks == TRUE, checks, updated_checks),
+                             checks = ifelse(no_updated_checks == TRUE, 
+                                             checks, 
+                                             updated_checks),
                              .keep = "unused") %>% 
                            rowwise() %>% #NOTE: file_name and file_path replacement errors fails without rowwise
                            mutate(
-                             file_name = case_when(rlang::is_na(`new_csv_file_name--file-submissionID-csv_number`) ~ file_name,
-                                                   TRUE ~ `new_csv_file_name--file-submissionID-csv_number`),
-                             filepath = case_when(rlang::is_na(`new_csv_file_name--file-submissionID-csv_number`) ~ filepath, 
-                                                  TRUE ~ here::here("data-raw/analyst_data/S2", file_name)),
-                             exclude_read = case_when(response_id == "R_3dYDpQUfDUXjtDy" & submission_id == 2 ~ "exclude", # see col other_action & misc_notes in predictions_validation_worksheet.csv for reasons
-                                                      response_id == "R_3mfyhAj6rakbi5b" & submission_id == 1 ~ "exclude", #TODO: check whether THP's file has addressed these issues, if so we can remove this code as it is redundant
-                                                      response_id == "R_1BWpZlSbkmSofe1" & submission_id == 1 ~ "exclude",
-                                                      response_id == "R_1d0uRf5iNWOLD8M" & submission_id == 1 ~ "exclude",
-                                                      response_id == "R_3NHVKFiOiQBfX9b" & submission_id == 1 ~ "exclude",
-                                                      response_id == "R_3NHVKFiOiQBfX9b" & submission_id == 3 ~ "exclude",
-                                                      response_id == "R_1LRqq2WHrQaENtM" & submission_id == 1 ~ "exclude",
-                                                      response_id == "R_2V7qaLEfdbgUGg3" & submission_id == 1 ~ "exclude", # missing se.fit, but should be filtered out automatically if don't pass in preprocess_updated_prediction_files - might not have warning level set properly to detect f_pass < 1
-                                                      TRUE ~ "include")) %>% #TODO seems to be duplicating THP's effort - remove if not already coded as exclude_csv or exclude in ManyEcoEvo
+                             file_name = 
+                               case_when(
+                                 rlang::is_na(`new_csv_file_name--file-submissionID-csv_number`) ~ file_name,
+                                 TRUE ~ `new_csv_file_name--file-submissionID-csv_number`),
+                             filepath = case_when(
+                               rlang::is_na(`new_csv_file_name--file-submissionID-csv_number`) ~ filepath, 
+                               TRUE ~ here::here("data-raw/analyst_data/S2", file_name)),
+                             exclude_read = 
+                               case_when(
+                                 response_id == "R_3dYDpQUfDUXjtDy" & submission_id == 2 ~ "exclude", # see col other_action & misc_notes in predictions_validation_worksheet.csv for reasons
+                                 response_id == "R_3mfyhAj6rakbi5b" & submission_id == 1 ~ "exclude", #TODO: check whether THP's file has addressed these issues, if so we can remove this code as it is redundant
+                                 response_id == "R_1BWpZlSbkmSofe1" & submission_id == 1 ~ "exclude",
+                                 response_id == "R_1d0uRf5iNWOLD8M" & submission_id == 1 ~ "exclude",
+                                 response_id == "R_3NHVKFiOiQBfX9b" & submission_id == 1 ~ "exclude",
+                                 response_id == "R_3NHVKFiOiQBfX9b" & submission_id == 3 ~ "exclude",
+                                 response_id == "R_1LRqq2WHrQaENtM" & submission_id == 1 ~ "exclude",
+                                 response_id == "R_2V7qaLEfdbgUGg3" & submission_id == 1 ~ "exclude", # missing se.fit, but should be filtered out automatically if don't pass in preprocess_updated_prediction_files - might not have warning level set properly to detect f_pass < 1
+                                 TRUE ~ "include")) %>% #TODO seems to be duplicating THP's effort - remove if not already coded as exclude_csv or exclude in ManyEcoEvo
                            ungroup() %>% 
                            dplyr::filter(exclude_read == "include") %>% 
                            select(-`new_csv_file_name--file-submissionID-csv_number`, 
