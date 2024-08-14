@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ManyEcoEvo</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">2.3.0.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">2.4.1.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,6 +28,9 @@
     <a class="dropdown-item" href="../articles/data_cleaning_preparation.html">Data Cleaning &amp; Preparation for Analysis</a>
     <a class="dropdown-item" href="../articles/multiple_datasets.html">Scaling Up: working with multiple subsets or multiple datasets</a>
   </div>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
@@ -59,27 +62,22 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">back_transform_response_vars_yi</span><span class="op">(</span></span>
 <span>  <span class="va">dat</span>,</span>
 <span>  estimate_type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="fl">1L</span><span class="op">)</span>,</span>
-<span>  param_table <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  dataset <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="fl">1L</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>estimate_type</dt>
+    <dl><dt>dat</dt>
+<dd><p>A dataframe of out of sample predictions analyst submission data</p></dd>
+
+
+<dt>estimate_type</dt>
 <dd><p>The type of estimate to be standardised. Character vector of length 1, whose value may be  "yi", "y25", "y50", "y75".</p></dd>
-
-
-<dt>param_table</dt>
-<dd><p>A table of estimated 'population' parameters for each variable in the analysis datasets.</p></dd>
 
 
 <dt>dataset</dt>
 <dd><p>One of either "blue tit" or "eucalyptus"</p></dd>
-
-
-<dt>data</dt>
-<dd></dd>
 
 </dl></div>
     <div class="section level2">
@@ -91,7 +89,7 @@
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p>Other analyst-data: 
-<code><a href="standardise_response.html">standardise_response</a>()</code></p></div>
+<code><a href="process_analyst_data.html">process_analyst_data</a></code></p></div>
     </div>
 
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

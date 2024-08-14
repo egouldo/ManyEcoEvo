@@ -31,6 +31,12 @@
     <loc>https://egouldo.github.io/ManyEcoEvo/dev/index.html</loc>
   </url>
   <url>
+    <loc>https://egouldo.github.io/ManyEcoEvo/dev/news/index.html</loc>
+  </url>
+  <url>
+    <loc>https://egouldo.github.io/ManyEcoEvo/dev/reference/ManyEcoEvo-package.html</loc>
+  </url>
+  <url>
     <loc>https://egouldo.github.io/ManyEcoEvo/dev/reference/NotIn.html</loc>
   </url>
   <url>
@@ -53,6 +59,9 @@
   </url>
   <url>
     <loc>https://egouldo.github.io/ManyEcoEvo/dev/reference/augment_prediction_data.html</loc>
+  </url>
+  <url>
+    <loc>https://egouldo.github.io/ManyEcoEvo/dev/reference/back.html</loc>
   </url>
   <url>
     <loc>https://egouldo.github.io/ManyEcoEvo/dev/reference/back_transform_response_vars_yi.html</loc>
@@ -121,12 +130,6 @@
     <loc>https://egouldo.github.io/ManyEcoEvo/dev/reference/count_teams_analyses.html</loc>
   </url>
   <url>
-    <loc>https://egouldo.github.io/ManyEcoEvo/dev/reference/cube_back.html</loc>
-  </url>
-  <url>
-    <loc>https://egouldo.github.io/ManyEcoEvo/dev/reference/divide_back.html</loc>
-  </url>
-  <url>
     <loc>https://egouldo.github.io/ManyEcoEvo/dev/reference/est_to_zr.html</loc>
   </url>
   <url>
@@ -187,28 +190,19 @@
     <loc>https://egouldo.github.io/ManyEcoEvo/dev/reference/get_diversity_data.html</loc>
   </url>
   <url>
+    <loc>https://egouldo.github.io/ManyEcoEvo/dev/reference/get_forest_plot_data.html</loc>
+  </url>
+  <url>
     <loc>https://egouldo.github.io/ManyEcoEvo/dev/reference/gg_forest.html</loc>
   </url>
   <url>
     <loc>https://egouldo.github.io/ManyEcoEvo/dev/reference/i2_ml.html</loc>
   </url>
   <url>
-    <loc>https://egouldo.github.io/ManyEcoEvo/dev/reference/identity_back.html</loc>
-  </url>
-  <url>
     <loc>https://egouldo.github.io/ManyEcoEvo/dev/reference/index.html</loc>
   </url>
   <url>
-    <loc>https://egouldo.github.io/ManyEcoEvo/dev/reference/inverse_back.html</loc>
-  </url>
-  <url>
-    <loc>https://egouldo.github.io/ManyEcoEvo/dev/reference/log_back.html</loc>
-  </url>
-  <url>
     <loc>https://egouldo.github.io/ManyEcoEvo/dev/reference/log_transform.html</loc>
-  </url>
-  <url>
-    <loc>https://egouldo.github.io/ManyEcoEvo/dev/reference/logit_back.html</loc>
   </url>
   <url>
     <loc>https://egouldo.github.io/ManyEcoEvo/dev/reference/make_param_table.html</loc>
@@ -232,13 +226,13 @@
     <loc>https://egouldo.github.io/ManyEcoEvo/dev/reference/plot_effects_diversity.html</loc>
   </url>
   <url>
+    <loc>https://egouldo.github.io/ManyEcoEvo/dev/reference/plot_forest.html</loc>
+  </url>
+  <url>
     <loc>https://egouldo.github.io/ManyEcoEvo/dev/reference/plot_model_means_box_cox_cat.html</loc>
   </url>
   <url>
     <loc>https://egouldo.github.io/ManyEcoEvo/dev/reference/plot_model_means_orchard.html</loc>
-  </url>
-  <url>
-    <loc>https://egouldo.github.io/ManyEcoEvo/dev/reference/power_back.html</loc>
   </url>
   <url>
     <loc>https://egouldo.github.io/ManyEcoEvo/dev/reference/pred_to_Z.html</loc>
@@ -280,7 +274,7 @@
     <loc>https://egouldo.github.io/ManyEcoEvo/dev/reference/preprocess_updated_prediction_files.html</loc>
   </url>
   <url>
-    <loc>https://egouldo.github.io/ManyEcoEvo/dev/reference/probit_back.html</loc>
+    <loc>https://egouldo.github.io/ManyEcoEvo/dev/reference/process_analyst_data.html</loc>
   </url>
   <url>
     <loc>https://egouldo.github.io/ManyEcoEvo/dev/reference/read_submission_data.html</loc>
@@ -290,15 +284,6 @@
   </url>
   <url>
     <loc>https://egouldo.github.io/ManyEcoEvo/dev/reference/run_model_checks.html</loc>
-  </url>
-  <url>
-    <loc>https://egouldo.github.io/ManyEcoEvo/dev/reference/square_back.html</loc>
-  </url>
-  <url>
-    <loc>https://egouldo.github.io/ManyEcoEvo/dev/reference/square_root_back.html</loc>
-  </url>
-  <url>
-    <loc>https://egouldo.github.io/ManyEcoEvo/dev/reference/standardise_response.html</loc>
   </url>
   <url>
     <loc>https://egouldo.github.io/ManyEcoEvo/dev/reference/subset_fns_Zr.html</loc>

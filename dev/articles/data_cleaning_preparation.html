@@ -34,7 +34,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ManyEcoEvo</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">2.3.0.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">2.4.1.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,6 +53,9 @@
     <a class="dropdown-item" href="../articles/data_cleaning_preparation.html">Data Cleaning &amp; Preparation for Analysis</a>
     <a class="dropdown-item" href="../articles/multiple_datasets.html">Scaling Up: working with multiple subsets or multiple datasets</a>
   </div>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
       </ul>
 <form class="form-inline my-2 my-lg-0" role="search">
@@ -74,8 +77,6 @@
 </nav><div class="container template-article">
 
 
-
-
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Data Cleaning &amp; Preparation for Analysis</h1>
@@ -89,140 +90,406 @@
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/egouldo/ManyEcoEvo" class="external-link">ManyEcoEvo</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; Loading required package: rmarkdown</span></span>
+<span><span class="co">#&gt; Loading required package: bookdown</span></span>
+<span><span class="co">#&gt; Warning: replacing previous import 'purrr::%@%' by 'rlang::%@%' when loading</span></span>
+<span><span class="co">#&gt; 'ManyEcoEvo'</span></span>
+<span><span class="co">#&gt; Warning: replacing previous import 'purrr::flatten_lgl' by 'rlang::flatten_lgl'</span></span>
+<span><span class="co">#&gt; when loading 'ManyEcoEvo'</span></span>
+<span><span class="co">#&gt; Warning: replacing previous import 'purrr::splice' by 'rlang::splice' when</span></span>
+<span><span class="co">#&gt; loading 'ManyEcoEvo'</span></span>
+<span><span class="co">#&gt; Warning: replacing previous import 'purrr::flatten_chr' by 'rlang::flatten_chr'</span></span>
+<span><span class="co">#&gt; when loading 'ManyEcoEvo'</span></span>
+<span><span class="co">#&gt; Warning: replacing previous import 'purrr::flatten_raw' by 'rlang::flatten_raw'</span></span>
+<span><span class="co">#&gt; when loading 'ManyEcoEvo'</span></span>
+<span><span class="co">#&gt; Warning: replacing previous import 'purrr::flatten' by 'rlang::flatten' when</span></span>
+<span><span class="co">#&gt; loading 'ManyEcoEvo'</span></span>
+<span><span class="co">#&gt; Warning: replacing previous import 'purrr::flatten_dbl' by 'rlang::flatten_dbl'</span></span>
+<span><span class="co">#&gt; when loading 'ManyEcoEvo'</span></span>
+<span><span class="co">#&gt; Warning: replacing previous import 'purrr::invoke' by 'rlang::invoke' when</span></span>
+<span><span class="co">#&gt; loading 'ManyEcoEvo'</span></span>
+<span><span class="co">#&gt; Warning: replacing previous import 'purrr::flatten_int' by 'rlang::flatten_int'</span></span>
+<span><span class="co">#&gt; when loading 'ManyEcoEvo'</span></span>
+<span><span class="co">#&gt; Warning: replacing previous import 'recipes::fixed' by 'stringr::fixed' when</span></span>
+<span><span class="co">#&gt; loading 'ManyEcoEvo'</span></span>
 <span><span class="co">#&gt; Registered S3 method overwritten by 'EnvStats':</span></span>
 <span><span class="co">#&gt;   method         from</span></span>
-<span><span class="co">#&gt;   print.estimate lava</span></span></code></pre></div>
-<div class="section level2">
-<h2 id="data-cleaning">Data Cleaning<a class="anchor" aria-label="anchor" href="#data-cleaning"></a>
+<span><span class="co">#&gt;   print.estimate lava</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="section level2" number="0.1">
+<h2 id="data-cleaning">
+<span class="header-section-number">0.1</span> Data Cleaning<a class="anchor" aria-label="anchor" href="#data-cleaning"></a>
 </h2>
-<p>Analysts may report estimates on various scales, for example they may
-report values on the link or response scales, they may also …. In order
-to proceed with effect size standardisation or other standardisation,
-some transformations or back-transformations need to be applied.</p>
+<div class="section level3" number="0.1.1">
+<h3 id="anonymising-data">
+<span class="header-section-number">0.1.1</span> Anonymising Data<a class="anchor" aria-label="anchor" href="#anonymising-data"></a>
+</h3>
+<p>We have anonymised our public dataset <code>data(ManyEcoEvo)</code> <code><a href="../reference/anonymise_teams.html">anonymise_teams()</a></code>, which takes a look-up table of new and old identifier names with which to replace each analysis identifier. The lookup table and original non-anonymised data can be stored in a private repository or component, on the OSF for example, while the anonymised dataset can be released publicly.</p>
+</div>
+</div>
+<div class="section level2" number="0.2">
+<h2 id="data-pre-processing-for-meta-analysis">
+<span class="header-section-number">0.2</span> Data Pre-processing for Meta-analysis<a class="anchor" aria-label="anchor" href="#data-pre-processing-for-meta-analysis"></a>
+</h2>
+<p>The meta-analysis requires that all estimates are on the same scale. This is because the meta-analysis is based on the assumption that the outcome measures are comparable. Note that the ManyAnalysts project utilises two different outcomes for meta-analysis, standardised effect-sizes, or <span class="math inline">\(Z_r\)</span> and out-of-sample predictions <span class="math inline">\(y_i\)</span>, But alternative effect-size measures may be utilised instead<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;See Table 2 in &lt;span class="citation"&gt;Nakagawa et al. (2023)&lt;/span&gt;: &lt;a href="https://environmentalevidencejournal.biomedcentral.com/articles/10.1186/s13750-023-00301-6/tables/2" class="external-link uri"&gt;https://environmentalevidencejournal.biomedcentral.com/articles/10.1186/s13750-023-00301-6/tables/2&lt;/a&gt;&lt;/p&gt;'><sup>1</sup></a>.</p>
+<p>We provide the function <code><a href="../reference/process_analyst_data.html">standardise_response()</a></code> to standardise a data-frame of analyst-data.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"ManyEcoEvo"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">blue_tit_effect_sizes</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="va">ManyEcoEvo</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">dataset</span> <span class="op">==</span> <span class="st">"blue tit"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/pluck.html" class="external-link">pluck</a></span><span class="op">(</span><span class="st">"data"</span>, <span class="fl">1</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">contains</a></span><span class="op">(</span><span class="st">"id"</span><span class="op">)</span>, </span>
+<span>         <span class="op">-</span><span class="va">response_id_S2</span>,</span>
+<span>         <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">contains</a></span><span class="op">(</span><span class="st">"beta"</span><span class="op">)</span>, </span>
+<span>         <span class="va">adjusted_df</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">blue_tit_effect_sizes</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 10 × 9</span></span></span>
+<span><span class="co">#&gt;    response_id       submission_id analysis_id split_id TeamIdentifier id_col   </span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> R_11787O3NmejXKAH             1           2        2 Ayr            Ayr-1-2-2</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> R_11787O3NmejXKAH             1           2        3 Ayr            Ayr-1-2-3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> R_11787O3NmejXKAH             1           2        1 Ayr            Ayr-1-2-1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> R_126erjKKuN3IwSJ             2           2        1 Bega           Bega-2-2…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> R_126erjKKuN3IwSJ             2           2        2 Bega           Bega-2-2…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> R_126erjKKuN3IwSJ             1           1        1 Bega           Bega-1-1…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> R_126erjKKuN3IwSJ             1           1        2 Bega           Bega-1-1…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> R_12cozGev3IOOBG2             4           4        1 Bell           Bell-4-4…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> R_12cozGev3IOOBG2             3           3        1 Bell           Bell-3-3…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> R_12cozGev3IOOBG2             1           1        1 Bell           Bell-1-1…</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 3 more variables: beta_estimate &lt;dbl&gt;, beta_SE &lt;dbl&gt;, adjusted_df &lt;dbl&gt;</span></span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/process_analyst_data.html">standardise_response</a></span><span class="op">(</span>dat <span class="op">=</span> <span class="va">blue_tit_effect_sizes</span>, </span>
+<span>                     estimate_type <span class="op">=</span> <span class="st">"Zr"</span>,</span>
+<span>                     param_table <span class="op">=</span> <span class="cn">NULL</span>, </span>
+<span>                     dataset <span class="op">=</span> <span class="st">"blue tit"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">id_col</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">contains</a></span><span class="op">(</span><span class="st">"beta"</span><span class="op">)</span>, <span class="va">adjusted_df</span>, <span class="va">Zr</span>, <span class="va">VZr</span> <span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Computing meta-analysis inputsfor estimate type Zr</span> <span style="color: #00BBBB;">──────────────────────────</span></span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ── <span style="font-weight: bold;">Computing standardised effect sizes `Zr` and variance `VZr`</span> ──</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; <span style="color: #BB0000;">✖</span> Required values for computing standardised effect sizes missing:</span></span>
+<span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> Returning <span style="color: #0000BB;">"NA"</span> for tupple:</span></span>
+<span><span class="co">#&gt; 1. beta_estimate <span style="color: #0000BB;">NA</span>,</span></span>
+<span><span class="co">#&gt; 2. beta_se <span style="color: #0000BB;">NA</span>,</span></span>
+<span><span class="co">#&gt; 3. adjusted_df <span style="color: #0000BB;">484.0193</span>.</span></span>
+<span><span class="co">#&gt; <span style="color: #BB0000;">✖</span> Required values for computing standardised effect sizes missing:</span></span>
+<span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> Returning <span style="color: #0000BB;">"NA"</span> for tupple:</span></span>
+<span><span class="co">#&gt; 1. beta_estimate <span style="color: #0000BB;">NA</span>,</span></span>
+<span><span class="co">#&gt; 2. beta_se <span style="color: #0000BB;">NA</span>,</span></span>
+<span><span class="co">#&gt; 3. adjusted_df <span style="color: #0000BB;">666.56874</span>.</span></span>
+<span><span class="co">#&gt; <span style="color: #BB0000;">✖</span> Required values for computing standardised effect sizes missing:</span></span>
+<span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> Returning <span style="color: #0000BB;">"NA"</span> for tupple:</span></span>
+<span><span class="co">#&gt; 1. beta_estimate <span style="color: #0000BB;">NA</span>,</span></span>
+<span><span class="co">#&gt; 2. beta_se <span style="color: #0000BB;">NA</span>,</span></span>
+<span><span class="co">#&gt; 3. adjusted_df <span style="color: #0000BB;">590.18263</span>.</span></span>
+<span><span class="co">#&gt; <span style="color: #BB0000;">✖</span> Required values for computing standardised effect sizes missing:</span></span>
+<span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> Returning <span style="color: #0000BB;">"NA"</span> for tupple:</span></span>
+<span><span class="co">#&gt; 1. beta_estimate <span style="color: #0000BB;">NA</span>,</span></span>
+<span><span class="co">#&gt; 2. beta_se <span style="color: #0000BB;">0.006225</span>,</span></span>
+<span><span class="co">#&gt; 3. adjusted_df <span style="color: #0000BB;">NA</span>.</span></span>
+<span><span class="co">#&gt; <span style="color: #BB0000;">✖</span> Required values for computing standardised effect sizes missing:</span></span>
+<span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> Returning <span style="color: #0000BB;">"NA"</span> for tupple:</span></span>
+<span><span class="co">#&gt; 1. beta_estimate <span style="color: #0000BB;">NA</span>,</span></span>
+<span><span class="co">#&gt; 2. beta_se <span style="color: #0000BB;">0.003996</span>,</span></span>
+<span><span class="co">#&gt; 3. adjusted_df <span style="color: #0000BB;">NA</span>.</span></span>
+<span><span class="co">#&gt; <span style="color: #BB0000;">✖</span> Required values for computing standardised effect sizes missing:</span></span>
+<span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> Returning <span style="color: #0000BB;">"NA"</span> for tupple:</span></span>
+<span><span class="co">#&gt; 1. beta_estimate <span style="color: #0000BB;">NA</span>,</span></span>
+<span><span class="co">#&gt; 2. beta_se <span style="color: #0000BB;">NA</span>,</span></span>
+<span><span class="co">#&gt; 3. adjusted_df <span style="color: #0000BB;">NA</span>.</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 10 × 6</span></span></span>
+<span><span class="co">#&gt;    id_col     beta_estimate  beta_SE adjusted_df      Zr      VZr</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> Ayr-1-2-2          <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>              484. <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> Ayr-1-2-3          <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>              667. <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> Ayr-1-2-1          <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>              590. <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> Bega-2-2-1         -<span style="color: #BB0000;">4.05</span>  2.11           389. -<span style="color: #BB0000;">0.097</span><span style="color: #BB0000; text-decoration: underline;">2</span>  0.002<span style="text-decoration: underline;">57</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> Bega-2-2-2         -<span style="color: #BB0000;">2.55</span>  1.91           384. -<span style="color: #BB0000;">0.068</span><span style="color: #BB0000; text-decoration: underline;">1</span>  0.002<span style="text-decoration: underline;">60</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> Bega-1-1-1         -<span style="color: #BB0000;">9.2</span>   2.45           388. -<span style="color: #BB0000;">0.189</span>   0.002<span style="text-decoration: underline;">57</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> Bega-1-1-2          1.26  2.21           382.  0.029<span style="text-decoration: underline;">2</span>  0.002<span style="text-decoration: underline;">62</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> Bell-4-4-1         <span style="color: #BB0000;">NA</span>     0.006<span style="text-decoration: underline;">22</span>         <span style="color: #BB0000;">NA</span>  <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> Bell-3-3-1         <span style="color: #BB0000;">NA</span>     0.004<span style="text-decoration: underline;">00</span>         <span style="color: #BB0000;">NA</span>  <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> Bell-1-1-1         <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>               <span style="color: #BB0000;">NA</span>  <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span></span></span></code></pre></div>
+<p>Note that if any of <code>beta_estimate</code>, <code>beta_SE</code> or <code>adjusted_df</code> are missing, <code><a href="../reference/process_analyst_data.html">standardise_response()</a></code> is unable to compute standardised correlation coefficients <span class="math inline">\(Z_r\)</span> and the associated variance <span class="math inline">\(\text{VZ}_r\)</span>.</p>
+<p>Below we standardise a data frame containing out-of-sample point-estimate predictions, which are stored in a list-column of dataframes, called <code>augmented_data</code>, notice some additional console messages about back-transformations, as well as an additional step <em>Transforming out of sample predictions from link to response scale</em>. That’s because, depending on what <code>estimate_type</code> is being standardised, a different workflow will be implemented by <code><a href="../reference/process_analyst_data.html">standardise_response()</a></code>.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># ----- Create example blue tit dataset ----</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"ManyEcoEvo_yi"</span><span class="op">)</span></span>
+<span><span class="va">blue_tit_predictions</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="va">ManyEcoEvo_yi</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">dataset</span> <span class="op">==</span> <span class="st">"blue tit"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/pluck.html" class="external-link">pluck</a></span><span class="op">(</span><span class="st">"data"</span>, <span class="fl">1</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># ----- back-transform analyst estimates to original response scale ----</span></span>
+<span><span class="va">blue_tit_back_transformed</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="va">blue_tit_predictions</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/back_transform_response_vars_yi.html">back_transform_response_vars_yi</a></span><span class="op">(</span>estimate_type <span class="op">=</span> <span class="st">"yi"</span>,</span>
+<span>                                  dataset <span class="op">=</span> <span class="st">"blue tit"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="va">ungroup</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span></span>
+<span>    <span class="va">id_col</span>,</span>
+<span>    <span class="va">response_variable_name</span>,</span>
+<span>    <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">contains</a></span><span class="op">(</span><span class="st">"transformation"</span><span class="op">)</span>,</span>
+<span>    <span class="va">augmented_data</span>, </span>
+<span>    <span class="va">back_transformed_data</span></span>
+<span>  <span class="op">)</span> <span class="co">#TODO transformation column seems wrong! but output from convert_predictions() suggests correct transformation occured!</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Applied back-transformation for squared effect sizes or out-of-sample predictions.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Applied back-transformation for squared effect sizes or out-of-sample predictions.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Applied back-transformation for squared effect sizes or out-of-sample predictions.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Applied back-transformation for squared effect sizes or out-of-sample predictions.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Applied back-transformation for squared effect sizes or out-of-sample predictions.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Applied back-transformation for squared effect sizes or out-of-sample predictions.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span></span>
+<span></span>
+<span><span class="va">blue_tit_back_transformed</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 8</span></span></span>
+<span><span class="co">#&gt;   id_col    response_variable_name response_transformat…¹ response_transformat…²</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Bega-1-1… day_14_weight          power2                 square                </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Bega-2-2… day_14_tarsus_length   power2                 square                </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Bell-2-2… day_14_tarsus_length   <span style="color: #BB0000;">NA</span>                     <span style="color: #BB0000;">NA</span>                    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Berr-1-1… day_14_weight          z.score                identity              </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Burr-1-1… day_14_tarsus_length   <span style="color: #BB0000;">NA</span>                     <span style="color: #BB0000;">NA</span>                    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Burr-2-2… day_14_weight          <span style="color: #BB0000;">NA</span>                     <span style="color: #BB0000;">NA</span>                    </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ abbreviated names: ¹​response_transformation_description,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   ²​response_transformation_status</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 4 more variables: transformation &lt;chr&gt;, transformation_type &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   augmented_data &lt;named list&gt;, back_transformed_data &lt;named list&gt;</span></span></span>
+<span></span>
+<span><span class="co"># ----- standardize to Z scale ------</span></span>
+<span></span>
+<span><span class="va">blue_tit_standardised</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="va">blue_tit_back_transformed</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="../reference/process_analyst_data.html">standardise_response</a></span><span class="op">(</span></span>
+<span>    estimate_type <span class="op">=</span> <span class="st">"yi"</span> ,</span>
+<span>    param_table <span class="op">=</span> <span class="fu">ManyEcoEvo</span><span class="fu">:::</span><span class="va">analysis_data_param_tables</span>, </span>
+<span>    dataset <span class="op">=</span> <span class="st">"blue tit"</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="va">ungroup</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span></span>
+<span>    <span class="va">id_col</span>,</span>
+<span>    <span class="va">params</span>, </span>
+<span>    <span class="va">transformation</span>,</span>
+<span>    <span class="va">augmented_data</span>, </span>
+<span>    <span class="va">back_transformed_data</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Computing meta-analysis inputsfor estimate type yi</span> <span style="color: #00BBBB;">──────────────────────────</span></span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ── <span style="font-weight: bold;">Standardising out-of-sample predictions</span> ──</span></span>
+<span><span class="co">#&gt; </span></span>
+<span></span>
+<span><span class="va">blue_tit_standardised</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 5</span></span></span>
+<span><span class="co">#&gt;   id_col     params   transformation augmented_data     back_transformed_data</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;named list&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;named list&gt;</span>         </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Bega-1-1-1 <span style="color: #949494;">&lt;tibble&gt;</span> identity       <span style="color: #949494;">&lt;gropd_df [3 × 5]&gt;</span> <span style="color: #949494;">&lt;tibble [3 × 3]&gt;</span>     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Bega-2-2-1 <span style="color: #949494;">&lt;tibble&gt;</span> identity       <span style="color: #949494;">&lt;gropd_df [3 × 5]&gt;</span> <span style="color: #949494;">&lt;tibble [3 × 3]&gt;</span>     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Bell-2-2-1 <span style="color: #949494;">&lt;tibble&gt;</span> identity       <span style="color: #949494;">&lt;gropd_df [3 × 5]&gt;</span> <span style="color: #949494;">&lt;tibble [3 × 3]&gt;</span>     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Berr-1-1-1 <span style="color: #949494;">&lt;tibble&gt;</span> identity       <span style="color: #949494;">&lt;gropd_df [3 × 5]&gt;</span> <span style="color: #949494;">&lt;tibble [3 × 3]&gt;</span>     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Burr-1-1-1 <span style="color: #949494;">&lt;tibble&gt;</span> identity       <span style="color: #949494;">&lt;gropd_df [3 × 5]&gt;</span> <span style="color: #949494;">&lt;tibble [3 × 3]&gt;</span>     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Burr-2-2-1 <span style="color: #949494;">&lt;tibble&gt;</span> identity       <span style="color: #949494;">&lt;gropd_df [3 × 5]&gt;</span> <span style="color: #949494;">&lt;tibble [3 × 3]&gt;</span></span></span>
+<span></span>
+<span><span class="co"># ----- parameters ---- </span></span>
+<span><span class="va">blue_tit_standardised</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/pluck.html" class="external-link">pluck</a></span><span class="op">(</span><span class="st">"params"</span>, <span class="fl">1</span><span class="op">)</span> </span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 4</span></span></span>
+<span><span class="co">#&gt;   variable      parameter value dataset </span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> day_14_weight mean      10.3  blue tit</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> day_14_weight sd         1.19 blue tit</span></span>
+<span><span class="va">blue_tit_standardised</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/pluck.html" class="external-link">pluck</a></span><span class="op">(</span><span class="st">"params"</span>, <span class="fl">2</span><span class="op">)</span> <span class="co"># gets a different set depending on the variable</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 4</span></span></span>
+<span><span class="co">#&gt;   variable             parameter  value dataset </span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> day_14_tarsus_length mean      16.7   blue tit</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> day_14_tarsus_length sd         0.684 blue tit</span></span>
+<span></span>
+<span><span class="co"># ---- raw predictions data ----</span></span>
+<span><span class="va">blue_tit_back_transformed</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/pluck.html" class="external-link">pluck</a></span><span class="op">(</span><span class="st">"augmented_data"</span>, <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 5</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># Groups:   scenario [3]</span></span></span>
+<span><span class="co">#&gt;   scenario estimate se.fit ci.low ci.hi</span></span>
+<span><span class="co">#&gt;      <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>        1     87.6   6.20   74.9  99.1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>        2    115.    6.31  102.  126. </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>        3    124.    6.04  112.  135.</span></span>
+<span><span class="va">blue_tit_back_transformed</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/pluck.html" class="external-link">pluck</a></span><span class="op">(</span><span class="st">"back_transformed_data"</span>, <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 5</span></span></span>
+<span><span class="co">#&gt;   scenario estimate se.fit ci.low ci.hi</span></span>
+<span><span class="co">#&gt;      <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>        1     9.35  0.328   8.69  9.98</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>        2    10.7   0.296  10.1  11.3 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>        3    11.1   0.272  10.6  11.6</span></span>
+<span></span>
+<span><span class="co"># ---- back-transformed &amp; standardised predictions_data ----</span></span>
+<span><span class="va">blue_tit_standardised</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/pluck.html" class="external-link">pluck</a></span><span class="op">(</span><span class="st">"back_transformed_data"</span>, <span class="fl">1</span><span class="op">)</span> </span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 3</span></span></span>
+<span><span class="co">#&gt;   scenario      Z    VZ</span></span>
+<span><span class="co">#&gt;      <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>        1 -<span style="color: #BB0000;">0.778</span> 0.277</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>        2  0.353 0.250</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>        3  0.703 0.229</span></span>
+<span></span>
+<span><span class="va">MA_data_yi</span> <span class="op">&lt;-</span> <span class="va">blue_tit_standardised</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">id_col</span>, <span class="va">back_transformed_data</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/unnest.html" class="external-link">unnest</a></span><span class="op">(</span><span class="va">back_transformed_data</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">pointblank</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/pointblank/reference/col_vals_between.html" class="external-link">col_vals_between</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="st">"Z"</span>, left <span class="op">=</span> <span class="op">-</span><span class="fl">3</span>, right <span class="op">=</span> <span class="fl">3</span>, inclusive <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<div class="section level3" number="0.2.1">
+<h3 id="sec-standardisation">
+<span class="header-section-number">0.2.1</span> Standardising effect-sizes to <span class="math inline">\(Z_r\)</span><a class="anchor" aria-label="anchor" href="#sec-standardisation"></a>
+</h3>
 <ul>
-<li>Anonymising submissions - <code><a href="../reference/anonymise_teams.html">anonymise_teams()</a></code> /
-<code>anonymise_id_col()</code>
-</li>
-<li>back-transformation:
-<ul>
-<li>We asked for estimates to be provided on the <code>______</code>
-scale.
-<ul>
-<li><code><a href="../reference/clean_response_transformation.html">clean_response_transformation()</a></code></li>
-<li>
-<code>assign_back_transformation_type()</code>
-<ul>
-<li>Depends on what scale the values are reported on (link / response),
-what transformation has been applied to the response variable, and to
-the predictor variable.</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
+<li><p>Standardisation of effect-sizes (fishers’ Z), however other transformations could be applied using other packages if need be (Gurrindgi green meta-analsis handbook).</p></li>
+<li><p>Coefficients <code>est_to_Zr()</code></p></li>
 </ul>
 </div>
-<div class="section level2">
-<h2 id="data-preprocessing">Data Preprocessing<a class="anchor" aria-label="anchor" href="#data-preprocessing"></a>
-</h2>
-<p>what is the distinction between processing and cleaning?</p>
-<div class="section level3">
-<h3 id="back-transforming-response-variables">Back-transforming response variables<a class="anchor" aria-label="anchor" href="#back-transforming-response-variables"></a>
+<div class="section level3" number="0.2.2">
+<h3 id="standardising-out-of-sample-predictions-to-z_y_i">
+<span class="header-section-number">0.2.2</span> Standardising out-of-sample predictions to <span class="math inline">\(Z_{y_i}\)</span><a class="anchor" aria-label="anchor" href="#standardising-out-of-sample-predictions-to-z_y_i"></a>
 </h3>
-<p>in meta-analysis units need to be standardized because analysts use
-different response / outcome variables, and we may need to ensure that
-we are talking about units on the correct scale before we can
-standardize.</p>
+<p>Before standardising out-of-sample predictions, we need to ensure that all estimates are on the same scale. Some analysts may report estimates on the link scale, while others may report estimates on the response scale, for instance. <code>ManyEcoEvo::</code> provides a suite of functions for both back-transforming estimates prior to standardising effect sizes.</p>
+<div class="section level4" number="0.2.2.1">
+<h4 id="cleaning-response-transformation-values-and-assigning-a-back-transformation">
+<span class="header-section-number">0.2.2.1</span> Cleaning response-transformation values and assigning a back-transformation<a class="anchor" aria-label="anchor" href="#cleaning-response-transformation-values-and-assigning-a-back-transformation"></a>
+</h4>
+<p>Analysts may report estimates on various scales, for example they may report values on the link or response scales, they may also, or may have transformed the response-variable prior to model-fitting and reported effect-sizes on the transformed scale, rather than the scale of the original variable.</p>
+<p>In order to proceed with standardisation of effect-sizes or out-of-sample estimates, we back-transform analysts’ reported estimates to the original response scale in the datasets <code>euc_data</code> and <code>blue_tit_data</code>, rather than the link- or transformed- scale.</p>
+<ol style="list-style-type: decimal">
+<li>
+<code><a href="../reference/assign_transformation_type.html">assign_transformation_type()</a></code> takes information about the <code>response_transformation</code> and the <code>link_fun</code> for a given analysis, and assigns the analysis to an appropriate back-transformation rule to be applied, one of either <code>"identity"</code>, the value of the link-function or response-transformation, <code>"double.transformation"</code>, or <code>NA</code> if an appropriate transformation type cannot be assigned.</li>
+<li>Next, the type of response transformation is cleaned using <code><a href="../reference/clean_response_transformation.html">clean_response_transformation()</a></code>, which cleans any value returned by <code><a href="../reference/assign_transformation_type.html">assign_transformation_type()</a></code> in step 1 that is not in <code>c("identity", "double.transformation", NA)</code> to a value in a lookup-tibble that assigns the appropriate transformation to apply. Users can supply their own lookup table, or else use or modify the version supplied in <code>ManyEcoEvo:::transformation_tbl</code>.</li>
+<li>The estimates are now ready for back-transformation (section <a href="#sec-back-transformation">0.2.2.2</a>) and/or standardisation (section <a href="#sec-standardisation">0.2.1</a>).</li>
+</ol>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#TODO demonstrate assign transformation and clean response transformation</span></span></code></pre></div>
+</div>
+<div class="section level4" number="0.2.2.2">
+<h4 id="sec-back-transformation">
+<span class="header-section-number">0.2.2.2</span> Back-transforming analysts’ reported out-of-sample predictions<a class="anchor" aria-label="anchor" href="#sec-back-transformation"></a>
+</h4>
 <table class="table">
+<colgroup>
+<col width="31%">
+<col width="68%">
+</colgroup>
 <thead><tr class="header">
-<th>function name</th>
-<th>description</th>
+<th>Function Name</th>
+<th>Description</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td><code><a href="../reference/log_back.html">log_back()</a></code></td>
-<td></td>
+<td><code><a href="../reference/back.html">log_back()</a></code></td>
+<td>Back-transform beta estimates for models with log-link</td>
 </tr>
 <tr class="even">
-<td><code><a href="../reference/logit_back.html">logit_back()</a></code></td>
-<td></td>
+<td><code><a href="../reference/back.html">logit_back()</a></code></td>
+<td>Back-transform beta estimates for models with logit-link</td>
 </tr>
 <tr class="odd">
-<td><code><a href="../reference/probit_back.html">probit_back()</a></code></td>
-<td></td>
+<td><code><a href="../reference/back.html">probit_back()</a></code></td>
+<td>Back-transform beta estimates for models with probit-link</td>
 </tr>
 <tr class="even">
-<td><code><a href="../reference/inverse_back.html">inverse_back()</a></code></td>
-<td></td>
+<td><code><a href="../reference/back.html">inverse_back()</a></code></td>
+<td>Back-transform beta estimates for models with <span class="math inline">\(1/x\)</span> link</td>
 </tr>
 <tr class="odd">
-<td><code><a href="../reference/square_back.html">square_back()</a></code></td>
-<td></td>
+<td><code><a href="../reference/back.html">square_back()</a></code></td>
+<td>Back-transform beta estimates for models with <span class="math inline">\(x^2\)</span>-link</td>
 </tr>
 <tr class="even">
-<td><code><a href="../reference/cube_back.html">cube_back()</a></code></td>
-<td></td>
+<td><code><a href="../reference/back.html">cube_back()</a></code></td>
+<td>Back-transform beta estimates for models with <span class="math inline">\(x^3\)</span>-link</td>
 </tr>
 <tr class="odd">
-<td><code><a href="../reference/identity_back.html">identity_back()</a></code></td>
-<td></td>
+<td><code><a href="../reference/back.html">identity_back()</a></code></td>
+<td>Back-transform beta estimates for models with identity-link</td>
 </tr>
 <tr class="even">
-<td><code><a href="../reference/power_back.html">power_back()</a></code></td>
-<td></td>
+<td><code><a href="../reference/back.html">power_back()</a></code></td>
+<td>Back-transform beta estimates for models with power-link</td>
 </tr>
 <tr class="odd">
-<td><code><a href="../reference/divide_back.html">divide_back()</a></code></td>
-<td></td>
+<td><code><a href="../reference/back.html">divide_back()</a></code></td>
+<td>Back-transform beta estimates or out-of-sample predictions from models whose response variable has been divided by some number, <code>n</code>
+</td>
 </tr>
 <tr class="even">
-<td><code><a href="../reference/square_root_back.html">square_root_back()</a></code></td>
-<td></td>
+<td><code><a href="../reference/back.html">square_root_back()</a></code></td>
+<td>Back-transform beta estimates or out-of-sample predictions from models whose response variable has been transformed by the square root</td>
 </tr>
 </tbody>
 </table>
+<p>We provide the <code><a href="../reference/conversion.html">conversion()</a></code> function, which applies the relevant <code><a href="../reference/back.html">back()</a></code> function depending on the required transformation assigned to that analysis:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#TODO demonstrate conversion() with back functions</span></span></code></pre></div>
 </div>
-<div class="section level3">
-<h3 id="standardising-effect-sizes">Standardising effect sizes<a class="anchor" aria-label="anchor" href="#standardising-effect-sizes"></a>
-</h3>
-<ul>
-<li>Standardisation of effect-sizes (fishers’ Z), however other
-transformations could be applied using other packages if need be
-(Gurrindgi green meta-analsis handbook).
-<ul>
-<li>Predictions
+<div class="section level4" number="0.2.2.3">
+<h4 id="standardising-out-of-sample-predictions">
+<span class="header-section-number">0.2.2.3</span> Standardising out-of-sample predictions<a class="anchor" aria-label="anchor" href="#standardising-out-of-sample-predictions"></a>
+</h4>
 <ul>
 <li>
-<code><a href="../reference/pred_to_Z.html">pred_to_Z()</a></code> (data frame level),
-<code><a href="../reference/Z_VZ_preds.html">Z_VZ_preds()</a></code>
+<code><a href="../reference/pred_to_Z.html">pred_to_Z()</a></code> (data frame level), <code><a href="../reference/Z_VZ_preds.html">Z_VZ_preds()</a></code>
 </li>
 </ul>
-</li>
-<li>Coefficients
-<ul>
-<li><code>est_to_Zr()</code></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#TODO demonstrate application of V_Zr_preds() and or pred_to_z()</span></span></code></pre></div>
 </div>
-<div class="section level3">
-<h3 id="calculating-sorensen-similarity-index">Calculating Sorensen similarity index<a class="anchor" aria-label="anchor" href="#calculating-sorensen-similarity-index"></a>
+</div>
+<div class="section level3" number="0.2.3">
+<h3 id="calculating-sorensen-similarity-index">
+<span class="header-section-number">0.2.3</span> Calculating Sorensen similarity index<a class="anchor" aria-label="anchor" href="#calculating-sorensen-similarity-index"></a>
 </h3>
 <ul>
 <li><code><a href="../reference/apply_sorensen_calc.html">apply_sorensen_calc()</a></code></li>
 <li>
-<code><a href="../reference/calculate_sorensen_diversity_index.html">calculate_sorensen_diversity_index()</a></code> (also needs to be
-renamed)</li>
+<code><a href="../reference/calculate_sorensen_diversity_index.html">calculate_sorensen_diversity_index()</a></code> (also needs to be renamed)</li>
 </ul>
 </div>
-<div class="section level3">
-<h3 id="box-cox-transforming-deviation-from-meta-analytic-mean">Box-cox transforming deviation from meta-analytic mean<a class="anchor" aria-label="anchor" href="#box-cox-transforming-deviation-from-meta-analytic-mean"></a>
+<div class="section level3" number="0.2.4">
+<h3 id="box-cox-transforming-deviation-from-meta-analytic-mean">
+<span class="header-section-number">0.2.4</span> Box-cox transforming deviation from meta-analytic mean<a class="anchor" aria-label="anchor" href="#box-cox-transforming-deviation-from-meta-analytic-mean"></a>
 </h3>
 </div>
+<div class="section level3" number="0.2.5">
+<h3 id="excluding-data">
+<span class="header-section-number">0.2.5</span> Excluding Data<a class="anchor" aria-label="anchor" href="#excluding-data"></a>
+</h3>
+<ul>
+<li>exclude_extreme_VZ() - exclude extreme values of VZ</li>
+</ul>
 </div>
+</div>
+<div class="section level2 unnumbered">
+<h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="ref-nakagawa2023" class="csl-entry">
+Nakagawa, Shinichi, Yefeng Yang, Erin L. Macartney, Rebecca Spake, and Malgorzata Lagisz. 2023. <span>“Quantitative Evidence Synthesis: A Practical Guide on Meta-Analysis, Meta-Regression, and Publication Bias Tests for Environmental Sciences.”</span> <em>Environmental Evidence</em> 12 (1): 8. <a href="https://doi.org/10.1186/s13750-023-00301-6" class="external-link">https://doi.org/10.1186/s13750-023-00301-6</a>.
+</div>
+</div>
+</div>
+
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
 </div>

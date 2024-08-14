@@ -34,7 +34,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ManyEcoEvo</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">2.3.0.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">2.4.1.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,6 +53,9 @@
     <a class="dropdown-item" href="../articles/data_cleaning_preparation.html">Data Cleaning &amp; Preparation for Analysis</a>
     <a class="dropdown-item" href="../articles/multiple_datasets.html">Scaling Up: working with multiple subsets or multiple datasets</a>
   </div>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
       </ul>
 <form class="form-inline my-2 my-lg-0" role="search">
@@ -74,8 +77,6 @@
 </nav><div class="container template-article">
 
 
-
-
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Analysing Many-Analyst Data</h1>
@@ -89,44 +90,70 @@
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/egouldo/ManyEcoEvo" class="external-link">ManyEcoEvo</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; Loading required package: rmarkdown</span></span>
+<span><span class="co">#&gt; Loading required package: bookdown</span></span>
+<span><span class="co">#&gt; Warning: replacing previous import 'purrr::%@%' by 'rlang::%@%' when loading</span></span>
+<span><span class="co">#&gt; 'ManyEcoEvo'</span></span>
+<span><span class="co">#&gt; Warning: replacing previous import 'purrr::flatten_lgl' by 'rlang::flatten_lgl'</span></span>
+<span><span class="co">#&gt; when loading 'ManyEcoEvo'</span></span>
+<span><span class="co">#&gt; Warning: replacing previous import 'purrr::splice' by 'rlang::splice' when</span></span>
+<span><span class="co">#&gt; loading 'ManyEcoEvo'</span></span>
+<span><span class="co">#&gt; Warning: replacing previous import 'purrr::flatten_chr' by 'rlang::flatten_chr'</span></span>
+<span><span class="co">#&gt; when loading 'ManyEcoEvo'</span></span>
+<span><span class="co">#&gt; Warning: replacing previous import 'purrr::flatten_raw' by 'rlang::flatten_raw'</span></span>
+<span><span class="co">#&gt; when loading 'ManyEcoEvo'</span></span>
+<span><span class="co">#&gt; Warning: replacing previous import 'purrr::flatten' by 'rlang::flatten' when</span></span>
+<span><span class="co">#&gt; loading 'ManyEcoEvo'</span></span>
+<span><span class="co">#&gt; Warning: replacing previous import 'purrr::flatten_dbl' by 'rlang::flatten_dbl'</span></span>
+<span><span class="co">#&gt; when loading 'ManyEcoEvo'</span></span>
+<span><span class="co">#&gt; Warning: replacing previous import 'purrr::invoke' by 'rlang::invoke' when</span></span>
+<span><span class="co">#&gt; loading 'ManyEcoEvo'</span></span>
+<span><span class="co">#&gt; Warning: replacing previous import 'purrr::flatten_int' by 'rlang::flatten_int'</span></span>
+<span><span class="co">#&gt; when loading 'ManyEcoEvo'</span></span>
+<span><span class="co">#&gt; Warning: replacing previous import 'recipes::fixed' by 'stringr::fixed' when</span></span>
+<span><span class="co">#&gt; loading 'ManyEcoEvo'</span></span>
 <span><span class="co">#&gt; Registered S3 method overwritten by 'EnvStats':</span></span>
 <span><span class="co">#&gt;   method         from</span></span>
 <span><span class="co">#&gt;   print.estimate lava</span></span></code></pre></div>
-<p>Briefly describe what analyses we implemented, sending reader to the
-Gould et al. paper. and pointing out what functions correspond to which
-analyses.</p>
-<p>You could theoretically write your own function for this, but the
-functions packaged here allow you to implement our specific
-meta-analyses.</p>
-<div class="section level2">
-<h2 id="analysis">Analysis<a class="anchor" aria-label="anchor" href="#analysis"></a>
+<p>Briefly describe what analyses we implemented, sending reader to the Gould et al. paper. and pointing out what functions correspond to which analyses.</p>
+<p>You could theoretically write your own function for this, but the functions packaged here allow you to implement our specific meta-analyses.</p>
+<div class="section level2" number="1">
+<h2 id="analysis">
+<span class="header-section-number">1</span> Analysis<a class="anchor" aria-label="anchor" href="#analysis"></a>
 </h2>
-<div class="section level3">
-<h3 id="meta-analysis">Meta-analysis<a class="anchor" aria-label="anchor" href="#meta-analysis"></a>
+<div class="section level3" number="1.1">
+<h3 id="meta-analysis">
+<span class="header-section-number">1.1</span> Meta-analysis<a class="anchor" aria-label="anchor" href="#meta-analysis"></a>
 </h3>
 </div>
-<div class="section level3">
-<h3 id="univariate-analyses">Univariate analyses<a class="anchor" aria-label="anchor" href="#univariate-analyses"></a>
+<div class="section level3" number="1.2">
+<h3 id="univariate-analyses">
+<span class="header-section-number">1.2</span> Univariate analyses<a class="anchor" aria-label="anchor" href="#univariate-analyses"></a>
 </h3>
 </div>
 </div>
-<div class="section level2">
-<h2 id="extracting-model-results">Extracting model results<a class="anchor" aria-label="anchor" href="#extracting-model-results"></a>
+<div class="section level2" number="2">
+<h2 id="extracting-model-results">
+<span class="header-section-number">2</span> Extracting model results<a class="anchor" aria-label="anchor" href="#extracting-model-results"></a>
 </h2>
-<div class="section level3">
-<h3 id="model-checking">Model Checking<a class="anchor" aria-label="anchor" href="#model-checking"></a>
+<div class="section level3" number="2.1">
+<h3 id="model-checking">
+<span class="header-section-number">2.1</span> Model Checking<a class="anchor" aria-label="anchor" href="#model-checking"></a>
 </h3>
 </div>
-<div class="section level3">
-<h3 id="heterogeneity-statistics">Heterogeneity statistics<a class="anchor" aria-label="anchor" href="#heterogeneity-statistics"></a>
+<div class="section level3" number="2.2">
+<h3 id="heterogeneity-statistics">
+<span class="header-section-number">2.2</span> Heterogeneity statistics<a class="anchor" aria-label="anchor" href="#heterogeneity-statistics"></a>
 </h3>
 </div>
-<div class="section level3">
-<h3 id="forest-plots">Forest Plots<a class="anchor" aria-label="anchor" href="#forest-plots"></a>
+<div class="section level3" number="2.3">
+<h3 id="forest-plots">
+<span class="header-section-number">2.3</span> Forest Plots<a class="anchor" aria-label="anchor" href="#forest-plots"></a>
 </h3>
 </div>
-<div class="section level3">
-<h3 id="specification-curves">Specification Curves<a class="anchor" aria-label="anchor" href="#specification-curves"></a>
+<div class="section level3" number="2.4">
+<h3 id="specification-curves">
+<span class="header-section-number">2.4</span> Specification Curves<a class="anchor" aria-label="anchor" href="#specification-curves"></a>
 </h3>
 </div>
 </div>

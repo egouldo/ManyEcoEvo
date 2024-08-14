@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ManyEcoEvo</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">2.3.0.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">2.4.1.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,6 +28,9 @@
     <a class="dropdown-item" href="../articles/data_cleaning_preparation.html">Data Cleaning &amp; Preparation for Analysis</a>
     <a class="dropdown-item" href="../articles/multiple_datasets.html">Scaling Up: working with multiple subsets or multiple datasets</a>
   </div>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
@@ -59,7 +62,8 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">prepare_response_variables</span><span class="op">(</span></span>
 <span>  <span class="va">ManyEcoEvo</span>,</span>
 <span>  estimate_type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="fl">1L</span><span class="op">)</span>,</span>
-<span>  param_table <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  param_table <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  dataset_standardise <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -75,6 +79,10 @@
 
 <dt>param_table</dt>
 <dd><p>A table of parameters \(mean, sd\) for <em>most</em> response variables used by analysts. This tibble is pulled from the named object exported by <code>ManyEcoEvo::</code>. but can be overwritten with the users's own <code>param_table</code> dataset.</p></dd>
+
+
+<dt>dataset_standardise</dt>
+<dd><p>A character string of length 1, equal to the name of the dataset to standardise the response variables to. If <code>NULL</code>, all datasets are standardised.</p></dd>
 
 </dl></div>
     <div class="section level2">

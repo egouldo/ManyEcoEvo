@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ManyEcoEvo</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">2.3.0.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">2.4.1.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,6 +28,9 @@
     <a class="dropdown-item" href="../articles/data_cleaning_preparation.html">Data Cleaning &amp; Preparation for Analysis</a>
     <a class="dropdown-item" href="../articles/multiple_datasets.html">Scaling Up: working with multiple subsets or multiple datasets</a>
   </div>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
@@ -84,10 +87,10 @@
           
           <code><a href="assign_transformation_type.html">assign_transformation_type()</a></code> 
         </dt>
-        <dd>Assign back-transformation type to be applied to analysis point-estimates</dd>
+        <dd>Assign back-transformation type to be applied to analysts' point-estimates</dd>
       </dl></div><div class="section level2">
       
-      <h3 id="working-with-analyst-provided-out-of-sample-predictions">Working with analyst-provided out-of-sample predictions<a class="anchor" aria-label="anchor" href="#working-with-analyst-provided-out-of-sample-predictions"></a></h3>
+      <h3 id="tidying-analyst-out-of-sample-predictions">Tidying analyst out-of-sample predictions<a class="anchor" aria-label="anchor" href="#tidying-analyst-out-of-sample-predictions"></a></h3>
       
 
       
@@ -134,7 +137,13 @@
       </dl></div><div class="section level2">
       <h2 id="data-processing-for-meta-analysis-and-modelling">Data Processing for Meta-analysis and Modelling<a class="anchor" aria-label="anchor" href="#data-processing-for-meta-analysis-and-modelling"></a></h2>
       
-      <div class="section-desc"><p>Calculating and standardising variables for analysis</p></div>
+      <div class="section-desc"><p>Calculating and standardising variables for meta-analysis and modelling</p></div>
+
+      
+    </div><div class="section level2">
+      
+      <h3 id="back-transforming-standardising-analyst-estimates">Back-transforming / standardising analyst estimates<a class="anchor" aria-label="anchor" href="#back-transforming-standardising-analyst-estimates"></a></h3>
+      
 
       
     </div><div id="" class="section level2">
@@ -143,6 +152,31 @@
       
 
       <dl><dt>
+          
+          <code><a href="back.html">log_back()</a></code> <code><a href="back.html">logit_back()</a></code> <code><a href="back.html">probit_back()</a></code> <code><a href="back.html">inverse_back()</a></code> <code><a href="back.html">square_back()</a></code> <code><a href="back.html">cube_back()</a></code> <code><a href="back.html">identity_back()</a></code> <code><a href="back.html">power_back()</a></code> <code><a href="back.html">divide_back()</a></code> <code><a href="back.html">square_root_back()</a></code> 
+        </dt>
+        <dd>Back-transform effect-sizes to response scale.</dd>
+      </dl><dl><dt>
+          
+          <code><a href="back_transform_response_vars_yi.html">back_transform_response_vars_yi()</a></code> 
+        </dt>
+        <dd>Back Transform Response Variables - yi</dd>
+      </dl><dl><dt>
+          
+          <code><a href="conversion.html">conversion()</a></code> 
+        </dt>
+        <dd>Apply back-transformation to beta estimates</dd>
+      </dl><dl><dt>
+          
+          <code><a href="conversion_2.html">conversion_2()</a></code> 
+        </dt>
+        <dd>Conditionally apply back-transformation</dd>
+      </dl><dl><dt>
+          
+          <code><a href="convert_predictions.html">convert_predictions()</a></code> 
+        </dt>
+        <dd>Convert Predictions</dd>
+      </dl><dl><dt>
           
           <code><a href="est_to_zr.html">est_to_zr()</a></code> 
         </dt>
@@ -159,10 +193,52 @@
         <dd>Standardize Out-Of-Sample Predictions</dd>
       </dl><dl><dt>
           
+          <code><a href="process_analyst_data.html">standardise_response()</a></code> <code><a href="process_analyst_data.html">process_response()</a></code> 
+        </dt>
+        <dd>Process Response Data for Meta-Analysis</dd>
+      </dl></div><div class="section level2">
+      
+      <h3 id="excluding-data-from-meta-analysis">Excluding Data from Meta-analysis<a class="anchor" aria-label="anchor" href="#excluding-data-from-meta-analysis"></a></h3>
+      
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
           <code><a href="apply_VZ_exclusions.html">apply_VZ_exclusions()</a></code> 
         </dt>
         <dd>Apply VZ exclusion to a data-frame containing list-columns of yi subsets</dd>
       </dl><dl><dt>
+          
+          <code><a href="exclude_extreme_VZ.html">exclude_extreme_VZ()</a></code> 
+        </dt>
+        <dd>Exclude extreme values of VZ from a dataframe of standardised predictions</dd>
+      </dl><dl><dt>
+          
+          <code><a href="subset_fns_Zr.html">subset_fns_Zr()</a></code> 
+        </dt>
+        <dd>Subsetting Functions for effect-size meta-analysis</dd>
+      </dl><dl><dt>
+          
+          <code><a href="subset_fns_yi.html">subset_fns_yi()</a></code> 
+        </dt>
+        <dd>Subsetting Functions for out-of-sample predictions meta-analysis</dd>
+      </dl></div><div class="section level2">
+      
+      <h3 id="transforming-and-standardising-meta-analysis-variables">Transforming and standardising meta-analysis variables<a class="anchor" aria-label="anchor" href="#transforming-and-standardising-meta-analysis-variables"></a></h3>
+      <div class="section-desc"><p>Functions for computing and standardising response and predictor variables for meta-analysis.</p></div>
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
           
           <code><a href="box_cox_transform.html">box_cox_transform()</a></code> 
         </dt>
@@ -187,100 +263,10 @@
           <code><a href="apply_sorensen_calc.html">apply_sorensen_calc()</a></code> 
         </dt>
         <dd>Applies the sorensen diversity index calculation to variable diversity dataset</dd>
-      </dl><dl><dt>
-          
-          <code><a href="conversion.html">conversion()</a></code> 
-        </dt>
-        <dd>Conditionally apply back-transformation</dd>
-      </dl><dl><dt>
-          
-          <code><a href="conversion_2.html">conversion_2()</a></code> 
-        </dt>
-        <dd>Conditionally apply back-transformation</dd>
-      </dl><dl><dt>
-          
-          <code><a href="convert_predictions.html">convert_predictions()</a></code> 
-        </dt>
-        <dd>Convert Predictions</dd>
-      </dl><dl><dt>
-          
-          <code><a href="cube_back.html">cube_back()</a></code> 
-        </dt>
-        <dd>Back transform beta estimates for models with $x^3$-link</dd>
-      </dl><dl><dt>
-          
-          <code><a href="divide_back.html">divide_back()</a></code> 
-        </dt>
-        <dd>Back transform beta estimates or out-of-sample predictions from models whose response variable has been divided by some number</dd>
-      </dl><dl><dt>
-          
-          <code><a href="identity_back.html">identity_back()</a></code> 
-        </dt>
-        <dd>Back transform beta estimates for models with identity-link</dd>
-      </dl><dl><dt>
-          
-          <code><a href="inverse_back.html">inverse_back()</a></code> 
-        </dt>
-        <dd>Back transform beta estimates for models with $1/x$ link</dd>
-      </dl><dl><dt>
-          
-          <code><a href="log_back.html">log_back()</a></code> 
-        </dt>
-        <dd>Back transform beta estimates for models with log-link</dd>
-      </dl><dl><dt>
-          
-          <code><a href="logit_back.html">logit_back()</a></code> 
-        </dt>
-        <dd>Back transform beta estimates for models with logit-link</dd>
-      </dl><dl><dt>
-          
-          <code><a href="power_back.html">power_back()</a></code> 
-        </dt>
-        <dd>Back transform beta estimates for models with power-link</dd>
-      </dl><dl><dt>
-          
-          <code><a href="probit_back.html">probit_back()</a></code> 
-        </dt>
-        <dd>Back transform beta estimates for models with probit-link</dd>
-      </dl><dl><dt>
-          
-          <code><a href="square_back.html">square_back()</a></code> 
-        </dt>
-        <dd>Back transform beta estimates for models with $x^2$-link</dd>
-      </dl><dl><dt>
-          
-          <code><a href="square_root_back.html">square_root_back()</a></code> 
-        </dt>
-        <dd>Back transform beta estimates or out-of-sample predictions from models whose response variable has been transformed by the square root</dd>
-      </dl><dl><dt>
-          
-          <code><a href="back_transform_response_vars_yi.html">back_transform_response_vars_yi()</a></code> 
-        </dt>
-        <dd>Back Transform Response Variables - yi</dd>
-      </dl><dl><dt>
-          
-          <code><a href="exclude_extreme_VZ.html">exclude_extreme_VZ()</a></code> 
-        </dt>
-        <dd>Exclude extreme values of VZ from a dataframe of standardised predictions</dd>
-      </dl><dl><dt>
-          
-          <code><a href="subset_fns_Zr.html">subset_fns_Zr()</a></code> 
-        </dt>
-        <dd>Subsetting Functions for Zr analysis</dd>
-      </dl><dl><dt>
-          
-          <code><a href="subset_fns_yi.html">subset_fns_yi()</a></code> 
-        </dt>
-        <dd>Subsetting Functions for yi analysis</dd>
-      </dl><dl><dt>
-          
-          <code><a href="standardise_response.html">standardise_response()</a></code> 
-        </dt>
-        <dd>Standardise Response Variable</dd>
       </dl></div><div class="section level2">
       <h2 id="process-and-create-datasets-for-analysis">Process and create datasets for analysis<a class="anchor" aria-label="anchor" href="#process-and-create-datasets-for-analysis"></a></h2>
       
-      <div class="section-desc"><p>Functions for creating datasets ready for meta-analysis or other analyses</p></div>
+      <div class="section-desc"><p>Functions for creating datasets ready for meta-analysis and modelling</p></div>
 
       
     </div><div id="" class="section level2">
@@ -292,7 +278,7 @@
           
           <code><a href="make_param_table.html">make_param_table()</a></code> 
         </dt>
-        <dd>Make paramater table</dd>
+        <dd>Make parameter table</dd>
       </dl><dl><dt>
           
           <code><a href="compute_MA_inputs.html">compute_MA_inputs()</a></code> 
@@ -361,7 +347,7 @@
       </dl></div><div class="section level2">
       <h2 id="model-fitting-meta-analysis">Model Fitting &amp; Meta-analysis<a class="anchor" aria-label="anchor" href="#model-fitting-meta-analysis"></a></h2>
       
-      <div class="section-desc"><p>Functions for fitting meta-analysis and other models described ion <em>Gould et al. (2023)</em></p></div>
+      <div class="section-desc"><p>Functions for fitting meta-analysis and other models described in <em>Gould et al. (2023)</em></p></div>
 
       
     </div><div id="" class="section level2">
@@ -425,37 +411,18 @@
       <div class="section-desc"><p>Functions for extracting model outputs, and visualising analysis results</p></div>
 
       
+    </div><div class="section level2">
+      
+      <h3 id="extracting-meta-analysis-outputs">Extracting meta-analysis outputs<a class="anchor" aria-label="anchor" href="#extracting-meta-analysis-outputs"></a></h3>
+      
+
+      
     </div><div id="" class="section level2">
       
       
       
 
       <dl><dt>
-          
-          <code><a href="gg_forest.html">gg_forest()</a></code> 
-        </dt>
-        <dd>Forestplot with ggplot2</dd>
-      </dl><dl><dt>
-          
-          <code><a href="plot_cont_rating_effects.html">plot_cont_rating_effects()</a></code> 
-        </dt>
-        <dd>Plot Marginal Effects for Numeric Rating Model</dd>
-      </dl><dl><dt>
-          
-          <code><a href="plot_effects_diversity.html">plot_effects_diversity()</a></code> 
-        </dt>
-        <dd>Marginal Effects Plot of Diversity Index Model</dd>
-      </dl><dl><dt>
-          
-          <code><a href="plot_model_means_box_cox_cat.html">plot_model_means_box_cox_cat()</a></code> 
-        </dt>
-        <dd>plot_model_means_box_cox_cat</dd>
-      </dl><dl><dt>
-          
-          <code><a href="plot_model_means_orchard.html">plot_model_means_orchard()</a></code> 
-        </dt>
-        <dd>plot_model_means_orchard</dd>
-      </dl><dl><dt>
           
           <code><a href="i2_ml.html">i2_ml()</a></code> 
         </dt>
@@ -470,7 +437,64 @@
           <code><a href="apportion_heterogeneity_ml.html">apportion_heterogeneity_ml()</a></code> 
         </dt>
         <dd>Apportion heterogeneity of a multi-level meta-analytic model</dd>
+      </dl></div><div class="section level2">
+      
+      <h3 id="plotting">Plotting<a class="anchor" aria-label="anchor" href="#plotting"></a></h3>
+      
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="gg_forest.html">gg_forest()</a></code> 
+        </dt>
+        <dd>Forestplot with ggplot2</dd>
       </dl><dl><dt>
+          
+          <code><a href="get_forest_plot_data.html">get_forest_plot_data()</a></code> 
+        </dt>
+        <dd>Get Forest Plot Data from a Metafor Model</dd>
+      </dl><dl><dt>
+          
+          <code><a href="plot_cont_rating_effects.html">plot_cont_rating_effects()</a></code> 
+        </dt>
+        <dd>Plot Marginal Effects for Numeric Rating Model</dd>
+      </dl><dl><dt>
+          
+          <code><a href="plot_effects_diversity.html">plot_effects_diversity()</a></code> 
+        </dt>
+        <dd>Marginal Effects Plot of Diversity Index Model</dd>
+      </dl><dl><dt>
+          
+          <code><a href="plot_forest.html">plot_forest()</a></code> 
+        </dt>
+        <dd>Plot a Forest Plot</dd>
+      </dl><dl><dt>
+          
+          <code><a href="plot_model_means_box_cox_cat.html">plot_model_means_box_cox_cat()</a></code> 
+        </dt>
+        <dd>plot_model_means_box_cox_cat</dd>
+      </dl><dl><dt>
+          
+          <code><a href="plot_model_means_orchard.html">plot_model_means_orchard()</a></code> 
+        </dt>
+        <dd>plot_model_means_orchard</dd>
+      </dl></div><div class="section level2">
+      
+      <h3 id="model-checking-and-comparison">Model Checking and Comparison<a class="anchor" aria-label="anchor" href="#model-checking-and-comparison"></a></h3>
+      
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
           
           <code><a href="compare_ml_MA.html">compare_ml_MA()</a></code> 
         </dt>
@@ -695,6 +719,11 @@
           <code><a href="named_group_split.html">named_group_split()</a></code> 
         </dt>
         <dd>Split data frame by groups and name elements</dd>
+      </dl><dl><dt>
+          
+          <code><a href="NotIn.html">`%in%`</a></code> 
+        </dt>
+        <dd>Negative Value Matching</dd>
       </dl></div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>

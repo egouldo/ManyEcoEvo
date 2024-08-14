@@ -14,7 +14,7 @@ summarising subsets of data with summarise_study()."><meta property="og:image" c
     
     <a class="navbar-brand me-2" href="../index.html">ManyEcoEvo</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">2.3.0.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">2.4.1.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,6 +32,9 @@ summarising subsets of data with summarise_study()."><meta property="og:image" c
     <a class="dropdown-item" href="../articles/data_cleaning_preparation.html">Data Cleaning &amp; Preparation for Analysis</a>
     <a class="dropdown-item" href="../articles/multiple_datasets.html">Scaling Up: working with multiple subsets or multiple datasets</a>
   </div>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
@@ -99,10 +102,12 @@ summarising subsets of data with <code><a href="summarise_study.html">summarise_
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">id_subsets</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu">ManyEcoEvo</span><span class="fu">:::</span><span class="va">effect_ids</span>, <span class="fu">ManyEcoEvo</span><span class="fu">:::</span><span class="va">prediction_ids</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">subset_names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"effects"</span>, <span class="st">"predictions"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">prepare_diversity_summary_data</span><span class="op">(</span><span class="fu">ManyEcoEvo</span><span class="fu">::</span><span class="va">ManyEcoEvo</span>,</span></span>
-<span class="r-in"><span><span class="st">"all"</span>,</span></span>
-<span class="r-in"><span><span class="va">id_subsets</span>,</span></span>
-<span class="r-in"><span><span class="va">subset_names</span><span class="op">)</span> <span class="co">#TODO consider adding filter_expressions</span></span></span>
+<span class="r-in"><span><span class="fu">prepare_diversity_summary_data</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fu">ManyEcoEvo</span><span class="fu">::</span><span class="va"><a href="ManyEcoEvo-package.html">ManyEcoEvo</a></span>,</span></span>
+<span class="r-in"><span>  <span class="st">"all"</span>,</span></span>
+<span class="r-in"><span>  <span class="va">id_subsets</span>,</span></span>
+<span class="r-in"><span>  <span class="va">subset_names</span></span></span>
+<span class="r-in"><span><span class="op">)</span> <span class="co"># TODO consider adding filter_expressions</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> 'ManyEcoEvo' is not an exported object from 'namespace:ManyEcoEvo'</span>
 </code></pre></div>
     </div>
