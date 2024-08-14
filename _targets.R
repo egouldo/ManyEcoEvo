@@ -27,8 +27,8 @@ pkgs <- c("tidyverse",
           "lme4",
           "multilevelmod",
           "metafor",
-          "parameters", # must be directly loaded else parameters::parameters() fails on lmerMod for some reason...
-          "ManyEcoEvo" #TODO rm from here and just call in tar_option_set(), but will need to rm all namespacing
+          "parameters",
+          "ManyEcoEvo" #TODO rm from here and just call in tar_option_set(), but will need to rm all namespacing, see gh issue #97
 ) 
 
 controller <- crew::crew_controller_local(
@@ -86,8 +86,8 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
                          command = prepare_review_data(bt_reviews,euc_reviews)),
      targets::tar_target(ManyEcoEvo,
                          command = prepare_ManyEcoEvo(master_data, 
-                                                                  master_metadata, 
-                                                                  all_review_data)),
+                                                      master_metadata, 
+                                                      all_review_data)),
      targets::tar_target(name = ManyEcoEvo_results,
                          command = ManyEcoEvo %>% 
                            prepare_response_variables(estimate_type = "Zr") |>  
@@ -99,10 +99,10 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
                            generate_outlier_subsets() |> # TODO run before MA_inputs? diversity indices need to be recalculated!!
                            filter(expertise_subset != "expert" | exclusion_set != "complete-rm_outliers") |> #TODO mv into generate_outlier_subsets() so aren't created in the first place
                            meta_analyse_datasets(filter_vars = 
-                                                               rlang::exprs(exclusion_set == "complete",
-                                                                            expertise_subset == "All",
-                                                                            publishable_subset == "All",
-                                                                            collinearity_subset == "All"))),
+                                                   rlang::exprs(exclusion_set == "complete",
+                                                                expertise_subset == "All",
+                                                                publishable_subset == "All",
+                                                                collinearity_subset == "All"))),
      targets::tar_target(updated_prediction_files,
                          preprocess_updated_prediction_files(list_of_new_prediction_files)),
      targets::tar_target(prediction_submissions,
@@ -124,23 +124,30 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
                            ungroup() %>% 
                            mutate(
                              no_updated_checks = map_lgl(updated_checks, is_null),
-                             checks = ifelse(no_updated_checks == TRUE, checks, updated_checks),
+                             checks = ifelse(no_updated_checks == TRUE, 
+                                             checks, 
+                                             updated_checks),
                              .keep = "unused") %>% 
                            rowwise() %>% #NOTE: file_name and file_path replacement errors fails without rowwise
                            mutate(
-                             file_name = case_when(rlang::is_na(`new_csv_file_name--file-submissionID-csv_number`) ~ file_name,
-                                                   TRUE ~ `new_csv_file_name--file-submissionID-csv_number`),
-                             filepath = case_when(rlang::is_na(`new_csv_file_name--file-submissionID-csv_number`) ~ filepath, 
-                                                  TRUE ~ here::here("data-raw/analyst_data/S2", file_name)),
-                             exclude_read = case_when(response_id == "R_3dYDpQUfDUXjtDy" & submission_id == 2 ~ "exclude", # see col other_action & misc_notes in predictions_validation_worksheet.csv for reasons
-                                                      response_id == "R_3mfyhAj6rakbi5b" & submission_id == 1 ~ "exclude", #TODO: check whether THP's file has addressed these issues, if so we can remove this code as it is redundant
-                                                      response_id == "R_1BWpZlSbkmSofe1" & submission_id == 1 ~ "exclude",
-                                                      response_id == "R_1d0uRf5iNWOLD8M" & submission_id == 1 ~ "exclude",
-                                                      response_id == "R_3NHVKFiOiQBfX9b" & submission_id == 1 ~ "exclude",
-                                                      response_id == "R_3NHVKFiOiQBfX9b" & submission_id == 3 ~ "exclude",
-                                                      response_id == "R_1LRqq2WHrQaENtM" & submission_id == 1 ~ "exclude",
-                                                      response_id == "R_2V7qaLEfdbgUGg3" & submission_id == 1 ~ "exclude", # missing se.fit, but should be filtered out automatically if don't pass in preprocess_updated_prediction_files - might not have warning level set properly to detect f_pass < 1
-                                                      TRUE ~ "include")) %>% #TODO seems to be duplicating THP's effort - remove if not already coded as exclude_csv or exclude in ManyEcoEvo
+                             file_name = 
+                               case_when(
+                                 rlang::is_na(`new_csv_file_name--file-submissionID-csv_number`) ~ file_name,
+                                 TRUE ~ `new_csv_file_name--file-submissionID-csv_number`),
+                             filepath = case_when(
+                               rlang::is_na(`new_csv_file_name--file-submissionID-csv_number`) ~ filepath, 
+                               TRUE ~ here::here("data-raw/analyst_data/S2", file_name)),
+                             exclude_read = 
+                               case_when(
+                                 response_id == "R_3dYDpQUfDUXjtDy" & submission_id == 2 ~ "exclude", # see col other_action & misc_notes in predictions_validation_worksheet.csv for reasons
+                                 response_id == "R_3mfyhAj6rakbi5b" & submission_id == 1 ~ "exclude", #TODO: check whether THP's file has addressed these issues, if so we can remove this code as it is redundant
+                                 response_id == "R_1BWpZlSbkmSofe1" & submission_id == 1 ~ "exclude",
+                                 response_id == "R_1d0uRf5iNWOLD8M" & submission_id == 1 ~ "exclude",
+                                 response_id == "R_3NHVKFiOiQBfX9b" & submission_id == 1 ~ "exclude",
+                                 response_id == "R_3NHVKFiOiQBfX9b" & submission_id == 3 ~ "exclude",
+                                 response_id == "R_1LRqq2WHrQaENtM" & submission_id == 1 ~ "exclude",
+                                 response_id == "R_2V7qaLEfdbgUGg3" & submission_id == 1 ~ "exclude", # missing se.fit, but should be filtered out automatically if don't pass in preprocess_updated_prediction_files - might not have warning level set properly to detect f_pass < 1
+                                 TRUE ~ "include")) %>% #TODO seems to be duplicating THP's effort - remove if not already coded as exclude_csv or exclude in ManyEcoEvo
                            ungroup() %>% 
                            dplyr::filter(exclude_read == "include") %>% 
                            select(-`new_csv_file_name--file-submissionID-csv_number`, 
@@ -168,7 +175,7 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
                   drop_na(split_id) %>% #TODO, remove this `drop_na()` once we have fixed missing NA `gh issue view 109 -w`; `gh issue view 102 -w`
                   anti_join(., #TODO remove analyses where there are multiple submissions per split_id (~20) `gh issue view 109 -w`; `gh issue view 102 -w`
                             {count(., response_id, submission_id, analysis_id, split_id) %>% 
-                                filter(n>1)}) %>% 
+                                filter(n > 1)}) %>% 
                   group_by(response_id, submission_id, analysis_id, split_id) %>% 
                   tar_group(),
                 iteration = "group"),
@@ -182,10 +189,10 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
                 error = "continue" #TODO, run without continue and check for problems
      ),
      tar_target(augmented_data,
-                command = if(!rlang::is_na(submission_data)){ 
+                command = if(!rlang::is_na(submission_data)) { 
                   augment_prediction_data(.data = submission_data, 
-                                                      checks = groups$checks, 
-                                                      dataset = groups$dataset)
+                                          checks = groups$checks, 
+                                          dataset = groups$dataset)
                 }else{
                   NA
                 },
@@ -193,11 +200,11 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
                 error = "stop",
                 pattern = map(submission_data, groups)),
      tar_target(validated_augmented_data,
-                command = if(!rlang::is_na(augmented_data)){
+                command = if (!rlang::is_na(augmented_data)) {
                   validate_predictions(data_set = groups$dataset, 
-                                                   input = augmented_data %>% 
-                                                     ungroup(), 
-                                                   type = "df")
+                                       input = augmented_data %>% 
+                                         ungroup(), 
+                                       type = "df")
                 }else{
                   NA
                 },
@@ -206,7 +213,7 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
                 pattern = map(augmented_data, groups)
      ),
      tar_target(prediction_checks,
-                command = if(!rlang::is_na(validated_augmented_data)){
+                command = if(!rlang::is_na(validated_augmented_data)) {
                   pointblank::interrogate(validated_augmented_data) %>% 
                     pointblank::get_agent_report(., display_table = FALSE)
                 }else{
@@ -231,23 +238,18 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
                          command =  make_viz(ManyEcoEvo_results)),
      targets::tar_target(name = ManyEcoEvo_yi,
                          command = prepare_ManyEcoEvo_yi(master_data, 
-                                                                     master_metadata, 
-                                                                     all_prediction_data)),
+                                                         master_metadata, 
+                                                         all_prediction_data)),
      targets::tar_target(name = ManyEcoEvo_yi_results,
                          command =  ManyEcoEvo_yi %>% 
-                           dplyr::mutate(data = 
-                                           purrr::map(data, 
-                                                      ~ dplyr::filter(.x, 
-                                                                      stringr::str_detect(response_variable_type, 
-                                                                                          "constructed", 
-                                                                                          negate = TRUE)))) %>% 
-                           prepare_response_variables(estimate_type = "yi",
-                                                                  param_table = ManyEcoEvo:::analysis_data_param_tables) %>%
+                           prepare_response_variables(
+                             estimate_type = "yi",
+                             param_table = ManyEcoEvo:::analysis_data_param_tables, 
+                             dataset_standardise = "blue tit") %>%
                            generate_yi_subsets() %>% #TODO: must be run after prepare_response_variables??
                            apply_VZ_exclusions(3) %>%
                            generate_exclusion_subsets() %>% #TODO: runs on ManyEcoEvo that contains Zr and yi results.
                            compute_MA_inputs() %>%  #TODO lone join by "estimate_type" amongst join_by ("id_col") is suspicious!
-                           
                            generate_outlier_subsets() %>% #TODO swapped order with previous line, but untested
                            meta_analyse_datasets(filter_vars = NULL) #TODO requires col exclusion_set from generate_exclusion_subsets() but don't need that fun in this pipeline anymore
      ),
@@ -257,17 +259,21 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
                          command = summarise_study(
                            ManyEcoEvo, 
                            ManyEcoEvo_results, 
-                           id_subsets = list(ManyEcoEvo:::effect_ids, 
-                                             ManyEcoEvo:::prediction_ids), 
+                           id_subsets = 
+                             list(ManyEcoEvo:::effect_ids, 
+                                  ManyEcoEvo:::prediction_ids), 
                            subset_names = c("effects", "predictions"), 
-                           filter_vars = rlang::exprs(exclusion_set == "complete",
-                                                      estimate_type == "Zr",
-                                                      publishable_subset == "All",
-                                                      expertise_subset == "All",
-                                                      collinearity_subset == "All")
+                           filter_vars = 
+                             rlang::exprs(exclusion_set == "complete",
+                                          estimate_type == "Zr",
+                                          publishable_subset == "All",
+                                          expertise_subset == "All",
+                                          collinearity_subset == "All")
                          )),
      tarchetypes::tar_quarto(name = README,
                              path = "README.qmd"),
      tarchetypes::tar_quarto(name = README_data_raw,
-                             path = here::here("data-raw/analysis_datasets/", "README.qmd"))
+                             path = 
+                               here::here("data-raw/analysis_datasets/",
+                                          "README.qmd"))
 )

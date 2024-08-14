@@ -92,7 +92,7 @@ convert_predictions <- function(augmented_data,
         sim = 10000
       ) %>%
         t()
-    } else { # Back-transform response & link-function
+    } else { # Back-transform response AND link-function
 
       if (rlang::is_na(response_transformation) | rlang::is_na(link_fun)) {
         cli::cli_alert_warning("Missing Value for {.arg response_transformation}, returning {.val NA}")

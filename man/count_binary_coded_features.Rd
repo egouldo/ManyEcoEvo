@@ -17,14 +17,16 @@ Summarise binary coded features of analyses
 }
 \examples{
 ManyEcoEvo \%>\%
-filter(dataset == "eucalyptus") \%>\%
-ungroup \%>\%
- select(data) \%>\%
- unnest(data) \%>\%
- mutate(lm = ifelse(linear_model == "linear", 1, 0), #TODO move into master processing
-        glm = ifelse(linear_model == "generalised", 1, 0),
-        Bayesian = as.numeric(Bayesian)) \%>\% 
- count_binary_coded_features()
+  filter(dataset == "eucalyptus") \%>\%
+  ungroup() \%>\%
+  select(data) \%>\%
+  unnest(data) \%>\%
+  mutate(
+    lm = ifelse(linear_model == "linear", 1, 0), # TODO move into master processing
+    glm = ifelse(linear_model == "generalised", 1, 0),
+    Bayesian = as.numeric(Bayesian)
+  ) \%>\%
+  count_binary_coded_features()
 }
 \author{
 Hannah S. Fraser

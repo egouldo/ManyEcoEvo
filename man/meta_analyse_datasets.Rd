@@ -29,10 +29,12 @@ Runs all meta-analyses and regression models for the ManyEcoEvo project analysis
 }
 }
 \examples{
-    filter_vars <- rlang::exprs(exclusion_set == "complete",
-                                expertise_subset == "All",
-                                publishable_subset == "All",
-                                collinearity_subset == "All")
+filter_vars <- rlang::exprs(
+  exclusion_set == "complete",
+  expertise_subset == "All",
+  publishable_subset == "All",
+  collinearity_subset == "All"
+)
 }
 \seealso{
 Other Multi-dataset Wrapper Functions: 

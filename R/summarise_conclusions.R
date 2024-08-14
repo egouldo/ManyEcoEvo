@@ -6,30 +6,20 @@
 #' @param ManyEcoEvo_results A tibble of `ManyEcoEvo_results`
 #' @param ManyEcoEvo_yi_results A tibble of `ManyEcoEvo_yi_results`
 #' @param ManyEcoEvo A tibble of `ManyEcoEvo`
-#'
 #' @return A dataframe with count values for each unique `Conclusion` in columns for each `subset` ("effects", "predictions", "all"), for each `dataset`.
 #' @export
-#' @importFrom dplyr filter
-#' @importFrom dplyr select
-#' @importFrom dplyr group_by
-#' @importFrom dplyr rename
-#' @importFrom purrr map
-#' @importFrom broom tidy
-#' @importFrom tidyr unnest
-#' @importFrom magrittr "%>%"
-#' @importFrom dplyr distinct
-#' @importFrom dplyr mutate
+#' @import dplyr
+#' @import purrr
+#' @import broom
+#' @import tidyr
 #' @import metafor
-#' @importFrom dplyr across
-#' @importFrom dplyr left_join
-#' @importFrom dplyr right_join
-#' @importFrom dplyr full_join
-#' @importFrom purrr map_dfr
-#' @importFrom tidyr pivot_wider
 #' @family Multi-dataset Wrapper Functions
 #' @author Hannah S. Fraser
 #' @author Elliot Gould
 #' @examples
+#' data(ManyEcoEvo_results)
+#' data(ManyEcoEvo_yi_results)
+#' data(ManyEcoEvo)
 #' summarise_conclusions(ManyEcoEvo_results, ManyEcoEvo_yi_results, ManyEcoEvo)
 summarise_conclusions <- function(ManyEcoEvo_results, ManyEcoEvo_yi_results, ManyEcoEvo) {
   effect_ids <- ManyEcoEvo_results %>%
@@ -127,13 +117,11 @@ summarise_conclusions <- function(ManyEcoEvo_results, ManyEcoEvo_yi_results, Man
 #'
 #' @return A dataframe with counts `n` for each unique value of `Conclusion` for each `dataset`
 #' @export
-#' @importFrom dplyr filter
-#' @importFrom dplyr group_by
-#' @importFrom dplyr count
-#' @importFrom magrittr "%>%"
+#' @import dplyr
 #' @author Hannah S. Fraser
 #' @author Elliot Gould
 #' @examples
+#' data(ManyEcoEvo)
 #' ManyEcoEvo$data[[1]] %>%
 #'   filter(Conclusion != "CHECK") %>%
 #'   summarise_conclusions_data()

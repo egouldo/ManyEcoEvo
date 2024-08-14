@@ -34,14 +34,17 @@ summarising subsets of data with \code{summarise_study()}.
 \examples{
 id_subsets <- list(ManyEcoEvo:::effect_ids, ManyEcoEvo:::prediction_ids)
 subset_names <- c("effects", "predictions")
-filter_vars <- rlang::exprs(exclusion_set == "complete", 
-estimate_type == "Zr", 
-publishable_subset == "All", 
-expertise_subset == "All", 
-collinearity_subset == "All")
-prepare_sorenson_summary_data(ManyEcoEvo::ManyEcoEvo_results, 
-"all", 
-id_subsets, 
-subset_names, 
-filter_expressions = filter_vars)
+filter_vars <- rlang::exprs(
+  exclusion_set == "complete",
+  estimate_type == "Zr",
+  publishable_subset == "All",
+  expertise_subset == "All",
+  collinearity_subset == "All"
+)
+prepare_sorenson_summary_data(ManyEcoEvo::ManyEcoEvo_results,
+  "all",
+  id_subsets,
+  subset_names,
+  filter_expressions = filter_vars
+)
 }

@@ -1,6 +1,6 @@
 #' Extract meta-analytic statistics like \eqn{I^2}, etc.
 #' @param MA_mod a fitted model of class rma.mv
-#' @return A tidy tibble with \eqn{\sigma^2} and \eqn{I^2} estimates for \code{MA_mod}
+#' @return A tidy tibble with \eqn{\sigma^2} and \eqn{I^2} estimates for `MA_mod`
 #' @export
 get_MA_fit_stats <- function(MA_mod) {
   stopifnot("MA_mod must be an object of class rma.mv" = "rma.mv" %in% class(MA_mod))

@@ -25,16 +25,7 @@ Conditionally apply back-transformation functions depending on the value of \cod
 }
 \seealso{
 Other back transformation: 
-\code{\link{conversion}()},
-\code{\link{cube_back}()},
-\code{\link{divide_back}()},
-\code{\link{identity_back}()},
-\code{\link{inverse_back}()},
-\code{\link{log_back}()},
-\code{\link{logit_back}()},
-\code{\link{power_back}()},
-\code{\link{probit_back}()},
-\code{\link{square_back}()},
-\code{\link{square_root_back}()}
+\code{\link{back}},
+\code{\link{conversion}()}
 }
 \concept{back transformation}

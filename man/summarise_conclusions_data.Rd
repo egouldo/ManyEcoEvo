@@ -16,9 +16,10 @@ A dataframe with counts \code{n} for each unique value of \code{Conclusion} for 
 Count qualitative conclusions across all analyses for each dataset
 }
 \examples{
+data(ManyEcoEvo)
 ManyEcoEvo$data[[1]] \%>\%
-filter(Conclusion != "CHECK") \%>\%
-summarise_conclusions_data()
+  filter(Conclusion != "CHECK") \%>\%
+  summarise_conclusions_data()
 }
 \author{
 Hannah S. Fraser

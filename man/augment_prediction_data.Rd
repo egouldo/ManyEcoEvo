@@ -14,13 +14,16 @@ augment_prediction_data(.data, checks, dataset)
 \item{dataset}{A character string equal to either "blue tit" or "eucalyptus"}
 }
 \value{
-A dataframe. Individual analyst submission containing augmented out-of-sample prediction data ready for meta-analysis.
+A dataframe. Individual analyst submission containing augmented
+out-of-sample prediction data ready for meta-analysis.
 }
 \description{
-\code{augment_prediction_data()} will relabel and remove extraneous columns from out-of-sample prediction data.
+\code{augment_prediction_data()} will relabel and remove extraneous columns from
+out-of-sample prediction data.
 }
 \details{
-Where there are missing variables in \code{.data} or \code{checks} is missing, \code{NA} will be returned for the augmented prediction data instead.
+Where there are missing variables in \code{.data} or \code{checks} is missing,
+\code{NA} will be returned for the augmented prediction data instead.
 }
 \examples{
 # for testing and dev purposes:

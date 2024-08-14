@@ -16,11 +16,12 @@ A dataframe with the variables \code{dataset}, and the \code{mean}, \code{sd}, \
 Summarise reviews per each analysis
 }
 \examples{
+data(ManyEcoEvo)
 ManyEcoEvo \%>\%
-ungroup \%>\%
-select(data, -dataset) \%>\%
-unnest(data) \%>\%
-select(ends_with("_id"), id_col, dataset, review_data) \%>\%
-unnest(review_data) \%>\%
-summarise_reviews_per_analysis()
+  ungroup() \%>\%
+  select(data, -dataset) \%>\%
+  unnest(data) \%>\%
+  select(ends_with("_id"), id_col, dataset, review_data) \%>\%
+  unnest(review_data) \%>\%
+  summarise_reviews_per_analysis()
 }

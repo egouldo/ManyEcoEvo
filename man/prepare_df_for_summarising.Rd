@@ -21,8 +21,8 @@ Also codes whether each analysis employs a linear model, a generalised model,
 or a Bayesian model.
 }
 \examples{
-ManyEcoEvo::ManyEcoEvo \%>\% 
-select(data) \%>\% 
-unnest(everything()) \%>\% 
-prepare_df_for_summarising()
+ManyEcoEvo::ManyEcoEvo \%>\%
+  select(data) \%>\%
+  unnest(everything()) \%>\%
+  prepare_df_for_summarising()
 }

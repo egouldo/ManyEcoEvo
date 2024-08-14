@@ -90,13 +90,13 @@ capwords <- function(s, strict = FALSE) {
 #' Removes infinite and NA values from a dataframe of standardised effects
 #'
 #' @param effects_analysis A dataframe containing the standardised effects
-#' @param Z_colname unquoted or bare column name with the $Z$ or $Z_r$ estimates
-#' @param VZ_colname unquoted or bare column name containing the $VZ$ or $\\text{VZ}_r$ estimates
+#' @param Z_colname unquoted or bare column name with the \eqn{Z} or \eqn{Z_r} estimates
+#' @param VZ_colname unquoted or bare column name containing the \eqn{VZ} or \eqn{\text{VZ}_r} estimates
 #'
 #' @return a dataframe without
 #' @export
-#' @examples
 #' @import dplyr
+#' @examples
 #' data(ManyEcoEvo_results)
 #' ManyEcoEvo_results %>% 
 #' pluck("effects_analysis", 1) %>% 

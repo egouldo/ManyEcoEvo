@@ -22,15 +22,17 @@ Object of class \code{rma.mv}
 Fit Multivariate Metaregression using metafoR
 }
 \examples{
-  #TODO -- is this the best way of setting up this fun?? (i.e. to take numeric vectors)?
+# TODO -- is this the best way of setting up this fun?? (i.e. to take numeric vectors)?
 # Example Usage:
 # library(tidyverse);library(targets);library(metafor) # NOT RUN, TODO: remove after create pkg
 # source("R/functions.R") #NOT RUN, TODO: remove after create pkg
 tar_read(round_2_survey_meta_analysis) \%>\%
   filter(dataset == "eucalyptus") \%>\%
-  filter(!is.na(Zr),
-         !is.na(VZr),
-         !is.infinite(Zr),
-         !is.infinite(VZr)) \%>\%
-fit_metafor_mv(estimate = .$Zr, variance = .$VZr, estimate_type = "Zr", data = .)
+  filter(
+    !is.na(Zr),
+    !is.na(VZr),
+    !is.infinite(Zr),
+    !is.infinite(VZr)
+  ) \%>\%
+  fit_metafor_mv(estimate = .$Zr, variance = .$VZr, estimate_type = "Zr", data = .)
 }

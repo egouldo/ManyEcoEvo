@@ -20,7 +20,10 @@ A named list of length two of \code{summarised_data_analyses} containing a tibbl
 Calculates summary statistics (\code{mean}, \code{sd}, \code{min}, \code{max}) of both the number of analyses peer-reviewed by each reviewer, and the number of reviews received by each analysis.
 }
 \examples{
-summarise_reviews(ManyEcoEvo, ManyEcoEvo_results,ManyEcoEvo_yi_results)
+data(ManyEcoEvo)
+data(ManyEcoEvo_results)
+data(ManyEcoEvo_yi_results)
+summarise_reviews(ManyEcoEvo, ManyEcoEvo_results, ManyEcoEvo_yi_results)
 }
 \seealso{
 Other Multi-dataset Wrapper Functions: 

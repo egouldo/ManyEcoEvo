@@ -20,5 +20,5 @@ A dataframe containing the \code{mean_log}, \code{std.error_log}, \code{lower} a
 log transform response-scale yi estimates
 }
 \examples{
-log_transform(1.77, 1.01, 1000) 
+log_transform(1.77, 1.01, 1000)
 }

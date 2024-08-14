@@ -21,7 +21,7 @@ Summarise Mean Sorensen's Index Estimates
 Generates data summary with \code{\link[=summarise_sorensen_index_data]{summarise_sorensen_index_data()}}.
 }
 \examples{
-summarise_sorensen_index(ManyEcoEvo_results,ManyEcoEvo_yi_results)
+summarise_sorensen_index(ManyEcoEvo_results, ManyEcoEvo_yi_results)
 }
 \seealso{
 Other Multi-dataset Wrapper Functions: 

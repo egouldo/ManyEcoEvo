@@ -11,6 +11,7 @@ vignette: >
   %\VignetteIndexEntry{data_cleaning_preparation}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+bibliography: vignettes.bib
 ---
 
 ```{r, include = FALSE}
@@ -33,7 +34,9 @@ We have anonymised our public dataset `data(ManyEcoEvo)` `anonymise_teams()`, wh
 
 ## Data Pre-processing for Meta-analysis
 
-The meta-analysis requires that all estimates are on the same scale. This is because the meta-analysis is based on the assumption that the effect sizes are comparable.
+The meta-analysis requires that all estimates are on the same scale. This is because the meta-analysis is based on the assumption that the outcome measures are comparable. Note that the ManyAnalysts project utilises two different outcomes for meta-analysis, standardised effect-sizes, or $Z_r$ and out-of-sample predictions $y_i$, But alternative effect-size measures may be utilised instead[^1].
+
+[^1]: See Table 2 in @nakagawa2023: <https://environmentalevidencejournal.biomedcentral.com/articles/10.1186/s13750-023-00301-6/tables/2>
 
 We provide the function `standardise_response()` to standardise a data-frame of analyst-data.
 
@@ -65,42 +68,74 @@ Note that if any of `beta_estimate`, `beta_SE` or `adjusted_df` are missing, `st
 Below we standardise a data frame containing out-of-sample point-estimate predictions, which are stored in a list-column of dataframes, called `augmented_data`, notice some additional console messages about back-transformations, as well as an additional step *Transforming out of sample predictions from link to response scale*. That's because, depending on what `estimate_type` is being standardised, a different workflow will be implemented by `standardise_response()`.
 
 ```{r demo_standardise_response_yi}
-data("ManyEcoEvo_yi")
+# ----- Create example blue tit dataset ----
 
+data("ManyEcoEvo_yi")
 blue_tit_predictions <- 
   ManyEcoEvo_yi %>% 
   dplyr::filter(dataset == "blue tit") %>% 
   pluck("data", 1) %>% 
-  slice(1:5)
+  head()
+
+# ----- back-transform analyst estimates to original response scale ----
+blue_tit_back_transformed <- 
+  blue_tit_predictions %>% 
+  back_transform_response_vars_yi(estimate_type = "yi",
+                                  dataset = "blue tit") %>% 
+  ungroup %>% 
+  select(
+    id_col,
+    response_variable_name,
+    contains("transformation"),
+    augmented_data, 
+    back_transformed_data
+  ) #TODO transformation column seems wrong! but output from convert_predictions() suggests correct transformation occured!
+
+blue_tit_back_transformed
+
+# ----- standardize to Z scale ------
 
 blue_tit_standardised <- 
+  blue_tit_back_transformed %>% 
   standardise_response(
-    dat = blue_tit_predictions, 
     estimate_type = "yi" ,
     param_table = ManyEcoEvo:::analysis_data_param_tables, 
     dataset = "blue tit"
-    ) %>% 
+  ) %>% 
   ungroup %>% 
   select(
     id_col,
     params, 
-    contains("transformation"), 
+    transformation,
     augmented_data, 
     back_transformed_data
   )
 
 blue_tit_standardised
 
+# ----- parameters ---- 
+blue_tit_standardised %>% pluck("params", 1) 
+blue_tit_standardised %>% pluck("params", 2) # gets a different set depending on the variable
+
+# ---- raw predictions data ----
+blue_tit_back_transformed %>% pluck("augmented_data", 1)
+blue_tit_back_transformed %>% pluck("back_transformed_data", 1)
+
+# ---- back-transformed & standardised predictions_data ----
+blue_tit_standardised %>% pluck("back_transformed_data", 1) 
+
+MA_data_yi <- blue_tit_standardised %>% 
+  select(id_col, back_transformed_data) %>% 
+  unnest(back_transformed_data) %>% 
+  pointblank::col_vals_between(columns = "Z", left = -3, right = 3, inclusive = TRUE)
 ```
 
 ### Standardising effect-sizes to $Z_r$ {#sec-standardisation}
 
 -   Standardisation of effect-sizes (fishers' Z), however other transformations could be applied using other packages if need be (Gurrindgi green meta-analsis handbook).
 
-<!-- -->
 
--   Coefficients
-    -   `est_to_Zr()`
+-   Coefficients `est_to_Zr()`
 
 ### Standardising out-of-sample predictions to $Z_{y_i}$
 
@@ -123,7 +158,7 @@ In order to proceed with standardisation of effect-sizes or out-of-sample estima
 #### Back-transforming analysts' reported out-of-sample predictions {#sec-back-transformation}
 
 | Function Name        | Description                                                                                                                            |
-|---------------------|---------------------------------------------------|
+|-----------------------|-------------------------------------------------|
 | `log_back()`         | Back-transform beta estimates for models with log-link                                                                                 |
 | `logit_back()`       | Back-transform beta estimates for models with logit-link                                                                               |
 | `probit_back()`      | Back-transform beta estimates for models with probit-link                                                                              |
@@ -159,3 +194,5 @@ We provide the `conversion()` function, which applies the relevant `back()` func
 ### Excluding Data
 
 -   exclude_extreme_VZ() - exclude extreme values of VZ
+
+## References

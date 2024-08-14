@@ -4,15 +4,37 @@
 \alias{clean_response_transformation}
 \title{Clean response transformation variable}
 \usage{
-clean_response_transformation(response_transformation)
+clean_response_transformation(
+  response_transformation,
+  transformation_tbl = ManyEcoEvo:::transformation_tbl
+)
 }
 \arguments{
-\item{response_transformation}{A character vector with the}
+\item{response_transformation}{A character vector with the response transformation values}
+
+\item{transformation_tbl}{A tibble of the response transformation values \code{transformation_orig} and their cleaned names \code{cleaned_transformation}}
 }
 \value{
 A character vector of cleaned response transformation values equal to the required \code{transformation} values in \code{conversion()}
 }
 \description{
 Cleans the response transformation variable to the names of the back-transformation functions
+}
+\details{
+The \code{transformation_tbl} is a tibble of the response transformation values \code{transformation_orig} and their cleaned
+names \code{cleaned_transformation}. The \code{transformation_orig} values are the original response transformation values
+used by the analyst. The \code{cleaned_transformation} values are the cleaned response transformation values that are equal to the required \code{transformation} values in \code{\link[=conversion]{conversion()}}.
+The user can supply an alternate table of transformations depending on what is required for the back-transformation functions.
+}
+\examples{
+clean_response_transformation("power2", ManyEcoEvo:::transformation_tbl) 
+clean_response_transformation("log", ManyEcoEvo:::transformation_tbl)
+clean_response_transformation("new_transformation", ManyEcoEvo:::transformation_tbl ) # Returns NA if not found
+}
+\seealso{
+To be called after to \code{\link[=assign_transformation_type]{assign_transformation_type()}}
+
+Other back-transformation functions: 
+\code{\link{assign_transformation_type}()}
 }
 \concept{back-transformation functions}

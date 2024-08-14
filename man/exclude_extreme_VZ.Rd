@@ -7,7 +7,7 @@
 exclude_extreme_VZ(df = data.frame(), VZ_cutoff = numeric(1L))
 }
 \arguments{
-\item{df}{}
+\item{df}{A dataframe containing the columns \code{Z} and \code{VZ}}
 
 \item{VZ_cutoff}{A numeric vector of length 1, values equal to or greater than this value of VZ will be filtered out of \code{df}.}
 }

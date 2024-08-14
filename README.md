@@ -44,8 +44,8 @@ analysis in *Gould et al.*, complete the following steps:
 2.  Run `renv::restore()` to load the packages used in the analysis
     pipeline locally on your machine (see
     [`renv::`](https://rstudio.github.io/renv/index.html) for details)
-3.  Run `tar_destroy()` to remove any record and caches of existing
-    targets
+3.  Run `targets::tar_destroy()` to remove any record and caches of
+    existing targets
 4.  Run `targets::tar_make()` in your console, depending on the power of
     your machine, the analysis pipeline will take between 2 and 7
     minutes to execute (plus or minus some!)
@@ -64,7 +64,8 @@ targets::tar_read("ManyEcoEvo")
     1 blue tit   <tibble [174 × 38]> <tibble [174 × 54]> Zr           
     2 eucalyptus <tibble [128 × 38]> <tibble [128 × 61]> Zr           
 
-The script that generates the ManyEcoEvo package datasets is located in
+The script that generates datasets used in the `ManyEcoEvo::` package is
+located in
 [`ManyEcoEvo/data-raw/tar_make.R`](https://github.com/egouldo/ManyEcoEvo/blob/main/data-raw/tar_make.R).
 
 ## License

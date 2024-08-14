@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{subset_fns_Zr}
 \alias{subset_fns_Zr}
-\title{Subsetting Functions for Zr analysis}
+\title{Subsetting Functions for effect-size meta-analysis}
 \usage{
 subset_fns_Zr()
 }
@@ -10,5 +10,5 @@ subset_fns_Zr()
 A named list of \code{lambda} functions
 }
 \description{
-Generates a list of functions that are used to subset the processed ManyEcoEvo dataset
+Generates a list of functions that are used to subset the processed \link{ManyEcoEvo} dataset
 }

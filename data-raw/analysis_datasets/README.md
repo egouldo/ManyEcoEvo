@@ -39,51 +39,93 @@ predictions meta-analysis:
 
 ``` r
 library(ManyEcoEvo)
+```
+
+</details>
+
+    Warning: replacing previous import 'purrr::%@%' by 'rlang::%@%' when loading
+    'ManyEcoEvo'
+
+    Warning: replacing previous import 'purrr::flatten_lgl' by 'rlang::flatten_lgl'
+    when loading 'ManyEcoEvo'
+
+    Warning: replacing previous import 'purrr::splice' by 'rlang::splice' when
+    loading 'ManyEcoEvo'
+
+    Warning: replacing previous import 'purrr::flatten_chr' by 'rlang::flatten_chr'
+    when loading 'ManyEcoEvo'
+
+    Warning: replacing previous import 'purrr::flatten_raw' by 'rlang::flatten_raw'
+    when loading 'ManyEcoEvo'
+
+    Warning: replacing previous import 'purrr::flatten' by 'rlang::flatten' when
+    loading 'ManyEcoEvo'
+
+    Warning: replacing previous import 'purrr::flatten_dbl' by 'rlang::flatten_dbl'
+    when loading 'ManyEcoEvo'
+
+    Warning: replacing previous import 'purrr::invoke' by 'rlang::invoke' when
+    loading 'ManyEcoEvo'
+
+    Warning: replacing previous import 'purrr::flatten_int' by 'rlang::flatten_int'
+    when loading 'ManyEcoEvo'
+
+    Warning: replacing previous import 'recipes::fixed' by 'stringr::fixed' when
+    loading 'ManyEcoEvo'
+
+<details class="code-fold">
+<summary>Code</summary>
+
+``` r
 library(dplyr)
 library(purrr)
 library(stringr)
 library(tidyr)
 library(tibble)
+data("ManyEcoEvo")
 
 # Constructed Variables Included in the ManyAnalysts meta-analysis
 ManyEcoEvo_constructed_vars <-
-  tribble(~response_variable_name,
-          "euc_sdlgs_all",
-          "euc_sdlgs>50cm",
-          "euc_sdlgs0_2m",
-          "small*0.25+medium*1.25+large*2.5",
-          "euc_sdlgs50cm_2m",
-          "average.proportion.of.plots.containing.at.least.one.euc.seedling.of.any.size",
-          "day_14_weight/(day_14_tarsus_length^2)",
-          "day_14_weight/day_14_tarsus_length",
-          "day_14_weight*day_14_tarsus_length"
+  tribble(
+    ~response_variable_name,
+    "euc_sdlgs_all",
+    "euc_sdlgs>50cm",
+    "euc_sdlgs0_2m",
+    "small*0.25+medium*1.25+large*2.5",
+    "euc_sdlgs50cm_2m",
+    "average.proportion.of.plots.containing.at.least.one.euc.seedling.of.any.size",
+    "day_14_weight/(day_14_tarsus_length^2)",
+    "day_14_weight/day_14_tarsus_length",
+    "day_14_weight*day_14_tarsus_length"
   )
 
 # Analyst Constructed Variables
-all_constructed_vars <- 
-  ManyEcoEvo %>% 
-    pull(data, dataset) %>% 
-    list_rbind(names_to = "dataset") %>% 
-    filter(str_detect(response_variable_type, "constructed")) %>% 
-    distinct(response_variable_name) %>% 
-    drop_na() %>% 
-    arrange()
+all_constructed_vars <-
+  ManyEcoEvo %>%
+  pull(data, dataset) %>%
+  list_rbind(names_to = "dataset") %>%
+  filter(str_detect(response_variable_type, "constructed")) %>%
+  distinct(response_variable_name) %>%
+  drop_na() %>%
+  arrange()
 
 by <- join_by(response_variable_name)
 
-all_constructed_vars %>% 
-  semi_join(ManyEcoEvo_constructed_vars, by) %>% 
-  mutate(included_in_yi = TRUE) %>% 
-  bind_rows(
-    {
-      all_constructed_vars %>% 
-        anti_join(ManyEcoEvo_constructed_vars, by) %>% 
-        mutate(included_in_yi = FALSE)
-    }
-  ) %>% 
-  knitr::kable(col.names = c("Constructed Variable", 
-                             "Included in $y_i$ meta-analysis?"), 
-               format = "markdown")
+all_constructed_vars %>%
+  semi_join(ManyEcoEvo_constructed_vars, by) %>%
+  mutate(included_in_yi = TRUE) %>%
+  bind_rows({
+    all_constructed_vars %>%
+      anti_join(ManyEcoEvo_constructed_vars, by) %>%
+      mutate(included_in_yi = FALSE)
+  }) %>%
+  knitr::kable(
+    col.names = c(
+      "Constructed Variable",
+      "Included in $y_i$ meta-analysis?"
+    ),
+    format = "markdown"
+  )
 ```
 
 </details>

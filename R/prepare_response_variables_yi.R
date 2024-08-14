@@ -15,6 +15,7 @@ prepare_response_variables_yi <- function(ManyEcoEvo,
   stopifnot(is.data.frame(ManyEcoEvo))
   # TODO run checks on ManyEcoEvo
   match.arg(estimate_type, choices = c("yi", "y25", "y50", "y75"), several.ok = FALSE)
+  
   out <- ManyEcoEvo %>%
     ungroup() %>%
     # dplyr::group_by(dataset) %>% #NOTE: mapping doesn't work properly when tibble is rowwise!
@@ -43,7 +44,6 @@ prepare_response_variables_yi <- function(ManyEcoEvo,
 #'
 #' @param dat A dataframe of out of sample predictions analyst submission data
 #' @param estimate_type The type of estimate to be standardised. Character vector of length 1, whose value may be  "yi", "y25", "y50", "y75".
-#' @param param_table A table of estimated 'population' parameters for each variable in the analysis datasets.
 #' @param dataset One of either "blue tit" or "eucalyptus"
 #'
 #' @return A tibble of analyst data with standardised values contained in a list-column called 'back_transformed_data'
@@ -51,16 +51,12 @@ prepare_response_variables_yi <- function(ManyEcoEvo,
 #' @family analyst-data
 back_transform_response_vars_yi <- function(dat,
                                             estimate_type = character(1L),
-                                            param_table = NULL,
                                             dataset = character(1L)) {
   # TODO insert checks that appropriate columns exist
   # TODO apply to data and check that all cases accounted for!
   match.arg(estimate_type, choices = c("yi", "y25", "y50", "y75"), several.ok = FALSE)
   match.arg(dataset, choices = c("eucalyptus", "blue tit"), several.ok = FALSE)
-  cli::cli_h1(glue::glue("Computing meta-analysis inputs", "for estimate type ", "{estimate_type}"))
-
-
-  cli::cli_h2(paste0("Transforming out of sample predictions from link to response scale"))
+  
   dat <- dat %>%
     pointblank::col_exists(
       columns =
@@ -74,27 +70,7 @@ back_transform_response_vars_yi <- function(dat,
           "response_transformation_status"
         )
     ) %>% # add check for  response transformation
-    dplyr::group_by(
-      TeamIdentifier,
-      submission_id,
-      analysis_id,
-      split_id
-    ) %>%
-    dplyr::mutate(params = purrr::map(
-      .x = response_variable_name,
-      .y = param_table,
-      .f = ~ dplyr::filter(.y, variable == .x)
-    )) %>%
-    dplyr::mutate(nrow_params = purrr::map_int(params, nrow)) %>%
-    dplyr::mutate(params = purrr::map2(params,
-      nrow_params,
-      .f = ~ if (.y > 0) {
-        .x
-      } else {
-        NA
-      }
-    )) %>%
-    dplyr::select(-nrow_params) %>%
+    dplyr::group_by(id_col) %>% 
     dplyr::mutate(
       transformation_type =
         assign_transformation_type(
@@ -111,7 +87,7 @@ back_transform_response_vars_yi <- function(dat,
             response_transformation_status,
             transformation
           ), # TODO update, gh issue 162 #NOTE: see #127 / #38 on GH.
-          .f = ~ if (!rlang::is_na(..1) | !rlang::is_na(..2)) {
+          .f = ~ if (all(!rlang::is_na(..1), !rlang::is_na(..2))) {
             convert_predictions(
               augmented_data = ..1,
               transformation_type = ..2,
@@ -122,7 +98,8 @@ back_transform_response_vars_yi <- function(dat,
             rlang::na_lgl
           }
         )
-    ) # TODO note that the blue tit and eucalyptus back transformed dat has different names for the out of sample prediction estimates. For BT it's "estimate", for Euc it's "fit" (this is because of the way we asked analysts to submit their data...).
-
+    ) %>% 
+    ungroup()
+  
   return(dat)
 }

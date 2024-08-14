@@ -31,8 +31,10 @@ summarising subsets of data with \code{summarise_study()}.
 \examples{
 id_subsets <- list(ManyEcoEvo:::effect_ids, ManyEcoEvo:::prediction_ids)
 subset_names <- c("effects", "predictions")
-prepare_diversity_summary_data(ManyEcoEvo::ManyEcoEvo,
-"all",
-id_subsets,
-subset_names) #TODO consider adding filter_expressions
+prepare_diversity_summary_data(
+  ManyEcoEvo::ManyEcoEvo,
+  "all",
+  id_subsets,
+  subset_names
+) # TODO consider adding filter_expressions
 }

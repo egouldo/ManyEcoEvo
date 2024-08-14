@@ -7,18 +7,15 @@
 back_transform_response_vars_yi(
   dat,
   estimate_type = character(1L),
-  param_table = NULL,
   dataset = character(1L)
 )
 }
 \arguments{
+\item{dat}{A dataframe of out of sample predictions analyst submission data}
+
 \item{estimate_type}{The type of estimate to be standardised. Character vector of length 1, whose value may be  "yi", "y25", "y50", "y75".}
 
-\item{param_table}{A table of estimated 'population' parameters for each variable in the analysis datasets.}
-
 \item{dataset}{One of either "blue tit" or "eucalyptus"}
-
-\item{data}{}
 }
 \value{
 A tibble of analyst data with standardised values contained in a list-column called 'back_transformed_data'
@@ -28,6 +25,6 @@ Back Transform Response Variables - yi
 }
 \seealso{
 Other analyst-data: 
-\code{\link{standardise_response}()}
+\code{\link{process_analyst_data}}
 }
 \concept{analyst-data}

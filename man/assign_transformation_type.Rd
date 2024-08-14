@@ -2,7 +2,7 @@
 % Please edit documentation in R/assign_transformation_type.R
 \name{assign_transformation_type}
 \alias{assign_transformation_type}
-\title{Assign back-transformation type to be applied to analysis point-estimates}
+\title{Assign back-transformation type to be applied to analysts' point-estimates}
 \usage{
 assign_transformation_type(
   response_transformation = character(1L),
@@ -15,8 +15,18 @@ assign_transformation_type(
 \item{link_fun}{Character vector of length 1L containing the analysis link function}
 }
 \value{
-A character vector of length 1L
+A character vector of length 1L containing the back-transformation type to be applied to the analysts' point-estimates. Is either "identity", "double_transformation", or the value of \code{link_fun} or \code{response_transformation}, or \code{NA}, if an appropriate transformation type cannot be assigned.
 }
 \description{
-Assign back-transformation type to be applied to analysis point-estimates
+Assign back-transformation type to be applied to analysts' point-estimates
 }
+\details{
+Based on the response transformation and link function, the function assigns the back-transformation type to be applied to the analysts' point-estimates. The function and assigns the identity transformation if the effects were reported on the link-scale and the estimates are already back-transformed the original response variable prior to modelling. When either of these cases is not true for a given analysis, the function returns the value of the \code{link_fun} or \code{response_transformation} argument. When an analysis has been reported on the link-scale and the analyst transformed the response variable prior to modelling, the function assigns the \code{"double-transformation"}  value for that analysis. When the \code{response_transformation} and \code{link_fun} arguments are missing, the function assigns the \code{"identity"} value to the analysis, assuming that \code{NA} values are equivalent to the identity transformation.
+}
+\seealso{
+\code{\link[=prepare_response_variables_yi(), standardise_response]{prepare_response_variables_yi(), standardise_response()}}. To be called prior to \code{\link[=clean_response_transformation]{clean_response_transformation()}}.
+
+Other back-transformation functions: 
+\code{\link{clean_response_transformation}()}
+}
+\concept{back-transformation functions}

@@ -12,21 +12,10 @@
 #'
 #' @return A dataframe of count values `n` or summary statistic values `n_mean`,`n_sd`,`n_min`,`n_max` of counts depending on the the value supplied to the `output` argument.
 #' @export
-#' @importFrom dplyr filter
-#' @importFrom dplyr select
-#' @importFrom tidyr unnest
-#' @importFrom dplyr mutate
-#' @importFrom dplyr rename
-#' @importFrom dplyr group_by
-#' @importFrom dplyr distinct
-#' @importFrom magrittr "%>%"
-#' @importFrom dplyr right_join
-#' @importFrom dplyr across
-#' @importFrom tidyr pivot_longer
-#' @importFrom purrr map_dfr
-#' @importFrom purrr set_names
-#' @importFrom dplyr ends_with
-#' @importFrom broom tidy
+#' @import dplyr
+#' @import tidyr
+#' @import purrr
+#' @import broom
 #' @author Hannah S. Fraser
 #' @author Elliot Gould
 #' @family Multi-dataset Wrapper Functions
@@ -125,13 +114,8 @@ summarise_variable_counts <- function(ManyEcoEvo, ManyEcoEvo_results, ManyEcoEvo
 #' Variable presence in an analysis is converted to numeric 1's/0's and then summed to calculate total times the analysis is used across all analyses (`n`).
 #' @return A dataframe of counts `n` each `variable` is used across all analyses within a given `dataset`
 #' @export
-#' @importFrom dplyr group_by
-#' @importFrom dplyr mutate
-#' @importFrom dplyr across
-#' @importFrom dplyr everything
-#' @importFrom magrittr "%>%"
-#' @importFrom tidyr pivot_longer
-#' @importFrom dplyr summarise
+#' @import dplyr
+#' @import tidyr
 #' @author Hannah S. Fraser
 #' @author Elliot Gould
 #' @examples
