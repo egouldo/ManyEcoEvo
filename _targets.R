@@ -27,8 +27,8 @@ pkgs <- c("tidyverse",
           "lme4",
           "multilevelmod",
           "metafor",
-          "parameters", # must be directly loaded else parameters::parameters() fails on lmerMod for some reason...
-          "ManyEcoEvo" #TODO rm from here and just call in tar_option_set(), but will need to rm all namespacing
+          "parameters",
+          "ManyEcoEvo" #TODO rm from here and just call in tar_option_set(), but will need to rm all namespacing, see gh issue #97
 ) 
 
 controller <- crew::crew_controller_local(
