@@ -244,8 +244,10 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
                          command =  ManyEcoEvo_yi %>% 
                            prepare_response_variables(
                              estimate_type = "yi",
-                             param_table = ManyEcoEvo:::analysis_data_param_tables, 
-                             dataset_standardise = "blue tit") %>%
+                             param_table = 
+                               ManyEcoEvo:::analysis_data_param_tables, 
+                             dataset_standardise = "blue tit",
+                             dataset_log_transform = "eucalyptus") %>%
                            generate_yi_subsets() %>% #TODO: must be run after prepare_response_variables??
                            apply_VZ_exclusions(3) %>%
                            generate_exclusion_subsets() %>% #TODO: runs on ManyEcoEvo that contains Zr and yi results.
