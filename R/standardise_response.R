@@ -148,3 +148,50 @@ process_response <- function(dat, ...){
                  any_of(Z_names_lookup)), 
            params = NA)
 }
+
+#' Log-transform out-of-sample predictions data for meta-analysis
+#' 
+#' @param sim a numeric vector of length 1L with the number of simulations that should be passed to [log_transform()]
+#' @details
+#' # [log_transform_response()]
+#' 
+#' maps [log_transform_yi()] onto back-transformed data stored in list-columns within [dat]
+#' @examples
+#' ManyEcoEvo_yi %>% 
+#' filter(dataset == "eucalyptus") %>% 
+#'   pluck("data", 1) %>% 
+#'   back_transform_response_vars_yi("yi", "eucalyptus") %>% 
+#'   log_transform_response()
+#' @import dplyr
+#' @import cli
+#' @import glue
+#' @importFrom pointblank col_exists vars
+#' @import purrr
+#' @import rlang
+#' @describeIn process_analyst_data Standardise response data for meta-analysis
+#' @family analyst-data
+log_transform_response <- function(dat, sim = 10000L, ...) {
+  # TODO insert checks that appropriate columns exist
+  # TODO apply to data and check that all cases accounted for!
+  stopifnot(is.data.frame(dat))
+  
+  cli::cli_h1(glue::glue("Computing meta-analysis inputs:"))
+  cli::cli_h2(glue::glue("Log-transforming response-variable"))
+  
+  dat <- dat %>%
+    pointblank::col_exists(
+      columns = pointblank::vars(
+        "id_col",
+        "back_transformed_data"
+      )
+    ) %>% 
+    dplyr::group_by(id_col) %>%
+    dplyr::mutate(back_transformed_data = 
+                    map(.x = back_transformed_data,
+                           .f = ~ ifelse(!rlang::is_na(.x),
+                                         log_transform_yi(.x, sim = sim),
+                                         NA))) %>%
+    ungroup()
+  
+  return(dat)
+}
