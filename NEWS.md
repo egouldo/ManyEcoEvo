@@ -1,4 +1,4 @@
-# ManyEcoEvo (development version)
+# ManyEcoEvo 2.4.2
 
 # ManyEcoEvo 2.4.1
 
