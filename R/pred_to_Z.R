@@ -37,19 +37,12 @@ pred_to_Z <- function(back_transformed_data,
   standardised_preds <- 
     back_transformed_data %>%
     rename(any_of(names_lookup)) %>% 
-    mutate(
-      res = map2(
-        estimate,
-        se.fit,
-        ~ Z_VZ_preds(
-          yi = .x,
-          yi_se = .y,
-          sd_p = sd_p,
-          mu_p = mu_p
-        )
-      ),
-      .keep = c("unused")
-    ) %>%
+    mutate(res = map2(.x = yi,
+                      .x = yi_se,
+                      .f = Z_VZ_preds,
+                      sd_p = sd_p,
+                      mu_p = mu_p),
+           .keep = c("unused")) %>%
     select(-starts_with("ci.")) %>% 
     unnest(res)
   
