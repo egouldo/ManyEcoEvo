@@ -1,6 +1,6 @@
 Package: ManyEcoEvo
 Title: Meta-analyse data from 'Many-Analysts' style studies
-Version: 2.5.0
+Version: 2.5.1
 Authors@R: c(
     person("Elliot", "Gould", , "elliot.gould@unimelb.edu.au", role = c("aut", "cre"),
            comment = c(ORCID = "https://orcid.org/0000-0002-6585-538X")),
