@@ -104,8 +104,7 @@ standardise_response <- function(dat,
             .f = ~ if (all(!rlang::is_na(..1), !rlang::is_na(..2))) {
               pred_to_Z(
                 back_transformed_data = ..1, 
-                params = ..2, 
-                dataset = dataset)
+                params = ..2)
             } else {
               NA
             }
