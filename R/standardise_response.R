@@ -12,7 +12,7 @@
 #' @name process_analyst_data
 NULL
 #> NULL
- 
+
 #' Standardise Response Variable
 #' @return A tibble of analyst data with standardised values contained in a list-column called 'back_transformed_data'
 #' @details
@@ -52,15 +52,15 @@ standardise_response <- function(dat,
     cli::cli_h2(paste0("Computing standardised effect sizes ", "{.code Zr}", " and variance ", "{.code VZr}"))
     
     dat <- dat %>%
-      # unnest(back_transformed_estimate) %>%
-      dplyr::mutate(Zr_VZr = purrr::pmap(
-        .l = list(
-          beta_estimate = beta_estimate,
-          beta_SE = beta_SE,
-          adjusted_df = adjusted_df
-        ),
-        .f = est_to_zr
-      )) %>%
+      dplyr::mutate(
+        Zr_VZr = purrr::pmap(
+          .l = list(
+            beta_estimate = beta_estimate,
+            beta_SE = beta_SE,
+            adjusted_df = adjusted_df
+          ),
+          .f = est_to_zr
+        )) %>%
       tidyr::unnest(cols = c(Zr_VZr))
   } else { 
     # ------ Convert predictions to Z -------
@@ -71,7 +71,7 @@ standardise_response <- function(dat,
         columns =
           pointblank::vars(
             "id_col",
-            "augmented_data",
+            "back_transformed_data",
             "response_variable_name"
           )
       ) %>% # add check for  response transformation
