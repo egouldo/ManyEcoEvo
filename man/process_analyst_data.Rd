@@ -4,6 +4,7 @@
 \alias{process_analyst_data}
 \alias{standardise_response}
 \alias{process_response}
+\alias{log_transform_response}
 \title{Process Response Data for Meta-Analysis}
 \usage{
 standardise_response(
@@ -14,6 +15,8 @@ standardise_response(
 )
 
 process_response(dat, ...)
+
+log_transform_response(dat, sim = 10000L, ...)
 }
 \arguments{
 \item{dat}{A tibble of analyst data with a list-column called}
@@ -23,6 +26,8 @@ process_response(dat, ...)
 \item{param_table}{A table of estimated 'population' parameters for each variable in the analysis datasets.}
 
 \item{dataset}{One of either "blue tit" or "eucalyptus"}
+
+\item{sim}{a numeric vector of length 1L with the number of simulations that should be passed to \code{\link[=log_transform]{log_transform()}}}
 }
 \value{
 A tibble of analyst data with standardised values contained in a list-column called 'back_transformed_data'
@@ -35,6 +40,8 @@ This function generates the response data for meta-analysis without standardisin
 \item \code{standardise_response()}: Standardise response data for meta-analysis
 
 \item \code{process_response()}: Process response data for meta-analysis but do not standardise effect-sizes
+
+\item \code{log_transform_response()}: Standardise response data for meta-analysis
 
 }}
 \section{\code{standardise_response()}}{
@@ -64,8 +71,22 @@ and for eucalyptus data, \code{dat$back_transformed_data$estimate} is renamed \c
 \code{se.fit} is renamed \code{VZ}.
 }
 
+\section{\code{\link[=log_transform_response]{log_transform_response()}}}{
+maps \code{\link[=log_transform_yi]{log_transform_yi()}} onto back-transformed data stored in list-columns within \link{dat}
+}
+
+\examples{
+ManyEcoEvo_yi \%>\% 
+filter(dataset == "eucalyptus") \%>\% 
+  pluck("data", 1) \%>\% 
+  back_transform_response_vars_yi("yi", "eucalyptus") \%>\% 
+  log_transform_response()
+}
 \seealso{
 \code{\link[=est_to_zr]{est_to_zr()}},  \code{\link[=assign_transformation_type]{assign_transformation_type()}}
+
+Other analyst-data: 
+\code{\link{back_transform_response_vars_yi}()}
 
 Other analyst-data: 
 \code{\link{back_transform_response_vars_yi}()}

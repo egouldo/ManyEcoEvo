@@ -4,7 +4,7 @@
 \alias{log_transform}
 \title{log transform response-scale yi estimates}
 \usage{
-log_transform(estimate, std.error, sim)
+log_transform(estimate = numeric(1L), std.error = numeric(1L), sim = 10000L)
 }
 \arguments{
 \item{estimate}{Point estimates on the original response scale}
@@ -21,4 +21,7 @@ log transform response-scale yi estimates
 }
 \examples{
 log_transform(1.77, 1.01, 1000)
+}
+\seealso{
+Equivalent in workflow data hierarchy to \code{\link[=Z_VZ_preds]{Z_VZ_preds()}}.
 }
