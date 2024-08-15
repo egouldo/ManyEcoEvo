@@ -18,7 +18,7 @@ prepare_response_variables(
 
 \item{param_table}{A table of parameters \(mean, sd\) for \emph{most} response variables used by analysts. This tibble is pulled from the named object exported by \verb{ManyEcoEvo::}. but can be overwritten with the users's own \code{param_table} dataset.}
 
-\item{dataset_standardise}{A character string of length 1, equal to the name of the dataset to standardise the response variables to. If \code{NULL}, all datasets are standardised.}
+\item{dataset_standardise}{A character string of length 1, equal to the name of the dataset to standardise the response variables to. If \code{NULL} (default), no datasets are standardised.}
 }
 \value{
 A tibble of nested list-columns
