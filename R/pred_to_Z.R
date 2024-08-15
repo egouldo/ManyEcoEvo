@@ -38,7 +38,7 @@ pred_to_Z <- function(back_transformed_data,
     back_transformed_data %>%
     rename(any_of(names_lookup)) %>% 
     mutate(res = map2(.x = yi,
-                      .x = yi_se,
+                      .y = yi_se,
                       .f = Z_VZ_preds,
                       sd_p = sd_p,
                       mu_p = mu_p),
