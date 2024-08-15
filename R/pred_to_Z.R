@@ -37,9 +37,6 @@ pred_to_Z <- function(back_transformed_data,
   standardised_preds <- 
     back_transformed_data %>%
     rename(any_of(names_lookup)) %>% 
-    
-    standardised_preds <-
-    back_transformed_data %>%
     mutate(
       res = map2(
         estimate,
