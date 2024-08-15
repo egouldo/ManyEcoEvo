@@ -128,7 +128,7 @@ standardise_response <- function(dat,
 #' Formats tibbles in the list-column `back_transformed_data` to ensure that the 
 #' correct columns are present for meta-analysis, matching the outputs of
 #'  [standardise_response()]. For blue tit data `dat$back_transformed_data$fit` 
-#'  and for eucalyptus data, `dat$back_transformed_data$estimate` is renamed `Z`. 
+#'  and for eucalyptus data, `dat$back_transformed_data$estimate` is renamed `Z`.
 #'  `se.fit` is renamed `VZ`.
 #' @import dplyr
 #' @import purrr
@@ -137,7 +137,9 @@ process_response <- function(dat, ...){
   
   Z_names_lookup <- c(Z = "estimate", #blue tit
                       Z = "fit", #eucalyptus
-                      VZ = "se.fit") # both datasets
+                      VZ = "se.fit",
+                      lower = "ci.low",
+                      upper = "ci.hi") # both datasets
   
   dat %>%  
     mutate(back_transformed_data = 
