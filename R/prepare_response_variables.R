@@ -4,6 +4,7 @@
 #' @param estimate_type A character string of length 1, equal to either "Zr", "yi", "y25", "y50", "y75", indicating what type of estimates are being prepared.
 #' @param param_table A table of parameters \(mean, sd\) for *most* response variables used by analysts. This tibble is pulled from the named object exported by `ManyEcoEvo::`. but can be overwritten with the users's own `param_table` dataset.
 #' @param dataset_standardise A character string of length 1, equal to the name of the dataset to standardise the response variables to. If `NULL` (default), no datasets are standardised.
+#' @param dataset_log_transform A character string of length 1, equal to the name of the dataset to log-transform the response variables to. If `NULL` (default), no datasets are log-transformed.
 #' @return A tibble of nested list-columns
 #' @details Operates on nested list-columns of dataframes, where each dataframe contains the response variable data for a single analysis. The function standardises the response variable data for each analysis, and returns the modified dataset to the `data` list-column.
 #' @family targets-pipeline functions.
@@ -17,7 +18,8 @@
 prepare_response_variables <- function(ManyEcoEvo,
                                        estimate_type = character(1L),
                                        param_table = NULL,
-                                       dataset_standardise = NULL) {
+                                       dataset_standardise = NULL,
+                                       dataset_log_transform = NULL) {
   match.arg(estimate_type, 
             choices = c("Zr", "yi", "y25", "y50", "y75"), 
             several.ok = FALSE)
@@ -32,6 +34,17 @@ prepare_response_variables <- function(ManyEcoEvo,
               choices = ManyEcoEvo$dataset,
               several.ok = TRUE)
   }
+  
+  if (!is.null(dataset_log_transform)) {
+    stopifnot(
+      is.character(dataset_log_transform), 
+      length(dataset_log_transform) >= 1, 
+      length(dataset_log_transform) <= length(unique(ManyEcoEvo$dataset)))
+    match.arg(dataset_log_transform, 
+              choices = ManyEcoEvo$dataset,
+              several.ok = TRUE)
+  }
+  
   if (!is.null(param_table)) {
     stopifnot(is.data.frame(param_table))
     pointblank::expect_col_exists(object = param_table, 
@@ -48,7 +61,7 @@ prepare_response_variables <- function(ManyEcoEvo,
                                        set = c("mean", "sd"))
   }
   
-  # ------ Function Body ------
+  # ------ Prepare Response Variables ------
   
   out <- ManyEcoEvo
   
@@ -58,6 +71,7 @@ prepare_response_variables <- function(ManyEcoEvo,
     }
     
     # ------ Back transform if estimate_type is yi only ------
+    
     out <- out %>%
       ungroup() %>%
       dplyr::mutate(
@@ -89,7 +103,7 @@ prepare_response_variables <- function(ManyEcoEvo,
   
   # ------ Standardise Response Variables for Meta-analysis ------
   
-  if (is.null(dataset_standardise)) {
+  if ( all(is.null(dataset_standardise), is.null(dataset_log_transform))) {
     out <- out %>%
       ungroup() %>%
       dplyr::mutate(data = purrr::map(
@@ -97,11 +111,18 @@ prepare_response_variables <- function(ManyEcoEvo,
         process_response
       ))
   } else {
-    
-    datasets_to_standardise <- tibble(
-      dataset = dataset_standardise,
-      fns = list(standardise_response)
-    )
+
+    transform_datasets <- 
+      bind_rows( 
+        tibble(
+          dataset = dataset_log_transform,
+          fns = list(log_transform_response)
+        ),
+        tibble(
+          dataset = dataset_standardise,
+          fns = list(standardise_response)
+        )) %>% 
+      drop_na() # in case of NULLs
     
     pmap_prepare_response <- function(data, 
                                       estimate_type = character(1L), 
@@ -116,7 +137,7 @@ prepare_response_variables <- function(ManyEcoEvo,
     
     out <- out %>%
       ungroup() %>%
-      left_join(datasets_to_standardise, by = "dataset") %>% 
+      left_join(transform_datasets, by = "dataset") %>% 
       mutate(fns = coalesce(fns, list(process_response))) %>%
       mutate(data = pmap(.l = ., 
                          .f = pmap_prepare_response, 
