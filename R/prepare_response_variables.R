@@ -98,56 +98,70 @@ prepare_response_variables <- function(ManyEcoEvo,
               distinct()
           )
       )
+    # ------ Allocate Response Variable Transformation Functions ------
     
-  } else {
+    # yi: no standardise or log-transform
+    if ( all(is.null(dataset_standardise), 
+             is.null(dataset_log_transform))) {
+      
+      cli::cli_alert_info("No standardisation or log-transformation applied to response variables for {.val {estimate_type}} estimates.")
+      
+      transform_datasets <- 
+        tibble(
+          dataset = unique(out$dataset),
+          fns = list(process_response)
+        )
+      
+    } else { #yi + standardise and/or log-transform
+      cli::cli_alert_info("Standardising and/or log-transforming response variables for {.val {estimate_type}} estimates.")
+      transform_datasets <- 
+        bind_rows( 
+          tibble(
+            dataset = dataset_log_transform,
+            fns = list(log_transform_response)
+          ),
+          tibble(
+            dataset = dataset_standardise,
+            fns = list(standardise_response)
+          )) %>% 
+        drop_na() # in case of NULLs
+    }
+  } else { # Zr
     if (!is.null(param_table)) {
       cli::cli_abort("{.arg param_table} must be NULL for {.val {estimate_type}} data")
-    }
-  }
+      }
+    
+    cli::cli_alert_info("Standardising response variables for {.val {estimate_type}} estimates.")
+    
+    transform_datasets <- 
+      tibble(
+        dataset = unique(out$dataset),
+        fns = list(standardise_response)
+      )
+  } 
   
   # ------ Standardise Response Variables for Meta-analysis ------
-  
-  if ( all(is.null(dataset_standardise), is.null(dataset_log_transform))) {
-    out <- out %>%
-      ungroup() %>%
-      dplyr::mutate(data = purrr::map(
-        data,
-        process_response
-      ))
-  } else {
-
-    transform_datasets <- 
-      bind_rows( 
-        tibble(
-          dataset = dataset_log_transform,
-          fns = list(log_transform_response)
-        ),
-        tibble(
-          dataset = dataset_standardise,
-          fns = list(standardise_response)
-        )) %>% 
-      drop_na() # in case of NULLs
-    
-    pmap_prepare_response <- function(data, 
-                                      estimate_type = character(1L), 
-                                      param_table, 
-                                      dataset = character(1L), 
-                                      fns, 
-                                      ...){ #TODO move into own function as internal
-      stopifnot(is.data.frame(data))
-      stopifnot(class(fns) == "function")
-      fns(data, estimate_type, param_table, dataset)
-    }
-    
-    out <- out %>%
-      ungroup() %>%
-      left_join(transform_datasets, by = "dataset") %>% 
-      mutate(fns = coalesce(fns, list(process_response))) %>%
-      mutate(data = pmap(.l = ., 
-                         .f = pmap_prepare_response, 
-                         estimate_type = estimate_type, 
-                         param_table = param_table)) %>% 
-      select(-fns) #TODO drop ci cols or not??
+  # Define helper function
+  pmap_prepare_response <- function(data, 
+                                    estimate_type = character(1L), 
+                                    param_table, 
+                                    dataset = character(1L), 
+                                    fns, 
+                                    ...){ #TODO move into own function as internal
+    stopifnot(is.data.frame(data))
+    stopifnot(class(fns) == "function")
+    fns(data, estimate_type, param_table, dataset)
   }
+  # Apply response variable transformation functions
+  out <- out %>%
+    ungroup() %>%
+    left_join(transform_datasets, by = "dataset") %>% 
+    mutate(fns = coalesce(fns, list(process_response))) %>%
+    mutate(data = pmap(.l = ., 
+                       .f = pmap_prepare_response, 
+                       estimate_type = estimate_type, 
+                       param_table = param_table)) %>% 
+    select(-fns) #TODO drop ci cols or not??
+  
   return(out)
 }
