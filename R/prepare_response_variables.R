@@ -20,16 +20,20 @@ prepare_response_variables <- function(ManyEcoEvo,
                                        param_table = NULL,
                                        dataset_standardise = NULL,
                                        dataset_log_transform = NULL) {
+  # ------ Argument Checks ------
   match.arg(estimate_type, 
             choices = c("Zr", "yi", "y25", "y50", "y75"), 
             several.ok = FALSE)
+  
   stopifnot(is.data.frame(ManyEcoEvo))
   pointblank::expect_col_exists(object = ManyEcoEvo, 
                                 columns = c(dataset, data))
+  
   if (!is.null(dataset_standardise)) {
-    stopifnot(is.character(dataset_standardise))
-    stopifnot(length(dataset_standardise) >= 1)
-    stopifnot(length(dataset_standardise) <= length(unique(ManyEcoEvo$dataset)))
+    stopifnot(
+      is.character(dataset_standardise), 
+      length(dataset_standardise) >= 1, 
+      length(dataset_standardise) <= length(unique(ManyEcoEvo$dataset)))
     match.arg(dataset_standardise, 
               choices = ManyEcoEvo$dataset,
               several.ok = TRUE)
