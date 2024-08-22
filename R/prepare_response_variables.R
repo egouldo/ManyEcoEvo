@@ -109,7 +109,8 @@ prepare_response_variables <- function(ManyEcoEvo,
       transform_datasets <- 
         tibble(
           dataset = unique(out$dataset),
-          fns = list(process_response)
+          fns = list(process_response) %>% 
+            set_names("process_response")
         )
       
     } else { #yi + standardise and/or log-transform
@@ -118,25 +119,28 @@ prepare_response_variables <- function(ManyEcoEvo,
         bind_rows( 
           tibble(
             dataset = dataset_log_transform,
-            fns = list(log_transform_response)
+            fns = list(log_transform_response) %>% 
+              set_names("log_transform_response")
           ),
           tibble(
             dataset = dataset_standardise,
-            fns = list(standardise_response)
+            fns = list(standardise_response) %>% 
+              set_names("standardise_response")
           )) %>% 
         drop_na() # in case of NULLs
     }
   } else { # Zr
     if (!is.null(param_table)) {
       cli::cli_abort("{.arg param_table} must be NULL for {.val {estimate_type}} data")
-      }
+    }
     
     cli::cli_alert_info("Standardising response variables for {.val {estimate_type}} estimates.")
     
     transform_datasets <- 
       tibble(
         dataset = unique(out$dataset),
-        fns = list(standardise_response)
+        fns = list(standardise_response)  %>% 
+          set_names("standardise_response")
       )
   } 
   
