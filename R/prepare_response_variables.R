@@ -19,7 +19,8 @@ prepare_response_variables <- function(ManyEcoEvo,
                                        estimate_type = character(1L),
                                        param_table = NULL,
                                        dataset_standardise = NULL,
-                                       dataset_log_transform = NULL) {
+                                       dataset_log_transform = NULL,
+                                       ...) {
   # ------ Argument Checks ------
   match.arg(estimate_type, 
             choices = c("Zr", "yi", "y25", "y50", "y75"), 
