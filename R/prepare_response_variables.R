@@ -145,27 +145,26 @@ prepare_response_variables <- function(ManyEcoEvo,
   } 
   
   # ------ Standardise Response Variables for Meta-analysis ------
-  # Define helper function
-  pmap_prepare_response <- function(data, 
-                                    estimate_type = character(1L), 
-                                    param_table, 
-                                    dataset = character(1L), 
-                                    fns, 
-                                    ...){ #TODO move into own function as internal
-    stopifnot(is.data.frame(data))
-    stopifnot(class(fns) == "function")
-    fns(data, estimate_type, param_table, dataset)
-  }
-  # Apply response variable transformation functions
+  
   out <- out %>%
     ungroup() %>%
     left_join(transform_datasets, by = "dataset") %>% 
     mutate(fns = coalesce(fns, list(process_response))) %>%
     mutate(data = pmap(.l = ., 
-                       .f = pmap_prepare_response, 
-                       estimate_type = estimate_type, 
-                       param_table = param_table)) %>% 
-    select(-fns) #TODO drop ci cols or not??
+                       .f = pmap_wrap,
+                       # estimate_type = !!{{estimate_type}},
+                       param_table = !!{{param_table}}
+    )) %>% 
+    select(-fns) 
   
   return(out)
+}
+
+#' @rdname process_analyst_data
+#' @seealso This internal helper function is called by [prepare_response_variables()]
+#' @importFrom rlang caller_env exec
+#' @keywords internal
+pmap_wrap <- function(..., fns, env = caller_env()){
+  fn <- match.fun(fns)
+  exec(.fn = fn, ..., .env = env)
 }
