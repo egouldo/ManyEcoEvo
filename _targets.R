@@ -90,7 +90,10 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
                                                       all_review_data)),
      targets::tar_target(name = ManyEcoEvo_results,
                          command = ManyEcoEvo %>% 
-                           prepare_response_variables(estimate_type = "Zr") |>  
+                           prepare_response_variables(
+                             estimate_type = "Zr",
+                             dataset_standardise = 
+                               c("blue tit", "eucalyptus")) |>  
                            generate_exclusion_subsets(estimate_type = "Zr") |> 
                            generate_rating_subsets() |> 
                            generate_expertise_subsets(ManyEcoEvo:::expert_subset) |>
