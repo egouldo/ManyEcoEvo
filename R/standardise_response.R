@@ -39,6 +39,16 @@ NULL
 #' @describeIn process_analyst_data Standardise response data for meta-analysis
 #' @family analyst-data
 #' @seealso [est_to_zr()],  [assign_transformation_type()]
+#' @examples
+#' # Standardise effect-sizes for eucalyptus dataset
+#' 
+#' data(ManyEcoEvo)
+#' ManyEcoEvo %>%
+#'  filter(dataset == "eucalyptus") %>%
+#'  pluck("data", 1) %>%
+#'  standardise_response(estimate_type = "Zr", 
+#'                       param_table =  NULL,
+#'                       dataset =  "eucalyptus")
 standardise_response <- function(data,
                                  estimate_type = character(1L),
                                  param_table = NULL,
@@ -159,10 +169,11 @@ process_response <- function(data, ...){
 #' 
 #' maps [log_transform_yi()] onto back-transformed data stored in list-columns within [data]
 #' @examples
-#' ManyEcoEvo_yi %>% 
-#' filter(dataset == "eucalyptus") %>% 
-#'   pluck("data", 1) %>% 
-#'   back_transform_response_vars_yi("yi", "eucalyptus") %>% 
+#' data(ManyEcoEvo_yi)
+#' ManyEcoEvo_yi %>%
+#' filter(dataset == "eucalyptus") %>%
+#'   pluck("data", 1) %>%
+#'   back_transform_response_vars_yi("yi", "eucalyptus") %>%
 #'   log_transform_response()
 #' @import dplyr
 #' @import cli
