@@ -50,9 +50,10 @@ generate_yi_subsets <- function(yi_analysis) {
         map(data, ~ filter(.x, !is.na(back_transformed_data))) %>% # TODO is this step replicated in split_yi_subsets() ??
           map(split_yi_subsets)
     ) %>%
+    select(-contains("estimate_type")) %>% #delete col if exists: split_yi_subsets creates duplicate estimate_type col
     unnest(data) %>%
     mutate(
-      diversity_data = # this step filters diversity_data according to matches in data, is also applied in prepare_yi
+      diversity_data = 
         map2(
           .x = diversity_data,
           .y = data,
@@ -60,7 +61,6 @@ generate_yi_subsets <- function(yi_analysis) {
         )
     )
   # ---- rename scenario cols in back transformed data----
-
 
   return(out)
 }
