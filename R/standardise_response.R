@@ -192,7 +192,7 @@ log_transform_response <- function(data, sim = 10000L, ...) {
   cli::cli_h1(glue::glue("Computing meta-analysis inputs:"))
   cli::cli_h2(glue::glue("Log-transforming response-variable"))
   
-  data <- data %>%
+  out <- data %>%
     pointblank::col_exists(
       columns = pointblank::vars(
         "id_col",
@@ -207,5 +207,5 @@ log_transform_response <- function(data, sim = 10000L, ...) {
                                          NA))) %>%
     ungroup()
   
-  return(data)
+  return(out)
 }
