@@ -175,6 +175,7 @@ process_response <- function(data, ...){
 #'   pluck("data", 1) %>%
 #'   back_transform_response_vars_yi("yi", "eucalyptus") %>%
 #'   log_transform_response()
+#' @export
 #' @import dplyr
 #' @import cli
 #' @import glue
