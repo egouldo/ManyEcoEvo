@@ -15,6 +15,9 @@
 #' @import purrr
 #' @import rlang
 #' @importFrom pointblank expect_col_exists expect_col_is_numeric expect_col_is_character expect_col_vals_in_set
+#' @examples
+#' data(ManyEcoEvo)
+#' ManyEcoEvo %>% prepare_response_variables(estimate_type = "Zr")
 prepare_response_variables <- function(ManyEcoEvo,
                                        estimate_type = character(1L),
                                        param_table = NULL,
