@@ -3,7 +3,7 @@
 #' @param back_transformed_data description
 #' @param sim Number of simulations to run when generating distribution to sample from
 #' @return A tibble of standardised-out-of-sample predictions on the Z-scale, with columns `Z`, `VZ`, `lower` and `upper` and the original columns fro `back_transformed_data` that were not used / updated in the transformation.
-#' @seealso Equivalent to [pred_to_Z()] in terms of workflow data hierarchy.
+#' @seealso Equivalent to [pred_to_Z()] in terms of workflow data hierarchy. Called by [log_transform_response()].
 #' @param sim Number of simulations to run when generating distribution to sample from
 #' @export
 #' @import dplyr
