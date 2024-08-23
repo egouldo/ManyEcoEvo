@@ -33,6 +33,11 @@ prepare_response_variables <- function(ManyEcoEvo,
   pointblank::expect_col_exists(object = ManyEcoEvo, 
                                 columns = c(dataset, data))
   
+  if (!pointblank::test_col_exists(ManyEcoEvo, "estimate_type")) {
+    ManyEcoEvo <- dplyr::mutate(ManyEcoEvo, 
+                                estimate_type = estimate_type)
+  }
+  
   if (!is.null(dataset_standardise)) {
     stopifnot(
       is.character(dataset_standardise), 
