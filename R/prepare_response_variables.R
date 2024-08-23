@@ -131,7 +131,7 @@ prepare_response_variables <- function(ManyEcoEvo,
     }
   } else { # Zr
     if (!is.null(param_table)) {
-      cli::cli_abort("{.arg param_table} must be NULL for {.val {estimate_type}} data")
+      cli::cli_abort("{.arg param_table} must be {.val NULL} for {.val {estimate_type}} data")
     }
     
     cli::cli_alert_info("Standardising response variables for {.val {estimate_type}} estimates.")
