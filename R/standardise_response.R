@@ -1,7 +1,5 @@
 #' Process Response Data for Meta-Analysis
-#' @param estimate_type The type of estimate to be standardised. Character vector of length 1, whose value may be "Zr", "yi", "y25", "y50", "y75".
-#' @param param_table A table of estimated 'population' parameters for each variable in the analysis datasets.
-#' @param dataset One of either "blue tit" or "eucalyptus"
+#' 
 #' @param data A tibble of analyst data with a list-column called
 #' @param ... Ignored
 #' @import cli
@@ -15,6 +13,10 @@ NULL
 #> NULL
 
 #' Standardise Response Variable
+#' 
+#' @param estimate_type The type of estimate to be standardised. Character vector of length 1, whose value may be "Zr", "yi", "y25", "y50", "y75".
+#' @param param_table A table of estimated 'population' parameters for each variable in the analysis datasets.
+#' @param dataset Character vector of length 1. The name of the dataset being processed, e.g. `blue tit` or `eucalyptus`.
 #' @return A tibble of analyst data with standardised values contained in a list-column called 'back_transformed_data'
 #' @details
 #' # `standardise_response()`
