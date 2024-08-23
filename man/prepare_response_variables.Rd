@@ -9,7 +9,8 @@ prepare_response_variables(
   estimate_type = character(1L),
   param_table = NULL,
   dataset_standardise = NULL,
-  dataset_log_transform = NULL
+  dataset_log_transform = NULL,
+  ...
 )
 }
 \arguments{
@@ -31,6 +32,10 @@ Prepare response variable data for nested ManyEcoEvo dataset
 }
 \details{
 Operates on nested list-columns of dataframes, where each dataframe contains the response variable data for a single analysis. The function standardises the response variable data for each analysis, and returns the modified dataset to the \code{data} list-column.
+}
+\examples{
+data(ManyEcoEvo)
+ManyEcoEvo \%>\% prepare_response_variables(estimate_type = "Zr")
 }
 \seealso{
 Other Multi-dataset Wrapper Functions: 

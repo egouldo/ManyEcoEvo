@@ -25,6 +25,6 @@ Back Transform Response Variables - yi
 }
 \seealso{
 Other analyst-data: 
-\code{\link{process_analyst_data}}
+\code{\link{pmap_wrap}()}
 }
 \concept{analyst-data}

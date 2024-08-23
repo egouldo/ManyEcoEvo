@@ -6,12 +6,13 @@ library(crew)
 library(tictoc)
 
 # ---- Run targets pipeline ----
-tar_destroy() # Uncomment and run if want to reproduce from scratch, run locally only
+# tar_destroy() # Uncomment and run if want to reproduce from scratch, run locally only
 tic()
-tar_make()
-toc()
+# tar_make()
 # tar_make(names = ManyEcoEvo_results)
-# tar_make(shortcut = T, callr_function = NULL) #`callr_function` is set to NULL for debugging
+tar_make(shortcut = T, callr_function = NULL) #`callr_function` is set to NULL for debugging
+toc()
+
 
 # ---- Read targets and use data ----
 

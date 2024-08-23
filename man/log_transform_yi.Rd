@@ -4,7 +4,7 @@
 \alias{log_transform_yi}
 \title{Log-transform a data-frame of back-transformed out-of-sample estimates}
 \usage{
-log_transform_yi(back_transformed_data, sim = 10000L)
+log_transform_yi(back_transformed_data, sim = 10000L, ...)
 }
 \arguments{
 \item{back_transformed_data}{description}
@@ -18,5 +18,5 @@ A tibble of standardised-out-of-sample predictions on the Z-scale, with columns 
 Log-transform a data-frame of back-transformed out-of-sample estimates
 }
 \seealso{
-Equivalent to \code{\link[=pred_to_Z]{pred_to_Z()}} in terms of workflow data hierarchy.
+Equivalent to \code{\link[=pred_to_Z]{pred_to_Z()}} in terms of workflow data hierarchy. Called by \code{\link[=log_transform_response]{log_transform_response()}}.
 }
