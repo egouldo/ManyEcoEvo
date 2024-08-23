@@ -47,7 +47,6 @@ standardise_response <- function(data,
   # TODO insert checks that appropriate columns exist
   # TODO apply to data and check that all cases accounted for!
   match.arg(estimate_type, choices = c("Zr", "yi", "y25", "y50", "y75"), several.ok = FALSE)
-  match.arg(dataset, choices = c("eucalyptus", "blue tit"), several.ok = FALSE)
   
   cli::cli_h1(glue::glue("Computing meta-analysis inputs", "for estimate type ", "{estimate_type}"))
   
