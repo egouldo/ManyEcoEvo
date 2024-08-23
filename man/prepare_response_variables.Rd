@@ -32,6 +32,8 @@ Prepare response variable data for nested ManyEcoEvo dataset
 }
 \details{
 Operates on nested list-columns of dataframes, where each dataframe contains the response variable data for a single analysis. The function standardises the response variable data for each analysis, and returns the modified dataset to the \code{data} list-column.
+
+Note that if \code{ManyEcoEvo} does not have an \code{estimate_type} column, it will be added with the value of \code{estimate_type}. This is because some transformation functions require the \code{estimate_type} column to be present in the dataset.
 }
 \examples{
 data(ManyEcoEvo)

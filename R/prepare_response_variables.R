@@ -7,6 +7,9 @@
 #' @param dataset_log_transform A character string of length 1, equal to the name of the dataset to log-transform the response variables to. If `NULL` (default), no datasets are log-transformed.
 #' @return A tibble of nested list-columns
 #' @details Operates on nested list-columns of dataframes, where each dataframe contains the response variable data for a single analysis. The function standardises the response variable data for each analysis, and returns the modified dataset to the `data` list-column.
+#' 
+#' Note that if `ManyEcoEvo` does not have an `estimate_type` column, it will be added with the value of `estimate_type`. This is because some transformation functions require the `estimate_type` column to be present in the dataset.
+#' 
 #' @family targets-pipeline functions.
 #' @family Multi-dataset Wrapper Functions
 #' @export
