@@ -34,7 +34,7 @@ generate_yi_subsets <- function(yi_analysis) {
       mutate(estimate_type = case_when(
         estimate_type %in% list("Q1", 1) ~ "y25",
         estimate_type %in% list("Q2", 2) ~ "y50",
-        estimate_type %in% list("Q3", 3) ~ "y75", # TODO: check instructions to analyst for correct ordering of scenarios
+        estimate_type %in% list("Q3", 3) ~ "y75", 
         TRUE ~ rlang::na_chr
       )) %>%
       ungroup() %>%
@@ -47,7 +47,7 @@ generate_yi_subsets <- function(yi_analysis) {
     group_by(dataset) %>%
     mutate(
       data =
-        map(data, ~ filter(.x, !is.na(back_transformed_data))) %>% # TODO is this step replicated in split_yi_subsets() ??
+        map(data, ~ filter(.x, !is.na(back_transformed_data))) %>% 
           map(split_yi_subsets)
     ) %>%
     select(-contains("estimate_type")) %>% #delete col if exists: split_yi_subsets creates duplicate estimate_type col
