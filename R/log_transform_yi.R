@@ -11,7 +11,7 @@
 #' @import cli
 #' @import rlang
 log_transform_yi <- function(back_transformed_data, 
-                             sim = 10000L){
+                             sim = 10000L, ...){
   
   if (any(rlang::is_na(sim), 
           rlang::is_na(back_transformed_data))) {
