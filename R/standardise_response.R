@@ -199,13 +199,16 @@ log_transform_response <- function(data, sim = 10000L, ...) {
         "back_transformed_data"
       )
     ) %>% 
-    dplyr::group_by(id_col) %>%
     dplyr::mutate(back_transformed_data = 
-                    map(.x = back_transformed_data,
-                           .f = ~ ifelse(!rlang::is_na(.x),
-                                         log_transform_yi(.x, sim = sim),
-                                         NA))) %>%
-    ungroup()
+             purrr::map(
+               .x = back_transformed_data,
+               .f = ~ if (!rlang::is_na(.x)) {
+                 log_transform_yi(.x, sim = sim)
+               } else {
+                 NA
+               }
+             ), 
+           .by = "id_col")
   
   return(out)
 }
