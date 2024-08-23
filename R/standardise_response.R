@@ -1,8 +1,9 @@
 #' Process Response Data for Meta-Analysis
-#' @param dat A tibble of analyst data with a list-column called
 #' @param estimate_type The type of estimate to be standardised. Character vector of length 1, whose value may be "Zr", "yi", "y25", "y50", "y75".
 #' @param param_table A table of estimated 'population' parameters for each variable in the analysis datasets.
 #' @param dataset One of either "blue tit" or "eucalyptus"
+#' @param data A tibble of analyst data with a list-column called
+#' @param ... Ignored
 #' @import cli
 #' @import dplyr
 #' @import tidyr
@@ -36,10 +37,11 @@ NULL
 #' @describeIn process_analyst_data Standardise response data for meta-analysis
 #' @family analyst-data
 #' @seealso [est_to_zr()],  [assign_transformation_type()]
-standardise_response <- function(dat,
+standardise_response <- function(data,
                                  estimate_type = character(1L),
                                  param_table = NULL,
-                                 dataset = character(1L)) {
+                                 dataset = character(1L),
+                                 ...) {
   # TODO insert checks that appropriate columns exist
   # TODO apply to data and check that all cases accounted for!
   match.arg(estimate_type, choices = c("Zr", "yi", "y25", "y50", "y75"), several.ok = FALSE)
@@ -51,7 +53,7 @@ standardise_response <- function(dat,
     # ------ Convert Effect Sizes to Zr -------
     cli::cli_h2(paste0("Computing standardised effect sizes ", "{.code Zr}", " and variance ", "{.code VZr}"))
     
-    dat <- dat %>%
+    data <- data %>%
       dplyr::mutate(
         Zr_VZr = purrr::pmap(
           .l = list(
@@ -66,7 +68,7 @@ standardise_response <- function(dat,
     # ------ Convert predictions to Z -------
     cli::cli_h2(paste0("Standardising out-of-sample predictions"))
     
-    dat <- dat %>%
+    data <- data %>%
       pointblank::col_exists(
         columns =
           pointblank::vars(
@@ -113,7 +115,7 @@ standardise_response <- function(dat,
       ungroup()
   }
   # TODO for any analyses implicitly excluded, return a message to the user
-  return(dat)
+  return(data)
 }
 
 #' Process response data for meta-analysis
@@ -126,13 +128,13 @@ standardise_response <- function(dat,
 #' 
 #' Formats tibbles in the list-column `back_transformed_data` to ensure that the 
 #' correct columns are present for meta-analysis, matching the outputs of
-#'  [standardise_response()]. For blue tit data `dat$back_transformed_data$fit` 
-#'  and for eucalyptus data, `dat$back_transformed_data$estimate` is renamed `Z`.
+#'  [standardise_response()]. For blue tit data `data$back_transformed_data$fit` 
+#'  and for eucalyptus data, `data$back_transformed_data$estimate` is renamed `Z`.
 #'  `se.fit` is renamed `VZ`.
 #' @import dplyr
 #' @import purrr
 #' @import tidyr
-process_response <- function(dat, ...){
+process_response <- function(data, ...){
   
   Z_names_lookup <- c(Z = "estimate", #blue tit
                       Z = "fit", #eucalyptus
@@ -140,7 +142,7 @@ process_response <- function(dat, ...){
                       lower = "ci.low",
                       upper = "ci.hi") # both datasets
   
-  dat %>%  
+  data %>%  
     mutate(back_transformed_data = 
              map(back_transformed_data, 
                  rename, 
@@ -154,7 +156,7 @@ process_response <- function(dat, ...){
 #' @details
 #' # [log_transform_response()]
 #' 
-#' maps [log_transform_yi()] onto back-transformed data stored in list-columns within [dat]
+#' maps [log_transform_yi()] onto back-transformed data stored in list-columns within [data]
 #' @examples
 #' ManyEcoEvo_yi %>% 
 #' filter(dataset == "eucalyptus") %>% 
@@ -169,15 +171,15 @@ process_response <- function(dat, ...){
 #' @import rlang
 #' @describeIn process_analyst_data Standardise response data for meta-analysis
 #' @family analyst-data
-log_transform_response <- function(dat, sim = 10000L, ...) {
+log_transform_response <- function(data, sim = 10000L, ...) {
   # TODO insert checks that appropriate columns exist
   # TODO apply to data and check that all cases accounted for!
-  stopifnot(is.data.frame(dat))
+  stopifnot(is.data.frame(data))
   
   cli::cli_h1(glue::glue("Computing meta-analysis inputs:"))
   cli::cli_h2(glue::glue("Log-transforming response-variable"))
   
-  dat <- dat %>%
+  data <- data %>%
     pointblank::col_exists(
       columns = pointblank::vars(
         "id_col",
@@ -192,5 +194,5 @@ log_transform_response <- function(dat, sim = 10000L, ...) {
                                          NA))) %>%
     ungroup()
   
-  return(dat)
+  return(data)
 }
