@@ -2,6 +2,9 @@
 
 <!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
 
+- #118 docs: Add explanation about updated behaviour when `estimate_type` is missing in `ManyEcoEvo` dataframe
+- #118 build: devtools::document()
+
 # ManyEcoEvo 2.6.0
 
 - Update arg supply to targets call on prepare_response_variables() after #118 updates
