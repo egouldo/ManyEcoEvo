@@ -252,7 +252,10 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
                              dataset_standardise = "blue tit",
                              dataset_log_transform = "eucalyptus") %>%
                            generate_yi_subsets() %>% #TODO: must be run after prepare_response_variables??
-                           apply_VZ_exclusions(3) %>%
+                           apply_VZ_exclusions(
+                             VZ_colname = list("eucalyptus" = "std.error_log", 
+                                               "blue tit" = "VZ"), 
+                             VZ_cutoff = 3) %>%
                            generate_exclusion_subsets() %>% #TODO: runs on ManyEcoEvo that contains Zr and yi results.
                            compute_MA_inputs() %>%  #TODO lone join by "estimate_type" amongst join_by ("id_col") is suspicious!
                            generate_outlier_subsets() %>% #TODO swapped order with previous line, but untested
