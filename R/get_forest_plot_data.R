@@ -3,7 +3,7 @@
 #' @param model A metafor model object of class `rma.mv` or `rma.uni`
 #' @return A tibble containing the data required to plot a forest plot
 #' @export
-#' @family Forest Plot Functions
+#' @family Plotting functions
 #' @examples
 #' get_forest_plot_data(model)
 #' @import broom.mixed
@@ -41,8 +41,9 @@ get_forest_plot_data <- function(model){
 #' @import ggplot2
 #' @import ggforestplot
 #' @import NatParksPalettes
-#' @family Forest Plot Functions
+#' @family Plotting functions
 #' @examples
+#' data(ManyEcoEvo_results)
 #' model <- ManyEcoEvo_results %>% pluck("MA_mod", 1) 
 #' plot_data <- get_forest_plot_data(model)
 #' plot_forest(plot_data)

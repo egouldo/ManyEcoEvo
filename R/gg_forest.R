@@ -6,6 +6,14 @@
 #'
 #' @return An object of class `ggplot2`
 #' @export
+#' @family Plotting Functions
+#' @importFrom ggplot2 ggplot aes element_line element_text theme guides coord_flip labs geom_pointrange
+#' @importFrom ggforestplot theme_forest
+#' @importFrom parameters parameters
+#' @importFrom tibble as_tibble
+#' @import dplyr
+#' @importFrom forcats fct_reorder
+#' @importFrom stringr str_detect
 gg_forest <- function(meta_model, estimate_type, dataset = character(1L)) {
   match.arg(dataset, choices = c("blue tit", "eucalyptus"), several.ok = FALSE)
   cli::cli_h2(glue::glue(
@@ -44,10 +52,10 @@ gg_forest <- function(meta_model, estimate_type, dataset = character(1L)) {
     TRUE ~ expression("Standardised Out-of-sample Prediction, y"[75])
   )
 
-  euc_svg_url <- "https://images.phylopic.org/images/a42656fa-b92a-4c69-8f13-55e4cb4b6bc1/vector.svg"
-  bt_svg_url <- "https://images.phylopic.org/images/dfdfb59e-8126-44e1-a7a9-1bf698113e1c/vector.svg"
-
-  img_url <- ifelse(dataset == "eucalyptus", euc_svg_url, bt_svg_url)
+  # euc_svg_url <- "https://images.phylopic.org/images/a42656fa-b92a-4c69-8f13-55e4cb4b6bc1/vector.svg"
+  # bt_svg_url <- "https://images.phylopic.org/images/dfdfb59e-8126-44e1-a7a9-1bf698113e1c/vector.svg"
+  # 
+  # img_url <- ifelse(dataset == "eucalyptus", euc_svg_url, bt_svg_url)
 
   p <- plot_data %>%
     ggplot(aes(

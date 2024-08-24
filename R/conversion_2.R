@@ -8,25 +8,35 @@
 #' @param sim Number of simulations to use during back-transformation. Defaults to $10000$.
 #'
 #' @return The outputs of a back-transformation function, see family back-transformations
-#' @family back transformation
 #' @export
+#' @family Back-transformation
+#' @seealso [conversion()]
 conversion_2 <- function(beta, se, response_transformation, link_fun, sim = 10000) {
+  # ----- Argument Checking -----
   na_args <- purrr::discard(c(beta, se, response_transformation, link_fun), is.na) %>%
     length()
-
 
   if (na_args < 4) {
     cli::cli_alert_danger("Required values for back-transformation missing:")
     cli::cli_alert_warning("Returning {.val NA} for quadruple:")
     cli::cli_ol(c(
-      "beta_estimate {.val {beta}},",
-      "beta_se {.val {se}},",
-      "with {.val {response_transformation}} response transformation and",
-      "link function {.val {link_fun}}."
+      "{.arg beta} {.val {beta}},",
+      "{.arg se} {.val {se}},",
+      "with {.val {response_transformation}} response {.arg transformation} and",
+      "{.arg link_function }{.val {link_fun}}."
     ))
     return(NA)
   }
-
+  
+  stopifnot(
+    purrr::is_scalar_vector(sim),
+    is.numeric(beta),
+    is.numeric(se),
+    is.character(response_transformation),
+    is.character(link_fun)
+  )
+  
+  # ----- Back-transformation -----
   set <- if (link_fun == "log") {
     log_back(set$beta, set$se, sim)
   } else if (link_fun == "logit") {

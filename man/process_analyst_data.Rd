@@ -102,13 +102,27 @@ filter(dataset == "eucalyptus") \%>\%
 \seealso{
 This internal helper function is called by \code{\link[=prepare_response_variables]{prepare_response_variables()}}
 
-\code{\link[=est_to_zr]{est_to_zr()}},  \code{\link[=assign_transformation_type]{assign_transformation_type()}}
+\code{\link[=est_to_zr]{est_to_zr()}},\code{\link[=assign_transformation_type]{assign_transformation_type()}}, \code{\link[=pred_to_Z]{pred_to_Z()}}
 
-Other analyst-data: 
-\code{\link{back_transform_response_vars_yi}()}
+Other Analysis-level functions: 
+\code{\link{Z_VZ_preds}()},
+\code{\link{back_transform_response_vars_yi}()},
+\code{\link{box_cox_transform}()},
+\code{\link{convert_predictions}()},
+\code{\link{est_to_zr}()},
+\code{\link{folded_params}()},
+\code{\link{rename_prediction_cols}()},
+\code{\link{variance_box_cox}()}
 
-Other analyst-data: 
-\code{\link{back_transform_response_vars_yi}()}
+Other Analysis-level functions: 
+\code{\link{Z_VZ_preds}()},
+\code{\link{back_transform_response_vars_yi}()},
+\code{\link{box_cox_transform}()},
+\code{\link{convert_predictions}()},
+\code{\link{est_to_zr}()},
+\code{\link{folded_params}()},
+\code{\link{rename_prediction_cols}()},
+\code{\link{variance_box_cox}()}
 }
-\concept{analyst-data}
+\concept{Analysis-level functions}
 \keyword{internal}

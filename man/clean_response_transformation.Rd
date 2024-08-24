@@ -25,6 +25,7 @@ The \code{transformation_tbl} is a tibble of the response transformation values 
 names \code{cleaned_transformation}. The \code{transformation_orig} values are the original response transformation values
 used by the analyst. The \code{cleaned_transformation} values are the cleaned response transformation values that are equal to the required \code{transformation} values in \code{\link[=conversion]{conversion()}}.
 The user can supply an alternate table of transformations depending on what is required for the back-transformation functions.
+back-transformation
 }
 \examples{
 clean_response_transformation("power2", ManyEcoEvo:::transformation_tbl) 
@@ -33,8 +34,4 @@ clean_response_transformation("new_transformation", ManyEcoEvo:::transformation_
 }
 \seealso{
 To be called after to \code{\link[=assign_transformation_type]{assign_transformation_type()}}
-
-Other back-transformation functions: 
-\code{\link{assign_transformation_type}()}
 }
-\concept{back-transformation functions}

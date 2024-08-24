@@ -19,3 +19,4 @@ An object of class \code{ggplot2}
 \description{
 Forestplot with ggplot2
 }
+\concept{Plotting Functions}

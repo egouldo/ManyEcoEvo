@@ -20,6 +20,7 @@ A ggplot object
 Plot a forest plot using the data from \code{get_forest_plot_data}
 }
 \examples{
+data(ManyEcoEvo_results)
 model <- ManyEcoEvo_results \%>\% pluck("MA_mod", 1) 
 plot_data <- get_forest_plot_data(model)
 plot_forest(plot_data)
@@ -28,7 +29,11 @@ plot_forest(plot_data, MA_mean = FALSE)
 plot_forest(plot_data, intercept = FALSE, MA_mean = FALSE)
 }
 \seealso{
-Other Forest Plot Functions: 
-\code{\link{get_forest_plot_data}()}
+Other Plotting functions: 
+\code{\link{get_forest_plot_data}()},
+\code{\link{plot_cont_rating_effects}()},
+\code{\link{plot_effects_diversity}()},
+\code{\link{plot_model_means_box_cox_cat}()},
+\code{\link{plot_model_means_orchard}()}
 }
-\concept{Forest Plot Functions}
+\concept{Plotting functions}

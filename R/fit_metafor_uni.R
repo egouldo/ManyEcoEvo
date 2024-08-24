@@ -7,7 +7,7 @@
 #'
 #' @return A fitted model of class rma
 #' @export
-#'
+#' @family Model fitting and meta-analysis
 #' @examples
 #' # library(tidyverse);library(targets);library(metafor)
 #' # source("R/functions.R")

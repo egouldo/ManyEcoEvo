@@ -4,7 +4,7 @@
 #' @param estimate_type character vector, one of \code{"Zr", "yi", "y25", "y50", "y75", NULL}.
 #' @details If `estimate_type` is `NULL`, the column `estimate_type` must be in `ManyEcoEvo`.
 #' @note This function uses the functions`subset_fns_Zr`and `subset_fns_yi` to create named lists with elements containing `rlang_lambda_function`s, whose element name is the name of the `rlang_lambda_function`
-#' @return A `dataframe` grouped by dataset and exclusion_set that contains subsets of `data` and `diversity_data` based on exclusion criteria functions defined in `subset_fns_Zr` and `subset_funs_yi`,
+#' @return A `dataframe` grouped by dataset and exclusion_set that contains subsets of `data` and `diversity_data` based on exclusion criteria functions defined in `subset_fns_Zr` and `subset_funs_yi`, and the `estimate_type` column.
 #' @export
 #' @note To be run after `generate_exclusion_subsets()`
 #' @family Multi-dataset Wrapper Functions
@@ -20,6 +20,7 @@ generate_exclusion_subsets <- function(ManyEcoEvo, estimate_type = NULL) {
     several.ok = FALSE
   )
   cli::cli_h1("Applying exclusion rules and generating exclusion subsets")
+  
   subset_fns_df <- tibble::tibble(
     exclusion_set = names(subset_fns_Zr()) %>%
       stringr::str_remove(., "subset_"),
@@ -30,7 +31,7 @@ generate_exclusion_subsets <- function(ManyEcoEvo, estimate_type = NULL) {
     dplyr::bind_rows(
       .,
       tibble::tibble(
-        exclusion_set = names(subset_fns_yi()) %>% # TODO mv these funs into this function.
+        exclusion_set = names(subset_fns_yi()) %>% # TODO expose this as a function argument
           stringr::str_remove(., "subset_"),
         fns = subset_fns_yi()
       ) %>%

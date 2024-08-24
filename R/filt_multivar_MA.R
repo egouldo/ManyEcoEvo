@@ -29,6 +29,7 @@
 #' - `box_cox_abs_deviation_score_estimate`: response variable, Box-Cox transformed deviation from the meta-analytic mean effect-size for each analysis
 #' - `mixed_model`: binary variable indicating whether the analysis used a mixed effects model or not
 #' - `ReviewerId`: reviewer identifier
+#' @family Model fitting and meta-analysis
 fit_multivar_MA <- function(data_tbl, N = 5, ..., env = rlang::caller_env()) {
   data_tbl %>%
     pointblank::expect_col_exists(columns = c(

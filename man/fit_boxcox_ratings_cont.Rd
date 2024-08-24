@@ -20,7 +20,7 @@ fit_boxcox_ratings_cont(
 \item{outcome_var}{Variance of the \code{outcome} variable}
 }
 \value{
-An object of class lmer.
+An object of class \code{lme4::lmerMod-class}
 }
 \description{
 Fit an lmer model of the box-cox transformed deviation from the meta-analytic mean scores as a function of continuous peer-review ratings
@@ -36,3 +36,21 @@ Fit an lmer model of the box-cox transformed deviation from the meta-analytic me
 #                                   box_cox_abs_deviation_score_estimate,
 #                                   VZr )
 }
+\seealso{
+Other Model fitting and meta-analysis: 
+\code{\link{fit_MA_mv}()},
+\code{\link{fit_boxcox_ratings_cat}()},
+\code{\link{fit_boxcox_ratings_ord}()},
+\code{\link{fit_metafor_mv}()},
+\code{\link{fit_metafor_mv_reduced}()},
+\code{\link{fit_metafor_uni}()},
+\code{\link{fit_multivar_MA}()},
+\code{\link{fit_sorensen_glm}()},
+\code{\link{fit_uni_mixed_effects}()},
+\code{\link{poss_fit_boxcox_ratings_cat}()},
+\code{\link{poss_fit_boxcox_ratings_cont}()},
+\code{\link{poss_fit_boxcox_ratings_ord}()},
+\code{\link{poss_fit_metafor_mv}()},
+\code{\link{poss_fit_uni_mixed_effects}()}
+}
+\concept{Model fitting and meta-analysis}

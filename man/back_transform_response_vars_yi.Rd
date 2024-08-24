@@ -24,7 +24,22 @@ A tibble of analyst data with standardised values contained in a list-column cal
 Back Transform Response Variables - yi
 }
 \seealso{
-Other analyst-data: 
-\code{\link{pmap_wrap}()}
+Other Analysis-level functions: 
+\code{\link{Z_VZ_preds}()},
+\code{\link{box_cox_transform}()},
+\code{\link{convert_predictions}()},
+\code{\link{est_to_zr}()},
+\code{\link{folded_params}()},
+\code{\link{pmap_wrap}()},
+\code{\link{rename_prediction_cols}()},
+\code{\link{variance_box_cox}()}
+
+Other Back-transformation: 
+\code{\link{back}},
+\code{\link{conversion}()},
+\code{\link{conversion_2}()},
+\code{\link{convert_predictions}()},
+\code{\link{rename_prediction_cols}()}
 }
-\concept{analyst-data}
+\concept{Analysis-level functions}
+\concept{Back-transformation}

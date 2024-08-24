@@ -7,6 +7,9 @@
 #'
 #' @return Object of class \code{rma.mv}
 #' @import metafor
+#' @importFrom cli cli_h2
+#' @importFrom glue glue
+#' @importFrom metafor rma.mv
 #' @export
 #'
 #' @examples
@@ -23,6 +26,7 @@
 #'     !is.infinite(VZr)
 #'   ) %>%
 #'   fit_metafor_mv(estimate = .$Zr, variance = .$VZr, estimate_type = "Zr", data = .)
+#' @family Model fitting and meta-analysis
 fit_metafor_mv <- function(estimate, variance, estimate_type = character(1L), data) {
   cli::cli_h2(glue::glue("Fitting metaregression"))
   match.arg(estimate_type, choices = c("Zr", "y50", "y25", "y75", "yi"), several.ok = FALSE)
@@ -73,6 +77,7 @@ fit_metafor_mv <- function(estimate, variance, estimate_type = character(1L), da
 #'     !is.infinite(VZr)
 #'   ) %>%
 #'   fit_metafor_mv(estimate = .$Zr, variance = .$VZr, estimate_type = "Zr", data = .)
+#' @family Model fitting and meta-analysis
 fit_metafor_mv_reduced <- function(estimate, variance, estimate_type = character(1L), data) {
   cli::cli_h2(glue::glue("Fitting multivariate metaregression"))
   match.arg(estimate_type, choices = c("Zr", "y50", "y25", "y75"), several.ok = FALSE)
@@ -95,6 +100,11 @@ fit_metafor_mv_reduced <- function(estimate, variance, estimate_type = character
   )
 }
 
+#' Possibly [fit_metafor_mv()]
+#' @description Wrapper for [fit_metafor_mv()] that returns `NA` if an error is thrown
+#' @keywords internal
+#' @family Model fitting and meta-analysis
+#' @seealso [fit_metafor_mv()]
 poss_fit_metafor_mv <- purrr::possibly(fit_metafor_mv,
   otherwise = NA,
   quiet = FALSE

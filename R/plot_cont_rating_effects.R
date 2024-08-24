@@ -9,7 +9,7 @@
 #'
 #' @return A list, with the first element containing the fitted statistical model and the second element containing the plot
 #' @export
-#'
+#' @family Plotting functions
 #' @examples
 #' # ManyEcoEvo_results$effects_analysis[[1]] %>% #TODO use package data object instead of targets object
 #' # unnest(review_data) %>%

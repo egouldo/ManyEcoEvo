@@ -15,6 +15,7 @@
 #' @importFrom EnvStats stat_n_text
 #' @importFrom forcats fct_relevel
 #' @importFrom sae bxcx
+#' @family Plotting functions
 plot_model_means_box_cox_cat <- function(dat,
                                          variable,
                                          predictor_means,

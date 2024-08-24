@@ -6,7 +6,7 @@
 #'
 #' @return A numeric vector of length 1.
 #' @export
-#' @family multi-level model calculations
+#' @family Meta-analysis statistics
 calc_I2_ml <- function(fitted_model) {
   W <- diag(1 / fitted_model$vi)
   X <- model.matrix(fitted_model)
@@ -22,7 +22,7 @@ calc_I2_ml <- function(fitted_model) {
 #'
 #' @return A named numeric vector of length 2.
 #' @export
-#' @family multi-level model calculations
+#' @family Meta-analysis statistics
 apportion_heterogeneity_ml <- function(fitted_model) {
   # Estiamtes how much of the total variance (I^2) can be attributed
   W <- diag(1 / fitted_model$vi)
@@ -41,7 +41,7 @@ apportion_heterogeneity_ml <- function(fitted_model) {
 #'
 #' @return A tibble with descriptive statistics of model fit
 #' @export
-#' @family multi-level model calculations
+#' @family Meta-analysis statistics
 compare_ml_MA <- function(object1, object2) {
   # see https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/multilevel-ma.html#multilevel-R
   # this fn compares two fitted mra.mv models, and tidies the results

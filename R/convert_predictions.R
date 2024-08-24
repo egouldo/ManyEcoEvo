@@ -1,15 +1,17 @@
 #' Convert Predictions
 #' @description Converts out of sample predictions on the link scale back to the response scale
-#' @param augmented_data A tibble of out of analysts's sample prediction data for 3 scenarios
+#' @param augmented_data A tibble of out of analyst's sample prediction data for 3 scenarios
 #' @return A tibble of out of sample predictions on the response variable scale of the response variable used by the analyst
-#' @family analysis-values
+#' @family Analysis-level functions
 #' @export
 #' @import dplyr
-#' @import purrr
-#' @import rlang
-#' @import cli
+#' @importFrom purrr discard
+#' @importFrom rlang is_na
+#' @importFrom cli cli_alert_warning cli_abort
 #' @importFrom data.table setnames
 #' @importFrom pointblank has_columns
+#' @family Back-transformation
+#' @seealso [rename_prediction_cols()]
 convert_predictions <- function(augmented_data,
                                 transformation_type,
                                 response_transformation,
@@ -17,6 +19,7 @@ convert_predictions <- function(augmented_data,
   # tar_load(all_prediction_data)
   # convert_predictions(augmented_data = all_prediction_data$augmented_data[[262]],
   # transformation_type = all_prediction_data$transformation_type[[262]])
+  # 
   if (rlang::is_na(list(augmented_data))) {
     cli::cli_alert_warning("Missing Value for {.arg augmented_data}, returning {.val NA}")
     out <- rlang::na_cpl
@@ -43,26 +46,6 @@ convert_predictions <- function(augmented_data,
       USE.NAMES = TRUE,
       SIMPLIFY = TRUE
     )
-
-    rename_prediction_cols <- function(.data, key_var, .old_data) {
-      if (names(key_var) == "scenario") {
-        .data %>%
-          data.table::setnames(
-            old = colnames(.data), # TODO: is this order correct? .old_data is being used for the new variable..
-            new = colnames(.old_data) %>% purrr::discard(~ .x == "scenario")
-          )
-      } else if (names(key_var) == "SurveyID") {
-        .data %>%
-          data.table::setnames(
-            old = colnames(.data), # TODO: is this order correct? .old_data is being used for the new variable..
-            new = colnames(.old_data) %>% purrr::discard(~ .x == "SurveyID")
-          )
-      } else {
-        NA
-      }
-
-      return(.data)
-    }
 
     # Define input variables to conversion fns
 
@@ -94,7 +77,7 @@ convert_predictions <- function(augmented_data,
         t()
     } else { # Back-transform response AND link-function
 
-      if (rlang::is_na(response_transformation) | rlang::is_na(link_fun)) {
+      if (any(rlang::is_na(response_transformation), rlang::is_na(link_fun))) {
         cli::cli_alert_warning("Missing Value for {.arg response_transformation}, returning {.val NA}")
         out <- rlang::na_cpl
       }
@@ -120,4 +103,35 @@ convert_predictions <- function(augmented_data,
   }
 
   return(out)
+}
+
+#' Rename Prediction Columns
+#' @description Renames the prediction columns in the output of convert_predictions
+#' @param .data A tibble of out of sample predictions on the response variable scale
+#' @param key_var A tibble of the key variables used in the conversion
+#' @param .old_data A tibble of the original data used in the conversion
+#' @return A tibble of out of sample predictions on the response variable scale with the correct column names
+#' @family Analysis-level functions
+#' @family Back-transformation
+#' @importFrom data.table setnames
+#' @importFrom purrr discard
+#' @export
+rename_prediction_cols <- function(.data, key_var, .old_data) {
+  if (names(key_var) == "scenario") {
+    .data %>%
+      data.table::setnames(
+        old = colnames(.data), # TODO: is this order correct? .old_data is being used for the new variable..
+        new = colnames(.old_data) %>% purrr::discard(~ .x == "scenario")
+      )
+  } else if (names(key_var) == "SurveyID") {
+    .data %>%
+      data.table::setnames(
+        old = colnames(.data), # TODO: is this order correct? .old_data is being used for the new variable..
+        new = colnames(.old_data) %>% purrr::discard(~ .x == "SurveyID")
+      )
+  } else {
+    NA
+  }
+  
+  return(.data)
 }

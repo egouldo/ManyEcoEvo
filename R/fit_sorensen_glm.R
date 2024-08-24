@@ -4,7 +4,7 @@
 #'
 #' @return An fitted model object of class `glm` and `parsnip`
 #' @export
-#'
+#' @family Model fitting and meta-analysis
 #' @examples
 #' # library(tidyverse);library(targets);library(metafor);library(tidymodels)
 #' # tar_load(meta_analysis_outputs)

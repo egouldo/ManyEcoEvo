@@ -17,3 +17,22 @@ data with additional columns of box-cox transformed deviation scores and varianc
 \description{
 Box-cox transform absolute deviation from the meta-analytic mean scores
 }
+\seealso{
+\code{\link[=variance_boxcox]{variance_boxcox()}}, \code{\link[=folded_params]{folded_params()}}
+
+Other Box-Cox transformation: 
+\code{\link{folded_params}()},
+\code{\link{variance_box_cox}()}
+
+Other Analysis-level functions: 
+\code{\link{Z_VZ_preds}()},
+\code{\link{back_transform_response_vars_yi}()},
+\code{\link{convert_predictions}()},
+\code{\link{est_to_zr}()},
+\code{\link{folded_params}()},
+\code{\link{pmap_wrap}()},
+\code{\link{rename_prediction_cols}()},
+\code{\link{variance_box_cox}()}
+}
+\concept{Analysis-level functions}
+\concept{Box-Cox transformation}

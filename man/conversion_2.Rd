@@ -24,8 +24,13 @@ The outputs of a back-transformation function, see family back-transformations
 Conditionally apply back-transformation functions depending on the value of \code{transformation}
 }
 \seealso{
-Other back transformation: 
+\code{\link[=conversion]{conversion()}}
+
+Other Back-transformation: 
 \code{\link{back}},
-\code{\link{conversion}()}
+\code{\link{back_transform_response_vars_yi}()},
+\code{\link{conversion}()},
+\code{\link{convert_predictions}()},
+\code{\link{rename_prediction_cols}()}
 }
-\concept{back transformation}
+\concept{Back-transformation}

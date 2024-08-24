@@ -19,8 +19,8 @@ Estimates how much the total variance $I^2$ can be attributed to between- and wi
 From \url{http://www.metafor-project.org/doku.php/tips:i2_multilevel_multivariate}
 }
 \seealso{
-Other multi-level model calculations: 
+Other Meta-analysis statistics: 
 \code{\link{calc_I2_ml}()},
 \code{\link{compare_ml_MA}()}
 }
-\concept{multi-level model calculations}
+\concept{Meta-analysis statistics}

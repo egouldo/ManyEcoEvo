@@ -12,7 +12,7 @@ generate_exclusion_subsets(ManyEcoEvo, estimate_type = NULL)
 \item{estimate_type}{character vector, one of \code{"Zr", "yi", "y25", "y50", "y75", NULL}.}
 }
 \value{
-A \code{dataframe} grouped by dataset and exclusion_set that contains subsets of \code{data} and \code{diversity_data} based on exclusion criteria functions defined in \code{subset_fns_Zr} and \code{subset_funs_yi},
+A \code{dataframe} grouped by dataset and exclusion_set that contains subsets of \code{data} and \code{diversity_data} based on exclusion criteria functions defined in \code{subset_fns_Zr} and \code{subset_funs_yi}, and the \code{estimate_type} column.
 }
 \description{
 Generate subsets of analyst data based on different exclusion criteria

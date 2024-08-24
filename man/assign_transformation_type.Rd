@@ -25,8 +25,4 @@ Based on the response transformation and link function, the function assigns the
 }
 \seealso{
 \code{\link[=prepare_response_variables_yi(), standardise_response]{prepare_response_variables_yi(), standardise_response()}}. To be called prior to \code{\link[=clean_response_transformation]{clean_response_transformation()}}.
-
-Other back-transformation functions: 
-\code{\link{clean_response_transformation}()}
 }
-\concept{back-transformation functions}

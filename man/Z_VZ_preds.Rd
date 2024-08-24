@@ -21,4 +21,15 @@ A tibble with columns \code{Z} and \code{VZ}
 \description{
 Standardize out-of-sample predictions
 }
+\seealso{
+Other Analysis-level functions: 
+\code{\link{back_transform_response_vars_yi}()},
+\code{\link{box_cox_transform}()},
+\code{\link{convert_predictions}()},
+\code{\link{est_to_zr}()},
+\code{\link{folded_params}()},
+\code{\link{pmap_wrap}()},
+\code{\link{rename_prediction_cols}()},
+\code{\link{variance_box_cox}()}
+}
 \concept{Analysis-level functions}

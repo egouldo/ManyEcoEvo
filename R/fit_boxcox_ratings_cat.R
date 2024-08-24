@@ -6,8 +6,13 @@
 #' @param outcome_var Variance of the `outcome` variable
 #' @param interceptless A logical relating to whether the model should be interceptless or not. Defaults to `FALSE`.
 #'
-#' @return An object of class lmer.
+#' @return An object of class `lme4::lmerMod-class`
 #' @export
+#' @family Model fitting and meta-analysis
+#' @importFrom lme4 lmer
+#' @importFrom rlang ensym new_formula expr
+#' @import dplyr
+#' @importFrom forcats fct_relevel
 fit_boxcox_ratings_cat <- function(.data, outcome, outcome_var, interceptless = FALSE) {
   cli::cli_h2(glue::glue("Fitting lmer with categorical ratings predictor on box_cox_transformed outcomes"))
   # Example Usage:
@@ -55,7 +60,7 @@ fit_boxcox_ratings_cat <- function(.data, outcome, outcome_var, interceptless = 
   } else {
     ( # interceptless: for plotting
 
-      mod <- lme4::lmer(
+      mod <- lme4::lmer( #TODO implement same inject approach as fit_boxcox_ratings_cont
         rlang::new_formula(
           rlang::ensym(outcome),
           expr(-1 + PublishableAsIs + (1 | ReviewerId))
@@ -68,7 +73,11 @@ fit_boxcox_ratings_cat <- function(.data, outcome, outcome_var, interceptless = 
   return(mod)
 }
 
-
+#' Possibly [fit_boxcox_ratings_cat()]
+#' @description Wrapper for [fit_boxcox_ratings_cat()] that returns `NA` if an error is encountered
+#' @keywords internal
+#' @family Model fitting and meta-analysis
+#' @importFrom purrr possibly
 poss_fit_boxcox_ratings_cat <- purrr::possibly(fit_boxcox_ratings_cat,
   otherwise = NA,
   quiet = FALSE

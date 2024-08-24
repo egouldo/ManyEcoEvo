@@ -2,11 +2,11 @@
 #' 
 #' @param data A tibble of analyst data with a list-column called
 #' @param ... Ignored
-#' @import cli
+#' @importFrom cli cli_h1 cli_h2 
 #' @import dplyr
 #' @import tidyr
-#' @import purrr
-#' @import rlang
+#' @importFrom purrr pmap map2 map_int map
+#' @importFrom rlang is_na
 #' @importFrom pointblank col_exists vars
 #' @name process_analyst_data
 NULL
@@ -37,8 +37,8 @@ NULL
 #' variable will not be standardised, and NA will be returned for that entry in `back_transformed_data`.
 #' @export
 #' @describeIn process_analyst_data Standardise response data for meta-analysis
-#' @family analyst-data
-#' @seealso [est_to_zr()],  [assign_transformation_type()]
+#' @family Analysis-level functions
+#' @seealso [est_to_zr()],[assign_transformation_type()], [pred_to_Z()]
 #' @examples
 #' # Standardise effect-sizes for eucalyptus dataset
 #' 
@@ -144,7 +144,7 @@ standardise_response <- function(data,
 #'  `se.fit` is renamed `VZ`.
 #' @import dplyr
 #' @import purrr
-#' @import tidyr
+#' @importFrom tidyr any_of
 process_response <- function(data, ...){
   
   Z_names_lookup <- c(Z = "estimate", #blue tit
@@ -183,7 +183,7 @@ process_response <- function(data, ...){
 #' @import purrr
 #' @import rlang
 #' @describeIn process_analyst_data Standardise response data for meta-analysis
-#' @family analyst-data
+#' @family Analysis-level functions
 log_transform_response <- function(data, sim = 10000L, ...) {
   # TODO insert checks that appropriate columns exist
   # TODO apply to data and check that all cases accounted for!
