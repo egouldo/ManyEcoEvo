@@ -34,7 +34,7 @@ pkgs <- c("tidyverse",
 controller <- crew::crew_controller_local(
   garbage_collection = TRUE,
   name = "Elliot_MBP",
-  workers = 10,
+  workers = 10, #TODO: check if this is the right number of workers for general use
   seconds_idle = 5
 )
 
@@ -216,10 +216,10 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
                 pattern = map(augmented_data, groups)
      ),
      tar_target(prediction_checks,
-                command = if(!rlang::is_na(validated_augmented_data)) {
+                command = if (!rlang::is_na(validated_augmented_data)) {
                   pointblank::interrogate(validated_augmented_data) %>% 
                     pointblank::get_agent_report(., display_table = FALSE)
-                }else{
+                } else{
                   NA
                 },
                 iteration = "list",
