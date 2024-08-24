@@ -78,77 +78,99 @@ We assume analysts' estimates are normally distributed. Each function uses a nor
 }}
 \seealso{
 Other Back-transformation: 
+\code{\link{assign_transformation_type}()},
 \code{\link{back_transform_response_vars_yi}()},
+\code{\link{clean_response_transformation}()},
 \code{\link{conversion}()},
 \code{\link{conversion_2}()},
 \code{\link{convert_predictions}()},
 \code{\link{rename_prediction_cols}()}
 
 Other Back-transformation: 
+\code{\link{assign_transformation_type}()},
 \code{\link{back_transform_response_vars_yi}()},
+\code{\link{clean_response_transformation}()},
 \code{\link{conversion}()},
 \code{\link{conversion_2}()},
 \code{\link{convert_predictions}()},
 \code{\link{rename_prediction_cols}()}
 
 Other Back-transformation: 
+\code{\link{assign_transformation_type}()},
 \code{\link{back_transform_response_vars_yi}()},
+\code{\link{clean_response_transformation}()},
 \code{\link{conversion}()},
 \code{\link{conversion_2}()},
 \code{\link{convert_predictions}()},
 \code{\link{rename_prediction_cols}()}
 
 Other Back-transformation: 
+\code{\link{assign_transformation_type}()},
 \code{\link{back_transform_response_vars_yi}()},
+\code{\link{clean_response_transformation}()},
 \code{\link{conversion}()},
 \code{\link{conversion_2}()},
 \code{\link{convert_predictions}()},
 \code{\link{rename_prediction_cols}()}
 
 Other Back-transformation: 
+\code{\link{assign_transformation_type}()},
 \code{\link{back_transform_response_vars_yi}()},
+\code{\link{clean_response_transformation}()},
 \code{\link{conversion}()},
 \code{\link{conversion_2}()},
 \code{\link{convert_predictions}()},
 \code{\link{rename_prediction_cols}()}
 
 Other Back-transformation: 
+\code{\link{assign_transformation_type}()},
 \code{\link{back_transform_response_vars_yi}()},
+\code{\link{clean_response_transformation}()},
 \code{\link{conversion}()},
 \code{\link{conversion_2}()},
 \code{\link{convert_predictions}()},
 \code{\link{rename_prediction_cols}()}
 
 Other Back-transformation: 
+\code{\link{assign_transformation_type}()},
 \code{\link{back_transform_response_vars_yi}()},
+\code{\link{clean_response_transformation}()},
 \code{\link{conversion}()},
 \code{\link{conversion_2}()},
 \code{\link{convert_predictions}()},
 \code{\link{rename_prediction_cols}()}
 
 Other Back-transformation: 
+\code{\link{assign_transformation_type}()},
 \code{\link{back_transform_response_vars_yi}()},
+\code{\link{clean_response_transformation}()},
 \code{\link{conversion}()},
 \code{\link{conversion_2}()},
 \code{\link{convert_predictions}()},
 \code{\link{rename_prediction_cols}()}
 
 Other Back-transformation: 
+\code{\link{assign_transformation_type}()},
 \code{\link{back_transform_response_vars_yi}()},
+\code{\link{clean_response_transformation}()},
 \code{\link{conversion}()},
 \code{\link{conversion_2}()},
 \code{\link{convert_predictions}()},
 \code{\link{rename_prediction_cols}()}
 
 Other Back-transformation: 
+\code{\link{assign_transformation_type}()},
 \code{\link{back_transform_response_vars_yi}()},
+\code{\link{clean_response_transformation}()},
 \code{\link{conversion}()},
 \code{\link{conversion_2}()},
 \code{\link{convert_predictions}()},
 \code{\link{rename_prediction_cols}()}
 
 Other Back-transformation: 
+\code{\link{assign_transformation_type}()},
 \code{\link{back_transform_response_vars_yi}()},
+\code{\link{clean_response_transformation}()},
 \code{\link{conversion}()},
 \code{\link{conversion_2}()},
 \code{\link{convert_predictions}()},

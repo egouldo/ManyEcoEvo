@@ -7,7 +7,6 @@
 #' @param sim Number of simulations to use during back-transformation. Defaults to $10000$.
 #'
 #' @return The outputs of a back-transformation function, see family back-transformations
-#' back-transformation
 #' @details `transformation` character strings may take the values:
 #' * "log"
 #' * "logit"
