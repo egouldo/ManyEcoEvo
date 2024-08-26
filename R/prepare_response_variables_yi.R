@@ -64,7 +64,7 @@ back_transform_response_vars_yi <- function(dat,
   dat <- dat %>%
     pointblank::col_exists(
       columns =
-        pointblank::vars(
+        c(
           "TeamIdentifier",
           "submission_id",
           "analysis_id",

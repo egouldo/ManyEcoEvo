@@ -7,9 +7,11 @@
 #' @return A tibble whose columns contain the outcomes of different model checks
 #' @export
 run_model_checks <- function(data, model_name = character(0L)) {
-  stopifnot(is.data.frame(data))
+  stopifnot(is.data.frame(data),
+            is.character(model_name))
+  
   pointblank::col_exists(data,
-    columns = vars(model_name, exclusion_set, dataset, estimate_type)
+    columns = c(model_name, "exclusion_set", "dataset", "estimate_type")
   )
   match.arg(model_name, choices = unique(data$model_name))
 

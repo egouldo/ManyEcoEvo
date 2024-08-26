@@ -82,7 +82,7 @@ standardise_response <- function(data,
     data <- data %>%
       pointblank::col_exists(
         columns =
-          pointblank::vars(
+          c(
             "id_col",
             "back_transformed_data",
             "response_variable_name"
@@ -194,7 +194,7 @@ log_transform_response <- function(data, sim = 10000L, ...) {
   
   out <- data %>%
     pointblank::col_exists(
-      columns = pointblank::vars(
+      columns = c(
         "id_col",
         "back_transformed_data"
       )
