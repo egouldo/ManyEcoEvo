@@ -35,7 +35,7 @@ compute_MA_inputs <- function(ManyEcoEvo, estimate_type = NULL) {
                                          " of {.arg {estimate_type}} = {.val {estimate_type}}"))
     }
     df <- ManyEcoEvo %>%
-      pointblank::col_exists("diversity_data", "data")
+      pointblank::col_exists(c("diversity_data", "data"))
       mutate(
         diversity_indices = map(diversity_data, apply_sorensen_calc),
         effects_analysis = map2(
@@ -49,7 +49,7 @@ compute_MA_inputs <- function(ManyEcoEvo, estimate_type = NULL) {
       dplyr::group_by(exclusion_set, dataset, estimate_type)
   } else {
     df <- ManyEcoEvo %>%
-      pointblank::col_exists("estimate_type", "diversity_data", "data") %>%
+      pointblank::col_exists(c("estimate_type", "diversity_data", "data")) %>%
       mutate(
         diversity_indices = map(diversity_data, 
                                 apply_sorensen_calc),
