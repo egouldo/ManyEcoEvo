@@ -26,15 +26,22 @@ compute_MA_inputs <- function(ManyEcoEvo, estimate_type = NULL) {
   # TODO should be renamed something to do with diversity indices... that's the
   # only thing happening here!!
   match.arg(estimate_type, choices = c("Zr", "yi", "y50", "y75", "y25", NULL), several.ok = FALSE)
-  # TODO insert check to ensure that if estimate_type supplied, there is NO col with estiamte_type in ManyEcoEvo?
+
   if (!rlang::is_null(estimate_type)) {
+    if (pointblank::test_col_exists(ManyEcoEvo, "estimate_type")) {
+      ManyEcoEvo <- dplyr::select(ManyEcoEvo, -estimate_type)
+      cli::cli_alert_warning( glue::glue("estimate_type column already exists in ManyEcoEvo,",
+                                         "this will be overwritten by supplied value",
+                                         " of {.arg {estimate_type}} = {.val {estimate_type}}"))
+    }
     df <- ManyEcoEvo %>%
+      pointblank::col_exists("diversity_data", "data")
       mutate(
         diversity_indices = map(diversity_data, apply_sorensen_calc),
         effects_analysis = map2(
           .x = data, 
-          .y = diversity_indices, # TODO post-dev, remove data/diversity_data cols??
-          .f = ~ left_join(.x, .y) %>%
+          .y = diversity_indices,
+          .f = ~ left_join(.x, .y, by = join_by("id_col")) %>%
             rename(study_id = id_col) %>%
             mutate(estimate_type = !!{{ estimate_type }})
         )
@@ -42,18 +49,17 @@ compute_MA_inputs <- function(ManyEcoEvo, estimate_type = NULL) {
       dplyr::group_by(exclusion_set, dataset, estimate_type)
   } else {
     df <- ManyEcoEvo %>%
-      pointblank::col_exists("estimate_type") %>%
+      pointblank::col_exists("estimate_type", "diversity_data", "data") %>%
       mutate(
         diversity_indices = map(diversity_data, 
                                 apply_sorensen_calc),
         effects_analysis = pmap(
           .l = list(data, diversity_indices, estimate_type),
-          .f = ~ left_join(..1, ..2) %>%
+          .f = ~ left_join(..1, ..2, by = join_by("id_col")) %>%
             rename(study_id = id_col) %>%
             mutate(estimate_type = ..3)
         )
-      ) %>% # TODO can we remove estimate type from this df?
-      dplyr::group_by(exclusion_set, dataset, estimate_type)
+      ) 
   }
 
   return(df)
