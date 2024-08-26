@@ -9,9 +9,8 @@
 #' @import dplyr
 #' @family Analysis-level functions
 apply_sorensen_calc <- function(.data) {
-  out <- .data
 
-  out %>%
+  out <- .data %>%
     select(-dataset) %>% # TODO THEN REMOVE DUPES
     filter(id_col %nin% {
       out %>%
@@ -20,4 +19,6 @@ apply_sorensen_calc <- function(.data) {
         pull(id_col)
     }) %>%
     calculate_sorensen_diversity_index(., "id_col")
+  
+  return(out)
 }
