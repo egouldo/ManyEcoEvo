@@ -8,12 +8,13 @@
 #' @keywords internal
 #' @export
 #' @usage lhs \%in\% rhs
-#' @param lhs vector or NULL: the values to be matched. [Long vectors](http://127.0.0.1:59782/help/library/base/help/Long%20vectors) are supported.
-#' @param rhs vector or NULL: the values to be matched. [Long vectors](http://127.0.0.1:59782/help/library/base/help/Long%20vectors) are supported.
+#' @param lhs vector or NULL: the values to be matched. [base::`Long vectors`] are supported.
+#' @param rhs vector or NULL: the values to be matched. [base::`Long vectors`] are supported.
 #' @return A logical vector indicating which value of `lhs` are *not* matched in `rhs`
 #' @examples
 #' "A" %nin% LETTERS[1:10]
 #' "A" %in% LETTERS[1:10]
+#' @family Utility functions
 `%nin%` <- Negate(`%in%`)
 
 #' Subsetting Functions for effect-size meta-analysis
@@ -22,20 +23,27 @@
 #'
 #' @return A named list of `lambda` functions
 #' @export
+#' @importFrom rlang as_function
+#' @import dplyr
+#' @family Utility functions
 subset_fns_Zr <- function() { # TODO update calling of this fn (switch to fn rather than object)
   out <- list(
-    subset_complete = rlang::as_function(~ .x %>%
-      filter(
-        exclusions_all == "retain",
-        exclusions_effect_analysis %in%
-          c("retain", "exclude_partial")
-      )),
-    subset_partial = rlang::as_function(~ .x %>%
-      filter(
-        exclusions_all == "retain",
-        exclusions_effect_analysis %in%
-          c("retain")
-      ))
+    subset_complete = 
+      rlang::as_function(
+        ~ .x %>%
+          dplyr::filter(
+            exclusions_all == "retain",
+            exclusions_effect_analysis %in%
+              c("retain", "exclude_partial")
+          )),
+    subset_partial = 
+      rlang::as_function(
+        ~ .x %>%
+          dplyr::filter(
+            exclusions_all == "retain",
+            exclusions_effect_analysis %in%
+              c("retain")
+          ))
   )
   return(out)
 }
@@ -52,14 +60,17 @@ subset_fns_Zr <- function() { # TODO update calling of this fn (switch to fn rat
 #'
 #' @return A named list of `lambda` functions
 #' @export
-#' @import rlang
 #' @import dplyr
+#' @importFrom rlang as_function
+#' @family Utility functions
 subset_fns_yi <- function() {
   out <- list( # TODO: which dataset and variable are the prediction exclusions contained??
-    subset_complete = rlang::as_function(~ .x %>%
-      filter(exclusions_all == "retain"))
+    subset_complete = 
+      rlang::as_function(
+        ~ .x %>%
+          filter(exclusions_all == "retain"))
   )
-
+  
   return(out)
 }
 
@@ -73,15 +84,16 @@ subset_fns_yi <- function() {
 #'
 #' @examples
 #' capwords("bah, bah, black sheep")
+#' @family Utility functions
 capwords <- function(s, strict = FALSE) {
   cap <- function(s) {
     paste(toupper(substring(s, 1, 1)),
-      {
-        s <- substring(s, 2)
-        if (strict) tolower(s) else s
-      },
-      sep = "",
-      collapse = " "
+          {
+            s <- substring(s, 2)
+            if (strict) tolower(s) else s
+          },
+          sep = "",
+          collapse = " "
     )
   }
   sapply(strsplit(s, split = " "), cap, USE.NAMES = !is.null(names(s)))
@@ -101,6 +113,7 @@ capwords <- function(s, strict = FALSE) {
 #' ManyEcoEvo_results %>% 
 #' pluck("effects_analysis", 1) %>% 
 #' rm_inf_na(beta_estimate, beta_SE)
+#' @family Utility functions
 rm_inf_na <- function(effects_analysis, Z_colname, VZ_colname) {
   effects_analysis %>%
     filter(
@@ -128,6 +141,7 @@ rm_inf_na <- function(effects_analysis, Z_colname, VZ_colname) {
 #' data(blue_tit_data)
 #' named_group_split(euc_data, Property)
 #' named_group_split(blue_tit_data, hatch_Area)
+#' @family Utility functions
 named_group_split <- function(.data, grouping_variable) {
   .data %>%
     group_by({{ grouping_variable }}) %>%
