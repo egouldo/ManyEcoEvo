@@ -9,16 +9,24 @@
 #' The function computes the Z-score and VZ-score for each out-of-sample prediction estimate and its corresponding standard error using [Z_VZ_preds()].
 #' @export
 #' @import dplyr
-#' @import purrr
-#' @import cli
-#' @import rlang
+#' @importFrom purrr pluck map
+#' @importFrom cli cli_warn
+#' @importFrom rlang is_na
+#' @importFrom tidyr any_of unnest
+#' @importFrom glue glue
 #' @seealso Equivalent to[log_transform_yi()] in terms of workflow data hierarchy.
 pred_to_Z <- function(back_transformed_data,
                       params) {
   
-  if (any(rlang::is_na(params), 
-          rlang::is_na(back_transformed_data))) {
-    cli::cli_warn("Argument {.arg params} or {.arg back_transformed_data} is {.val {NA}}. Returning {.val {NA}} for standardized predictions.")
+  if (any(
+    rlang::is_na(params), 
+    rlang::is_na(back_transformed_data)
+  )) {
+    cli::cli_warn(
+      glue::glue("Argument {.arg params} or {.arg back_transformed_data} ",
+                 "is {.val {NA}}. Returning {.val {NA}}",
+                 "for standardized predictions.")
+    )
     return(NA)
   }
   
