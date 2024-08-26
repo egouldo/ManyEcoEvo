@@ -15,7 +15,7 @@
 calculate_sorensen_diversity_index <- function(.data, .id = character()) {
   out <-
     .data %>%
-    column_to_rownames(paste0(.id)) %>%
+    tibble::column_to_rownames(paste0(.id)) %>%
     mutate(across(everything(),
       .fns = ~ case_when(
         !is.na(.x) ~ 1,
@@ -30,7 +30,7 @@ calculate_sorensen_diversity_index <- function(.data, .id = character()) {
     pluck("beta.sor") %>%
     as.matrix() %>%
     as_tibble(rownames = NA) %>%
-    rownames_to_column("id_col") %>%
+    tibble::rownames_to_column("id_col") %>%
     bind_cols(num_variables = num_variables) %>%
     filter(num_variables > 0) %>%
     rowwise() %>%
