@@ -10,14 +10,14 @@
 #' @return An object of class lmer.
 #'
 #' @export
-#' @importFrom rlang new_formula
-#' @importFrom rlang caller_env
-#' @importFrom rlang expr
-#' @importFrom rlang expr
+#' @importFrom rlang new_formula caller_env expr inject
 #' @importFrom lme4 lmer
-#' @importFrom pointblank test_col_vals_gte
+#' @importFrom pointblank test_col_vals_gte expect_col_exists
 #' @import dplyr
-#' @import cli
+#' @importFrom purrr list_flatten list_c
+#' @importFrom tibble enframe unite
+#' @importFrom cli cli_alert_info cli_bullets cli_h2 style_italic
+#' @importFrom glue glue
 #' @details
 #' Depending on whether enough analyses in `data_tbl` have been conducted with the `mixed_model` variable, the function will fit a model with or without the predictor `mixed_model`.
 #'

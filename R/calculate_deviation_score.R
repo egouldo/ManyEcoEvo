@@ -13,6 +13,8 @@
 #' # tar_load(meta_analysis_outputs)
 #' # calculate_deviation_score(meta_analysis_outputs$data[[1]],
 #' #                           meta_analysis_outputs$MA_mod[[1]])
+#' @import dplyr
+#' @importFrom cli cli_h2
 calculate_deviation_score <- function(data, meta_analytic_model) {
   cli::cli_h2(c("Calculating absolute deviation scores from standardised effect sizes"))
 
@@ -24,7 +26,6 @@ calculate_deviation_score <- function(data, meta_analytic_model) {
 
   meta_analytic_mean <- meta_analytic_model$beta[[1]] # TODO should this be the fitted val from the model, or the raw score?
   # meta_analytic_se <- meta_analytic_model$se[[1]]
-
 
   out <- data %>%
     ungroup() %>%
