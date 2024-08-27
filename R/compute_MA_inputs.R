@@ -13,6 +13,8 @@
 #' Note that, the name of the subset is derived from the functions within by [subset_fns_yi()] and/or [subset_fns_Zr()] called in the previous step of data processing [generate_exclusion_subsets()]. 
 #' Should the user wish to skip the `generate_exclusion_subsets()` step, they can supply arbitrary values for `exclusion_set` and the function will still work. 
 #' 
+#' Should be run after *all* data subsetting is complete, otherwise the diversity indices will need to be recalculated.
+#' 
 #' @seealso [apply_sorensen_calc()] is used to calculate the Sorensen diversity indices.
 #' 
 #' @return A dataframe that includes the additional columns in `ManyEcoEvo`, but with added columns `diversity_indices` and `effects_analysis`.
@@ -26,16 +28,18 @@ compute_MA_inputs <- function(ManyEcoEvo, estimate_type = NULL) {
   # TODO should be renamed something to do with diversity indices... that's the
   # only thing happening here!!
   match.arg(estimate_type, choices = c("Zr", "yi", "y50", "y75", "y25", NULL), several.ok = FALSE)
-
+  cli::cli_h1(c("Computing Sorensen diversity indices inputs"))
   if (!rlang::is_null(estimate_type)) {
     if (pointblank::test_col_exists(ManyEcoEvo, "estimate_type")) {
       ManyEcoEvo <- dplyr::select(ManyEcoEvo, -estimate_type)
-      cli::cli_alert_warning( glue::glue("estimate_type column already exists in ManyEcoEvo,",
-                                         "this will be overwritten by supplied value",
-                                         " of {.arg {estimate_type}} = {.val {estimate_type}}"))
+      cli::cli_alert_warning(text = c(
+        "Column {.arg estimate_type} already exists in {.arg ManyEcoEvo},",
+        " and will be overwritten by supplied value",
+        " of {.arg estimate_type} = {.val {estimate_type}}"))
     }
+    
     df <- ManyEcoEvo %>%
-      pointblank::col_exists(c("diversity_data", "data"))
+      pointblank::col_exists(c("diversity_data", "data")) %>% 
       mutate(
         diversity_indices = map(diversity_data, apply_sorensen_calc),
         effects_analysis = map2(
@@ -44,9 +48,9 @@ compute_MA_inputs <- function(ManyEcoEvo, estimate_type = NULL) {
           .f = ~ left_join(.x, .y, by = join_by("id_col")) %>%
             rename(study_id = id_col) %>%
             mutate(estimate_type = !!{{ estimate_type }})
-        )
-      ) %>% #
-      dplyr::group_by(exclusion_set, dataset, estimate_type)
+        ),
+        estimate_type = !!{{ estimate_type }}
+      )
   } else {
     df <- ManyEcoEvo %>%
       pointblank::col_exists(c("estimate_type", "diversity_data", "data")) %>%
@@ -61,6 +65,6 @@ compute_MA_inputs <- function(ManyEcoEvo, estimate_type = NULL) {
         )
       ) 
   }
-
+  
   return(df)
 }
