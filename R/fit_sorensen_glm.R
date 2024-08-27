@@ -37,6 +37,10 @@ fit_sorensen_glm <- function(data) {
   return(fitted_mod)
 }
 
+#' Possibly [fit_sorensen_glm()]
+#' @description A version of [fit_sorensen_glm()] that returns `NA` if an error is encountered
+#' @keywords internal
+#' @importFrom purrr possibly
 poss_fit_sorensen_glm <- purrr::possibly(fit_sorensen_glm,
   otherwise = NA,
   quiet = FALSE
