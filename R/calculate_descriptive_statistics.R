@@ -586,9 +586,25 @@ calculate_variable_counts <- function(data, subset_name = character(1L)) {
 #'
 #' @export
 #' @import dplyr
+#' @importFrom pointblank expect_col_exists
 count_conclusions <- function(data, subset_name = character(1L)) {
-  data %>%
-    filter(split_id == 1 & analysis_id == 1) %>%
+  # ----- Argument Checking ------
+  stopifnot(
+    is.data.frame(data),
+    is.character(subset_name)
+  )
+  
+  pointblank::expect_col_exists(object = data, 
+                                columns =  
+                                  c(
+                                    contains("Conclusion"), 
+                                    "split_id", 
+                                    "analysis_id",
+                                    "dataset"
+                                  )
+  )
+  out <- data %>%
+    filter(split_id == 1 & analysis_id == 1) %>% #TODO switch to using `first()` so that we don't require columns split_id and analysis_id to exist
     group_by(dataset, pick(contains("Conclusion"))) %>%
     summarise(count = n(), .groups = "drop") %>%
     filter(
@@ -596,4 +612,6 @@ count_conclusions <- function(data, subset_name = character(1L)) {
       if_any(contains("Conclusion"), ~ .x != "CHECK")
     ) %>%
     mutate(subset = subset_name)
+  
+  return(out)
 }
