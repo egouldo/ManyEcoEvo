@@ -31,7 +31,6 @@ Operates on nested list-columns of data. The function back-transforms the respon
 \code{\link[=back_transform_response_vars_yi]{back_transform_response_vars_yi()}}. To be called prior to \code{\link[=generate_yi_subsets]{generate_yi_subsets()}}.
 
 Other targets-pipeline functions: 
-\code{\link{generate_outlier_subsets}()},
 \code{\link{generate_rating_subsets}()},
 \code{\link{make_viz}()},
 \code{\link{prepare_ManyEcoEvo}()},

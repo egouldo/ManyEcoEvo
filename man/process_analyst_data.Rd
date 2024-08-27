@@ -106,6 +106,7 @@ This internal helper function is called by \code{\link[=prepare_response_variabl
 
 Other Analysis-level functions: 
 \code{\link{Z_VZ_preds}()},
+\code{\link{apply_sorensen_calc}()},
 \code{\link{back_transform_response_vars_yi}()},
 \code{\link{box_cox_transform}()},
 \code{\link{convert_predictions}()},
@@ -116,6 +117,7 @@ Other Analysis-level functions:
 
 Other Analysis-level functions: 
 \code{\link{Z_VZ_preds}()},
+\code{\link{apply_sorensen_calc}()},
 \code{\link{back_transform_response_vars_yi}()},
 \code{\link{box_cox_transform}()},
 \code{\link{convert_predictions}()},

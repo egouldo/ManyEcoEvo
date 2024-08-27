@@ -2,7 +2,7 @@
 % Please edit documentation in R/calculate_sorensen_diversity_index.R
 \name{calculate_sorensen_diversity_index}
 \alias{calculate_sorensen_diversity_index}
-\title{Calculate mean sorensen diversity index values for an analyst dataset}
+\title{Calculate mean Sorensen pair-wise dissimilarity values for a ManyAnalyst dataset}
 \usage{
 calculate_sorensen_diversity_index(.data, .id = character())
 }
@@ -12,8 +12,14 @@ calculate_sorensen_diversity_index(.data, .id = character())
 \item{.id}{character string of the analysis identifier column}
 }
 \value{
-A tibble containing the variables \code{id_col}, \code{mean_diversity_index} and \code{num_variables}
+A tibble containing the variables \code{id_col}, \code{mean_diversity_index} and \code{num_variables}; the total number of variables used in a given analysis.
 }
 \description{
-Calculate mean sorensen diversity index values for an analyst dataset
+Calculate mean Sorensen pair-wise dissimilarity values for a ManyAnalyst dataset
+}
+\details{
+Sorensen pair-wise dissimilarity is calculated as the number of shared variables between two analyses divided by the total number of variables used in both analyses. After calculating the Sorensen dissimilarity for all pairwise comparisons, the function then computes the mean diversity index for each analysis as the mean of all pairwise comparisons for that analysis, generating a single value per analysis.
+}
+\seealso{
+See \code{\link[betapart:beta.pair]{betapart::beta.pair()}} for details of the Sorensen dissimilarity calculation.
 }

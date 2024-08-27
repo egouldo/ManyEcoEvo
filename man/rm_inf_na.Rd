@@ -25,3 +25,12 @@ ManyEcoEvo_results \%>\%
 pluck("effects_analysis", 1) \%>\% 
 rm_inf_na(beta_estimate, beta_SE)
 }
+\seealso{
+Other Utility functions: 
+\code{\link{\%nin\%}()},
+\code{\link{capwords}()},
+\code{\link{named_group_split}()},
+\code{\link{subset_fns_Zr}()},
+\code{\link{subset_fns_yi}()}
+}
+\concept{Utility functions}

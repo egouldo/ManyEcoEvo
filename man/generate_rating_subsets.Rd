@@ -15,6 +15,9 @@ A ManyEcoEvo dataframe with added column \code{exclusion_set} with new subsets o
 \description{
 Generates two subsets of data based on for both complete and partial exclusion datasets for both \code{yi} and \code{Zr} estimates.
 }
+\details{
+To be executed on a ManyEcoEvo dataframe after the \code{compute_MA_inputs()} function. This function generates two subsets of data based on the peer review ratings for both complete and partial exclusion datasets for both \code{yi} and \code{Zr} estimates. The subsets are generated based on the \code{PublishableAsIs} column in the \code{data} list-column. The subsets are named \code{data_flawed} and \code{data_flawed_major} and are created by filtering out the data points with the \code{PublishableAsIs} values of \code{"deeply flawed and unpublishable"} and \code{"publishable with major revision"} respectively. The \code{diversity_data} list-column is also updated to reflect the new subsets of data.
+}
 \seealso{
 Other Multi-dataset Wrapper Functions: 
 \code{\link{apply_VZ_exclusions}()},
@@ -36,7 +39,6 @@ Other Multi-dataset Wrapper Functions:
 \code{\link{summarise_variable_counts}()}
 
 Other targets-pipeline functions: 
-\code{\link{generate_outlier_subsets}()},
 \code{\link{make_viz}()},
 \code{\link{prepare_ManyEcoEvo}()},
 \code{\link{prepare_ManyEcoEvo_yi}()},

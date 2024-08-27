@@ -29,7 +29,6 @@ Prepare ManyEcoEvo raw dataset for out-of-sample predictions
 }
 \seealso{
 Other targets-pipeline functions: 
-\code{\link{generate_outlier_subsets}()},
 \code{\link{generate_rating_subsets}()},
 \code{\link{make_viz}()},
 \code{\link{prepare_ManyEcoEvo}()},

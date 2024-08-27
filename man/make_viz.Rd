@@ -17,7 +17,6 @@ Computes model summaries, tidy model summaries, model fit stats, funnel plots an
 }
 \seealso{
 Other targets-pipeline functions: 
-\code{\link{generate_outlier_subsets}()},
 \code{\link{generate_rating_subsets}()},
 \code{\link{prepare_ManyEcoEvo}()},
 \code{\link{prepare_ManyEcoEvo_yi}()},

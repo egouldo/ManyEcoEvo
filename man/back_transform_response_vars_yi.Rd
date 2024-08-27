@@ -26,6 +26,7 @@ Back Transform Response Variables - yi
 \seealso{
 Other Analysis-level functions: 
 \code{\link{Z_VZ_preds}()},
+\code{\link{apply_sorensen_calc}()},
 \code{\link{box_cox_transform}()},
 \code{\link{convert_predictions}()},
 \code{\link{est_to_zr}()},

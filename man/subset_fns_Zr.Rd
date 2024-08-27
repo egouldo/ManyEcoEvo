@@ -12,3 +12,12 @@ A named list of \code{lambda} functions
 \description{
 Generates a list of functions that are used to subset the processed \link{ManyEcoEvo} dataset
 }
+\seealso{
+Other Utility functions: 
+\code{\link{\%nin\%}()},
+\code{\link{capwords}()},
+\code{\link{named_group_split}()},
+\code{\link{rm_inf_na}()},
+\code{\link{subset_fns_yi}()}
+}
+\concept{Utility functions}

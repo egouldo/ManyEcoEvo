@@ -7,9 +7,9 @@
 lhs \%in\% rhs
 }
 \arguments{
-\item{lhs}{vector or NULL: the values to be matched. \href{http://127.0.0.1:59782/help/library/base/help/Long\%20vectors}{Long vectors} are supported.}
+\item{lhs}{vector or NULL: the values to be matched. \code{\link[base]{Long vectors}} are supported.}
 
-\item{rhs}{vector or NULL: the values to be matched. \href{http://127.0.0.1:59782/help/library/base/help/Long\%20vectors}{Long vectors} are supported.}
+\item{rhs}{vector or NULL: the values to be matched. \code{\link[base]{Long vectors}}  are supported.}
 }
 \value{
 A logical vector indicating which value of \code{lhs} are \emph{not} matched in \code{rhs}
@@ -22,4 +22,13 @@ returning a logical vector indicating if there is a negative match or not.
 "A" \%nin\% LETTERS[1:10]
 "A" \%in\% LETTERS[1:10]
 }
+\seealso{
+Other Utility functions: 
+\code{\link{capwords}()},
+\code{\link{named_group_split}()},
+\code{\link{rm_inf_na}()},
+\code{\link{subset_fns_Zr}()},
+\code{\link{subset_fns_yi}()}
+}
+\concept{Utility functions}
 \keyword{internal}

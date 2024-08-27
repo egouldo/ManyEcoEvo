@@ -26,6 +26,7 @@ Other Box-Cox transformation:
 
 Other Analysis-level functions: 
 \code{\link{Z_VZ_preds}()},
+\code{\link{apply_sorensen_calc}()},
 \code{\link{back_transform_response_vars_yi}()},
 \code{\link{convert_predictions}()},
 \code{\link{est_to_zr}()},

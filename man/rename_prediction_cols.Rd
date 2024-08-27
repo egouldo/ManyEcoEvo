@@ -22,6 +22,7 @@ Renames the prediction columns in the output of convert_predictions
 \seealso{
 Other Analysis-level functions: 
 \code{\link{Z_VZ_preds}()},
+\code{\link{apply_sorensen_calc}()},
 \code{\link{back_transform_response_vars_yi}()},
 \code{\link{box_cox_transform}()},
 \code{\link{convert_predictions}()},
