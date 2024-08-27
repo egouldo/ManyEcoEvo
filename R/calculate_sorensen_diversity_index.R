@@ -8,7 +8,7 @@
 #' @details
 #' Sorensen pair-wise dissimilarity is calculated as the number of shared variables between two analyses divided by the total number of variables used in both analyses. After calculating the Sorensen dissimilarity for all pairwise comparisons, the function then computes the mean diversity index for each analysis as the mean of all pairwise comparisons for that analysis, generating a single value per analysis.
 #' 
-#' @seealso See [betapart::betapair()] for details of the Sorensen dissimilarity calculation.
+#' @seealso See [betapart::beta.pair()] for details of the Sorensen dissimilarity calculation.
 #' @import dplyr
 #' @importFrom tibble column_to_rownames as_tibble rownames_to_column
 #' @importFrom betapart beta.pair

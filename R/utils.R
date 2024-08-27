@@ -8,8 +8,8 @@
 #' @keywords internal
 #' @export
 #' @usage lhs \%in\% rhs
-#' @param lhs vector or NULL: the values to be matched. [base::`Long vectors`] are supported.
-#' @param rhs vector or NULL: the values to be matched. [base::`Long vectors`] are supported.
+#' @param lhs vector or NULL: the values to be matched. \code{\link[base]{Long vectors}} are supported.
+#' @param rhs vector or NULL: the values to be matched. \code{\link[base]{Long vectors}}  are supported.
 #' @return A logical vector indicating which value of `lhs` are *not* matched in `rhs`
 #' @examples
 #' "A" %nin% LETTERS[1:10]

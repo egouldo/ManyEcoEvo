@@ -16,7 +16,7 @@
 #' 
 #' `ignore_subsets` is used to specify which subsets of the data should be ignored when removing outliers. This is useful when you want to remove outliers from all datasets except for specific subsets. For example, if you want to remove outliers from all datasets except for the `eucalyptus` dataset, you would pass `ignore_subsets = dataset == "eucalyptus"`.
 #' 
-#' The function will check that any columns specified in `ignore_subsets` exist in the dataset using [pointblank::test_cols_exist()]. If they do not, the function will throw an error.
+#' The function will check that any columns specified in `ignore_subsets` exist in the dataset using [pointblank::test_col_exists()]. If they do not, the function will throw an error.
 #' 
 #' ## Analysis Pipeline Usage
 #' 
