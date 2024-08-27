@@ -65,7 +65,7 @@ generate_exclusion_subsets <- function(ManyEcoEvo, estimate_type = NULL) {
       dplyr::mutate(ManyEcoEvo = list(ManyEcoEvo)) %>%
       tidyr::unnest(ManyEcoEvo) %>%
       ungroup() %>% 
-      dplyr::transmute(
+      dplyr::mutate(
         data =
           purrr::map2(
             .x = fns,
@@ -76,14 +76,15 @@ generate_exclusion_subsets <- function(ManyEcoEvo, estimate_type = NULL) {
           purrr::map2(
             .x = diversity_data,
             .y = data,
-            .f = ~ dplyr::semi_join(.x, .y) %>% 
+            .f = ~ dplyr::semi_join(.x, .y, by = join_by("id_col")) %>% 
               distinct()
-          )
+          ),
+        .keep = "unused"
       ) # TODO duplicate cols for euc R_1LRqq2WHrQaENtM, glasgow?
   } else { # When argument estimate_type is NULL
     df <- ManyEcoEvo %>% 
       pointblank::col_exists("estimate_type") %>%
-      dplyr::left_join(subset_fns_df, by = join_by("estimate_type", "exclusion_set")) %>%
+      dplyr::left_join(subset_fns_df, by = join_by("estimate_type")) %>%
       ungroup() %>% 
       dplyr::mutate(
         data =
