@@ -14,7 +14,7 @@
 #' # calculate_deviation_score(meta_analysis_outputs$data[[1]],
 #' #                           meta_analysis_outputs$MA_mod[[1]])
 calculate_deviation_score <- function(data, meta_analytic_model) {
-  cli::cli_h2(glue::glue("Calculating absolute deviation scores from standardised effect sizes"))
+  cli::cli_h2(c("Calculating absolute deviation scores from standardised effect sizes"))
 
   stopifnot("rma" %in% class(meta_analytic_model))
   # TODO build in checks:

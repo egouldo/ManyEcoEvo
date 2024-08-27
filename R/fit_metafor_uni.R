@@ -22,7 +22,7 @@
 #' #                      data = .,
 #' #                      slab = .$study_id)
 fit_metafor_uni <- function(Zr, VZr, data, slab) {
-  cli::cli_h2(glue::glue("Fitting univariate metaregression"))
+  cli::cli_h2(c("Fitting univariate metaregression"))
   metafor::rma(
     yi = Zr,
     vi = VZr,

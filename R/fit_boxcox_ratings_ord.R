@@ -18,7 +18,7 @@
 #' @importFrom tidyr unnest
 #' @importFrom forcats fct_relevel
 fit_boxcox_ratings_ord <- function(.data, outcome, outcome_var, interceptless = FALSE) {
-  cli::cli_h2(glue::glue("Fitting lmer with ordinal ratings predictor on box_cox_transformed outcomes"))
+  cli::cli_h2(c("Fitting lmer with ordinal ratings predictor on box_cox_transformed outcomes"))
 
   # Example Usage:
   # library(tidyverse);library(targets);library(metafor)

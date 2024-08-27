@@ -20,7 +20,7 @@
 #' @importFrom workflows workflow add_model add_recipe extract_fit_parsnip
 #' @seealso [parsnip::details_linear_reg_glm] for details on the [parsnip::linear_reg] engine. 
 fit_uni_mixed_effects <- function(data) {
-  cli::cli_h2(glue::glue("Fitting glm for box-cox transformed outcome with inclusion of random effects (binary variable) as predictor"))
+  cli::cli_h2(c("Fitting glm for box-cox transformed outcome with inclusion of random effects (binary variable) as predictor"))
   
   if (pointblank::test_col_exists(
     data,

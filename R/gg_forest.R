@@ -16,16 +16,9 @@
 #' @importFrom stringr str_detect
 gg_forest <- function(meta_model, estimate_type, dataset = character(1L)) {
   match.arg(dataset, choices = c("blue tit", "eucalyptus"), several.ok = FALSE)
-  cli::cli_h2(glue::glue(
-    "Creating gg-forest-plot of ",
-    {
-      estimate_type
-    },
-    " estimates for ",
-    {
-      dataset
-    },
-    " dataset"
+  cli::cli_h2(c(
+    "Creating gg-forest-plot of {.arg estimate_type} estimates for ",
+    "{.arg dataset} = {.val {dataset}}"
   ))
   # meta_analysis_outputs$MA_mod %>% pluck(1) %>% gg_forest("Zr", "blue tit")
   stopifnot("rma" %in% class(meta_model))

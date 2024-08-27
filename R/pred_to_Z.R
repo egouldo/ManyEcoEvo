@@ -23,7 +23,7 @@ pred_to_Z <- function(back_transformed_data,
     rlang::is_na(back_transformed_data)
   )) {
     cli::cli_warn(
-      glue::glue("Argument {.arg params} or {.arg back_transformed_data} ",
+      c("Argument {.arg params} or {.arg back_transformed_data} ",
                  "is {.val {NA}}. Returning {.val {NA}}",
                  "for standardized predictions.")
     )

@@ -10,7 +10,7 @@
 #' # tar_load(meta_analysis_outputs)
 #' # fit_sorensen_glm(meta_analysis_results$data[[1]])
 fit_sorensen_glm <- function(data) {
-  cli::cli_h2(glue::glue("Fitting glm for box-cox transformed outcome with sorensen diversity index as predictor"))
+  cli::cli_h2(c("Fitting glm for box-cox transformed outcome with sorensen diversity index as predictor"))
   cli::cli_alert_info(dplyr::cur_group() %>% purrr::simplify()) # TODO only run when applied within a tibble on a list-col... want fn available on its own
 
 

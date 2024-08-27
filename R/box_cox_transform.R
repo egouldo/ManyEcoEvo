@@ -18,18 +18,19 @@
 #' @seealso [variance_boxcox()], [folded_params()]
 box_cox_transform <- function(data, dataset) {
   if ( any(rlang::is_na(data), rlang::is_null(data))) {
-    cli::cli_alert_warning(text = glue::glue(
-      "Cannot box-cox transform data for",
-      paste(names(dplyr::cur_group()),
-            dplyr::cur_group(),
-            sep = " = ",
-            collapse = ", "
-      )
-    ))
+    cli::cli_alert_warning(text = 
+                             glue::glue(
+                               "Cannot box-cox transform data for",
+                               paste(names(dplyr::cur_group()),
+                                     dplyr::cur_group(),
+                                     sep = " = ",
+                                     collapse = ", "
+                               )
+                             ))
     result <- NA
   } else {
     cli::cli_h2(
-      glue::glue("Box-cox transforming absolute deviation scores for {.val {dataset}}.")
+      c("Box-cox transforming absolute deviation scores for {.arg dataset} = {.val {dataset}}.")
     )
     
     box_cox_recipe <- recipes::recipe(~.,
@@ -75,7 +76,7 @@ box_cox_transform <- function(data, dataset) {
         )
     } else {
       result <- NA
-      cli::cli_alert_warning(text = glue::glue("Lambda cannot be computed."))
+      cli::cli_alert_warning(text = c("Lambda cannot be computed."))
     }
   }
   

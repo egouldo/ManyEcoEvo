@@ -14,7 +14,7 @@
 #' @import dplyr
 #' @importFrom forcats fct_relevel
 fit_boxcox_ratings_cat <- function(.data, outcome, outcome_var, interceptless = FALSE) {
-  cli::cli_h2(glue::glue("Fitting lmer with categorical ratings predictor on box_cox_transformed outcomes"))
+  cli::cli_h2(c("Fitting lmer with categorical ratings predictor on box_cox_transformed outcomes"))
   # Example Usage:
   # library(tidyverse);library(targets);library(metafor)
   # tar_load(meta_analysis_outputs)

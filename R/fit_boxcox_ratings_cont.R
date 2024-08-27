@@ -23,9 +23,8 @@
 #' @importFrom rlang ensym new_formula inject expr caller_env
 #' @importFrom tidyr unnest
 #' @importFrom cli cli_h2
-#' @importFrom glue glue
 fit_boxcox_ratings_cont <- function(.data, outcome, outcome_var, ..., env = rlang::caller_env()) {
-  cli::cli_h2(glue::glue("Fitting metaregression with continuous ratings predictor on box_cox_transformed outcomes"))
+  cli::cli_h2(c("Fitting metaregression with continuous ratings predictor on box_cox_transformed outcomes"))
 
   # TODO @egouldo stopifnot data doesn't contain variables named eval(box_cox_outcome_var), eval(sampling_variance_var), review_data
   # TODO @egouldo unnest and then check stopifnot: RateAnalysis, ReviewerId, study_id.

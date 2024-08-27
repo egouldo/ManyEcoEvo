@@ -8,7 +8,9 @@
 compute_metaanalysis_inputs <- function(.data, estimate_type = character(1L)) {
   # TODO insert checks that appropriate columns exist
   match.arg(estimate_type, choices = c("Zr", "yi", "y25", "y50", "y75"), several.ok = FALSE)
-  cli::cli_h1(glue::glue("Computing meta-analysis inputs", " for estimate type ", "{estimate_type}"))
+  cli::cli_h1(c("Computing meta-analysis inputs", 
+                " for {.arg estimate type} =", 
+                " {.val {estimate_type}}"))
   
   if (estimate_type == "Zr") {
     # Convert Effect Sizes to Zr -------

@@ -58,7 +58,9 @@ standardise_response <- function(data,
   # TODO apply to data and check that all cases accounted for!
   match.arg(estimate_type, choices = c("Zr", "yi", "y25", "y50", "y75"), several.ok = FALSE)
   
-  cli::cli_h1(glue::glue("Computing meta-analysis inputs", "for estimate type ", "{estimate_type}"))
+  cli::cli_h1(c("Computing meta-analysis inputs", 
+                "for {.arg estimate_type} = ", 
+                "{.val {estimate_type}}"))
   
   if (estimate_type == "Zr") {
     # ------ Convert Effect Sizes to Zr -------
@@ -177,11 +179,10 @@ process_response <- function(data, ...){
 #'   log_transform_response()
 #' @export
 #' @import dplyr
-#' @import cli
-#' @import glue
+#' @importFrom cli cli_h1 cli_h2
 #' @importFrom pointblank col_exists vars
-#' @import purrr
-#' @import rlang
+#' @importFrom purrr map
+#' @importFrom rlang is_na
 #' @describeIn process_analyst_data Standardise response data for meta-analysis
 #' @family Analysis-level functions
 log_transform_response <- function(data, sim = 10000L, ...) {
@@ -189,8 +190,8 @@ log_transform_response <- function(data, sim = 10000L, ...) {
   # TODO apply to data and check that all cases accounted for!
   stopifnot(is.data.frame(data))
   
-  cli::cli_h1(glue::glue("Computing meta-analysis inputs:"))
-  cli::cli_h2(glue::glue("Log-transforming response-variable"))
+  cli::cli_h1(c("Computing meta-analysis inputs:"))
+  cli::cli_h2(c("Log-transforming response-variable"))
   
   out <- data %>%
     pointblank::col_exists(
