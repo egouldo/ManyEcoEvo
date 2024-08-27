@@ -8,8 +8,14 @@
 #' @export
 #' @family Multi-dataset Wrapper Functions
 #' @family targets-pipeline functions
+#' @details 
+#' To be executed on a ManyEcoEvo dataframe after the `compute_MA_inputs()` function. This function generates two subsets of data based on the peer review ratings for both complete and partial exclusion datasets for both `yi` and `Zr` estimates. The subsets are generated based on the `PublishableAsIs` column in the `data` list-column. The subsets are named `data_flawed` and `data_flawed_major` and are created by filtering out the data points with the `PublishableAsIs` values of `"deeply flawed and unpublishable"` and `"publishable with major revision"` respectively. The `diversity_data` list-column is also updated to reflect the new subsets of data.
+#' @import dplyr
+#' @importFrom purrr map2 map
+#' @importFrom forcats fct_relevel as_factor
+#' @importFrom tidyr unnest pivot_longer nest
+#' @importFrom stringr str_detect
 generate_rating_subsets <- function(ManyEcoEvo) {
-  # NOTE: should be run *after* computing Zr with compute_MA_inputs()
 
   out <- ManyEcoEvo %>%
     filter(exclusion_set == "complete" | exclusion_set == "partial") %>%
@@ -87,7 +93,7 @@ generate_rating_subsets <- function(ManyEcoEvo) {
         map2(
           .x = diversity_data,
           .y = data,
-          .f = ~ semi_join(.x, .y) %>% distinct()
+          .f = ~ semi_join(.x, .y, by = join_by(id_col)) %>% distinct()
         )
     )
 

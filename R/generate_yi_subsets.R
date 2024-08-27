@@ -31,7 +31,8 @@ generate_yi_subsets <- function(yi_analysis) {
         map2(
           .x = diversity_data,
           .y = data,
-          .f = ~ semi_join(.x, .y) %>% distinct()
+          .f = ~ semi_join(.x, .y, 
+                           by = join_by(id_col)) %>% distinct()
         )
     )
 
