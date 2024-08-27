@@ -26,9 +26,14 @@ exclude_extreme_VZ <- function(df = data.frame(), VZ_colname, VZ_cutoff = numeri
                          .fns = ~ .x < !!{{VZ_cutoff}}))
   
   # ---- Format output ----
-  if ( all(!is.null(cur_data()), !is.null(cur_group_id()))) {
-    dataset <- cur_data() %>% slice(cur_group_id()) %>% pluck("dataset", 1)
-    estimate_type <- cur_data() %>% slice(cur_group_id()) %>% pluck("estimate_type", 1)
+  if ( all(!is.null(cur_data()), 
+           !is.null(cur_group_id()))) {
+    dataset <- cur_data() %>% 
+      slice(cur_group_id()) %>% 
+      pluck("dataset", 1)
+    estimate_type <- cur_data() %>% 
+      slice(cur_group_id()) %>% 
+      pluck("estimate_type", 1)
   } else {
     dataset <- "unknown"
     estimate_type <- "unknown"
