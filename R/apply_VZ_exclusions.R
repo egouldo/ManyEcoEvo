@@ -58,7 +58,7 @@ apply_VZ_exclusions <- function(df = data.frame(), VZ_colname, VZ_cutoff) {
     stopifnot(
       is.character(VZ_colname)
     )
-    # ----- Format VZ exclusions when VZ_colname is nost list -----
+    # ----- Format VZ exclusions when VZ_colname is not list -----
     if (length(VZ_colname) < length(unique(df$dataset))) {
       cli::cli_alert_warning("{.arg VZ_colname} = {.val {VZ_cutoff}} was recycled to match the number of unique datasets in {.arg df}.")
       VZ_colname <- rep(VZ_colname, length(unique(df$dataset)))
@@ -85,15 +85,23 @@ apply_VZ_exclusions <- function(df = data.frame(), VZ_colname, VZ_cutoff) {
   # ----- Create formulas for matching VZ_cutoff and VZ_colname to df$dataset -----
   
   if (is.list(VZ_colname)) {
-    formulae_match_VZ_colname <- map2(names(VZ_colname), VZ_colname, rlang::new_formula)
+    formulae_match_VZ_colname <- map2(names(VZ_colname), 
+                                      VZ_colname, 
+                                      rlang::new_formula)
   } else {
-    formulae_match_VZ_colname <- map2(unique(df$dataset), VZ_colname, rlang::new_formula)
+    formulae_match_VZ_colname <- map2(unique(df$dataset), 
+                                      VZ_colname, 
+                                      rlang::new_formula)
   }
   
   if (is.list(VZ_cutoff)) {
-    formulae_match_VZ_cutoff <- map2(names(VZ_cutoff), VZ_cutoff, rlang::new_formula)
+    formulae_match_VZ_cutoff <- map2(names(VZ_cutoff), 
+                                     VZ_cutoff, 
+                                     rlang::new_formula)
   } else {
-    formulae_match_VZ_cutoff <- map2(unique(df$dataset), VZ_cutoff, rlang::new_formula)
+    formulae_match_VZ_cutoff <- map2(unique(df$dataset), 
+                                     VZ_cutoff, 
+                                     rlang::new_formula)
   }
   
   # ----- Apply VZ exclusions -----
