@@ -85,7 +85,7 @@ generate_exclusion_subsets <- function(ManyEcoEvo, estimate_type = NULL) {
     df <- ManyEcoEvo %>%
       pointblank::col_exists("estimate_type") %>%
       dplyr::left_join(subset_fns_df, by = join_by("estimate_type")) %>%
-      ungroup() %>% 
+      ungroup() %>%
       dplyr::mutate(
         data =
           purrr::map2(
