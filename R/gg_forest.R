@@ -41,7 +41,7 @@ gg_forest <- function(meta_model, estimate_type, dataset = character(1L)) {
         forcats::fct_reorder(., point_shape, .desc = TRUE)
     )
 
-  x_axis_label <- case_when(
+  x_axis_label <- case_when( #TODO update whether standardised or not
     estimate_type == "Zr" ~ expression("Standardised Effect Size, Z"[r]),
     estimate_type == "ymed" ~ expression("Standardised Out-of-sample Prediction, y"[50]),
     estimate_type == "y25" ~ expression("Standardised Out-of-sample Prediction, y"[25]),
