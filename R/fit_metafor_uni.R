@@ -7,7 +7,7 @@
 #'
 #' @return A fitted model of class rma
 #' @export
-#'
+#' @family Model fitting and meta-analysis
 #' @examples
 #' # library(tidyverse);library(targets);library(metafor)
 #' # source("R/functions.R")
@@ -22,7 +22,7 @@
 #' #                      data = .,
 #' #                      slab = .$study_id)
 fit_metafor_uni <- function(Zr, VZr, data, slab) {
-  cli::cli_h2(glue::glue("Fitting univariate metaregression"))
+  cli::cli_h2(c("Fitting univariate metaregression"))
   metafor::rma(
     yi = Zr,
     vi = VZr,

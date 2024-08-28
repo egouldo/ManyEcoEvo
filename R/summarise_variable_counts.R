@@ -13,9 +13,9 @@
 #' @return A dataframe of count values `n` or summary statistic values `n_mean`,`n_sd`,`n_min`,`n_max` of counts depending on the the value supplied to the `output` argument.
 #' @export
 #' @import dplyr
-#' @import tidyr
-#' @import purrr
-#' @import broom
+#' @importFrom broom tidy
+#' @importFrom tidyr unnest
+#' @importFrom purrr map map_dfr set_names
 #' @author Hannah S. Fraser
 #' @author Elliot Gould
 #' @family Multi-dataset Wrapper Functions
@@ -25,11 +25,11 @@
 #' summarise_variable_counts(ManyEcoEvo, ManyEcoEvo_results, ManyEcoEvo_yi_results, "aggregate")
 summarise_variable_counts <- function(ManyEcoEvo, ManyEcoEvo_results, ManyEcoEvo_yi_results, output = "count") {
   stopifnot(output == "count" | output == "aggregate")
-
+  
   diversity <- ManyEcoEvo %>%
     select(diversity_data) %>%
     unnest(diversity_data)
-
+  
   effect_ids <- ManyEcoEvo_results %>%
     filter(
       exclusion_set == "complete",
@@ -38,14 +38,15 @@ summarise_variable_counts <- function(ManyEcoEvo, ManyEcoEvo_results, ManyEcoEvo
     select(MA_mod, effects_analysis) %>%
     group_by(estimate_type, dataset) %>%
     mutate(
-      tidy_mod = map(
-        MA_mod,
-        ~ broom::tidy(.x,
-          conf.int = TRUE,
-          include_studies = TRUE
-        ) %>%
-          rename(study_id = term)
-      ),
+      tidy_mod = 
+        map(
+          MA_mod,
+          ~ broom::tidy(.x,
+                        conf.int = TRUE,
+                        include_studies = TRUE
+          ) %>%
+            rename(study_id = term)
+        ),
       .keep = "none"
     ) %>%
     unnest(tidy_mod) %>%
@@ -54,7 +55,7 @@ summarise_variable_counts <- function(ManyEcoEvo, ManyEcoEvo_results, ManyEcoEvo
     select(study_id) %>%
     rename(id_col = study_id) %>% # TODO duplicates for "Bell-2-2-1" and "Bonalbo-1-1-1 WHY?
     distinct()
-
+  
   prediction_ids <- ManyEcoEvo_yi_results %>% # TODO Euc mod_data_logged not here!
     filter(
       exclusion_set == "complete",
@@ -62,24 +63,25 @@ summarise_variable_counts <- function(ManyEcoEvo, ManyEcoEvo_results, ManyEcoEvo
     ) %>%
     select(MA_mod, effects_analysis, -exclusion_set) %>%
     group_by(estimate_type, dataset) %>%
-    mutate(tidy_mod = map(
-      MA_mod,
-      ~ broom::tidy(.x, conf.int = TRUE, include_studies = TRUE) %>%
-        rename(study_id = term)
-    ), .keep = "none") %>%
+    mutate(tidy_mod = 
+             map(
+               MA_mod,
+               ~ broom::tidy(.x, conf.int = TRUE, include_studies = TRUE) %>%
+                 rename(study_id = term)
+             ), .keep = "none") %>%
     unnest(tidy_mod) %>%
     filter(type == "study") %>%
     ungroup() %>%
     select(study_id) %>%
     rename(id_col = study_id) %>%
     distinct()
-
+  
   effects <- diversity %>% # TODO consider generalising, so for each 'estimate_type' group: repeat.
     right_join(effect_ids, by = c("id_col")) # repeat for each
-
+  
   predictions <- diversity %>%
     right_join(prediction_ids, by = c("id_col"))
-
+  
   # repeat for all, predictions, effects
   summarised_data <-
     map_dfr(
@@ -87,22 +89,27 @@ summarise_variable_counts <- function(ManyEcoEvo, ManyEcoEvo_results, ManyEcoEvo
         purrr::set_names("effects", "predictions", "all"),
       .f = count_analyses_variables_used, .id = "subset"
     )
-
+  
   if (output == "count") {
+    
     return(summarised_data)
+    
   } else {
+    
     summarised_data <- summarised_data %>%
       group_by(dataset, subset) %>%
       summarise(across(n,
-        .fns = list(
-          mean = ~ mean(.x, na.rm = TRUE),
-          sd = ~ sd(.x, na.rm = TRUE),
-          min = ~ min(.x, na.rm = TRUE), # TODO is value of 0 correct?
-          max = ~ max(.x, na.rm = TRUE)
-        )
+                       .fns = list(
+                         mean = ~ mean(.x, na.rm = TRUE),
+                         sd = ~ sd(.x, na.rm = TRUE),
+                         min = ~ min(.x, na.rm = TRUE), # TODO is value of 0 correct?
+                         max = ~ max(.x, na.rm = TRUE)
+                       )
       ))
   }
+  
   return(summarised_data)
+  
 }
 
 #' Count number of analyses each variable is used
@@ -115,7 +122,7 @@ summarise_variable_counts <- function(ManyEcoEvo, ManyEcoEvo_results, ManyEcoEvo
 #' @return A dataframe of counts `n` each `variable` is used across all analyses within a given `dataset`
 #' @export
 #' @import dplyr
-#' @import tidyr
+#' @importFrom tidyr pivot_longer
 #' @author Hannah S. Fraser
 #' @author Elliot Gould
 #' @examples

@@ -5,7 +5,7 @@
 #' @param adjusted_df numeric vector of the adjusted degrees of freedom for the analysis generating `beta_SE` and `beta_estimate`
 #' @return A named list of length 2 containing converted Zr and VZr values
 #' @export
-#' @family analysis-values
+#' @family Analysis-level functions
 est_to_zr <- function(beta_estimate, beta_SE, adjusted_df) {
   na_args <- purrr::discard(c(beta_estimate, beta_SE, adjusted_df), is.na) %>%
     length()

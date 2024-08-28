@@ -7,7 +7,6 @@
 #' @param sim Number of simulations to use during back-transformation. Defaults to $10000$.
 #'
 #' @return The outputs of a back-transformation function, see family back-transformations
-#' @family back transformation
 #' @details `transformation` character strings may take the values:
 #' * "log"
 #' * "logit"
@@ -22,31 +21,36 @@
 #' * "divided.by.X", where `X` is a numeric
 #' @export
 #' @import dplyr
-#' @import purrr
-#' @import cli
-#' @import rlang
-#' @import stringr
+#' @importFrom purrr discard is_scalar_vector pluck
+#' @importFrom cli cli_alert_danger cli_alert_warning cli_ol cli_alert_success
+#' @importFrom rlang is_na
+#' @importFrom stringr str_detect str_split
+#' @family Back-transformation
+#' @seealso [conversion_2()], [back()]
 conversion <- function(beta, se, transformation, sim = 10000) {
-  # Ensure Correct Number of Arguments Supplied
+  # ----- Argument Checking -----
   na_args <- purrr::discard(c(beta, se, transformation), is.na) %>%
     length()
-
+  
   if (na_args < 3) {
     cli::cli_alert_danger("Required values for back-transformation missing:")
     cli::cli_alert_warning("Returning {.val NA} for tupple:")
     cli::cli_ol(c(
-      "beta_estimate {.val {beta}},",
-      "beta_se {.val {se}},",
+      "beta {.val {beta}},",
+      "se {.val {se}},",
       "with {.val {transformation}} transformation."
     ))
     return(NA)
   }
-  # Ensure Correct Type of Arguments Supplied
-  stopifnot(purrr::is_scalar_vector(sim))
-  stopifnot(is.numeric(beta))
-  stopifnot(is.numeric(se))
-
-  # Apply Back Transformations
+  
+  stopifnot(
+    purrr::is_scalar_vector(sim),
+    is.numeric(beta),
+    is.numeric(se),
+    is.character(transformation)
+  )
+  
+  # ----- Apply Back Transformations -----
   if (transformation == "log") {
     log_back(beta, se, sim)
   } else if (transformation == "logit") {

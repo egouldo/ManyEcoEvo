@@ -2,18 +2,26 @@
 % Please edit documentation in R/pred_to_Z.R
 \name{pred_to_Z}
 \alias{pred_to_Z}
-\title{Standardize Out-Of-Sample Predictions}
+\title{Z-standardise a dataframe of back-transformed Out-Of-Sample Predictions}
 \usage{
-pred_to_Z(back_transformed_data, params, dataset)
+pred_to_Z(back_transformed_data, params)
 }
 \arguments{
 \item{back_transformed_data}{a dataframe or tibble with the columns "estimate" and "se.fit", containing yi and SE\(yi\) values respectively}
 
 \item{response_variable_name}{a character vector}
 }
+\value{
+A tibble of standardised-out-of-sample predictions on the Z-scale, with columns \code{Z}, \code{VZ}, \code{lower} and \code{upper}, and the original columns fro \code{back_transformed_data} that were not used / updated in the transformation.
+}
 \description{
 Standardizes out-of-sample predictions by computing the Fisher's Z transformed Correlation Coefficient from analysts' out-of-sample prediction estimates and corresponding standard error.
 }
-\note{
-\code{pred_to_Z} expects estimates to be on the response scale, not the link scale.
+\details{
+This function is used to standardize out-of-sample predictions on the response scale to the Z-scale. \code{\link[=pred_to_Z]{pred_to_Z()}} expects estimates to be on the response scale, not the link scale.
+
+The function computes the Z-score and VZ-score for each out-of-sample prediction estimate and its corresponding standard error using \code{\link[=Z_VZ_preds]{Z_VZ_preds()}}.
+}
+\seealso{
+Equivalent to\code{\link[=log_transform_yi]{log_transform_yi()}} in terms of workflow data hierarchy.
 }

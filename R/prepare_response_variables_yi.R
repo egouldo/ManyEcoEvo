@@ -5,12 +5,14 @@
 #' @param param_table A table of parameters \(mean, sd\) for *most* response variables used by analysts. This tibble is pulled from the named object exported by `ManyEcoEvo::`. but can be overwritten with the users's own `param_table` dataset.
 #'
 #' @return A tibble of nested list-columns
-#' @details Operates on nested list-columns of data. The function back-transforms the response variables from the link to the response scale for each dataset in the ManyEcoEvo dataset. The back-transformed data is stored in a list-column called `back_transformed_data`. It is useful for when wanting to conduct a meta-analysis on the response scale, e.g. for the *Eucalyptus* count data.
+#' @details Operates on nested list-columns of data. The function back-transforms the response variables from the link to the response scale for each dataset in the ManyEcoEvo dataset. The back-transformed data is stored in a list-column called `back_transformed_data`. It is useful for when wanting to conduct a meta-analysis on the response scale, e.g. for the *Eucalyptus* count data. 
+#' `estimate_type` is used to specify the type of estimate to be standardised and parsed to [back_transform_response_vars_yi()]
+#' @seealso [back_transform_response_vars_yi()]. To be called prior to [generate_yi_subsets()].
 #' @family targets-pipeline functions
 #' @family Multi-dataset Wrapper Functions
 #' @export
 prepare_response_variables_yi <- function(ManyEcoEvo,
-                                          estimate_type = character(1L), # TODO why do we need an estimate type arg if this is for yi only?!
+                                          estimate_type = character(1L),
                                           param_table = NULL) {
   stopifnot(is.data.frame(ManyEcoEvo))
   # TODO run checks on ManyEcoEvo
@@ -34,7 +36,8 @@ prepare_response_variables_yi <- function(ManyEcoEvo,
       diversity_data = map2(
         .x = diversity_data,
         .y = data,
-        .f = ~ semi_join(.x, .y) %>% distinct()
+        .f = ~ semi_join(.x, .y) %>% 
+          distinct()
       )
     )
   return(out)
@@ -48,7 +51,8 @@ prepare_response_variables_yi <- function(ManyEcoEvo,
 #'
 #' @return A tibble of analyst data with standardised values contained in a list-column called 'back_transformed_data'
 #' @export
-#' @family analyst-data
+#' @family Analysis-level functions
+#' @family Back-transformation
 back_transform_response_vars_yi <- function(dat,
                                             estimate_type = character(1L),
                                             dataset = character(1L)) {
@@ -60,7 +64,7 @@ back_transform_response_vars_yi <- function(dat,
   dat <- dat %>%
     pointblank::col_exists(
       columns =
-        pointblank::vars(
+        c(
           "TeamIdentifier",
           "submission_id",
           "analysis_id",

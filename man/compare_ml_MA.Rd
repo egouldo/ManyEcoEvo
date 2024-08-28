@@ -18,8 +18,8 @@ A tibble with descriptive statistics of model fit
 Compares two fitted multi-level models and tidies the results
 }
 \seealso{
-Other multi-level model calculations: 
+Other Meta-analysis statistics: 
 \code{\link{apportion_heterogeneity_ml}()},
 \code{\link{calc_I2_ml}()}
 }
-\concept{multi-level model calculations}
+\concept{Meta-analysis statistics}

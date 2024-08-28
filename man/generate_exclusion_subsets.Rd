@@ -7,23 +7,26 @@
 generate_exclusion_subsets(ManyEcoEvo, estimate_type = NULL)
 }
 \arguments{
-\item{ManyEcoEvo}{A dataframe}
+\item{ManyEcoEvo}{A dataframe containing at minimum the character column \code{dataset} and list-columns \code{data} and \code{diversity_data}.}
 
 \item{estimate_type}{character vector, one of \code{"Zr", "yi", "y25", "y50", "y75", NULL}.}
 }
 \value{
-A \code{dataframe} grouped by dataset and exclusion_set that contains subsets of \code{data} and \code{diversity_data} based on exclusion criteria functions defined in \code{subset_fns_Zr} and \code{subset_funs_yi},
+A \code{dataframe} grouped by \code{dataset} and \code{exclusion_set} that contains subsets of \code{data} and \code{diversity_data} based on exclusion criteria functions defined in \code{\link[=subset_fns_Zr]{subset_fns_Zr()}} and \code{\link[=subset_funs_yi]{subset_funs_yi()}}, and the \code{estimate_type} column.
 }
 \description{
-Generate subsets of analyst data based on different exclusion criteria
+Generates subsets of data with different combinations of outliers removed for different \code{exclusion_set}s.
 }
 \details{
 If \code{estimate_type} is \code{NULL}, the column \code{estimate_type} must be in \code{ManyEcoEvo}.
-}
-\note{
-This function uses the functions\code{subset_fns_Zr}and \code{subset_fns_yi} to create named lists with elements containing \code{rlang_lambda_function}s, whose element name is the name of the \code{rlang_lambda_function}
 
-To be run after \code{generate_exclusion_subsets()}
+This function uses the functions \code{\link[=subset_fns_Zr]{subset_fns_Zr()}} and []subset_fns_yi() to create named lists with elements containing \verb{purrr::}-style lambda functions, whose element name is the name of the function.
+
+If \code{NULL} is provided to the argument \code{estimate_type}, then the column \code{estimate_type} must exist in \code{ManyEcoEvo}, as this column will be used to filter the exclusion criteria functions.
+
+The value of column \code{exclusion_set} in the returned object will be the name of the exclusion criteria function, with the prefix "subset_" removed, derived from either \code{\link[=subset_fns_Zr]{subset_fns_Zr()}} or \code{\link[=subset_funs_yi]{subset_funs_yi()}}, depending on the \code{estimate_type}.
+
+\strong{Note}: This function should be exectued after \code{\link[=prepare_response_variables]{prepare_response_variables()}} and \code{\link[=generate_yi_subsets]{generate_yi_subsets()}}.
 }
 \seealso{
 Other Multi-dataset Wrapper Functions: 

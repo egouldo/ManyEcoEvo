@@ -19,8 +19,8 @@ Calculate I2 for a multilevel meta-analytic model
 from \href{http://www.metafor-project.org/doku.php/tips:i2_multilevel_multivariate]}{http://www.metafor-project.org/doku.php/tips:i2_multilevel_multivariate} described by Nakagawa & Santos, 2012.
 }
 \seealso{
-Other multi-level model calculations: 
+Other Meta-analysis statistics: 
 \code{\link{apportion_heterogeneity_ml}()},
 \code{\link{compare_ml_MA}()}
 }
-\concept{multi-level model calculations}
+\concept{Meta-analysis statistics}

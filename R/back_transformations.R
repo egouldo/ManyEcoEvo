@@ -9,14 +9,18 @@
 #' or out-of-sample prediction estimate \eqn{y_i}.
 #' @param sim numeric vector of length 1. number of simulations.
 #' @return data frame containing the mean estimate, its standard error, and quantiles.
-#' @family back transformation
+#' @family Back-transformation
+#' @importFrom purrr map_lgl flatten_dbl
+#' @importFrom cli cli_alert_danger cli_alert_success cli_alert_info
 #' @name back
 NULL
 #> NULL
 
 #' @describeIn back Back transform beta estimates for models with log-link
 #' @export
-log <- function(beta, se, sim) {
+#' @family Back-transformation
+log_back <- function(beta, se, sim) {
+
   simulated <- rnorm(sim, beta, se)
   original <- exp(simulated) %>% # exponential = inverse of log
     na.omit()
@@ -35,7 +39,8 @@ log <- function(beta, se, sim) {
 
 #' @describeIn back Back transform beta estimates for models with logit-link
 #' @export
-logit <- function(beta, se, sim) {
+#' @family Back-transformation
+logit_back <- function(beta, se, sim) {
   simulated <- rnorm(sim, beta, se)
   original <- plogis(simulated) %>% # invlogit
     na.omit()
@@ -54,7 +59,8 @@ logit <- function(beta, se, sim) {
 
 #' @describeIn back Back transform beta estimates for models with probit-link
 #' @export
-probit <- function(beta, se, sim) {
+#' @family Back-transformation
+probit_back <- function(beta, se, sim) {
   simulated <- rnorm(sim, beta, se)
   original <- pnorm(simulated) %>% # inv-probit
     na.omit()
@@ -73,7 +79,8 @@ probit <- function(beta, se, sim) {
 
 #' @describeIn back Back transform beta estimates for models with \eqn{1/x} link
 #' @export
-inverse <- function(beta, se, sim) {
+#' @family Back-transformation
+inverse_back <- function(beta, se, sim) {
   simulated <- rnorm(sim, beta, se)
   original <- 1 / simulated %>% # inverse
     na.omit()
@@ -92,7 +99,8 @@ inverse <- function(beta, se, sim) {
 
 #' @describeIn back Back transform beta estimates for models with \eqn{x^2}-link
 #' @export
-square <- function(beta, se, sim) {
+#' @family Back-transformation
+square_back <- function(beta, se, sim) {
   simulated <- rnorm(sim, beta, se)
   original <- sqrt(simulated) %>% # inverse of x^2
     na.omit()
@@ -111,7 +119,8 @@ square <- function(beta, se, sim) {
 
 #' @describeIn back Back transform beta estimates for models with \eqn{x^3}-link
 #' @export
-cube <- function(beta, se, sim) {
+#' @family Back-transformation
+cube_back <- function(beta, se, sim) {
   simulated <- rnorm(sim, beta, se)
   original <- pracma::nthroot(simulated, n = 3) %>% # inverse of x^3, use non-base to allow for -ve numbers
     na.omit()
@@ -130,7 +139,8 @@ cube <- function(beta, se, sim) {
 
 #' @describeIn back Back transform beta estimates for models with identity-link
 #' @export
-identity <- function(beta, se, sim) { # identity (typo) TODO
+#' @family Back-transformation
+identity_back <- function(beta, se, sim) { # identity (typo) TODO
   simulated <- rnorm(sim, beta, se)
   original <- simulated %>% #  no transformation
     na.omit()
@@ -150,7 +160,8 @@ identity <- function(beta, se, sim) { # identity (typo) TODO
 
 #' @describeIn back Back transform beta estimates for models with power-link
 #' @export
-power <- function(beta, se, sim, n) {
+#' @family Back-transformation
+power_back <- function(beta, se, sim, n) {
   simulated <- rnorm(sim, beta, se)
   original <- pracma::nthroot(simulated, n = n) %>% # inverse of x^n, use non-base to allow for -ve numbers
     na.omit()
@@ -170,7 +181,8 @@ power <- function(beta, se, sim, n) {
 #' @describeIn back Back transform beta estimates or out-of-sample predictions from models whose response variable has been divided by some number, `n`.
 #' @param n Denominator used by analyst to divide the response variable.
 #' @export
-divide <- function(beta, se, sim, n) {
+#' @family Back-transformation
+divide_back <- function(beta, se, sim, n) {
   simulated <- rnorm(sim, beta, se)
   original <- simulated * n %>%
     na.omit()
@@ -200,7 +212,8 @@ divide <- function(beta, se, sim, n) {
 
 #' @describeIn back Back transform beta estimates or out-of-sample predictions from models whose response variable has been transformed by the square root
 #' @export
-square_root <- function(beta, se, sim) {
+#' @family Back-transformation
+square_root_back <- function(beta, se, sim) {
   simulated <- rnorm(sim, beta, se)
   original <- simulated^2 %>%
     na.omit()

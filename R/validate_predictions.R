@@ -1,10 +1,23 @@
-#' Validate out of sample predictions for blue tit dataset with pointblank package
-#'
+#' Validating analyst-submitted predictions
+#' @description
+#' Validates the structure of the analyst-submitted predictions, ensuring that the required columns are present and in the correct format.
 #' @param input Either a filepath or a dataframe, corresponding to the `type` argument specification
 #' @param type character string of length 1, equal to either "filepath" or "df". Defaults to "filepath"
-#'
-#' @return A pointblank agent, class "ptblank_agent", yet to be interrogated
+#' @return A pointblank agent, class `ptblank_agent`, yet to be interrogated
+#' @family Out-of-Sample Prediction Validation
+#' @name validate
+#' @importFrom pointblank create_agent col_exists col_is_integer col_is_numeric col_is_character col_vals_in_set action_levels warn_on_fail vars
+#' @importFrom fs file_exists
+#' @importFrom readr read_csv
+#' @importFrom stringr str_split
+#' @importFrom purrr pluck
+#' @seealso [pointblank::create_agent()]
+NULL
+#> NULL
+
+#' Validate out of sample predictions for blue tit dataset with pointblank package
 #' @export
+#' @describeIn validate Validate Blue tit predictions data
 validate_predictions_df_blue_tit <- function(input, type = "filepath") {
   match.arg(arg = type, choices = c("filepath", "df"), several.ok = FALSE)
 
@@ -58,11 +71,8 @@ validate_predictions_df_blue_tit <- function(input, type = "filepath") {
 
 #' Validate out of sample predictions for eucalytpus dataset with pointblank package
 #'
-#' @param input Either a filepath or a dataframe, corresponding to the `type` argument specification
-#' @param type character string of length 1, equal to either "filepath" or "df". Defaults to "filepath"
-#'
-#' @return A pointblank agent, class "ptblank_agent", yet to be interrogated
-#' @export
+#' @describeIn validate Validate *Eucalyptus* predictions data
+#' @family Out-of-Sample Prediction Validation
 validate_predictions_df_euc <- function(input, type = "filepath") {
   match.arg(arg = type, choices = c("filepath", "df"), several.ok = FALSE)
 
@@ -113,16 +123,12 @@ validate_predictions_df_euc <- function(input, type = "filepath") {
   return(predictions_agent_euc)
 }
 
-# let's try and apply conditional behaviour depending on which dataset was analysed
-
 #' Validate predictions conditioned on dataset
 #'
 #' @param data_set the dataset being analysed, either "blue tit" or "eucalyptus"
-#' @param input a tibble of out of sample predictions that has been augmented, i.e. checked and updated
-#' @param type character string of length 1, equal to either "filepath" or "df". Defaults to "filepath"
-#'
-#' @return An object of class "pointblank_agent", yet to be interrogated.
 #' @export
+#' @describeIn validate Wrapper-function for [validate_predictions_df_euc()] and [validate_predictions_df_blue_tit()]
+#' @family Out-of-Sample Prediction Validation
 validate_predictions <- function(data_set, input, type = "filepath") { # TODO change `data` to `filepath` for semantic accuracy
   # I have written a separate function to control the conditional application of the validation
   # because using if else doesn't return the full data from the agent interrogation

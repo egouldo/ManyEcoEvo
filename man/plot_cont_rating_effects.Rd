@@ -45,3 +45,12 @@ Plot Marginal Effects for Numeric Rating Model
 #   ggplot2::xlab("Rating") +
 #   ggplot2::ylab("Deviation In Effect Size from Analytic Mean")
 }
+\seealso{
+Other Plotting functions: 
+\code{\link{get_forest_plot_data}()},
+\code{\link{plot_effects_diversity}()},
+\code{\link{plot_forest}()},
+\code{\link{plot_model_means_box_cox_cat}()},
+\code{\link{plot_model_means_orchard}()}
+}
+\concept{Plotting functions}

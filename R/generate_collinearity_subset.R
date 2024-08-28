@@ -19,9 +19,7 @@
 #'
 #' `generate_collinearity_subset()` only creates expertise subsets based on the full dataset where `exclusion_set == "complete"` and `publishable_subset == "All"` and `expertise_subset == "All"`.
 #' @import dplyr
-#' @importFrom purrr map
-#' @importFrom purrr map2
-#' @importFrom purrr pluck
+#' @importFrom purrr map map2 pluck
 #' @examples
 #' ManyEcoEvo %>%
 #'   prepare_response_variables(estimate_type = "Zr") |>
@@ -34,48 +32,51 @@ generate_collinearity_subset <- function(ManyEcoEvo, collinearity_subset) {
   if (!is.data.frame(collinearity_subset)) {
     stop("collinearity_subset must be a dataframe.")
   }
-
+  
   if (!is.data.frame(ManyEcoEvo)) {
     stop("ManyEcoEvo must be a dataframe.")
   }
-
+  
   # Check if the subset_collumn dataframe has the correct column names
   if (!all(c("response_id", "id_col") %in% colnames(collinearity_subset))) {
     stop("The input dataframe must contain the column 'response_id' and 'id_col'.")
   }
-
+  
   # Check if the response_id column is unique
   if (length(unique(collinearity_subset$id_col)) != nrow(collinearity_subset)) {
     stop("The 'id_col' column in collinearity_subset must be unique.")
   }
-
+  
   collinearity_subset_dataset <- collinearity_subset %>% pluck("dataset", unique)
-
+  
   collinear_removed <- ManyEcoEvo %>%
     filter(
       publishable_subset == "All" & exclusion_set == "complete" & expertise_subset == "All",
       dataset %in% collinearity_subset_dataset
     ) %>%
-    mutate(data = map(
-      .x = data,
-      .f = dplyr::anti_join, collinearity_subset,
-      by = join_by(response_id, id_col, dataset)
-    )) %>%
+    mutate(data = 
+             map(
+               .x = data,
+               .f = dplyr::anti_join, 
+               collinearity_subset,
+               by = join_by(response_id, id_col, dataset)
+             )) %>%
     mutate(
       diversity_data =
         map2(
           .x = diversity_data,
           .y = data,
-          .f = ~ semi_join(.x, .y, join_by(id_col, dataset)) %>% distinct()
+          .f = ~ semi_join(.x, .y, join_by(id_col, dataset)) %>% 
+            distinct()
         ),
       collinearity_subset = "collinearity_removed"
     )
-
+  
   out <- bind_rows(
     ManyEcoEvo %>%
       mutate(collinearity_subset = "All"),
     collinear_removed
   )
-
+  
   return(out)
 }

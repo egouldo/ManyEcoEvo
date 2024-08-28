@@ -11,10 +11,11 @@
 #' @export
 #' @import ggplot2
 #' @import dplyr
-#' @import see
+#' @importFrom see geom_jitter2 scale_fill_material_d theme_modern
 #' @importFrom EnvStats stat_n_text
 #' @importFrom forcats fct_relevel
 #' @importFrom sae bxcx
+#' @family Plotting functions
 plot_model_means_box_cox_cat <- function(dat,
                                          variable,
                                          predictor_means,

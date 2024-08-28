@@ -12,7 +12,7 @@
 #' names `cleaned_transformation`. The `transformation_orig` values are the original response transformation values
 #' used by the analyst. The `cleaned_transformation` values are the cleaned response transformation values that are equal to the required `transformation` values in [conversion()]. 
 #' The user can supply an alternate table of transformations depending on what is required for the back-transformation functions.
-#' @family back-transformation functions
+#' @family Back-transformation
 #' @seealso To be called after to [assign_transformation_type()]
 #' @examples
 #' clean_response_transformation("power2", ManyEcoEvo:::transformation_tbl) 

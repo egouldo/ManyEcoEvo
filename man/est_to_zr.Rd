@@ -23,7 +23,15 @@ Convert estimate to Zr
 Convert beta estimate, standard error and degrees of freedom into \code{r} and then into \code{Zr} and its sampling variance
 }
 \seealso{
-Other analysis-values: 
-\code{\link{convert_predictions}()}
+Other Analysis-level functions: 
+\code{\link{Z_VZ_preds}()},
+\code{\link{apply_sorensen_calc}()},
+\code{\link{back_transform_response_vars_yi}()},
+\code{\link{box_cox_transform}()},
+\code{\link{convert_predictions}()},
+\code{\link{folded_params}()},
+\code{\link{pmap_wrap}()},
+\code{\link{rename_prediction_cols}()},
+\code{\link{variance_box_cox}()}
 }
-\concept{analysis-values}
+\concept{Analysis-level functions}

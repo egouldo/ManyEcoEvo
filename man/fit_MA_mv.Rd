@@ -6,28 +6,28 @@
 \usage{
 fit_MA_mv(
   effects_analysis = data.frame(),
-  Z_colname,
-  VZ_colname,
+  outcome_colname,
+  outcome_SE_colname,
   estimate_type = character(1L)
 )
 }
 \arguments{
 \item{effects_analysis}{A dataframe containing the estimates and variances for the meta-analysis.}
 
-\item{Z_colname}{The name of the column containing the estimates.}
+\item{outcome_colname}{The name of the column containing the estimates.}
 
-\item{VZ_colname}{The name of the column containing the variances.}
+\item{outcome_SE_colname}{The name of the column containing the variances.}
 
-\item{estimate_type}{The type of estimate to be used in the model. One of "Zr", "y50", "y25", "y75", or "yi".}
+\item{estimate_type}{The type of estimate to be used in the model. One of \verb{c("Zr", "y50", "y25", "y75", or "yi")}.}
 }
 \value{
 A fitted model of class \code{c("rma.mv","rma")}.
 }
 \description{
-Fit a meta-regression model with random effects using the \code{\link[metafor:rma.mv]{metafor::rma.mv()}} function from the \code{metafor} package to a dataframe containing the estimates and variances for the meta-analysis.
+Fit a meta-regression model with random effects using the \code{\link[metafor:rma.mv]{metafor::rma.mv()}} function from the \link[metafor:metafor-package]{metafor::metafor} package to a data.frame containing the estimates and variances for the meta-analysis.
 }
 \details{
-This function is a wrapper around the \code{\link[metafor:rma.mv]{metafor::rma.mv()}} function from the \code{metafor} package. It takes a dataframe containing the estimates and variances for the meta-analysis, the name of the column containing the estimates, the name of the column containing the variances, and the type of estimate to be used in the model. It then fits a metaregression model with random-effects using the \code{\link[metafor:rma.mv]{metafor::rma.mv()}} function called in \code{\link[=fit_metafor_mv]{fit_metafor_mv()}} and returns the fitted model.
+This function is a wrapper around the \code{\link[metafor:rma.mv]{metafor::rma.mv()}} function from the \link[metafor:metafor-package]{metafor::metafor} package. It takes a dataframe containing the estimates and variances for the meta-analysis, the name of the column containing the estimates, the name of the column containing the variances, and the type of estimate to be used in the model. It then fits a metaregression model with random-effects using the \code{\link[metafor:rma.mv]{metafor::rma.mv()}} function called in \code{\link[=fit_metafor_mv]{fit_metafor_mv()}} and returns the fitted model.
 
 Nested random effects are included for \code{TeamIdentifier} and \code{TeamIdentifier/study_id}.
 }
@@ -35,3 +35,23 @@ Nested random effects are included for \code{TeamIdentifier} and \code{TeamIdent
 ManyEcoEvo_results$effects_analysis[[1]] \%>\%
   fit_MA_mv(beta_estimate, beta_SE, "Zr")
 }
+\seealso{
+\code{\link[=fit_metafor_mv]{fit_metafor_mv()}}, \code{\link[metafor:rma.mv]{metafor::rma.mv()}}
+
+Other Model fitting and meta-analysis: 
+\code{\link{fit_boxcox_ratings_cat}()},
+\code{\link{fit_boxcox_ratings_cont}()},
+\code{\link{fit_boxcox_ratings_ord}()},
+\code{\link{fit_metafor_mv}()},
+\code{\link{fit_metafor_mv_reduced}()},
+\code{\link{fit_metafor_uni}()},
+\code{\link{fit_multivar_MA}()},
+\code{\link{fit_sorensen_glm}()},
+\code{\link{fit_uni_mixed_effects}()},
+\code{\link{poss_fit_boxcox_ratings_cat}()},
+\code{\link{poss_fit_boxcox_ratings_cont}()},
+\code{\link{poss_fit_boxcox_ratings_ord}()},
+\code{\link{poss_fit_metafor_mv}()},
+\code{\link{poss_fit_uni_mixed_effects}()}
+}
+\concept{Model fitting and meta-analysis}

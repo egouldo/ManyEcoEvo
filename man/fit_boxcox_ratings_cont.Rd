@@ -5,7 +5,7 @@
 \title{Fit model of boxcox deviation scores as function of continuous ratings}
 \usage{
 fit_boxcox_ratings_cont(
-  .data,
+  data,
   outcome,
   outcome_var,
   ...,
@@ -13,26 +13,33 @@ fit_boxcox_ratings_cont(
 )
 }
 \arguments{
-\item{.data}{Data for model fitting}
+\item{data}{Data for model fitting}
 
 \item{outcome}{outcome variable, unquoted.}
 
 \item{outcome_var}{Variance of the \code{outcome} variable}
 }
 \value{
-An object of class lmer.
+An object of class \code{lme4::lmerMod-class}
 }
 \description{
 Fit an lmer model of the box-cox transformed deviation from the meta-analytic mean scores as a function of continuous peer-review ratings
 }
-\examples{
-# Example Usage:
-# Note, outcome = the name using NSE of the response variable, otucome_var = the
-# variance associated with that variable.
-# library(tidyverse);library(targets);library(metafor);library(tidymodels);library(multilevelmod)
-# tar_load(meta_analysis_outputs)
-# meta_analysis_outputs$data[[1]] \%>\%
-#   fit_boxcox_ratings_cont(.,
-#                                   box_cox_abs_deviation_score_estimate,
-#                                   VZr )
+\seealso{
+Other Model fitting and meta-analysis: 
+\code{\link{fit_MA_mv}()},
+\code{\link{fit_boxcox_ratings_cat}()},
+\code{\link{fit_boxcox_ratings_ord}()},
+\code{\link{fit_metafor_mv}()},
+\code{\link{fit_metafor_mv_reduced}()},
+\code{\link{fit_metafor_uni}()},
+\code{\link{fit_multivar_MA}()},
+\code{\link{fit_sorensen_glm}()},
+\code{\link{fit_uni_mixed_effects}()},
+\code{\link{poss_fit_boxcox_ratings_cat}()},
+\code{\link{poss_fit_boxcox_ratings_cont}()},
+\code{\link{poss_fit_boxcox_ratings_ord}()},
+\code{\link{poss_fit_metafor_mv}()},
+\code{\link{poss_fit_uni_mixed_effects}()}
 }
+\concept{Model fitting and meta-analysis}

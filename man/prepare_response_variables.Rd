@@ -8,7 +8,9 @@ prepare_response_variables(
   ManyEcoEvo,
   estimate_type = character(1L),
   param_table = NULL,
-  dataset_standardise = NULL
+  dataset_standardise = NULL,
+  dataset_log_transform = NULL,
+  ...
 )
 }
 \arguments{
@@ -19,6 +21,8 @@ prepare_response_variables(
 \item{param_table}{A table of parameters \(mean, sd\) for \emph{most} response variables used by analysts. This tibble is pulled from the named object exported by \verb{ManyEcoEvo::}. but can be overwritten with the users's own \code{param_table} dataset.}
 
 \item{dataset_standardise}{A character string of length 1, equal to the name of the dataset to standardise the response variables to. If \code{NULL} (default), no datasets are standardised.}
+
+\item{dataset_log_transform}{A character string of length 1, equal to the name of the dataset to log-transform the response variables to. If \code{NULL} (default), no datasets are log-transformed.}
 }
 \value{
 A tibble of nested list-columns
@@ -28,6 +32,12 @@ Prepare response variable data for nested ManyEcoEvo dataset
 }
 \details{
 Operates on nested list-columns of dataframes, where each dataframe contains the response variable data for a single analysis. The function standardises the response variable data for each analysis, and returns the modified dataset to the \code{data} list-column.
+
+Note that if \code{ManyEcoEvo} does not have an \code{estimate_type} column, it will be added with the value of \code{estimate_type}. This is because some transformation functions require the \code{estimate_type} column to be present in the dataset.
+}
+\examples{
+data(ManyEcoEvo)
+ManyEcoEvo \%>\% prepare_response_variables(estimate_type = "Zr")
 }
 \seealso{
 Other Multi-dataset Wrapper Functions: 

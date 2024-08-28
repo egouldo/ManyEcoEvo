@@ -16,7 +16,10 @@ A \code{datraframe} with the character columns \code{dataset}, \code{estimate_ty
 Generate subsets of out-of-sample predictions data by \code{estimate_type} for multiple analysis datasets.
 }
 \details{
-The object \code{yi\_analysis} should contain the character column \code{dataset}, and list-columns \code{data} and \code{diversity\_data}. In essence, both \code{data} and \code{diversity_data} are nested by \code{dataset}. \code{data} should be a list-col of \code{grouped_df}s, which should also contain the list-col \code{back_transformed_data}
+The object \code{yi_analysis} should contain the character column \code{dataset}, and list-columns \code{data} and \code{diversity_data}. In essence, both \code{data} and \code{diversity_data} are nested by \code{dataset}. \code{data} should be a list-col of \code{grouped_df}, which should also contain the list-col \code{back_transformed_data}.
+
+If the column \code{back_transformed_data} contains \code{NA} values, that row will be removed from the list-column \code{data}.
+If the column \code{estimate_type} is present in \code{yi_analysis}, it will be removed, and replaced with the \code{estimate_type} derived from the \code{scenario} and \code{SurveyID} columns in each \code{back_transformed_data} dataset.
 }
 \seealso{
 Other Multi-dataset Wrapper Functions: 

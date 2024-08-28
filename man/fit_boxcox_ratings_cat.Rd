@@ -4,10 +4,17 @@
 \alias{fit_boxcox_ratings_cat}
 \title{Fit model of boxcox deviation scores as function of continuous ratings}
 \usage{
-fit_boxcox_ratings_cat(.data, outcome, outcome_var, interceptless = FALSE)
+fit_boxcox_ratings_cat(
+  data,
+  outcome,
+  outcome_var,
+  interceptless = FALSE,
+  ...,
+  env = rlang::caller_env()
+)
 }
 \arguments{
-\item{.data}{Data for model fitting}
+\item{data}{Data for model fitting}
 
 \item{outcome}{outcome variable, unquoted.}
 
@@ -16,8 +23,35 @@ fit_boxcox_ratings_cat(.data, outcome, outcome_var, interceptless = FALSE)
 \item{interceptless}{A logical relating to whether the model should be interceptless or not. Defaults to \code{FALSE}.}
 }
 \value{
-An object of class lmer.
+An object of class \code{lme4::lmerMod-class}
 }
 \description{
 Fit an lmer model of the box-cox transformed deviation from the meta-analytic mean scores as a function of continuous peer-review ratings
 }
+\examples{
+  # Example Usage:
+  # library(tidyverse);library(targets);library(metafor)
+  # tar_load(meta_analysis_outputs)
+  # meta_analysis_outputs$data[[1]] \%>\%
+  #   fit_boxcox_ratings_cat(.,
+  # outcome = box_cox_abs_deviation_score_estimate,
+  #                                   outcome_var = VZr, interceptless = FALSE)
+}
+\seealso{
+Other Model fitting and meta-analysis: 
+\code{\link{fit_MA_mv}()},
+\code{\link{fit_boxcox_ratings_cont}()},
+\code{\link{fit_boxcox_ratings_ord}()},
+\code{\link{fit_metafor_mv}()},
+\code{\link{fit_metafor_mv_reduced}()},
+\code{\link{fit_metafor_uni}()},
+\code{\link{fit_multivar_MA}()},
+\code{\link{fit_sorensen_glm}()},
+\code{\link{fit_uni_mixed_effects}()},
+\code{\link{poss_fit_boxcox_ratings_cat}()},
+\code{\link{poss_fit_boxcox_ratings_cont}()},
+\code{\link{poss_fit_boxcox_ratings_ord}()},
+\code{\link{poss_fit_metafor_mv}()},
+\code{\link{poss_fit_uni_mixed_effects}()}
+}
+\concept{Model fitting and meta-analysis}

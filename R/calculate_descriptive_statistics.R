@@ -84,16 +84,16 @@ prepare_sorenson_summary_data <- function(data, data_subset_name = "all", id_sub
   if (length(id_subsets) != length(subset_names)) {
     cli::cli_abort("Length of `id_subsets` and `subset_names` must be equal")
   }
-
+  
   out <-
     data %>%
     ungroup()
-
+  
   if (!is.null(filter_expressions)) {
     out <- out %>%
       filter(!!!filter_expressions)
   }
-
+  
   out %>%
     select(dataset, diversity_indices) %>%
     unnest(diversity_indices) %>%
@@ -138,14 +138,14 @@ prepare_diversity_summary_data <- function(data, data_subset_name = "all", id_su
   if (length(id_subsets) != length(subset_names)) {
     cli::cli_abort("Length of `id_subsets` and `subset_names` must be equal")
   }
-
+  
   data %>%
     select(diversity_data) %>%
     unnest(everything()) %>%
     mutate(new = id_col) %>%
     separate_wider_delim(new, "-",
-      names = c("response_id", "submission_id", "analysis_id", "split_id"),
-      too_many = "merge"
+                         names = c("response_id", "submission_id", "analysis_id", "split_id"),
+                         too_many = "merge"
     ) %>%
     mutate_at(c("submission_id", "analysis_id", "split_id"), as.numeric) %>%
     list(., {
@@ -189,12 +189,12 @@ prepare_analyst_summary_data <- function(data, data_subset_name = "all", id_subs
   if (length(id_subsets) != length(subset_names)) {
     cli::cli_abort("Length of `id_subsets` and `subset_names` must be equal")
   }
-
+  
   make_subset <- function(x, y) {
     left_join(x, y, by = join_by("id_col")) %>%
       prepare_df_for_summarising()
   }
-
+  
   data %>%
     select("data") %>%
     unnest(everything()) %>%
@@ -247,56 +247,56 @@ summarise_study <- function(ManyEcoEvo, ManyEcoEvo_results, id_subsets, subset_n
   if (length(id_subsets) != length(subset_names)) {
     cli::cli_abort("Length of `id_subsets` and `subset_names` must be equal")
   }
-
+  
   # ------ Prepare Summary Data Subsets ------
-
+  
   subsets_tibble <- ManyEcoEvo %>%
     prepare_analyst_summary_data(
       "all",
       id_subsets,
       subset_names
     )
-
+  
   subsets_tibble_sorensen <- ManyEcoEvo_results %>%
     prepare_sorenson_summary_data("all",
-      id_subsets,
-      subset_names,
-      filter_expressions = filter_vars
+                                  id_subsets,
+                                  subset_names,
+                                  filter_expressions = filter_vars
     )
-
+  
   subsets_tibble_variables <- ManyEcoEvo %>%
     prepare_diversity_summary_data(
       "all",
       id_subsets,
       subset_names
     )
-
+  
   var_names <-
     ManyEcoEvo %>%
     pull(diversity_data) %>%
     map(~ .x %>%
-      select(-id_col, -dataset)
-      %>%
-      colnames()) %>%
+          select(-id_col, -dataset)
+        %>%
+          colnames()) %>%
     enframe("dataset", "variable")
-
+  
   # ------ Calculate Summary Statistics ------
-
+  
   ## ----- Descriptive Stats Summary ------
-
+  
   # Analysis Teams Per Dataset, Per Subset
   teams_per_subset <- subsets_tibble %>%
     pmap(~ count(.x, dataset, TeamIdentifier, sort = TRUE) %>%
-      mutate(subset = .y)) %>%
+           mutate(subset = .y)) %>%
     list_rbind()
-
+  
   # actually counting nunmber of analyses per team
   # all_analyst_data %>%
   #     group_by(dataset) %>%
   #     count(TeamIdentifier, sort = TRUE) %>%
   #     tally(n,name = "totalanalyses") %>%
   #     mutate(subset = "all")
-
+  
   # Teams Per Analysis, Per Subset
   Total_Teams_Per_Analysis <-
     pmap(
@@ -306,7 +306,7 @@ summarise_study <- function(ManyEcoEvo, ManyEcoEvo_results, id_subsets, subset_n
         enframe("subset", "n_teams")
     ) %>%
     list_rbind()
-
+  
   # Number of Teams and Total Analyses per dataset for each subset
   Team_Analyses <- map(
     list(
@@ -317,12 +317,12 @@ summarise_study <- function(ManyEcoEvo, ManyEcoEvo_results, id_subsets, subset_n
       list_rbind()
   ) %>%
     reduce(full_join,
-      by = join_by("dataset", "subset")
+           by = join_by("dataset", "subset")
     )
-
-
+  
+  
   # Calculate Summary Statistics for Binary and Numeric Variables
-
+  
   Table2 <- subsets_tibble %>%
     pmap(calc_summary_stats_numeric) %>%
     list_rbind() %>%
@@ -333,12 +333,12 @@ summarise_study <- function(ManyEcoEvo, ManyEcoEvo_results, id_subsets, subset_n
       names_pattern = "(.*)_(.*)"
     ) %>%
     ungroup()
-
+  
   Table1 <- subsets_tibble %>%
     pmap(calc_summary_stats_binary) %>%
     list_rbind() %>%
     full_join(Team_Analyses,
-      by = join_by("dataset", "subset")
+              by = join_by("dataset", "subset")
     ) %>%
     arrange(dataset, subset) %>%
     relocate(
@@ -347,7 +347,7 @@ summarise_study <- function(ManyEcoEvo, ManyEcoEvo_results, id_subsets, subset_n
       totalanalyses,
       everything()
     )
-
+  
   ## ----- Coding variable inclusion across analyses -----
   Table3 <- subsets_tibble_variables %>%
     pmap(calculate_variable_counts) %>%
@@ -371,13 +371,13 @@ summarise_study <- function(ManyEcoEvo, ManyEcoEvo_results, id_subsets, subset_n
       max = max(value, na.rm = T),
       .groups = "drop"
     )
-
+  
   ## ------ Conclusions analysis -----
   Table4 <- subsets_tibble %>%
     pmap(.f = count_conclusions) %>%
     list_rbind() %>%
     spread(Conclusion, count, fill = 0)
-
+  
   ## ----- Sorensen all_diversity_data Index Data -----
   SorensenSummary <-
     subsets_tibble_sorensen %>%
@@ -392,13 +392,13 @@ summarise_study <- function(ManyEcoEvo, ManyEcoEvo_results, id_subsets, subset_n
       .groups = "drop"
     ) %>%
     rename(subset = subset_name)
-
+  
   # ----- Combine Outputs -----
-
+  
   list(subsets_tibble, subsets_tibble_variables, subsets_tibble_sorensen) %>%
     reduce(left_join, by = join_by("data", "subset_name")) %>%
     left_join(Total_Teams_Per_Analysis,
-      by = join_by("subset_name" == "subset")
+              by = join_by("subset_name" == "subset")
     ) %>%
     reduce2(
       .x = list(SorensenSummary, teams_per_subset, Table4, Table3, Table2, Table1),
@@ -539,9 +539,9 @@ calc_summary_stats_binary <- function(data, subset_name = character(1L)) {
   data %>%
     group_by(dataset) %>%
     summarise(.,
-      sum_linear = sum(lm, na.rm = T),
-      sum_mixed = sum(mixed_model, na.rm = T),
-      sum_Bayesian = sum(Bayesian, na.rm = T), subset = subset_name
+              sum_linear = sum(lm, na.rm = T),
+              sum_mixed = sum(mixed_model, na.rm = T),
+              sum_Bayesian = sum(Bayesian, na.rm = T), subset = subset_name
     )
 }
 
@@ -586,9 +586,25 @@ calculate_variable_counts <- function(data, subset_name = character(1L)) {
 #'
 #' @export
 #' @import dplyr
+#' @importFrom pointblank expect_col_exists
 count_conclusions <- function(data, subset_name = character(1L)) {
-  data %>%
-    filter(split_id == 1 & analysis_id == 1) %>%
+  # ----- Argument Checking ------
+  stopifnot(
+    is.data.frame(data),
+    is.character(subset_name)
+  )
+  
+  pointblank::expect_col_exists(object = data, 
+                                columns =  
+                                  c(
+                                    contains("Conclusion"), 
+                                    "split_id", 
+                                    "analysis_id",
+                                    "dataset"
+                                  )
+  )
+  out <- data %>%
+    filter(split_id == 1 & analysis_id == 1) %>% #TODO switch to using `first()` so that we don't require columns split_id and analysis_id to exist
     group_by(dataset, pick(contains("Conclusion"))) %>%
     summarise(count = n(), .groups = "drop") %>%
     filter(
@@ -596,4 +612,6 @@ count_conclusions <- function(data, subset_name = character(1L)) {
       if_any(contains("Conclusion"), ~ .x != "CHECK")
     ) %>%
     mutate(subset = subset_name)
+  
+  return(out)
 }

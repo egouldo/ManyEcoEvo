@@ -1,4 +1,4 @@
-#' @title plot_model_means_orchard
+#' Plot orchard-plot style model means
 #' @description Plot the means of a model with a predictor variable
 #' @param dat A tibble with the data to plot
 #' @param variable A character string of the predictor variable to plot
@@ -8,10 +8,11 @@
 #' @return A ggplot object
 #' @export
 #' @import ggplot2
-#' @import ggbeeswarm
+#' @importFrom ggbeeswarm geom_quasirandom
 #' @import dplyr
-#' @import see
+#' @importFrom see theme_modern
 #' @importFrom forcats fct_relevel
+#' @family Plotting functions
 plot_model_means_orchard <- function(dat,
                                      variable,
                                      predictor_means,

@@ -4,15 +4,21 @@
 \alias{meta_analyse_datasets}
 \title{Meta-analyses multiple datasets or subsets of datasets of analyst data}
 \usage{
-meta_analyse_datasets(MA_data, filter_vars = NULL)
+meta_analyse_datasets(
+  data,
+  outcome_variable = NULL,
+  outcome_SE = NULL,
+  filter_vars = NULL
+)
 }
 \arguments{
-\item{MA_data}{A nested-dataframe grouped by \code{dataset} and / or \code{exclusion_set}, \code{estimate_type}, containing the list-column of prepared analyst subset data \code{effects_analysis} ready for meta-analysis.}
+\item{data}{A nested- dataframe grouped by \code{dataset} and / or \code{exclusion_set}, \code{estimate_type}, containing the list-column of prepared analyst subset data \code{effects_analysis} ready for meta-analysis.}
 
-\item{filter_vars}{A list of expressions to filter the \code{MA_data} dataframe by. E.g. \code{rlang::exprs(exclusion_set == "complete", expertise_subset == "All", publishable_subset == "All", collinearity_subset == "All")}}
+\item{filter_vars}{A list of expressions to filter the \code{data} dataframe by. E.g. \code{rlang::exprs(exclusion_set == "complete", expertise_subset == "All", publishable_subset == "All", collinearity_subset == "All")}
+#' @param outcome_variable A named list containing either/and a list of \code{dataset}s and their corresponding outcome variables for each value of \code{dataset}, a list of \code{estimate_type}s and their corresponding outcome variables for each value of \code{estimate_type}.}
 }
 \value{
-A nested dataframe with all columns of object parsed to arg \code{MA_data}, but with additional columns for the results of each analysis: \code{MA_mod}, \code{sorensen_glm}, \code{box_cox_ratings_cont}, \code{box_cox_ratings_cat}, \code{box_cox_rating_cat_no_int}, \code{uni_mixed_effects}
+A nested dataframe with all columns of object parsed to arg \code{data}, but with additional columns for the results of each analysis: \code{MA_mod}, \code{sorensen_glm}, \code{box_cox_ratings_cont}, \code{box_cox_ratings_cat}, \code{box_cox_rating_cat_no_int}, \code{uni_mixed_effects}
 }
 \description{
 Runs all meta-analyses and regression models for the ManyEcoEvo project analysis, including:
@@ -25,8 +31,21 @@ Runs all meta-analyses and regression models for the ManyEcoEvo project analysis
 \item A univariate GLM regression of the transformed deviation scores on the categorical peer-review ratings
 \item A univariate GLM regression of the transformed deviation scores on a binary variable corresponding to whether the analysis was a mixed-effects model (i.e. GLM with random-effects) or not.
 \item To be implemented: a multivariate regression #TODO
-\item The deviation scores on transformed categorical ratings but with no intercept (for nice plotting / ecploration).
+\item The deviation scores on transformed categorical ratings but with no intercept (for nice plotting / exploration).
 }
+}
+\details{
+When \code{filter_vars} are supplied the function will filter the \code{data} dataframe by the expressions in the list, any data subsets excluded by filtering will not have multivariate met-analysis models fitted with \code{\link[=fit_multivar_MA]{fit_multivar_MA()}}.
+
+When the arguments \code{outcome_variable} and/or \code{outcome_variable} are not supplied, the function defaults to:
+\itemize{
+\item using \code{"Zr"} as the standardised effect size and \code{"VZr"} as the standard error when \code{estimate_type} is \code{"Zr"}.
+\item using \code{"Z"} as the standardised out-of-sample estimate and \code{"VZ" }as the standardised out-of-sample estimate error when \code{estimate_type} is one of \code{c("yi", "y25", "y50", "y75")}.
+}
+
+The function will check if the \code{data} dataframe contains the required columns for meta-analysis, including any variable names specified in calls to the \code{filter_vars} argument. If the required functions do not exist then the function will stop with an error.
+
+Function assumes that if argument \code{outcome_variable} is supplied, then \code{outcome_SE} is also supplied, and conversely, if \code{outcome_SE} is not supplied, then neither is \code{outcome_variable} (\emph{TODO} not yet checked in function).
 }
 \examples{
 filter_vars <- rlang::exprs(

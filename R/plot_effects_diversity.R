@@ -6,7 +6,7 @@
 #'
 #' @return A ggplot with the original data,  predicted values and confidence values from the fitted model
 #' @export
-#'
+#' @family Plotting functions
 #' @examples
 #' # targets::tar_load(ManyEcoEvo_results) #TODO change this to package data
 #' # library(tidyverse)

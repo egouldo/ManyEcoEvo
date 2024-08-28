@@ -9,10 +9,16 @@
 #' @param interceptless A logical relating to whether the model should be
 #' interceptless or not. Defaults to `FALSE`.
 #'
-#' @return An object of class lmer.
+#' @return An object of class `lme4::lmerMod-class`
 #' @export
+#' @family Model fitting and meta-analysis
+#' @importFrom lme4 lmer
+#' @importFrom rlang ensym new_formula expr
+#' @import dplyr
+#' @importFrom tidyr unnest
+#' @importFrom forcats fct_relevel
 fit_boxcox_ratings_ord <- function(.data, outcome, outcome_var, interceptless = FALSE) {
-  cli::cli_h2(glue::glue("Fitting lmer with ordinal ratings predictor on box_cox_transformed outcomes"))
+  cli::cli_h2(c("Fitting lmer with ordinal ratings predictor on box_cox_transformed outcomes"))
 
   # Example Usage:
   # library(tidyverse);library(targets);library(metafor)
@@ -72,7 +78,11 @@ fit_boxcox_ratings_ord <- function(.data, outcome, outcome_var, interceptless = 
   return(mod)
 }
 
-
+#' Possibly [fit_box_cox_ratings()]
+#' @description A wrapper for [fit_box_cox_ratings()] that returns `NA` if an error is thrown
+#' @keywords internal
+#' @importFrom purrr possibly
+#' @family Model fitting and meta-analysis
 poss_fit_boxcox_ratings_ord <- purrr::possibly(fit_boxcox_ratings_ord,
   otherwise = NA,
   quiet = FALSE

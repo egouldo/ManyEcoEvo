@@ -4,10 +4,10 @@
 \alias{apply_sorensen_calc}
 \title{Applies the sorensen diversity index calculation to variable diversity dataset}
 \usage{
-apply_sorensen_calc(.data)
+apply_sorensen_calc(data)
 }
 \arguments{
-\item{.data}{A variable diversity dataset with columns for each unique variable used in all analyses. Values are \code{NA} if the analysis did not use that variable, and take the value of the variable as a character string if the analysis did use that variable. Each unique analysis is a row.}
+\item{data}{A variable diversity dataset with columns for each unique variable used in all analyses. Values are \code{NA} if the analysis did not use that variable, and take the value of the variable as a character string if the analysis did use that variable. Each unique analysis is a row.}
 }
 \value{
 A tibble containing the variables \code{id_col}, \code{mean_diversity_index} and \code{num_variables}
@@ -15,3 +15,18 @@ A tibble containing the variables \code{id_col}, \code{mean_diversity_index} and
 \description{
 Applies the sorensen diversity index calculation to variable diversity dataset
 }
+\seealso{
+\code{\link[=calculate_sorensen_diversity_index]{calculate_sorensen_diversity_index()}}
+
+Other Analysis-level functions: 
+\code{\link{Z_VZ_preds}()},
+\code{\link{back_transform_response_vars_yi}()},
+\code{\link{box_cox_transform}()},
+\code{\link{convert_predictions}()},
+\code{\link{est_to_zr}()},
+\code{\link{folded_params}()},
+\code{\link{pmap_wrap}()},
+\code{\link{rename_prediction_cols}()},
+\code{\link{variance_box_cox}()}
+}
+\concept{Analysis-level functions}

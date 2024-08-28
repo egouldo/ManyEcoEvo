@@ -8,8 +8,10 @@
 compute_metaanalysis_inputs <- function(.data, estimate_type = character(1L)) {
   # TODO insert checks that appropriate columns exist
   match.arg(estimate_type, choices = c("Zr", "yi", "y25", "y50", "y75"), several.ok = FALSE)
-  cli::cli_h1(glue::glue("Computing meta-analysis inputs", " for estimate type ", "{estimate_type}"))
-
+  cli::cli_h1(c("Computing meta-analysis inputs", 
+                " for {.arg estimate type} =", 
+                " {.val {estimate_type}}"))
+  
   if (estimate_type == "Zr") {
     # Convert Effect Sizes to Zr -------
     cli::cli_h2(paste0("Computing standardised effect sizes ", "{.code Zr}", " and variance ", "{.code VZr}"))
@@ -27,15 +29,16 @@ compute_metaanalysis_inputs <- function(.data, estimate_type = character(1L)) {
   } else {
     cli::cli_h2(paste0("Transforming out of sample predictions from link to response scale"))
     .data <- .data %>%
-      pointblank::col_exists(columns = vars(
-        "response_id",
-        "submission_id",
-        "analysis_id",
-        "split_id",
-        "augmented_data",
-        "link_function",
-        "response_transformation_description"
-      )) %>% # TODO add check for  response transformation
+      pointblank::col_exists(
+        columns = c(
+          "response_id",
+          "submission_id",
+          "analysis_id",
+          "split_id",
+          "augmented_data",
+          "link_function",
+          "response_transformation_description"
+        )) %>% # TODO add check for  response transformation
       group_by(response_id, submission_id, analysis_id, split_id) %>%
       mutate(
         back_transformed_data =

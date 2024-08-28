@@ -27,23 +27,28 @@ generate_expertise_subsets <- function(ManyEcoEvo, expert_subset) {
   # NOTE: should be run *after* computing Zr with compute_MA_inputs()
   out <- ManyEcoEvo %>%
     filter(publishable_subset == "All" & exclusion_set == "complete") %>%
-    mutate(data = map(.x = data, .f = dplyr::semi_join, expert_subset)) %>%
+    mutate(data = 
+             map(.x = data, 
+                 .f = dplyr::semi_join, 
+                 expert_subset,
+                 by = join_by(response_id, TeamIdentifier))) %>%
     mutate(
       diversity_data =
         map2(
           .x = diversity_data,
           .y = data,
-          .f = ~ semi_join(.x, .y) %>% distinct()
+          .f = ~ semi_join(.x, .y, join_by(id_col)) %>% 
+            distinct()
         )
     ) %>%
     mutate(expertise_subset = "expert")
-
+  
   # THEN BIND ROWS WITH PREVIOUS DATASETS
   out <- bind_rows(
     ManyEcoEvo %>%
       mutate(expertise_subset = "All"),
     out
   )
-
+  
   return(out)
 }

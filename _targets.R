@@ -34,7 +34,7 @@ pkgs <- c("tidyverse",
 controller <- crew::crew_controller_local(
   garbage_collection = TRUE,
   name = "Elliot_MBP",
-  workers = 10,
+  workers = 10, #TODO: check if this is the right number of workers for general use
   seconds_idle = 5
 )
 
@@ -44,7 +44,8 @@ tar_option_set(
   storage = "worker",
   retrieval = "worker",
   controller = controller,
-  format = "qs"
+  format = "qs",
+  seed = 1234
   # debug = c("augmented_data_3efd9941")#, #augmented_data_a4d78efa
   # cue = tar_cue(mode = "always") #because we have silent errors!
 )
@@ -89,20 +90,34 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
                                                       master_metadata, 
                                                       all_review_data)),
      targets::tar_target(name = ManyEcoEvo_results,
-                         command = ManyEcoEvo %>% 
-                           prepare_response_variables(estimate_type = "Zr") |>  
+                         command = 
+                           ManyEcoEvo %>% 
+                           prepare_response_variables(
+                             estimate_type = "Zr",
+                             dataset_standardise = 
+                               c("blue tit", "eucalyptus")) |>  
                            generate_exclusion_subsets(estimate_type = "Zr") |> 
                            generate_rating_subsets() |> 
                            generate_expertise_subsets(ManyEcoEvo:::expert_subset) |>
                            generate_collinearity_subset(ManyEcoEvo:::collinearity_subset) |>
+                           generate_outlier_subsets(
+                             outcome_variable = 
+                               list(dataset = list("eucalyptus" = "Zr", 
+                                                   "blue tit" = "Zr")), 
+                             n_min = -2, 
+                             n_max = -2, 
+                             ignore_subsets = 
+                               list(collinearity_subset != "collinearity_removed", 
+                                    expertise_subset != "expert", 
+                                    publishable_subset == "All", 
+                                    exclusion_set != "complete")) |>
                            compute_MA_inputs(estimate_type = "Zr") |> 
-                           generate_outlier_subsets() |> # TODO run before MA_inputs? diversity indices need to be recalculated!!
-                           filter(expertise_subset != "expert" | exclusion_set != "complete-rm_outliers") |> #TODO mv into generate_outlier_subsets() so aren't created in the first place
                            meta_analyse_datasets(filter_vars = 
                                                    rlang::exprs(exclusion_set == "complete",
                                                                 expertise_subset == "All",
                                                                 publishable_subset == "All",
-                                                                collinearity_subset == "All"))),
+                                                                collinearity_subset == "All"))
+     ), #TODO looks like generating outlier subsets isn't necessary?? check what filter_vars does again?
      targets::tar_target(updated_prediction_files,
                          preprocess_updated_prediction_files(list_of_new_prediction_files)),
      targets::tar_target(prediction_submissions,
@@ -213,10 +228,11 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
                 pattern = map(augmented_data, groups)
      ),
      tar_target(prediction_checks,
-                command = if(!rlang::is_na(validated_augmented_data)) {
+                command = if (!rlang::is_na(validated_augmented_data)) {
                   pointblank::interrogate(validated_augmented_data) %>% 
-                    pointblank::get_agent_report(., display_table = FALSE)
-                }else{
+                    pointblank::get_agent_report(., 
+                                                 display_table = FALSE)
+                } else{
                   NA
                 },
                 iteration = "list",
@@ -244,14 +260,33 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
                          command =  ManyEcoEvo_yi %>% 
                            prepare_response_variables(
                              estimate_type = "yi",
-                             param_table = ManyEcoEvo:::analysis_data_param_tables, 
-                             dataset_standardise = "blue tit") %>%
+                             param_table = 
+                               ManyEcoEvo:::analysis_data_param_tables, 
+                             dataset_standardise = "blue tit",
+                             dataset_log_transform = "eucalyptus") %>%
                            generate_yi_subsets() %>% #TODO: must be run after prepare_response_variables??
-                           apply_VZ_exclusions(3) %>%
-                           generate_exclusion_subsets() %>% #TODO: runs on ManyEcoEvo that contains Zr and yi results.
-                           compute_MA_inputs() %>%  #TODO lone join by "estimate_type" amongst join_by ("id_col") is suspicious!
-                           generate_outlier_subsets() %>% #TODO swapped order with previous line, but untested
-                           meta_analyse_datasets(filter_vars = NULL) #TODO requires col exclusion_set from generate_exclusion_subsets() but don't need that fun in this pipeline anymore
+                           apply_VZ_exclusions(
+                             VZ_colname = list("eucalyptus" = "se_log", 
+                                               "blue tit" = "VZ"), 
+                             VZ_cutoff = 3) %>%
+                           generate_exclusion_subsets() %>% #TODO: runs on ManyEcoEvo that contains Zr and yi results; DELETE, not needed
+                           generate_outlier_subsets(
+                             outcome_variable = 
+                               list(dataset = 
+                                      list("eucalyptus" = "mean_log", 
+                                           "blue tit" = "Z")), 
+                             n_min = -3, 
+                             n_max = -3, 
+                             ignore_subsets = NULL) %>%
+                           compute_MA_inputs() %>%  
+                           meta_analyse_datasets(
+                             outcome_variable = 
+                               list(dataset = 
+                                      list("eucalyptus" = "mean_log", "blue tit" = "Z")), 
+                             outcome_SE = 
+                               list(dataset = 
+                                      list("eucalyptus" = "se_log", "blue tit" = "VZ")),
+                             filter_vars = rlang::exprs(exclusion_set == "complete")) #TODO requires col exclusion_set from generate_exclusion_subsets() but don't need that fun in this pipeline anymore
      ),
      targets::tar_target(name = ManyEcoEvo_yi_viz,
                          command = make_viz(ManyEcoEvo_yi_results)),

@@ -4,15 +4,17 @@
 \alias{exclude_extreme_VZ}
 \title{Exclude extreme values of VZ from a dataframe of standardised predictions}
 \usage{
-exclude_extreme_VZ(df = data.frame(), VZ_cutoff = numeric(1L))
+exclude_extreme_VZ(df = data.frame(), VZ_colname, VZ_cutoff = numeric(1L))
 }
 \arguments{
-\item{df}{A dataframe containing the columns \code{Z} and \code{VZ}}
+\item{df}{A dataframe containing processed out-of-sample prediction values}
+
+\item{VZ_colname}{A character vector corresponding to the column name in \code{df} containing the VZ values to filter on.}
 
 \item{VZ_cutoff}{A numeric vector of length 1, values equal to or greater than this value of VZ will be filtered out of \code{df}.}
 }
 \value{
-A dataframe with observations removed where the value is less than that of \verb{VZ\\_cutoff}.
+A dataframe with observations removed where the value is less than that of \code{VZ_cutoff}.
 }
 \description{
 Exclude extreme values of VZ from a dataframe of standardised predictions

@@ -26,3 +26,12 @@ data(blue_tit_data)
 named_group_split(euc_data, Property)
 named_group_split(blue_tit_data, hatch_Area)
 }
+\seealso{
+Other Utility functions: 
+\code{\link{\%nin\%}()},
+\code{\link{capwords}()},
+\code{\link{rm_inf_na}()},
+\code{\link{subset_fns_Zr}()},
+\code{\link{subset_fns_yi}()}
+}
+\concept{Utility functions}

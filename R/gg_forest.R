@@ -6,27 +6,32 @@
 #'
 #' @return An object of class `ggplot2`
 #' @export
+#' @family Plotting Functions
+#' @importFrom ggplot2 ggplot aes element_line element_text theme guides coord_flip labs geom_pointrange
+#' @importFrom ggforestplot theme_forest
+#' @importFrom parameters parameters
+#' @importFrom tibble as_tibble
+#' @import dplyr
+#' @importFrom forcats fct_reorder
+#' @importFrom stringr str_detect
+#' @importFrom cli cli_h2
 gg_forest <- function(meta_model, estimate_type, dataset = character(1L)) {
   match.arg(dataset, choices = c("blue tit", "eucalyptus"), several.ok = FALSE)
-  cli::cli_h2(glue::glue(
-    "Creating gg-forest-plot of ",
-    {
-      estimate_type
-    },
-    " estimates for ",
-    {
-      dataset
-    },
-    " dataset"
-  ))
-  # meta_analysis_outputs$MA_mod %>% pluck(1) %>% gg_forest("Zr", "blue tit")
+  
   stopifnot("rma" %in% class(meta_model))
 
   match.arg(estimate_type,
     choices = c("Zr", "y50", "y25", "y75"),
     several.ok = FALSE
   )
-
+  
+  # ---- Extract Plot Data & Axis Labels ----
+  
+  cli::cli_h2(c(
+    "Creating gg-forest-plot of {.arg estimate_type} estimates for ",
+    "{.arg dataset} = {.val {dataset}}"
+  ))
+  
   plot_data <- meta_model %>%
     parameters::parameters() %>%
     tibble::as_tibble() %>%
@@ -36,7 +41,7 @@ gg_forest <- function(meta_model, estimate_type, dataset = character(1L)) {
         forcats::fct_reorder(., point_shape, .desc = TRUE)
     )
 
-  x_axis_label <- case_when(
+  x_axis_label <- case_when( #TODO update whether standardised or not
     estimate_type == "Zr" ~ expression("Standardised Effect Size, Z"[r]),
     estimate_type == "ymed" ~ expression("Standardised Out-of-sample Prediction, y"[50]),
     estimate_type == "y25" ~ expression("Standardised Out-of-sample Prediction, y"[25]),
@@ -44,10 +49,10 @@ gg_forest <- function(meta_model, estimate_type, dataset = character(1L)) {
     TRUE ~ expression("Standardised Out-of-sample Prediction, y"[75])
   )
 
-  euc_svg_url <- "https://images.phylopic.org/images/a42656fa-b92a-4c69-8f13-55e4cb4b6bc1/vector.svg"
-  bt_svg_url <- "https://images.phylopic.org/images/dfdfb59e-8126-44e1-a7a9-1bf698113e1c/vector.svg"
-
-  img_url <- ifelse(dataset == "eucalyptus", euc_svg_url, bt_svg_url)
+  # euc_svg_url <- "https://images.phylopic.org/images/a42656fa-b92a-4c69-8f13-55e4cb4b6bc1/vector.svg"
+  # bt_svg_url <- "https://images.phylopic.org/images/dfdfb59e-8126-44e1-a7a9-1bf698113e1c/vector.svg"
+  # 
+  # img_url <- ifelse(dataset == "eucalyptus", euc_svg_url, bt_svg_url)
 
   p <- plot_data %>%
     ggplot(aes(

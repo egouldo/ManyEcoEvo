@@ -25,12 +25,13 @@ Prepare response variable data for nested ManyEcoEvo dataset - out of sample pre
 }
 \details{
 Operates on nested list-columns of data. The function back-transforms the response variables from the link to the response scale for each dataset in the ManyEcoEvo dataset. The back-transformed data is stored in a list-column called \code{back_transformed_data}. It is useful for when wanting to conduct a meta-analysis on the response scale, e.g. for the \emph{Eucalyptus} count data.
+\code{estimate_type} is used to specify the type of estimate to be standardised and parsed to \code{\link[=back_transform_response_vars_yi]{back_transform_response_vars_yi()}}
 }
 \seealso{
+\code{\link[=back_transform_response_vars_yi]{back_transform_response_vars_yi()}}. To be called prior to \code{\link[=generate_yi_subsets]{generate_yi_subsets()}}.
+
 Other targets-pipeline functions: 
-\code{\link{generate_outlier_subsets}()},
 \code{\link{generate_rating_subsets}()},
-\code{\link{make_viz}()},
 \code{\link{prepare_ManyEcoEvo}()},
 \code{\link{prepare_ManyEcoEvo_yi}()},
 \code{\link{prepare_review_data}()}

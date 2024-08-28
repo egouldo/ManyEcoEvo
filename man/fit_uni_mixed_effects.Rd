@@ -2,7 +2,7 @@
 % Please edit documentation in R/fit_uni_mixed_effects.R
 \name{fit_uni_mixed_effects}
 \alias{fit_uni_mixed_effects}
-\title{Fit univariate glm of deviation scores on random effects inclusion}
+\title{Fit model of Box-Cox transformed deviation scores as a function random-effects inclusion in analyses}
 \usage{
 fit_uni_mixed_effects(data)
 }
@@ -22,3 +22,23 @@ Fits a univariate glm of box-cox transformed absolute deviation from the meta-an
 # Note: used tidymodels approach for dynamic outcome var selection
 # base R approach will be more succinct.
 }
+\seealso{
+\link[parsnip:details_linear_reg_glm]{parsnip::details_linear_reg_glm} for details on the \link[parsnip:linear_reg]{parsnip::linear_reg} engine.
+
+Other Model fitting and meta-analysis: 
+\code{\link{fit_MA_mv}()},
+\code{\link{fit_boxcox_ratings_cat}()},
+\code{\link{fit_boxcox_ratings_cont}()},
+\code{\link{fit_boxcox_ratings_ord}()},
+\code{\link{fit_metafor_mv}()},
+\code{\link{fit_metafor_mv_reduced}()},
+\code{\link{fit_metafor_uni}()},
+\code{\link{fit_multivar_MA}()},
+\code{\link{fit_sorensen_glm}()},
+\code{\link{poss_fit_boxcox_ratings_cat}()},
+\code{\link{poss_fit_boxcox_ratings_cont}()},
+\code{\link{poss_fit_boxcox_ratings_ord}()},
+\code{\link{poss_fit_metafor_mv}()},
+\code{\link{poss_fit_uni_mixed_effects}()}
+}
+\concept{Model fitting and meta-analysis}

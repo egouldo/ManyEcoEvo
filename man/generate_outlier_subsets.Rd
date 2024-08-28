@@ -4,16 +4,69 @@
 \alias{generate_outlier_subsets}
 \title{Generate Outlier Subsets for ManyEcoEvo datasets}
 \usage{
-generate_outlier_subsets(ManyEcoEvo)
+generate_outlier_subsets(
+  data,
+  outcome_variable = NULL,
+  n_min = NULL,
+  n_max = NULL,
+  ignore_subsets = NULL
+)
 }
 \arguments{
-\item{ManyEcoEvo}{a ManyEcoEvo dataframe containing formatted raw \code{data}, formatted \code{diversity_data}, the \code{estimate_type}, and \code{dataset}}
+\item{data}{a ManyEcoEvo dataframe containing formatted raw \code{data}, formatted \code{diversity_data}, the \code{estimate_type}, and \code{dataset}}
+
+\item{outcome_variable}{A named list containing either/and a list of \code{dataset}s and their corresponding outcome variables for each value of \code{dataset}, a list of \code{estimate_type}s and their corresponding outcome variables for each value of \code{estimate_type}.}
+
+\item{n_min}{integer, the number of bottom outliers to remove}
+
+\item{n_max}{integer, the number of top outliers to remove}
+
+\item{ignore_subsets}{A list of <\code{\link[dplyr:dplyr_data_masking]{data-masked}}> expressions passed to \code{\link[dplyr:filter]{dplyr::filter()}} for ignoring specific data subsets when removing outliers}
 }
 \value{
-A ManyEcoEvo dataframe with added column \code{exclusion_set} with new subsets of \code{data} and \code{diversity_data}
+A ManyEcoEvo dataframe with added column \code{exclusion_set} with new subsets of \code{data}, \code{diversity_data} that exclude outliers.
 }
 \description{
 Removes top outlier for \code{yi} datasets and top 2 and bottom 2 outliers for \code{Zr} datasets
+}
+\details{
+\subsection{Function Usage}{
+
+\code{n_min} and \code{n_max} are used to specify the number of outliers to remove from the bottom and top of the dataset, respectively. These arguments are passed to the \code{n} argument within \code{\link[dplyr:slice]{dplyr::slice_min()}} and \code{\link[=slice_max]{slice_max()}} respectively. Note that negative values of \code{n_min} and \code{n_max} will be removed from the dataset, while positive values of \code{n} will retain observations in the dataframe.
+
+\code{ignore_subsets} is used to specify which subsets of the data should be ignored when removing outliers. This is useful when you want to remove outliers from all datasets except for specific subsets. For example, if you want to remove outliers from all datasets except for the \code{eucalyptus} dataset, you would pass \code{ignore_subsets = dataset == "eucalyptus"}.
+
+The function will check that any columns specified in \code{ignore_subsets} exist in the dataset using \code{\link[pointblank:col_exists]{pointblank::test_col_exists()}}. If they do not, the function will throw an error.
+}
+
+\subsection{Analysis Pipeline Usage}{
+
+This function ahould be run after computing response variables for \code{yi} datasets with \code{\link[=generate_yi_subsets]{generate_yi_subsets()}} and \code{Zr} datasets with \code{\link[=generate_Zr_subsets]{generate_Zr_subsets()}}, but it may also be executed on the raw data to remove the top \code{n_max} and bottom \code{n_min} observations.
+
+Note that \code{outcome_variable}
+
+#TODO: will nolonger work on Zr dataset, because this doesn't contain an estimate_type col?
+
+\code{collinearity_subset != "collinearity_removed"} for Zr datasets and Don't run with the reduced publishability subset.... some of these already only have 10 data points!!
+}
+}
+\examples{
+
+analysis_data <-  ManyEcoEvo_yi \%>\%
+prepare_response_variables(
+estimate_type = "yi",
+param_table = ManyEcoEvo:::analysis_data_param_tables,
+dataset_standardise = "blue tit",
+dataset_log_transform = "eucalyptus") \%>\%
+generate_yi_subsets() \%>\% #TODO: must be run after prepare_response_variables??
+apply_VZ_exclusions(
+VZ_colname = list("eucalyptus" = "se_log",
+"blue tit" = "VZ"),
+VZ_cutoff = 3) \%>\% 
+generate_exclusion_subsets() \%>\% 
+compute_MA_inputs()
+analysis_data \%>\% generate_outlier_subsets(outcome_variable = list(dataset = list("eucalyptus" = "mean_log", "blue tit" = "Z"), "estimate_type" = list("Zr" = "Zr")), n_min = -3, n_max = -3, ignore_subsets = list(estimate_type != "y25", dataset != "eucalyptus"))
+
 }
 \seealso{
 Other Multi-dataset Wrapper Functions: 
@@ -34,14 +87,5 @@ Other Multi-dataset Wrapper Functions:
 \code{\link{summarise_reviews}()},
 \code{\link{summarise_sorensen_index}()},
 \code{\link{summarise_variable_counts}()}
-
-Other targets-pipeline functions: 
-\code{\link{generate_rating_subsets}()},
-\code{\link{make_viz}()},
-\code{\link{prepare_ManyEcoEvo}()},
-\code{\link{prepare_ManyEcoEvo_yi}()},
-\code{\link{prepare_response_variables_yi}()},
-\code{\link{prepare_review_data}()}
 }
 \concept{Multi-dataset Wrapper Functions}
-\concept{targets-pipeline functions}

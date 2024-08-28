@@ -35,3 +35,21 @@ Fit univariate meta-analysis with metafor
 #                      data = .,
 #                      slab = .$study_id)
 }
+\seealso{
+Other Model fitting and meta-analysis: 
+\code{\link{fit_MA_mv}()},
+\code{\link{fit_boxcox_ratings_cat}()},
+\code{\link{fit_boxcox_ratings_cont}()},
+\code{\link{fit_boxcox_ratings_ord}()},
+\code{\link{fit_metafor_mv}()},
+\code{\link{fit_metafor_mv_reduced}()},
+\code{\link{fit_multivar_MA}()},
+\code{\link{fit_sorensen_glm}()},
+\code{\link{fit_uni_mixed_effects}()},
+\code{\link{poss_fit_boxcox_ratings_cat}()},
+\code{\link{poss_fit_boxcox_ratings_cont}()},
+\code{\link{poss_fit_boxcox_ratings_ord}()},
+\code{\link{poss_fit_metafor_mv}()},
+\code{\link{poss_fit_uni_mixed_effects}()}
+}
+\concept{Model fitting and meta-analysis}

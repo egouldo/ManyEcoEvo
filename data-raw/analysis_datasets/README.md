@@ -39,44 +39,6 @@ predictions meta-analysis:
 
 ``` r
 library(ManyEcoEvo)
-```
-
-</details>
-
-    Warning: replacing previous import 'purrr::%@%' by 'rlang::%@%' when loading
-    'ManyEcoEvo'
-
-    Warning: replacing previous import 'purrr::flatten_lgl' by 'rlang::flatten_lgl'
-    when loading 'ManyEcoEvo'
-
-    Warning: replacing previous import 'purrr::splice' by 'rlang::splice' when
-    loading 'ManyEcoEvo'
-
-    Warning: replacing previous import 'purrr::flatten_chr' by 'rlang::flatten_chr'
-    when loading 'ManyEcoEvo'
-
-    Warning: replacing previous import 'purrr::flatten_raw' by 'rlang::flatten_raw'
-    when loading 'ManyEcoEvo'
-
-    Warning: replacing previous import 'purrr::flatten' by 'rlang::flatten' when
-    loading 'ManyEcoEvo'
-
-    Warning: replacing previous import 'purrr::flatten_dbl' by 'rlang::flatten_dbl'
-    when loading 'ManyEcoEvo'
-
-    Warning: replacing previous import 'purrr::invoke' by 'rlang::invoke' when
-    loading 'ManyEcoEvo'
-
-    Warning: replacing previous import 'purrr::flatten_int' by 'rlang::flatten_int'
-    when loading 'ManyEcoEvo'
-
-    Warning: replacing previous import 'recipes::fixed' by 'stringr::fixed' when
-    loading 'ManyEcoEvo'
-
-<details class="code-fold">
-<summary>Code</summary>
-
-``` r
 library(dplyr)
 library(purrr)
 library(stringr)
@@ -130,19 +92,19 @@ all_constructed_vars %>%
 
 </details>
 
-| Constructed Variable                                                         | Included in $y_i$ meta-analysis? |
-|:-----------------------------------------------------------------------------|:---------------------------------|
-| day_14_weight/day_14_tarsus_length                                           | TRUE                             |
-| day_14_weight/(day_14_tarsus_length^2)                                       | TRUE                             |
-| euc_sdlgs0_2m                                                                | TRUE                             |
-| euc_sdlgs_all                                                                | TRUE                             |
-| euc_sdlgs\>50cm                                                              | TRUE                             |
-| small*0.25+medium*1.25+large\*2.5                                            | TRUE                             |
-| average.proportion.of.plots.containing.at.least.one.euc.seedling.of.any.size | TRUE                             |
-| SMI                                                                          | FALSE                            |
-| day_14_tarsus_length_group_deviation                                         | FALSE                            |
-| day_14_weight_group_deviation                                                | FALSE                            |
-| PC1.day_14_weight.day_14_tarsus_length                                       | FALSE                            |
-| day_14_tarsus_length_deviation                                               | FALSE                            |
-| residual_day14_weight                                                        | FALSE                            |
-| residual_day_14_weight_males                                                 | FALSE                            |
+| Constructed Variable | Included in $y_i$ meta-analysis? |
+|:---|:---|
+| day_14_weight/day_14_tarsus_length | TRUE |
+| day_14_weight/(day_14_tarsus_length^2) | TRUE |
+| euc_sdlgs0_2m | TRUE |
+| euc_sdlgs_all | TRUE |
+| euc_sdlgs\>50cm | TRUE |
+| small*0.25+medium*1.25+large\*2.5 | TRUE |
+| average.proportion.of.plots.containing.at.least.one.euc.seedling.of.any.size | TRUE |
+| SMI | FALSE |
+| day_14_tarsus_length_group_deviation | FALSE |
+| day_14_weight_group_deviation | FALSE |
+| PC1.day_14_weight.day_14_tarsus_length | FALSE |
+| day_14_tarsus_length_deviation | FALSE |
+| residual_day14_weight | FALSE |
+| residual_day_14_weight_males | FALSE |
