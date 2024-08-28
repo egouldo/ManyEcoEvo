@@ -14,20 +14,24 @@
 #' @import dplyr
 #' @importFrom forcats fct_reorder
 #' @importFrom stringr str_detect
+#' @importFrom cli cli_h2
 gg_forest <- function(meta_model, estimate_type, dataset = character(1L)) {
   match.arg(dataset, choices = c("blue tit", "eucalyptus"), several.ok = FALSE)
-  cli::cli_h2(c(
-    "Creating gg-forest-plot of {.arg estimate_type} estimates for ",
-    "{.arg dataset} = {.val {dataset}}"
-  ))
-  # meta_analysis_outputs$MA_mod %>% pluck(1) %>% gg_forest("Zr", "blue tit")
+  
   stopifnot("rma" %in% class(meta_model))
 
   match.arg(estimate_type,
     choices = c("Zr", "y50", "y25", "y75"),
     several.ok = FALSE
   )
-
+  
+  # ---- Extract Plot Data & Axis Labels ----
+  
+  cli::cli_h2(c(
+    "Creating gg-forest-plot of {.arg estimate_type} estimates for ",
+    "{.arg dataset} = {.val {dataset}}"
+  ))
+  
   plot_data <- meta_model %>%
     parameters::parameters() %>%
     tibble::as_tibble() %>%
