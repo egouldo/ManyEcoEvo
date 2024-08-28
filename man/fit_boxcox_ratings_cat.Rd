@@ -4,10 +4,17 @@
 \alias{fit_boxcox_ratings_cat}
 \title{Fit model of boxcox deviation scores as function of continuous ratings}
 \usage{
-fit_boxcox_ratings_cat(.data, outcome, outcome_var, interceptless = FALSE)
+fit_boxcox_ratings_cat(
+  data,
+  outcome,
+  outcome_var,
+  interceptless = FALSE,
+  ...,
+  env = rlang::caller_env()
+)
 }
 \arguments{
-\item{.data}{Data for model fitting}
+\item{data}{Data for model fitting}
 
 \item{outcome}{outcome variable, unquoted.}
 
@@ -20,6 +27,15 @@ An object of class \code{lme4::lmerMod-class}
 }
 \description{
 Fit an lmer model of the box-cox transformed deviation from the meta-analytic mean scores as a function of continuous peer-review ratings
+}
+\examples{
+  # Example Usage:
+  # library(tidyverse);library(targets);library(metafor)
+  # tar_load(meta_analysis_outputs)
+  # meta_analysis_outputs$data[[1]] \%>\%
+  #   fit_boxcox_ratings_cat(.,
+  # outcome = box_cox_abs_deviation_score_estimate,
+  #                                   outcome_var = VZr, interceptless = FALSE)
 }
 \seealso{
 Other Model fitting and meta-analysis: 

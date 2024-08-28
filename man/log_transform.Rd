@@ -14,7 +14,7 @@ log_transform(estimate = numeric(1L), std.error = numeric(1L), sim = 10000L)
 \item{sim}{Number of simulations to run when generating distribution to sample from}
 }
 \value{
-A dataframe containing the \code{mean_log}, \code{std.error_log}, \code{lower} and \code{upper} 95\% CI on the log scale
+A dataframe containing the \code{mean_log}, \code{se_log}, \code{lower} and \code{upper} 95\% CI on the log scale
 }
 \description{
 log transform response-scale yi estimates

@@ -4,12 +4,12 @@
 \alias{box_cox_transform}
 \title{Box-cox transform absolute deviation from the meta-analytic mean scores}
 \usage{
-box_cox_transform(data, dataset)
+box_cox_transform(data, dataset, outcome_SE_colname)
 }
 \arguments{
 \item{data}{Dataset for model fitting, must contain columns \code{"abs_deviation_score_estimate"} and standard error}
 
-\item{dataset}{character string of either "blue tit" or "eucalyptus"}
+\item{dataset}{character string of length 1 either "blue tit" or "eucalyptus"}
 }
 \value{
 data with additional columns of box-cox transformed deviation scores and variance

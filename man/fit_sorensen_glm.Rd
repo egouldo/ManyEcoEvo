@@ -7,18 +7,13 @@
 fit_sorensen_glm(data)
 }
 \arguments{
-\item{data}{A dataframe containing box-cox transformed absolute deviation from the meta-analytic mean scores}
+\item{data}{A \code{data.frame} containing Box-Cox transformed absolute deviation from the meta-analytic mean scores and the mean Sorensen's scores for each analysis}
 }
 \value{
-An fitted model object of class \code{glm} and \code{parsnip}
+A fitted model object of class \code{glm} and \code{parsnip}
 }
 \description{
 Fit univariate glm of deviation scores on sorensen diversity index
-}
-\examples{
-# library(tidyverse);library(targets);library(metafor);library(tidymodels)
-# tar_load(meta_analysis_outputs)
-# fit_sorensen_glm(meta_analysis_results$data[[1]])
 }
 \seealso{
 Other Model fitting and meta-analysis: 

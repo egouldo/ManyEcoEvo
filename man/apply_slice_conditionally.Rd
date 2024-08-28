@@ -19,6 +19,6 @@ apply_slice_conditionally(x, filter_vars)
 Apply slice conditionally
 }
 \details{
-the tibble \code{x} must contain the columns \code{data}, \code{outcome_colname}, \code{n_min}, and \code{n_max}
+the tibble \code{x} must contain the columns \code{data}, \code{outcome_colname}, \code{n_min}, and \code{n_max}. Will create the columns \code{exclusion_set} if not present in the dataset, assigning \code{"complete"} to \code{x} and \code{"complete-rm_outliers"} to the subsetted data bound to \code{x}.
 }
 \keyword{internal}

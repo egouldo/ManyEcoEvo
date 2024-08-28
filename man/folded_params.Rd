@@ -12,7 +12,7 @@ folded_params(abs_dev_score, VZr)
 \item{VZr}{The variance of the standardised effect size}
 }
 \value{
-A list containing the mean and variance of the folded parameters
+A named list containing the mean \code{fold_mu} and variance \code{fold_v} of the folded parameters
 }
 \description{
 Calculate the folded parameters for the Box-Cox transformation

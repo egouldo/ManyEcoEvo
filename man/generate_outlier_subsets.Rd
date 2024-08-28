@@ -60,7 +60,7 @@ dataset_standardise = "blue tit",
 dataset_log_transform = "eucalyptus") \%>\%
 generate_yi_subsets() \%>\% #TODO: must be run after prepare_response_variables??
 apply_VZ_exclusions(
-VZ_colname = list("eucalyptus" = "std.error_log",
+VZ_colname = list("eucalyptus" = "se_log",
 "blue tit" = "VZ"),
 VZ_cutoff = 3) \%>\% 
 generate_exclusion_subsets() \%>\% 

@@ -11,7 +11,7 @@ fit_multivar_MA(data_tbl, N = 5, ..., env = rlang::caller_env())
 
 \item{N}{threshold for the number of analyses that must have been conducted using mixed effects models to include the binary predictor \code{mixed_model} in the meta-regression. Defaults to 5.}
 
-\item{...}{Additional arguments passed to \code{lmer}}
+\item{...}{Additional arguments passed to \link[lme4:lmer]{lme4::lmer}}
 
 \item{env}{Environment in which to evaluate the formula, defaults to the calling environment}
 }

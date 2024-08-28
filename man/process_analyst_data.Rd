@@ -7,7 +7,7 @@
 \alias{standardise_response}
 \alias{process_response}
 \alias{log_transform_response}
-\title{Process Response Data for Meta-Analysis}
+\title{Wrapper function to standardise response variables}
 \usage{
 pmap_wrap(..., fns, env = caller_env())
 

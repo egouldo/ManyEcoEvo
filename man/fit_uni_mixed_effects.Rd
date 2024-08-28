@@ -2,7 +2,7 @@
 % Please edit documentation in R/fit_uni_mixed_effects.R
 \name{fit_uni_mixed_effects}
 \alias{fit_uni_mixed_effects}
-\title{Fit univariate glm of deviation scores on random effects inclusion}
+\title{Fit model of Box-Cox transformed deviation scores as a function random-effects inclusion in analyses}
 \usage{
 fit_uni_mixed_effects(data)
 }

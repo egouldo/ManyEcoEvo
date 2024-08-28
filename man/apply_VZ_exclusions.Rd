@@ -36,7 +36,7 @@ ManyEcoEvo_yi \%>\%
     dataset_log_transform = "eucalyptus") \%>\%
   generate_yi_subsets() \%>\% 
   apply_VZ_exclusions(VZ_colname = 
-                        list("eucalyptus" = "std.error_log", 
+                        list("eucalyptus" = "se_log", 
                              "blue tit" = "VZ"), 
                       VZ_cutoff = 3)
 }

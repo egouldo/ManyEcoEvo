@@ -5,7 +5,7 @@
 \title{Fit model of boxcox deviation scores as function of continuous ratings}
 \usage{
 fit_boxcox_ratings_cont(
-  .data,
+  data,
   outcome,
   outcome_var,
   ...,
@@ -13,7 +13,7 @@ fit_boxcox_ratings_cont(
 )
 }
 \arguments{
-\item{.data}{Data for model fitting}
+\item{data}{Data for model fitting}
 
 \item{outcome}{outcome variable, unquoted.}
 
@@ -24,17 +24,6 @@ An object of class \code{lme4::lmerMod-class}
 }
 \description{
 Fit an lmer model of the box-cox transformed deviation from the meta-analytic mean scores as a function of continuous peer-review ratings
-}
-\examples{
-# Example Usage:
-# Note, outcome = the name using NSE of the response variable, otucome_var = the
-# variance associated with that variable.
-# library(tidyverse);library(targets);library(metafor);library(tidymodels);library(multilevelmod)
-# tar_load(meta_analysis_outputs)
-# meta_analysis_outputs$data[[1]] \%>\%
-#   fit_boxcox_ratings_cont(.,
-#                                   box_cox_abs_deviation_score_estimate,
-#                                   VZr )
 }
 \seealso{
 Other Model fitting and meta-analysis: 
