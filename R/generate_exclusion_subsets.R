@@ -76,7 +76,7 @@ generate_exclusion_subsets <- function(ManyEcoEvo, estimate_type = NULL) {
           purrr::map2(
             .x = diversity_data,
             .y = data,
-            .f = ~ dplyr::semi_join(.x, .y, by = join_by("id_col")) %>% 
+            .f = ~ dplyr::semi_join(.x, .y, by = join_by("id_col")) %>%
               distinct()
           ),
         .keep = "unused"
