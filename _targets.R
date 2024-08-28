@@ -99,20 +99,24 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
                            generate_rating_subsets() |> 
                            generate_expertise_subsets(ManyEcoEvo:::expert_subset) |>
                            generate_collinearity_subset(ManyEcoEvo:::collinearity_subset) |>
-                           generate_outlier_subsets(outcome_variable = list(dataset = list("eucalyptus" = "Zr", 
-                                                                                           "blue tit" = "Zr")), 
-                                                    n_min = -2, 
-                                                    n_max = -2, 
-                                                    ignore_subsets = list(collinearity_subset != "collinearity_removed", 
-                                                                          expertise_subset != "expert", publishable_subset == "All", 
-                                                                          exclusion_set != "complete")) |>
+                           generate_outlier_subsets(
+                             outcome_variable = 
+                               list(dataset = list("eucalyptus" = "Zr", 
+                                                   "blue tit" = "Zr")), 
+                             n_min = -2, 
+                             n_max = -2, 
+                             ignore_subsets = 
+                               list(collinearity_subset != "collinearity_removed", 
+                                    expertise_subset != "expert", 
+                                    publishable_subset == "All", 
+                                    exclusion_set != "complete")) |>
                            compute_MA_inputs(estimate_type = "Zr") |> 
                            meta_analyse_datasets(filter_vars = 
                                                    rlang::exprs(exclusion_set == "complete",
                                                                 expertise_subset == "All",
                                                                 publishable_subset == "All",
                                                                 collinearity_subset == "All"))
-     ) #TODO looks like generating outlier subsets isn't necessary?? check what filter_vars does again?
+     ), #TODO looks like generating outlier subsets isn't necessary?? check what filter_vars does again?
      targets::tar_target(updated_prediction_files,
                          preprocess_updated_prediction_files(list_of_new_prediction_files)),
      targets::tar_target(prediction_submissions,
