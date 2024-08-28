@@ -4,7 +4,7 @@
 #' @param ... Ignored
 #' @importFrom cli cli_h1 cli_h2 
 #' @import dplyr
-#' @import tidyr
+#' @importFrom tidyr unnest
 #' @importFrom purrr pmap map2 map_int map
 #' @importFrom rlang is_na
 #' @importFrom pointblank col_exists vars
@@ -54,6 +54,9 @@ standardise_response <- function(data,
                                  param_table = NULL,
                                  dataset = character(1L),
                                  ...) {
+  stopifnot(is.data.frame(data),
+            is.character(dataset))
+  
   # TODO insert checks that appropriate columns exist
   # TODO apply to data and check that all cases accounted for!
   match.arg(estimate_type, choices = c("Zr", "yi", "y25", "y50", "y75"), several.ok = FALSE)
@@ -63,7 +66,9 @@ standardise_response <- function(data,
                 "{.val {estimate_type}}"))
   
   if (estimate_type == "Zr") {
+    
     # ------ Convert Effect Sizes to Zr -------
+    
     cli::cli_h2(paste0("Computing standardised effect sizes ", "{.code Zr}", " and variance ", "{.code VZr}"))
     
     data <- data %>%
@@ -78,7 +83,9 @@ standardise_response <- function(data,
         )) %>%
       tidyr::unnest(cols = c(Zr_VZr))
   } else { 
+    
     # ------ Convert predictions to Z -------
+    
     cli::cli_h2(paste0("Standardising out-of-sample predictions"))
     
     data <- data %>%
@@ -145,8 +152,7 @@ standardise_response <- function(data,
 #'  and for eucalyptus data, `data$back_transformed_data$estimate` is renamed `Z`.
 #'  `se.fit` is renamed `VZ`.
 #' @import dplyr
-#' @import purrr
-#' @importFrom tidyr any_of
+#' @importFrom purrr map
 process_response <- function(data, ...){
   
   Z_names_lookup <- c(Z = "estimate", #blue tit
@@ -180,7 +186,7 @@ process_response <- function(data, ...){
 #' @export
 #' @import dplyr
 #' @importFrom cli cli_h1 cli_h2
-#' @importFrom pointblank col_exists vars
+#' @importFrom pointblank col_exists
 #' @importFrom purrr map
 #' @importFrom rlang is_na
 #' @describeIn process_analyst_data Standardise response data for meta-analysis

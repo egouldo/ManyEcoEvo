@@ -13,11 +13,12 @@
 #' @family targets-pipeline functions.
 #' @family Multi-dataset Wrapper Functions
 #' @export
-#' @import cli
+#' @importFrom cli cli_abort cli_alert_info cli_alert_warning cli_h1 cli_h2
 #' @import dplyr
-#' @import purrr
-#' @import rlang
-#' @importFrom pointblank expect_col_exists expect_col_is_numeric expect_col_is_character expect_col_vals_in_set
+#' @importFrom purrr set_names map2 pmap
+#' @importFrom rlang !! := enquo
+#' @importFrom pointblank expect_col_exists expect_col_is_numeric expect_col_is_character expect_col_vals_in_set test_col_exists
+#' @importFrom tidyr tibble drop_na
 #' @examples
 #' data(ManyEcoEvo)
 #' ManyEcoEvo %>% prepare_response_variables(estimate_type = "Zr")
@@ -33,48 +34,70 @@ prepare_response_variables <- function(ManyEcoEvo,
             several.ok = FALSE)
   
   stopifnot(is.data.frame(ManyEcoEvo))
+  
   pointblank::expect_col_exists(object = ManyEcoEvo, 
                                 columns = c(dataset, data))
   
   if (!pointblank::test_col_exists(ManyEcoEvo, "estimate_type")) {
+    
     ManyEcoEvo <- dplyr::mutate(ManyEcoEvo, 
                                 estimate_type = estimate_type)
+    
   }
   
   if (!is.null(dataset_standardise)) {
+    
     stopifnot(
       is.character(dataset_standardise), 
       length(dataset_standardise) >= 1, 
-      length(dataset_standardise) <= length(unique(ManyEcoEvo$dataset)))
+      length(dataset_standardise) <= length(unique(ManyEcoEvo$dataset))
+    )
+    
     match.arg(dataset_standardise, 
               choices = ManyEcoEvo$dataset,
               several.ok = TRUE)
   }
   
   if (!is.null(dataset_log_transform)) {
+    
     stopifnot(
       is.character(dataset_log_transform), 
       length(dataset_log_transform) >= 1, 
-      length(dataset_log_transform) <= length(unique(ManyEcoEvo$dataset)))
+      length(dataset_log_transform) <= length(unique(ManyEcoEvo$dataset))
+    )
+    
     match.arg(dataset_log_transform, 
               choices = ManyEcoEvo$dataset,
               several.ok = TRUE)
   }
   
   if (!is.null(param_table)) {
+    
     stopifnot(is.data.frame(param_table))
-    pointblank::expect_col_exists(object = param_table, 
-                                  columns = c("variable", 
-                                              "parameter", 
-                                              "value"))
-    pointblank::expect_col_is_numeric(object = param_table, 
-                                      columns = "value")
-    pointblank::expect_col_is_character(object = param_table, 
-                                        columns = c("variable", 
-                                                    "parameter"))
-    pointblank::expect_col_vals_in_set(object = param_table, 
-                                       columns = "parameter", 
-                                       set = c("mean", "sd"))
+    
+    pointblank::expect_col_exists(
+      object = param_table, 
+      columns = c("variable", 
+                  "parameter", 
+                  "value")
+    )
+    
+    pointblank::expect_col_is_numeric(
+      object = param_table, 
+      columns = "value"
+    )
+    
+    pointblank::expect_col_is_character(
+      object = param_table, 
+      columns = c("variable", 
+                  "parameter")
+    )
+    
+    pointblank::expect_col_vals_in_set(
+      object = param_table, 
+      columns = "parameter", 
+      set = c("mean", "sd")
+    )
   }
   
   # ------ Prepare Response Variables ------
@@ -82,8 +105,11 @@ prepare_response_variables <- function(ManyEcoEvo,
   out <- ManyEcoEvo
   
   if (estimate_type != "Zr") {
+    
     if (all(is.null(param_table), !is.null(dataset_standardise))) {
+      
       cli::cli_abort("{.arg param_table} must be supplied for {.val {estimate_type}} data when {.arg dataset_standardise} is not {.val NULL}.")
+      
     }
     
     # ------ Back transform if estimate_type is yi only ------
@@ -96,9 +122,7 @@ prepare_response_variables <- function(ManyEcoEvo,
           .y = dataset,
           .f = ~ back_transform_response_vars_yi(
             dat = .x,
-            estimate_type = !!{
-              estimate_type
-            },
+            estimate_type = !!{estimate_type},
             dataset = .y
           )
         ),
@@ -126,7 +150,9 @@ prepare_response_variables <- function(ManyEcoEvo,
         )
       
     } else { #yi + standardise and/or log-transform
+      
       cli::cli_alert_info("Standardising and/or log-transforming response variables for {.val {estimate_type}} estimates.")
+      
       transform_datasets <- 
         bind_rows( 
           tibble(
@@ -140,9 +166,12 @@ prepare_response_variables <- function(ManyEcoEvo,
               set_names("standardise_response")
           )) %>% 
         drop_na() # in case of NULLs
+      
     }
   } else { # Zr
+    
     if (!is.null(param_table)) {
+      
       cli::cli_abort("{.arg param_table} must be {.val NULL} for {.val {estimate_type}} data")
     }
     
@@ -170,8 +199,10 @@ prepare_response_variables <- function(ManyEcoEvo,
     select(-fns) 
   
   return(out)
+  
 }
 
+#' Wrapper function to standardise response variables
 #' @rdname process_analyst_data
 #' @seealso This internal helper function is called by [prepare_response_variables()]
 #' @importFrom rlang caller_env exec

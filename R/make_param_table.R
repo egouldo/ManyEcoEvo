@@ -11,7 +11,7 @@
 #' make_param_table(ManyEcoEvo::blue_tit_data)
 #' make_param_table(ManyEcoEvo::euc_data)
 #' @import dplyr
-#' @import tidyr
+#' @importFrom tidyr pivot_longer
 #' @details The parameter table is used in the computation of Z-values during the standardisation of out-of-sample predictions with `pred_to_Zr()`. `make_param_table()` returns a tidy, long-form tibble with the variable names of `analysis_data` stored in column`variable`, the corresponding `parameter` ("mean" or "sd"), and the `value` of that `parameter`.
 #'
 #' @details # Note

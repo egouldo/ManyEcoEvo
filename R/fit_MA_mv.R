@@ -1,9 +1,10 @@
 #' Fit Meta-regression with random-effects
-#' @description Fit a meta-regression model with random effects using the [metafor::rma.mv()] function from the `metafor` package to a dataframe containing the estimates and variances for the meta-analysis.
+#' 
+#' @description Fit a meta-regression model with random effects using the [metafor::rma.mv()] function from the [metafor::] package to a data.frame containing the estimates and variances for the meta-analysis.
 #'
 #' @param effects_analysis A dataframe containing the estimates and variances for the meta-analysis.
-#' @param Z_colname The name of the column containing the estimates.
-#' @param VZ_colname The name of the column containing the variances.
+#' @param outcome_colname The name of the column containing the estimates.
+#' @param outcome_SE_colname The name of the column containing the variances.
 #' @param estimate_type The type of estimate to be used in the model. One of `c("Zr", "y50", "y25", "y75", or "yi")`.
 #'
 #' @return A fitted model of class `c("rma.mv","rma")`.
@@ -21,14 +22,19 @@
 #'   fit_MA_mv(beta_estimate, beta_SE, "Zr")
 #' @seealso [fit_metafor_mv()], [metafor::rma.mv()]
 #' @family Model fitting and meta-analysis
-fit_MA_mv <- function(effects_analysis = data.frame(), Z_colname, VZ_colname, estimate_type = character(1L)) {
-  pointblank::stop_if_not(estimate_type %in% c("Zr", "yi", "y25", "y50", "y75"))
+fit_MA_mv <- function(effects_analysis = data.frame(), 
+                      outcome_colname, 
+                      outcome_SE_colname, 
+                      estimate_type = character(1L)) {
+  
+  pointblank::stop_if_not(estimate_type %in% 
+                            c("Zr", "yi", "y25", "y50", "y75"))
 
-  Z <- effects_analysis %>% dplyr::pull({{ Z_colname }})
-  VZ <- effects_analysis %>% dplyr::pull({{ VZ_colname }})
+  outcome <- effects_analysis %>% dplyr::pull({{ outcome_colname }})
+  outcome_variance <- effects_analysis %>% dplyr::pull({{ outcome_SE_colname }})
   mod <- ManyEcoEvo::fit_metafor_mv(
-    estimate = Z,
-    variance = VZ,
+    estimate = outcome,
+    variance = outcome_variance,
     estimate_type = estimate_type,
     data = effects_analysis
   )

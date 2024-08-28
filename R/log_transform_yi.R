@@ -7,16 +7,20 @@
 #' @param sim Number of simulations to run when generating distribution to sample from
 #' @export
 #' @import dplyr
-#' @import purrr
-#' @import cli
-#' @import rlang
+#' @importFrom purrr map2
+#' @importFrom tidyr unnest
+#' @importFrom cli cli_warn
+#' @importFrom rlang is_na
 log_transform_yi <- function(back_transformed_data, 
                              sim = 10000L, ...){
   
   if (any(rlang::is_na(sim), 
           rlang::is_na(back_transformed_data))) {
+    
     cli::cli_warn("Argument {.arg sim} or {.arg back_transformed_data} is {.val {NA}}. Returning {.val {NA}} for log-transformed predictions.")
+    
     return(NA)
+    
   }
   
   names_lookup <- c(estimate = "estimate", #blue tit

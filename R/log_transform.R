@@ -3,12 +3,12 @@
 #' @param estimate Point estimates on the original response scale
 #' @param std.error Standard error of the point estimates on the original response scale
 #' @param sim Number of simulations to run when generating distribution to sample from
-#' @return A dataframe containing the `mean_log`, `std.error_log`, `lower` and `upper` 95% CI on the log scale
+#' @return A dataframe containing the `mean_log`, `se_log`, `lower` and `upper` 95% CI on the log scale
 #' @export
 #' @examples log_transform(1.77, 1.01, 1000)
 #' @import dplyr
 #' @importFrom cli cli_alert_danger cli_alert_success
-#' @import purrr
+#' @importFrom purrr map_lgl flatten_dbl
 #' @seealso Equivalent in workflow data hierarchy to [Z_VZ_preds()].
 log_transform <- function(estimate = numeric(1L), 
                           std.error = numeric(1L), 
@@ -23,7 +23,7 @@ log_transform <- function(estimate = numeric(1L),
   quantiles <- quantile(log_simulated, c(0.025, 0.975), na.rm = TRUE)
   
   out <- data.frame(mean_log = m_est, 
-                    std.error_log = std.error_est, 
+                    se_log = std.error_est, 
                     lower = quantiles[[1]], 
                     upper = quantiles[[2]])
   

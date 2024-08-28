@@ -5,7 +5,6 @@
 #' @details
 #' Generates summary data with [summarise_model_composition_data()].
 #'
-#'
 #' @param ManyEcoEvo_results A tibble of `ManyEcoEvo_results`
 #' @param ManyEcoEvo_yi_results A tibble of `ManyEcoEvo_yi_results`
 #' @param ManyEcoEvo A tibble of `ManyEcoEvo`
@@ -13,8 +12,9 @@
 #' @return A dataframe
 #' @export
 #' @import dplyr
-#' @import tidyr
-#' @import purrr
+#' @importFrom broom tidy
+#' @importFrom tidyr unnest pivot_longer
+#' @importFrom purrr map map_dfr set_names
 #' @author Hannah S. Fraser
 #' @author Elliot Gould
 #' @family Multi-dataset Wrapper Functions
@@ -28,21 +28,22 @@ summarise_model_composition <- function(ManyEcoEvo_results, ManyEcoEvo_yi_result
     ) %>%
     select(MA_mod, effects_analysis) %>%
     group_by(estimate_type, dataset) %>%
-    mutate(tidy_mod = map(
-      MA_mod,
-      ~ broom::tidy(.x,
-        conf.int = TRUE,
-        include_studies = TRUE
-      ) %>%
-        rename(study_id = term)
-    ), .keep = "none") %>%
+    mutate(tidy_mod = 
+             map(
+               MA_mod,
+               ~ broom::tidy(.x,
+                             conf.int = TRUE,
+                             include_studies = TRUE
+               ) %>%
+                 rename(study_id = term)
+             ), .keep = "none") %>%
     unnest(tidy_mod) %>%
     filter(type == "study") %>%
     ungroup() %>%
     select(study_id) %>%
     rename(id_col = study_id) %>% # TODO duplicates for "Bell-2-2-1" and "Bonalbo-1-1-1 WHY?
     distinct()
-
+  
   prediction_ids <- ManyEcoEvo_yi_results %>% # TODO Euc mod_data_logged not here!
     filter(
       exclusion_set == "complete",
@@ -50,19 +51,20 @@ summarise_model_composition <- function(ManyEcoEvo_results, ManyEcoEvo_yi_result
     ) %>%
     select(MA_mod, effects_analysis, -exclusion_set) %>%
     group_by(estimate_type, dataset) %>%
-    mutate(tidy_mod = map(
-      MA_mod,
-      ~ broom::tidy(.x, conf.int = TRUE, include_studies = TRUE) %>%
-        rename(study_id = term)
-    ), .keep = "none") %>%
+    mutate(tidy_mod = 
+             map(
+               MA_mod,
+               ~ broom::tidy(.x, conf.int = TRUE, include_studies = TRUE) %>%
+                 rename(study_id = term)
+             ), .keep = "none") %>%
     unnest(tidy_mod) %>%
     filter(type == "study") %>%
     ungroup() %>%
     select(study_id) %>%
     rename(id_col = study_id) %>%
     distinct()
-
-
+  
+  
   Master <-
     ManyEcoEvo %>%
     ungroup() %>%
@@ -83,13 +85,13 @@ summarise_model_composition <- function(ManyEcoEvo_results, ManyEcoEvo_yi_result
       lm = ifelse(linear_model == "linear", 1, 0),
       glm = ifelse(linear_model == "generalised", 1, 0)
     ) # TODO move this into master processing so don't have to repeat else where!!
-
+  
   effects <- Master %>% # TODO consider generalising, so for each 'estimate_type' group: repeat.
     right_join(effect_ids, by = c("id_col")) # repeat for each
-
+  
   predictions <- Master %>%
     right_join(prediction_ids, by = c("id_col"))
-
+  
   summarised_data <-
     map_dfr(
       .x = list(effects, predictions, Master) %>%
@@ -103,7 +105,7 @@ summarise_model_composition <- function(ManyEcoEvo_results, ManyEcoEvo_yi_result
       names_pattern = "(.*)_(.*)",
       values_to = "value"
     )
-
+  
   return(summarised_data)
 }
 

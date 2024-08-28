@@ -6,13 +6,14 @@
 #' @family Plotting functions
 #' @examples
 #' get_forest_plot_data(model)
-#' @import broom.mixed
+#' @importFrom broom tidy
 #' @import dplyr
-#' @import forcats
-#' @import stringr
+#' @importFrom forcats fct_reorder
+#' @importFrom stringr str_detect
+#' @importFrom purrr keep_at
 get_forest_plot_data <- function(model){
   model %>% 
-    broom.mixed::tidy(conf.int = TRUE, include_studies = TRUE) %>% 
+    broom::tidy(conf.int = TRUE, include_studies = TRUE) %>% 
     dplyr::mutate(
       point_shape = 
         ifelse(stringr::str_detect(term, "overall"), 
@@ -39,8 +40,8 @@ get_forest_plot_data <- function(model){
 #' @return A ggplot object
 #' @export
 #' @import ggplot2
-#' @import ggforestplot
-#' @import NatParksPalettes
+#' @importFrom ggforestplot theme_forest
+#' @importFrom NatParksPalettes scale_color_natparks_d
 #' @family Plotting functions
 #' @examples
 #' data(ManyEcoEvo_results)

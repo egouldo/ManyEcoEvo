@@ -44,7 +44,7 @@
 #'  
 #' Function assumes that if argument `outcome_variable` is supplied, then `outcome_SE` is also supplied, and conversely, if `outcome_SE` is not supplied, then neither is `outcome_variable` (*TODO* not yet checked in function).
 #' 
-meta_analyse_datasets <- function(data, outcome_variable = NULL, outcome_SE, filter_vars = NULL) {
+meta_analyse_datasets <- function(data, outcome_variable = NULL, outcome_SE = NULL, filter_vars = NULL) {
   
   # ----- Argument Checks -----
   stopifnot(
@@ -129,18 +129,18 @@ meta_analyse_datasets <- function(data, outcome_variable = NULL, outcome_SE, fil
                matched_formulae_outcome_SE, 
                .f = ~ map_match_formulae(
                  {data %>% 
-                   ungroup %>% 
-                   select(names(outcome_SE))}, 
-                   .x, 
-                   .y, 
-                   col_name = "outcome_SE_colname")) %>% 
+                     ungroup %>% 
+                     select(names(outcome_SE))}, 
+                 .x, 
+                 .y, 
+                 col_name = "outcome_SE_colname")) %>% 
             bind_rows() %>% 
             drop_na(outcome_SE_colname) %>% 
             distinct()
         },
         by = unique(names(outcome_SE))
       )
-      
+    
   }
   
   # ----- Fit Meta-Models & Create Plots -----
@@ -171,19 +171,19 @@ meta_analyse_datasets <- function(data, outcome_variable = NULL, outcome_SE, fil
       effects_analysis =
         ifelse(is.na(MA_mod),
                NA,
-               purrr::map2(
-                 .x = effects_analysis,
-                 .y = MA_mod,
-                 .f = ~ calculate_deviation_score(.x, .y)
+               purrr::pmap(
+                 .l = list(effects_analysis, MA_mod, outcome_colname),
+                 .f = calculate_deviation_score
                )
         ),
       effects_analysis =
         ifelse(rlang::is_na(effects_analysis),
                NA,
-               purrr::map2(
-                 .x = effects_analysis,
-                 .y = dataset,
-                 .f = ~ box_cox_transform(.x, .y)
+               purrr::pmap(
+                 .l = list(effects_analysis, 
+                           dataset, 
+                           outcome_SE_colname),
+                 .f = box_cox_transform
                )
         ),
       sorensen_glm =
@@ -259,8 +259,9 @@ meta_analyse_datasets <- function(data, outcome_variable = NULL, outcome_SE, fil
   } else {
     
     out <- out %>%
-      mutate(effects_analysis = map(effects_analysis, ~ .x %>%
-                                      unnest(review_data))) %>%
+      mutate(effects_analysis = 
+               map(effects_analysis, ~ .x %>%
+                     unnest(review_data))) %>%
       mutate(MA_mod_mv = map(effects_analysis, fit_multivar_MA)) %>%
       select(-ends_with("_colname"))
   }

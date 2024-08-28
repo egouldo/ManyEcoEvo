@@ -13,16 +13,17 @@
 #' @return A summarised tibble with the variables `subset`, `dataset`, `num_teams`, `total_analyses`, `sum_linear`, `sum_mixed`, `sum_Bayesian`.
 #' @export
 #' @import dplyr
-#' @import broom
-#' @import tidyr
+#' @importFrom broom tidy
+#' @importFrom tidyr unnest
 #' @import metafor
-#' @import purrr
+#' @importFrom purrr map set_names map_dfr
 #' @family Multi-dataset Wrapper Functions
 #' @author Hannah S. Fraser
 #' @author Elliot Gould
 #' @examples
 #' summarise_analysis_types(ManyEcoEvo_results, ManyEcoEvo_yi_results, ManyEcoEvo)
 summarise_analysis_types <- function(ManyEcoEvo_results, ManyEcoEvo_yi_results, ManyEcoEvo) {
+  
   effect_ids <- ManyEcoEvo_results %>%
     filter(
       exclusion_set == "complete",
@@ -30,21 +31,22 @@ summarise_analysis_types <- function(ManyEcoEvo_results, ManyEcoEvo_yi_results, 
     ) %>%
     select(MA_mod, effects_analysis) %>%
     group_by(estimate_type, dataset) %>%
-    mutate(tidy_mod = map(
-      MA_mod,
-      ~ broom::tidy(.x,
-        conf.int = TRUE,
-        include_studies = TRUE
-      ) %>%
-        rename(study_id = term)
-    ), .keep = "none") %>%
+    mutate(tidy_mod = 
+             map(
+               MA_mod,
+               ~ broom::tidy(.x,
+                             conf.int = TRUE,
+                             include_studies = TRUE
+               ) %>%
+                 rename(study_id = term)
+             ), .keep = "none") %>%
     unnest(tidy_mod) %>%
     filter(type == "study") %>%
     ungroup() %>%
     select(study_id) %>%
     rename(id_col = study_id) %>% # TODO duplicates for "Bell-2-2-1" and "Bonalbo-1-1-1 WHY?
     distinct()
-
+  
   prediction_ids <- ManyEcoEvo_yi_results %>% # TODO Euc mod_data_logged not here!
     filter(
       exclusion_set == "complete",
@@ -52,18 +54,19 @@ summarise_analysis_types <- function(ManyEcoEvo_results, ManyEcoEvo_yi_results, 
     ) %>%
     select(MA_mod, effects_analysis, -exclusion_set) %>%
     group_by(estimate_type, dataset) %>%
-    mutate(tidy_mod = map(
-      MA_mod,
-      ~ broom::tidy(.x, conf.int = TRUE, include_studies = TRUE) %>%
-        rename(study_id = term)
-    ), .keep = "none") %>%
+    mutate(tidy_mod = 
+             map(
+               MA_mod,
+               ~ broom::tidy(.x, conf.int = TRUE, include_studies = TRUE) %>%
+                 rename(study_id = term)
+             ), .keep = "none") %>%
     unnest(tidy_mod) %>%
     filter(type == "study") %>%
     ungroup() %>%
     select(study_id) %>%
     rename(id_col = study_id) %>%
     distinct()
-
+  
   Master <-
     ManyEcoEvo %>%
     ungroup() %>%
@@ -84,13 +87,13 @@ summarise_analysis_types <- function(ManyEcoEvo_results, ManyEcoEvo_yi_results, 
       lm = ifelse(linear_model == "linear", 1, 0),
       glm = ifelse(linear_model == "generalised", 1, 0)
     ) # TODO move this into master processing so don't have to repeat else where!!
-
+  
   effects <- Master %>%
     right_join(effect_ids, by = c("id_col")) # repeat for each
-
+  
   predictions <- Master %>%
     right_join(prediction_ids, by = c("id_col"))
-
+  
   summarised_data <- full_join(
     map_dfr(
       .x = list(effects, predictions) %>%
@@ -105,11 +108,10 @@ summarise_analysis_types <- function(ManyEcoEvo_results, ManyEcoEvo_yi_results, 
       .id = "subset"
     )
   )
-
+  
   return(summarised_data)
   # TODO next: set up so can run on just one object ManyEcoEvo_results, and account for subsets too!
 }
-
 
 #' Summarise number of analyst teams and total analyses per dataset
 #'

@@ -7,12 +7,13 @@
 #' @export
 #' @import dplyr
 #' @importFrom pointblank col_exists
-#' @importFrom cli cli_alert
+#' @importFrom cli cli_alert cli_h2
 #' @importFrom tidyselect all_of
+#' @importFrom purrr pluck
 exclude_extreme_VZ <- function(df = data.frame(), VZ_colname, VZ_cutoff = numeric(1L)) {
   
   # ----- Argument Checking -----
-  pointblank::col_exists(df, VZ_colname)
+  pointblank::col_exists(df, !!{{VZ_colname}})
   stopifnot(
     length(VZ_cutoff) == 1, 
     is.numeric(VZ_cutoff),

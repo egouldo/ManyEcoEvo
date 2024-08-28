@@ -6,7 +6,7 @@
 #' @return A `df` with anonymised values of `id_col` based on the `New_Identifier` colum of `lookup`
 #' @export
 #' @importFrom pointblank col_vals_not_null
-#' @import tidyr
+#' @importFrom tidyr separate unite
 #' @import dplyr
 anonymise_teams <- function(df, lookup) { # TODO actually... this is anonymise_id_col()
   df %>%

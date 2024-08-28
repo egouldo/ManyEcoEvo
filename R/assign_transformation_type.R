@@ -8,7 +8,7 @@
 #' Based on the response transformation and link function, the function assigns the back-transformation type to be applied to the analysts' point-estimates. The function and assigns the identity transformation if the effects were reported on the link-scale and the estimates are already back-transformed the original response variable prior to modelling. When either of these cases is not true for a given analysis, the function returns the value of the `link_fun` or `response_transformation` argument. When an analysis has been reported on the link-scale and the analyst transformed the response variable prior to modelling, the function assigns the `"double-transformation"`  value for that analysis. When the `response_transformation` and `link_fun` arguments are missing, the function assigns the `"identity"` value to the analysis, assuming that `NA` values are equivalent to the identity transformation. 
 #' @export
 #' @import dplyr
-#' @import rlang
+#' @importFrom rlang is_na
 #' @family Back-transformation
 #' @seealso [prepare_response_variables_yi(), standardise_response()]. To be called prior to [clean_response_transformation()].
 assign_transformation_type <- function(response_transformation = character(1L),

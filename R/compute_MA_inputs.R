@@ -24,6 +24,7 @@
 #' @importFrom purrr map2 map pmap
 #' @importFrom rlang is_null
 #' @importFrom pointblank col_exists test_col_exists
+#' @importFrom cli cli_alert_warning cli_h1
 compute_MA_inputs <- function(ManyEcoEvo, estimate_type = NULL) {
   # TODO should be renamed something to do with diversity indices... that's the
   # only thing happening here!!

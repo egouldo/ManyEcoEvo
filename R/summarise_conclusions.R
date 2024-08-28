@@ -9,9 +9,9 @@
 #' @return A dataframe with count values for each unique `Conclusion` in columns for each `subset` ("effects", "predictions", "all"), for each `dataset`.
 #' @export
 #' @import dplyr
-#' @import purrr
-#' @import broom
-#' @import tidyr
+#' @importFrom purrr map_dfr map
+#' @importFrom broom tidy
+#' @importFrom tidyr unnest pivot_wider
 #' @import metafor
 #' @family Multi-dataset Wrapper Functions
 #' @author Hannah S. Fraser

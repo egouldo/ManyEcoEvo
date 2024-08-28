@@ -38,7 +38,7 @@
 #' dataset_log_transform = "eucalyptus") %>%
 #' generate_yi_subsets() %>% #TODO: must be run after prepare_response_variables??
 #' apply_VZ_exclusions(
-#' VZ_colname = list("eucalyptus" = "std.error_log",
+#' VZ_colname = list("eucalyptus" = "se_log",
 #' "blue tit" = "VZ"),
 #' VZ_cutoff = 3) %>% 
 #' generate_exclusion_subsets() %>% 
@@ -62,9 +62,10 @@ generate_outlier_subsets <- function(data, outcome_variable = NULL, n_min = NULL
                         "estimate_type", 
                         "dataset")
   
-  if (!is.null(enexpr(ignore_subsets))) {
-    ignore_subsets_columns <- 
-      rlang::call_args(enquo(ignore_subsets)) %>% 
+  #TODO consider switching to exprs instead of list as input
+  # see meta_analyse_datasets
+  if (!is.null(enexpr(ignore_subsets))) { 
+    ignore_subsets_columns <- rlang::call_args(enquo(ignore_subsets)) %>% 
       map(rlang::f_lhs) %>% 
       map(rlang::as_string) %>% 
       list_c() %>% 
@@ -211,10 +212,14 @@ slice_conditionally <- function(data, n_min, n_max, outcome_variable) {
 #' @param filter_vars A list of quosures to be used in [dplyr::filter()] to subset `y`
 #' @param n_min integer, the number of bottom outliers to remove
 #' @param n_max integer, the number of top outliers to remove
-#' @details the tibble `x` must contain the columns `data`, `outcome_colname`, `n_min`, and `n_max`
+#' @details the tibble `x` must contain the columns `data`, `outcome_colname`, `n_min`, and `n_max`. Will create the columns `exclusion_set` if not present in the dataset, assigning `"complete"` to `x` and `"complete-rm_outliers"` to the subsetted data bound to `x`.
 #' @keywords internal
 apply_slice_conditionally <- function(x, filter_vars){
-  out <- bind_rows(x, {
+  out <- bind_rows(x %>% 
+                     mutate( exclusion_set = 
+                               if ("exclusion_set" %in% colnames(.)) {
+                                 exclusion_set } 
+                             else {"complete"}), {
     x %>%
       filter(!!!filter_vars) %>%
       mutate(data = 
@@ -224,8 +229,10 @@ apply_slice_conditionally <- function(x, filter_vars){
                                                n_max = ..4, 
                                                outcome_variable = ..2
                     ))) %>%
-      mutate(
-        exclusion_set = paste0(exclusion_set, "-rm_outliers"),
+      mutate( exclusion_set = 
+                if ("exclusion_set" %in% colnames(.)) {
+                  paste0(exclusion_set, "-rm_outliers") } 
+              else {"complete-rm_outliers"},
         data =
           map2(
             .x = data,

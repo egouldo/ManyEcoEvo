@@ -134,8 +134,8 @@ rm_inf_na <- function(effects_analysis, Z_colname, VZ_colname) {
 #' @return A named list of tibbles. Each tibble contains the rows of .tbl for the associated group and all the columns, including the grouping variables. Note that this returns a list_of which is slightly stricter than a simple list but is useful for representing lists where every element has the same type.
 #' @export
 #' @import dplyr
-#' @import rlang
-#' @import purrr
+#' @importFrom rlang ensym
+#' @importFrom purrr set_names map_chr pluck map
 #' @examples
 #' data(euc_data)
 #' data(blue_tit_data)
