@@ -80,7 +80,7 @@ box_cox_transform <- function(data, dataset, outcome_SE_colname) {
               folded_mu_val = 1,
               folded_v_val = 2) %>%
         mutate(
-          box_cox_var = variance_box_cox(folded_mu_val, 
+          box_cox_var = variance_box_cox(folded_mu_val,
                                          folded_v_val, 
                                          lambda[[1]]),
           lambda = lambda[[1]]
