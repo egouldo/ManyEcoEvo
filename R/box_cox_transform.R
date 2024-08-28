@@ -77,7 +77,7 @@ box_cox_transform <- function(data, dataset, outcome_SE_colname) {
                       .y = !!as.name(outcome_SE_colname),
                       .f = folded_params)) %>%
         hoist(fold_params,
-              folded_mu_val = 1, 
+              folded_mu_val = 1,
               folded_v_val = 2) %>%
         mutate(
           box_cox_var = variance_box_cox(folded_mu_val, 
