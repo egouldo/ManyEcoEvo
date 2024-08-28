@@ -536,26 +536,6 @@
       ],
       "Hash": "a4652c36d1f8abfc3ddf4774f768c934"
     },
-    "broom.mixed": {
-      "Package": "broom.mixed",
-      "Version": "0.2.9.5",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Requirements": [
-        "broom",
-        "coda",
-        "dplyr",
-        "forcats",
-        "furrr",
-        "methods",
-        "nlme",
-        "purrr",
-        "stringr",
-        "tibble",
-        "tidyr"
-      ],
-      "Hash": "c4e6c14e4d92d7b2d29ab0758184774a"
-    },
     "bslib": {
       "Package": "bslib",
       "Version": "0.8.0",
@@ -711,17 +691,6 @@
         "utils"
       ],
       "Hash": "0aaa05204035dc43ea0004b9c76611dd"
-    },
-    "coda": {
-      "Package": "coda",
-      "Version": "0.19-4.1",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Requirements": [
-        "R",
-        "lattice"
-      ],
-      "Hash": "af436915c590afc6fffc3ce3a5be1569"
     },
     "codetools": {
       "Package": "codetools",
