@@ -82,7 +82,7 @@ generate_exclusion_subsets <- function(ManyEcoEvo, estimate_type = NULL) {
         .keep = "unused"
       ) # TODO duplicate cols for euc R_1LRqq2WHrQaENtM, glasgow?
   } else { # When argument estimate_type is NULL
-    df <- ManyEcoEvo %>% 
+    df <- ManyEcoEvo %>%
       pointblank::col_exists("estimate_type") %>%
       dplyr::left_join(subset_fns_df, by = join_by("estimate_type")) %>%
       ungroup() %>% 
