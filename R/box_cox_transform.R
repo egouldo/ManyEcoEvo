@@ -76,7 +76,7 @@ box_cox_transform <- function(data, dataset, outcome_SE_colname) {
                  map2(.x = abs_deviation_score_estimate, 
                       .y = !!as.name(outcome_SE_colname),
                       .f = folded_params)) %>%
-        hoist(fold_params, 
+        hoist(fold_params,
               folded_mu_val = 1, 
               folded_v_val = 2) %>%
         mutate(
