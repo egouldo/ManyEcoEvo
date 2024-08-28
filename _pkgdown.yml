@@ -46,7 +46,9 @@ reference:
     variables for meta-analysis.
   contents:
   - box_cox_transform
-  - log_transform
+  - variance_box_cox
+  - folded_params
+  - starts_with("log_transform")
   - calculate_deviation_score
   - calculate_sorensen_diversity_index
   - apply_sorensen_calc
@@ -59,6 +61,8 @@ reference:
   - compute_metaanalysis_inputs
   - get_diversity_data
   - starts_with("prepare_")
+  - split_yi_subsets
+  - rename_prediction_cols
 - title: Model Fitting & Meta-analysis
   desc: |
     Functions for fitting meta-analysis and other models described in *Gould
