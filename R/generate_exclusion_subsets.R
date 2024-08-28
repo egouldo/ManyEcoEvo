@@ -72,7 +72,7 @@ generate_exclusion_subsets <- function(ManyEcoEvo, estimate_type = NULL) {
             .y = data,
             .f = exec
           ),
-        diversity_data = 
+        diversity_data =
           purrr::map2(
             .x = diversity_data,
             .y = data,
