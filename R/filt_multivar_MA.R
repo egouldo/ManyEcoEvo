@@ -14,7 +14,7 @@
 #' @importFrom lme4 lmer
 #' @importFrom pointblank test_col_vals_gte expect_col_exists
 #' @import dplyr
-#' @importFrom purrr list_flatten list_c
+#' @importFrom purrr list_flatten list_c transpose
 #' @importFrom tibble enframe
 #' @importFrom tidyr unite
 #' @importFrom cli cli_alert_info cli_bullets cli_h2 style_italic

@@ -260,18 +260,27 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
                              dataset_log_transform = "eucalyptus") %>%
                            generate_yi_subsets() %>% #TODO: must be run after prepare_response_variables??
                            apply_VZ_exclusions(
-                             VZ_colname = list("eucalyptus" = "std.error_log", 
+                             VZ_colname = list("eucalyptus" = "se_log", 
                                                "blue tit" = "VZ"), 
                              VZ_cutoff = 3) %>%
-                           generate_exclusion_subsets() %>% #TODO: runs on ManyEcoEvo that contains Zr and yi results.
-                           generate_outlier_subsets(outcome_variable = 
-                                                      list(dataset = list("eucalyptus" = "mean_log", 
-                                                                          "blue tit" = "Z")), 
-                                                    n_min = -3, 
-                                                    n_max = -3, 
-                                                    ignore_subsets = NULL) %>%
+                           generate_exclusion_subsets() %>% #TODO: runs on ManyEcoEvo that contains Zr and yi results; DELETE, not needed
+                           generate_outlier_subsets(
+                             outcome_variable = 
+                               list(dataset = 
+                                      list("eucalyptus" = "mean_log", 
+                                           "blue tit" = "Z")), 
+                             n_min = -3, 
+                             n_max = -3, 
+                             ignore_subsets = NULL) %>%
                            compute_MA_inputs() %>%  
-                           meta_analyse_datasets(filter_vars = NULL) #TODO requires col exclusion_set from generate_exclusion_subsets() but don't need that fun in this pipeline anymore
+                           meta_analyse_datasets(
+                             outcome_variable = 
+                               list(dataset = 
+                                      list("eucalyptus" = "mean_log", "blue tit" = "Z")), 
+                             outcome_SE = 
+                               list(dataset = 
+                                      list("eucalyptus" = "se_log", "blue tit" = "VZ")),
+                             filter_vars = rlang::exprs(exclusion_set == "complete")) #TODO requires col exclusion_set from generate_exclusion_subsets() but don't need that fun in this pipeline anymore
      ),
      targets::tar_target(name = ManyEcoEvo_yi_viz,
                          command = make_viz(ManyEcoEvo_yi_results)),

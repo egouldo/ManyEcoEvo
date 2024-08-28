@@ -19,6 +19,7 @@
 #' @importFrom stringr str_detect
 #' @importFrom purrr map_chr map2 map possibly pmap list_c map_lgl 
 #' @import dplyr
+#' @importFrom tidyselect where
 #' @importFrom cli cli_h1 cli_abort
 #' @importFrom rlang na_chr is_null na_chr is_list is_call exprs f_lhs as_string
 #' @importFrom pointblank expect_col_exists
@@ -197,7 +198,7 @@ meta_analyse_datasets <- function(data, outcome_variable = NULL, outcome_SE = NU
         purrr::map(
           .x = effects_analysis,
           .f = ~ fit_boxcox_ratings_cont(
-            .data = .x,
+            data = .x,
             outcome = box_cox_abs_deviation_score_estimate,
             outcome_var = box_cox_var
           )
@@ -206,7 +207,7 @@ meta_analyse_datasets <- function(data, outcome_variable = NULL, outcome_SE = NU
         purrr::map(
           .x = effects_analysis,
           .f = ~ poss_fit_boxcox_ratings_cat(
-            .data = .x,
+            data = .x,
             outcome = box_cox_abs_deviation_score_estimate,
             outcome_var = box_cox_var,
             interceptless = FALSE
@@ -216,7 +217,7 @@ meta_analyse_datasets <- function(data, outcome_variable = NULL, outcome_SE = NU
         purrr::map(
           .x = effects_analysis,
           .f = ~ poss_fit_boxcox_ratings_cat(
-            .data = .x,
+            data = .x,
             outcome = box_cox_abs_deviation_score_estimate,
             outcome_var = box_cox_var,
             interceptless = TRUE
@@ -268,9 +269,10 @@ meta_analyse_datasets <- function(data, outcome_variable = NULL, outcome_SE = NU
   
   out <-
     out %>% # replace any NULL values with NA
-    mutate(across(everything(),
-                  .fns = ~ coalesce(.x, list(NA))
-    ))
+    mutate(
+      across(where(is.list), 
+             .fns = ~ coalesce(.x, list(NA)))
+    )
   
   return(out)
 }

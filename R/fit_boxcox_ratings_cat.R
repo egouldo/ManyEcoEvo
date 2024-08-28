@@ -42,7 +42,7 @@ fit_boxcox_ratings_cat <- function(data, outcome, outcome_var, interceptless = F
   )
   
   # ----- Fit model -----
-  cli::cli_h2(c("Fitting {.fn lmer} with categorical ratings predictor {.arg PublishableAsIs} on Box-Cox transformed outcome: outcome: {.val {outcome}}"))
+  cli::cli_h2(c("Fitting {.fn lmer} with categorical ratings predictor {.arg PublishableAsIs} on Box-Cox transformed {.arg outcome}:  {.arg {rlang::enexpr(outcome)}}"))
   
   data_tbl <-
     data %>%

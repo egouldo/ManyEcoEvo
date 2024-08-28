@@ -29,7 +29,7 @@ fit_boxcox_ratings_cont <- function(data, outcome, outcome_var, ..., env = rlang
   )
   
   # ----- Fit model -----
-  cli::cli_h2(c("Fitting {.fn lmer} with continuous ratings predictor {.arg RateAnalysis} on Box-Cox transformed outcome: {.val {outcome}}"))
+  cli::cli_h2(c("Fitting {.fn lmer} with continuous ratings predictor {.arg RateAnalysis} on Box-Cox transformed {.arg outcome}: {.arg {rlang::enexpr(outcome)}}"))
   data_tbl <- # TODO, consider extracting unnesting outside of this fn.
     data %>%
     select(
