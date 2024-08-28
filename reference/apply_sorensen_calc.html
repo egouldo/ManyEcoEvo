@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ManyEcoEvo</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.4.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.7.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -59,12 +59,12 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">apply_sorensen_calc</span><span class="op">(</span><span class="va">.data</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">apply_sorensen_calc</span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>.data</dt>
+    <dl><dt>data</dt>
 <dd><p>A variable diversity dataset with columns for each unique variable used in all analyses. Values are <code>NA</code> if the analysis did not use that variable, and take the value of the variable as a character string if the analysis did use that variable. Each unique analysis is a row.</p></dd>
 
 </dl></div>
@@ -75,6 +75,20 @@
 <p>A tibble containing the variables <code>id_col</code>, <code>mean_diversity_index</code> and <code>num_variables</code></p>
 
 
+    </div>
+    <div class="section level2">
+    <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
+    <div class="dont-index"><p><code><a href="calculate_sorensen_diversity_index.html">calculate_sorensen_diversity_index()</a></code></p>
+<p>Other Analysis-level functions: 
+<code><a href="Z_VZ_preds.html">Z_VZ_preds</a>()</code>,
+<code><a href="back_transform_response_vars_yi.html">back_transform_response_vars_yi</a>()</code>,
+<code><a href="box_cox_transform.html">box_cox_transform</a>()</code>,
+<code><a href="convert_predictions.html">convert_predictions</a>()</code>,
+<code><a href="est_to_zr.html">est_to_zr</a>()</code>,
+<code><a href="folded_params.html">folded_params</a>()</code>,
+<code><a href="process_analyst_data.html">pmap_wrap</a>()</code>,
+<code><a href="rename_prediction_cols.html">rename_prediction_cols</a>()</code>,
+<code><a href="variance_box_cox.html">variance_box_cox</a>()</code></p></div>
     </div>
 
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ManyEcoEvo</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.4.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.7.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,11 +53,41 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.4.2" id="manyecoevo-242">ManyEcoEvo 2.4.2<a class="anchor" aria-label="anchor" href="#manyecoevo-242"></a></h2>
-</div>
+<h2 class="pkg-version" data-toc-text="development version" id="manyecoevo-development-version">ManyEcoEvo (development version)<a class="anchor" aria-label="anchor" href="#manyecoevo-development-version"></a></h2>
+<!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
+<ul><li>#118 docs: Add explanation about updated behaviour when <code>estimate_type</code> is missing in <code>ManyEcoEvo</code> dataframe</li>
+<li>#118 build: devtools::document()</li>
+</ul></div>
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.4.1" id="manyecoevo-241">ManyEcoEvo 2.4.1<a class="anchor" aria-label="anchor" href="#manyecoevo-241"></a></h2>
-<ul><li>Initial CRAN submission.</li>
+<h2 class="pkg-version" data-toc-text="2.6.0" id="manyecoevo-260">ManyEcoEvo 2.6.0<a class="anchor" aria-label="anchor" href="#manyecoevo-260"></a></h2>
+<ul><li>Update arg supply to targets call on prepare_response_variables() after <a href="https://github.com/egouldo/ManyEcoEvo/issues/118" class="external-link">#118</a> updates</li>
+<li>#118 add pmap internal helper function for differential application of transformation / standardisation in <code><a href="../reference/process_analyst_data.html">standardise_response()</a></code>
+</li>
+<li>#118 delete old pmap helper function</li>
+<li>
+<code>dat</code> to <code>data</code> to help with auto-matching in pmap within prepare_response_variables() wrapper <a href="https://github.com/egouldo/ManyEcoEvo/issues/118" class="external-link">#118</a></li>
+<li>ensure all family fns have … arg for pmap application in prepare_response_variables() since all fns have different argument lengths and names</li>
+<li>accidentally deleted when upgrading for <a href="https://github.com/egouldo/ManyEcoEvo/issues/118" class="external-link">#118</a>, have added creation of transform_datasets tibbles for all cases now, and then these will apply the appropriate functions in final code chunk at end</li>
+<li>#118 ensure application of Z_VZ_preds takes the generalised colnames yi, yi_se instead of using hard-coded dataset application <a href="https://github.com/egouldo/ManyEcoEvo/issues/97" class="external-link">#97</a></li>
+<li>#118 call new arg <code>dataset_log_transform</code> in fn to log-transform outcomes for euc yi analysis</li>
+<li>#118 add log-transformation equivalent to <code><a href="../reference/process_analyst_data.html">standardise_response()</a></code> and <code>process_resonse()</code>
+</li>
+<li>#102 add function documentation, including examples</li>
+<li>#118 extract <code>lower</code> and <code>upper</code> transformed vals in line with addition of <code><a href="../reference/process_analyst_data.html">log_transform_response()</a></code> / changes to <code><a href="../reference/process_analyst_data.html">standardise_response()</a></code>
+</li>
+<li>#116 check appropriate required variable (i.e. function needs <code>back_transformed_data</code>, but checked for <code>augmented_data</code> in <code>dat</code> arg, wouldn’t throw required error because <code>augmented_data</code> was present in <code>dat</code>
+</li>
+<li>#102 add import, return, and see also roxygen doc tags, replace note with details tag, rename fn doc title</li>
+<li>#116 update argument checks conditional expression</li>
+<li>#118 match output to <code><a href="../reference/log_transform_yi.html">log_transform_yi()</a></code> (now returns additional cols <code>lower</code> and <code>upper</code>, not only <code>c("Z","VZ")</code>)</li>
+<li>#118 match process to <code><a href="../reference/log_transform_yi.html">log_transform_yi()</a></code> and <a href="https://github.com/egouldo/ManyEcoEvo/issues/97" class="external-link">#97</a> generalise processing to both euc/bt datasets without hard-coding dataset names in fns, and remove associated dataset-specific argument checking <a href="https://github.com/egouldo/ManyEcoEvo/issues/116" class="external-link">#116</a></li>
+<li>#118 adapt response variable preparation to accept additional argument <code>dataset_log_transform</code> apply argument checks <a href="https://github.com/egouldo/ManyEcoEvo/issues/116" class="external-link">#116</a>, add roxygen param <a href="https://github.com/egouldo/ManyEcoEvo/issues/102" class="external-link">#102</a></li>
+<li>#118 adapt response variable processing to accept either/or/none for dataset standardisation/log-transformation.</li>
+<li>equivalent to <code>pred_to_z()</code>
+</li>
+<li>#102 write documentation</li>
+<li>#102 add import tags for <code><a href="../reference/log_transform.html">log_transform()</a></code> and link to equivalent functions, apply default argument values / checks</li>
+<li>#97 rename out argument</li>
 </ul></div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>

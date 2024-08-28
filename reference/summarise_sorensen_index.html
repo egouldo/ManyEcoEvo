@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ManyEcoEvo</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.4.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.7.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -112,16 +112,9 @@
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">summarise_sorensen_index</span><span class="op">(</span><span class="va">ManyEcoEvo_results</span>, <span class="va">ManyEcoEvo_yi_results</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Adding missing grouping variables: `estimate_type`, `dataset`, `exclusion_set`,</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> `publishable_subset`, `expertise_subset`, `collinearity_subset`</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Adding missing grouping variables: `estimate_type`, `dataset`, `exclusion_set`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 4 × 6</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   subset      dataset     mean     sd   min   max</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> predictions blue tit   0.570 0.072<span style="text-decoration: underline;">7</span> 0.430 0.746</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> predictions eucalyptus 0.720 0.084<span style="text-decoration: underline;">7</span> 0.585 0.964</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> effects     blue tit   0.591 0.097<span style="text-decoration: underline;">2</span> 0.431 0.859</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> effects     eucalyptus 0.690 0.083<span style="text-decoration: underline;">9</span> 0.548 0.982</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in group_by(., estimate_type, dataset):</span> Must group by variables found in `.data`.</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> Column `estimate_type` is not found.</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> Column `dataset` is not found.</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

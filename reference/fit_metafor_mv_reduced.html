@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ManyEcoEvo</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.4.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.7.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -88,28 +88,25 @@
 
 
     </div>
-
     <div class="section level2">
-    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># TODO -- is this the best way of setting up this fun?? (i.e. to take numeric vectors)?</span></span></span>
-<span class="r-in"><span><span class="co"># Example Usage:</span></span></span>
-<span class="r-in"><span><span class="co"># library(tidyverse);library(targets);library(metafor) # NOT RUN, TODO: remove after create pkg</span></span></span>
-<span class="r-in"><span><span class="co"># source("R/functions.R") #NOT RUN, TODO: remove after create pkg</span></span></span>
-<span class="r-in"><span><span class="fu">tar_read</span><span class="op">(</span><span class="va">round_2_survey_meta_analysis</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">dataset</span> <span class="op">==</span> <span class="st">"eucalyptus"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html" class="external-link">filter</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>    <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">Zr</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>    <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">VZr</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>    <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/is.finite.html" class="external-link">is.infinite</a></span><span class="op">(</span><span class="va">Zr</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>    <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/is.finite.html" class="external-link">is.infinite</a></span><span class="op">(</span><span class="va">VZr</span><span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="fit_metafor_mv.html">fit_metafor_mv</a></span><span class="op">(</span>estimate <span class="op">=</span> <span class="va">.</span><span class="op">$</span><span class="va">Zr</span>, variance <span class="op">=</span> <span class="va">.</span><span class="op">$</span><span class="va">VZr</span>, estimate_type <span class="op">=</span> <span class="st">"Zr"</span>, data <span class="op">=</span> <span class="va">.</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Fitting metaregression</span> ──</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'VZr' not found</span>
-</code></pre></div>
+    <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
+    <div class="dont-index"><p>Other Model fitting and meta-analysis: 
+<code><a href="fit_MA_mv.html">fit_MA_mv</a>()</code>,
+<code><a href="fit_boxcox_ratings_cat.html">fit_boxcox_ratings_cat</a>()</code>,
+<code><a href="fit_boxcox_ratings_cont.html">fit_boxcox_ratings_cont</a>()</code>,
+<code><a href="fit_boxcox_ratings_ord.html">fit_boxcox_ratings_ord</a>()</code>,
+<code><a href="fit_metafor_mv.html">fit_metafor_mv</a>()</code>,
+<code><a href="fit_metafor_uni.html">fit_metafor_uni</a>()</code>,
+<code><a href="fit_multivar_MA.html">fit_multivar_MA</a>()</code>,
+<code><a href="fit_sorensen_glm.html">fit_sorensen_glm</a>()</code>,
+<code><a href="fit_uni_mixed_effects.html">fit_uni_mixed_effects</a>()</code>,
+<code><a href="poss_fit_boxcox_ratings_cat.html">poss_fit_boxcox_ratings_cat</a>()</code>,
+<code><a href="poss_fit_boxcox_ratings_cont.html">poss_fit_boxcox_ratings_cont</a>()</code>,
+<code><a href="poss_fit_boxcox_ratings_ord.html">poss_fit_boxcox_ratings_ord</a>()</code>,
+<code><a href="poss_fit_metafor_mv.html">poss_fit_metafor_mv</a>()</code>,
+<code><a href="poss_fit_uni_mixed_effects.html">poss_fit_uni_mixed_effects</a>()</code></p></div>
     </div>
+
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>
 

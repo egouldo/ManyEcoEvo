@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ManyEcoEvo</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.4.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.7.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -59,7 +59,7 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">box_cox_transform</span><span class="op">(</span><span class="va">data</span>, <span class="va">dataset</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">box_cox_transform</span><span class="op">(</span><span class="va">data</span>, <span class="va">dataset</span>, <span class="va">outcome_SE_colname</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -69,7 +69,7 @@
 
 
 <dt>dataset</dt>
-<dd><p>character string of either "blue tit" or "eucalyptus"</p></dd>
+<dd><p>character string of length 1 either "blue tit" or "eucalyptus"</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -77,6 +77,23 @@
     
 
 <p>data with additional columns of box-cox transformed deviation scores and variance</p>
+    </div>
+    <div class="section level2">
+    <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
+    <div class="dont-index"><p><code>variance_boxcox()</code>, <code><a href="folded_params.html">folded_params()</a></code></p>
+<p>Other Box-Cox transformation: 
+<code><a href="folded_params.html">folded_params</a>()</code>,
+<code><a href="variance_box_cox.html">variance_box_cox</a>()</code></p>
+<p>Other Analysis-level functions: 
+<code><a href="Z_VZ_preds.html">Z_VZ_preds</a>()</code>,
+<code><a href="apply_sorensen_calc.html">apply_sorensen_calc</a>()</code>,
+<code><a href="back_transform_response_vars_yi.html">back_transform_response_vars_yi</a>()</code>,
+<code><a href="convert_predictions.html">convert_predictions</a>()</code>,
+<code><a href="est_to_zr.html">est_to_zr</a>()</code>,
+<code><a href="folded_params.html">folded_params</a>()</code>,
+<code><a href="process_analyst_data.html">pmap_wrap</a>()</code>,
+<code><a href="rename_prediction_cols.html">rename_prediction_cols</a>()</code>,
+<code><a href="variance_box_cox.html">variance_box_cox</a>()</code></p></div>
     </div>
 
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

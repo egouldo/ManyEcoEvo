@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ManyEcoEvo</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.4.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.7.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -125,38 +125,14 @@
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">summarise_variable_counts</span><span class="op">(</span><span class="va">ManyEcoEvo</span>, <span class="va">ManyEcoEvo_results</span>, <span class="va">ManyEcoEvo_yi_results</span>, <span class="st">"count"</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Adding missing grouping variables: `estimate_type`, `dataset`, `exclusion_set`,</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> `publishable_subset`, `expertise_subset`, `collinearity_subset`</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Adding missing grouping variables: `estimate_type`, `dataset`, `exclusion_set`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 666 × 4</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    subset  dataset  variable                        n</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> effects blue tit hatch_year                    100</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> effects blue tit hatch_nest_breed_ID            67</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> effects blue tit hatch_Area                     25</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> effects blue tit hatch_Box                       6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> effects blue tit hatch_mom_Ring                 36</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> effects blue tit hatch_nest_dad_Ring             4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> effects blue tit Extra-pair_paternity            6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> effects blue tit Extra-pair_dad_ring             0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> effects blue tit genetic_dad_ring_(WP_or_EP)    19</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> effects blue tit hatch_nest_LD                  24</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 656 more rows</span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in group_by(., estimate_type, dataset):</span> Must group by variables found in `.data`.</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> Column `estimate_type` is not found.</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> Column `dataset` is not found.</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">summarise_variable_counts</span><span class="op">(</span><span class="va">ManyEcoEvo</span>, <span class="va">ManyEcoEvo_results</span>, <span class="va">ManyEcoEvo_yi_results</span>, <span class="st">"aggregate"</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Adding missing grouping variables: `estimate_type`, `dataset`, `exclusion_set`,</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> `publishable_subset`, `expertise_subset`, `collinearity_subset`</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Adding missing grouping variables: `estimate_type`, `dataset`, `exclusion_set`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 6</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># Groups:   dataset [2]</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   dataset    subset      n_mean  n_sd n_min n_max</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> blue tit   all          12.2  25.9      0   120</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> blue tit   effects       9.60 21.1      0   100</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> blue tit   predictions   5.19 11.1      0    53</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> eucalyptus all           8.88 16.2      0    77</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> eucalyptus effects       4.74  9.98     0    55</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> eucalyptus predictions   1.36  3.26     0    18</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in group_by(., estimate_type, dataset):</span> Must group by variables found in `.data`.</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> Column `estimate_type` is not found.</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> Column `dataset` is not found.</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

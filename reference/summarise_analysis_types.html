@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ManyEcoEvo</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.4.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.7.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -116,9 +116,9 @@
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">summarise_analysis_types</span><span class="op">(</span><span class="va">ManyEcoEvo_results</span>, <span class="va">ManyEcoEvo_yi_results</span>, <span class="va">ManyEcoEvo</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Adding missing grouping variables: `estimate_type`, `dataset`, `exclusion_set`,</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> `publishable_subset`, `expertise_subset`, `collinearity_subset`</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'ManyEcoEvo_yi_results' not found</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in group_by(., estimate_type, dataset):</span> Must group by variables found in `.data`.</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> Column `estimate_type` is not found.</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> Column `dataset` is not found.</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

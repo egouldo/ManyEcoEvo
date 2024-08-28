@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ManyEcoEvo</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.4.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.7.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -77,6 +77,10 @@
 
     </div>
     <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>To be executed on a ManyEcoEvo dataframe after the <code><a href="compute_MA_inputs.html">compute_MA_inputs()</a></code> function. This function generates two subsets of data based on the peer review ratings for both complete and partial exclusion datasets for both <code>yi</code> and <code>Zr</code> estimates. The subsets are generated based on the <code>PublishableAsIs</code> column in the <code>data</code> list-column. The subsets are named <code>data_flawed</code> and <code>data_flawed_major</code> and are created by filtering out the data points with the <code>PublishableAsIs</code> values of <code>"deeply flawed and unpublishable"</code> and <code>"publishable with major revision"</code> respectively. The <code>diversity_data</code> list-column is also updated to reflect the new subsets of data.</p>
+    </div>
+    <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p>Other Multi-dataset Wrapper Functions: 
 <code><a href="apply_VZ_exclusions.html">apply_VZ_exclusions</a>()</code>,
@@ -97,8 +101,6 @@
 <code><a href="summarise_sorensen_index.html">summarise_sorensen_index</a>()</code>,
 <code><a href="summarise_variable_counts.html">summarise_variable_counts</a>()</code></p>
 <p>Other targets-pipeline functions: 
-<code><a href="generate_outlier_subsets.html">generate_outlier_subsets</a>()</code>,
-<code><a href="make_viz.html">make_viz</a>()</code>,
 <code><a href="prepare_ManyEcoEvo.html">prepare_ManyEcoEvo</a>()</code>,
 <code><a href="prepare_ManyEcoEvo_yi.html">prepare_ManyEcoEvo_yi</a>()</code>,
 <code><a href="prepare_response_variables_yi.html">prepare_response_variables_yi</a>()</code>,

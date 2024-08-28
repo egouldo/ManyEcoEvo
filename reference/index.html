@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ManyEcoEvo</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.4.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.7.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -121,19 +121,9 @@
         <dd>Read out-of-sample-prediction analyst submission data</dd>
       </dl><dl><dt>
           
-          <code><a href="validate_predictions.html">validate_predictions()</a></code> 
+          <code><a href="validate.html">validate_predictions_df_blue_tit()</a></code> <code><a href="validate.html">validate_predictions_df_euc()</a></code> <code><a href="validate.html">validate_predictions()</a></code> 
         </dt>
-        <dd>Validate predictions conditioned on dataset</dd>
-      </dl><dl><dt>
-          
-          <code><a href="validate_predictions_df_blue_tit.html">validate_predictions_df_blue_tit()</a></code> 
-        </dt>
-        <dd>Validate out of sample predictions for blue tit dataset with pointblank package</dd>
-      </dl><dl><dt>
-          
-          <code><a href="validate_predictions_df_euc.html">validate_predictions_df_euc()</a></code> 
-        </dt>
-        <dd>Validate out of sample predictions for eucalytpus dataset with pointblank package</dd>
+        <dd>Validating analyst-submitted predictions</dd>
       </dl></div><div class="section level2">
       <h2 id="data-processing-for-meta-analysis-and-modelling">Data Processing for Meta-analysis and Modelling<a class="anchor" aria-label="anchor" href="#data-processing-for-meta-analysis-and-modelling"></a></h2>
       
@@ -190,12 +180,12 @@
           
           <code><a href="pred_to_Z.html">pred_to_Z()</a></code> 
         </dt>
-        <dd>Standardize Out-Of-Sample Predictions</dd>
+        <dd>Z-standardise a dataframe of back-transformed Out-Of-Sample Predictions</dd>
       </dl><dl><dt>
           
-          <code><a href="process_analyst_data.html">standardise_response()</a></code> <code><a href="process_analyst_data.html">process_response()</a></code> 
+          <code><a href="process_analyst_data.html">pmap_wrap()</a></code> <code><a href="process_analyst_data.html">standardise_response()</a></code> <code><a href="process_analyst_data.html">process_response()</a></code> <code><a href="process_analyst_data.html">log_transform_response()</a></code> 
         </dt>
-        <dd>Process Response Data for Meta-Analysis</dd>
+        <dd>Wrapper function to standardise response variables</dd>
       </dl></div><div class="section level2">
       
       <h3 id="excluding-data-from-meta-analysis">Excluding Data from Meta-analysis<a class="anchor" aria-label="anchor" href="#excluding-data-from-meta-analysis"></a></h3>
@@ -245,9 +235,24 @@
         <dd>Box-cox transform absolute deviation from the meta-analytic mean scores</dd>
       </dl><dl><dt>
           
+          <code><a href="variance_box_cox.html">variance_box_cox()</a></code> 
+        </dt>
+        <dd>Calculate the variance of the Box-Cox transformed absolute deviation scores</dd>
+      </dl><dl><dt>
+          
+          <code><a href="folded_params.html">folded_params()</a></code> 
+        </dt>
+        <dd>Calculate the folded parameters for the Box-Cox transformation</dd>
+      </dl><dl><dt>
+          
           <code><a href="log_transform.html">log_transform()</a></code> 
         </dt>
         <dd>log transform response-scale yi estimates</dd>
+      </dl><dl><dt>
+          
+          <code><a href="log_transform_yi.html">log_transform_yi()</a></code> 
+        </dt>
+        <dd>Log-transform a data-frame of back-transformed out-of-sample estimates</dd>
       </dl><dl><dt>
           
           <code><a href="calculate_deviation_score.html">calculate_deviation_score()</a></code> 
@@ -257,7 +262,7 @@
           
           <code><a href="calculate_sorensen_diversity_index.html">calculate_sorensen_diversity_index()</a></code> 
         </dt>
-        <dd>Calculate mean sorensen diversity index values for an analyst dataset</dd>
+        <dd>Calculate mean Sorensen pair-wise dissimilarity values for a ManyAnalyst dataset</dd>
       </dl><dl><dt>
           
           <code><a href="apply_sorensen_calc.html">apply_sorensen_calc()</a></code> 
@@ -344,6 +349,16 @@
           <code><a href="prepare_sorenson_summary_data.html">prepare_sorenson_summary_data()</a></code> 
         </dt>
         <dd>Prepare data for summarising Sorensen diversity indices</dd>
+      </dl><dl><dt>
+          
+          <code><a href="split_yi_subsets.html">split_yi_subsets()</a></code> 
+        </dt>
+        <dd>Split a dataset of out-of-sample predictions by <code>estimate_type</code></dd>
+      </dl><dl><dt>
+          
+          <code><a href="rename_prediction_cols.html">rename_prediction_cols()</a></code> 
+        </dt>
+        <dd>Rename Prediction Columns</dd>
       </dl></div><div class="section level2">
       <h2 id="model-fitting-meta-analysis">Model Fitting &amp; Meta-analysis<a class="anchor" aria-label="anchor" href="#model-fitting-meta-analysis"></a></h2>
       
@@ -404,7 +419,7 @@
           
           <code><a href="fit_uni_mixed_effects.html">fit_uni_mixed_effects()</a></code> 
         </dt>
-        <dd>Fit univariate glm of deviation scores on random effects inclusion</dd>
+        <dd>Fit model of Box-Cox transformed deviation scores as a function random-effects inclusion in analyses</dd>
       </dl></div><div class="section level2">
       <h2 id="extracting-analysis-outputs-visualisation">Extracting Analysis Outputs &amp; Visualisation<a class="anchor" aria-label="anchor" href="#extracting-analysis-outputs-visualisation"></a></h2>
       
@@ -482,7 +497,7 @@
           
           <code><a href="plot_model_means_orchard.html">plot_model_means_orchard()</a></code> 
         </dt>
-        <dd>plot_model_means_orchard</dd>
+        <dd>Plot orchard-plot style model means</dd>
       </dl></div><div class="section level2">
       
       <h3 id="model-checking-and-comparison">Model Checking and Comparison<a class="anchor" aria-label="anchor" href="#model-checking-and-comparison"></a></h3>

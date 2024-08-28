@@ -52,6 +52,9 @@
     <loc>https://egouldo.github.io/ManyEcoEvo/reference/apply_VZ_exclusions.html</loc>
   </url>
   <url>
+    <loc>https://egouldo.github.io/ManyEcoEvo/reference/apply_slice_conditionally.html</loc>
+  </url>
+  <url>
     <loc>https://egouldo.github.io/ManyEcoEvo/reference/apply_sorensen_calc.html</loc>
   </url>
   <url>
@@ -169,6 +172,12 @@
     <loc>https://egouldo.github.io/ManyEcoEvo/reference/fit_uni_mixed_effects.html</loc>
   </url>
   <url>
+    <loc>https://egouldo.github.io/ManyEcoEvo/reference/folded_params.html</loc>
+  </url>
+  <url>
+    <loc>https://egouldo.github.io/ManyEcoEvo/reference/formulae_match.html</loc>
+  </url>
+  <url>
     <loc>https://egouldo.github.io/ManyEcoEvo/reference/generate_collinearity_subset.html</loc>
   </url>
   <url>
@@ -208,10 +217,16 @@
     <loc>https://egouldo.github.io/ManyEcoEvo/reference/log_transform.html</loc>
   </url>
   <url>
+    <loc>https://egouldo.github.io/ManyEcoEvo/reference/log_transform_yi.html</loc>
+  </url>
+  <url>
     <loc>https://egouldo.github.io/ManyEcoEvo/reference/make_param_table.html</loc>
   </url>
   <url>
     <loc>https://egouldo.github.io/ManyEcoEvo/reference/make_viz.html</loc>
+  </url>
+  <url>
+    <loc>https://egouldo.github.io/ManyEcoEvo/reference/map_match_formulae.html</loc>
   </url>
   <url>
     <loc>https://egouldo.github.io/ManyEcoEvo/reference/meta_analyse_datasets.html</loc>
@@ -236,6 +251,24 @@
   </url>
   <url>
     <loc>https://egouldo.github.io/ManyEcoEvo/reference/plot_model_means_orchard.html</loc>
+  </url>
+  <url>
+    <loc>https://egouldo.github.io/ManyEcoEvo/reference/poss_fit_boxcox_ratings_cat.html</loc>
+  </url>
+  <url>
+    <loc>https://egouldo.github.io/ManyEcoEvo/reference/poss_fit_boxcox_ratings_cont.html</loc>
+  </url>
+  <url>
+    <loc>https://egouldo.github.io/ManyEcoEvo/reference/poss_fit_boxcox_ratings_ord.html</loc>
+  </url>
+  <url>
+    <loc>https://egouldo.github.io/ManyEcoEvo/reference/poss_fit_metafor_mv.html</loc>
+  </url>
+  <url>
+    <loc>https://egouldo.github.io/ManyEcoEvo/reference/poss_fit_sorensen_glm.html</loc>
+  </url>
+  <url>
+    <loc>https://egouldo.github.io/ManyEcoEvo/reference/poss_fit_uni_mixed_effects.html</loc>
   </url>
   <url>
     <loc>https://egouldo.github.io/ManyEcoEvo/reference/pred_to_Z.html</loc>
@@ -283,10 +316,19 @@
     <loc>https://egouldo.github.io/ManyEcoEvo/reference/read_submission_data.html</loc>
   </url>
   <url>
+    <loc>https://egouldo.github.io/ManyEcoEvo/reference/rename_prediction_cols.html</loc>
+  </url>
+  <url>
     <loc>https://egouldo.github.io/ManyEcoEvo/reference/rm_inf_na.html</loc>
   </url>
   <url>
     <loc>https://egouldo.github.io/ManyEcoEvo/reference/run_model_checks.html</loc>
+  </url>
+  <url>
+    <loc>https://egouldo.github.io/ManyEcoEvo/reference/slice_conditionally.html</loc>
+  </url>
+  <url>
+    <loc>https://egouldo.github.io/ManyEcoEvo/reference/split_yi_subsets.html</loc>
   </url>
   <url>
     <loc>https://egouldo.github.io/ManyEcoEvo/reference/subset_fns_Zr.html</loc>
@@ -331,12 +373,9 @@
     <loc>https://egouldo.github.io/ManyEcoEvo/reference/summarise_variable_counts.html</loc>
   </url>
   <url>
-    <loc>https://egouldo.github.io/ManyEcoEvo/reference/validate_predictions.html</loc>
+    <loc>https://egouldo.github.io/ManyEcoEvo/reference/validate.html</loc>
   </url>
   <url>
-    <loc>https://egouldo.github.io/ManyEcoEvo/reference/validate_predictions_df_blue_tit.html</loc>
-  </url>
-  <url>
-    <loc>https://egouldo.github.io/ManyEcoEvo/reference/validate_predictions_df_euc.html</loc>
+    <loc>https://egouldo.github.io/ManyEcoEvo/reference/variance_box_cox.html</loc>
   </url>
 </urlset>

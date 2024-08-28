@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ManyEcoEvo</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.4.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.7.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -59,21 +59,64 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">generate_outlier_subsets</span><span class="op">(</span><span class="va">ManyEcoEvo</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">generate_outlier_subsets</span><span class="op">(</span></span>
+<span>  <span class="va">data</span>,</span>
+<span>  outcome_variable <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  n_min <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  n_max <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  ignore_subsets <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>ManyEcoEvo</dt>
+    <dl><dt>data</dt>
 <dd><p>a ManyEcoEvo dataframe containing formatted raw <code>data</code>, formatted <code>diversity_data</code>, the <code>estimate_type</code>, and <code>dataset</code></p></dd>
+
+
+<dt>outcome_variable</dt>
+<dd><p>A named list containing either/and a list of <code>dataset</code>s and their corresponding outcome variables for each value of <code>dataset</code>, a list of <code>estimate_type</code>s and their corresponding outcome variables for each value of <code>estimate_type</code>.</p></dd>
+
+
+<dt>n_min</dt>
+<dd><p>integer, the number of bottom outliers to remove</p></dd>
+
+
+<dt>n_max</dt>
+<dd><p>integer, the number of top outliers to remove</p></dd>
+
+
+<dt>ignore_subsets</dt>
+<dd><p>A list of &lt;<code><a href="https://dplyr.tidyverse.org/reference/dplyr_data_masking.html" class="external-link">data-masked</a></code>&gt; expressions passed to <code><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">dplyr::filter()</a></code> for ignoring specific data subsets when removing outliers</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p>A ManyEcoEvo dataframe with added column <code>exclusion_set</code> with new subsets of <code>data</code> and <code>diversity_data</code></p>
+<p>A ManyEcoEvo dataframe with added column <code>exclusion_set</code> with new subsets of <code>data</code>, <code>diversity_data</code> that exclude outliers.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    
+<div class="section">
+<h3 id="function-usage">Function Usage<a class="anchor" aria-label="anchor" href="#function-usage"></a></h3>
 
+
+<p><code>n_min</code> and <code>n_max</code> are used to specify the number of outliers to remove from the bottom and top of the dataset, respectively. These arguments are passed to the <code>n</code> argument within <code><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">dplyr::slice_min()</a></code> and <code><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice_max()</a></code> respectively. Note that negative values of <code>n_min</code> and <code>n_max</code> will be removed from the dataset, while positive values of <code>n</code> will retain observations in the dataframe.</p>
+<p><code>ignore_subsets</code> is used to specify which subsets of the data should be ignored when removing outliers. This is useful when you want to remove outliers from all datasets except for specific subsets. For example, if you want to remove outliers from all datasets except for the <code>eucalyptus</code> dataset, you would pass <code>ignore_subsets = dataset == "eucalyptus"</code>.</p>
+<p>The function will check that any columns specified in <code>ignore_subsets</code> exist in the dataset using <code><a href="https://rstudio.github.io/pointblank/reference/col_exists.html" class="external-link">pointblank::test_col_exists()</a></code>. If they do not, the function will throw an error.</p>
+</div>
+
+<div class="section">
+<h3 id="analysis-pipeline-usage">Analysis Pipeline Usage<a class="anchor" aria-label="anchor" href="#analysis-pipeline-usage"></a></h3>
+
+
+<p>This function ahould be run after computing response variables for <code>yi</code> datasets with <code><a href="generate_yi_subsets.html">generate_yi_subsets()</a></code> and <code>Zr</code> datasets with <code>generate_Zr_subsets()</code>, but it may also be executed on the raw data to remove the top <code>n_max</code> and bottom <code>n_min</code> observations.</p>
+<p>Note that <code>outcome_variable</code></p>
+<p>#TODO: will nolonger work on Zr dataset, because this doesn't contain an estimate_type col?</p>
+<p><code>collinearity_subset != "collinearity_removed"</code> for Zr datasets and Don't run with the reduced publishability subset.... some of these already only have 10 data points!!</p>
+</div>
 
     </div>
     <div class="section level2">
@@ -95,16 +138,595 @@
 <code><a href="summarise_model_composition.html">summarise_model_composition</a>()</code>,
 <code><a href="summarise_reviews.html">summarise_reviews</a>()</code>,
 <code><a href="summarise_sorensen_index.html">summarise_sorensen_index</a>()</code>,
-<code><a href="summarise_variable_counts.html">summarise_variable_counts</a>()</code></p>
-<p>Other targets-pipeline functions: 
-<code><a href="generate_rating_subsets.html">generate_rating_subsets</a>()</code>,
-<code><a href="make_viz.html">make_viz</a>()</code>,
-<code><a href="prepare_ManyEcoEvo.html">prepare_ManyEcoEvo</a>()</code>,
-<code><a href="prepare_ManyEcoEvo_yi.html">prepare_ManyEcoEvo_yi</a>()</code>,
-<code><a href="prepare_response_variables_yi.html">prepare_response_variables_yi</a>()</code>,
-<code><a href="prepare_review_data.html">prepare_review_data</a>()</code></p></div>
+<code><a href="summarise_variable_counts.html">summarise_variable_counts</a>()</code></p></div>
     </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">analysis_data</span> <span class="op">&lt;-</span>  <span class="va">ManyEcoEvo_yi</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span><span class="fu"><a href="prepare_response_variables.html">prepare_response_variables</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>estimate_type <span class="op">=</span> <span class="st">"yi"</span>,</span></span>
+<span class="r-in"><span>param_table <span class="op">=</span> <span class="fu">ManyEcoEvo</span><span class="fu">:::</span><span class="va">analysis_data_param_tables</span>,</span></span>
+<span class="r-in"><span>dataset_standardise <span class="op">=</span> <span class="st">"blue tit"</span>,</span></span>
+<span class="r-in"><span>dataset_log_transform <span class="op">=</span> <span class="st">"eucalyptus"</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span><span class="fu"><a href="generate_yi_subsets.html">generate_yi_subsets</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="co">#TODO: must be run after prepare_response_variables??</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="apply_VZ_exclusions.html">apply_VZ_exclusions</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>VZ_colname <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"eucalyptus"</span> <span class="op">=</span> <span class="st">"se_log"</span>,</span></span>
+<span class="r-in"><span><span class="st">"blue tit"</span> <span class="op">=</span> <span class="st">"VZ"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>VZ_cutoff <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> </span></span>
+<span class="r-in"><span><span class="fu"><a href="generate_exclusion_subsets.html">generate_exclusion_subsets</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> </span></span>
+<span class="r-in"><span><span class="fu"><a href="compute_MA_inputs.html">compute_MA_inputs</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Computing Sorensen diversity indices inputs</span> <span style="color: #00BBBB;">─────────────────────────────────</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Applying exclusion rules and generating exclusion subsets</span> <span style="color: #00BBBB;">───────────────────</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Generating out-of-sample prediction subsets.</span> <span style="color: #00BBBB;">────────────────────────────────</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for squared effect sizes or out-of-sample predictions.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for squared effect sizes or out-of-sample predictions.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for squared effect sizes or out-of-sample predictions.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for squared effect sizes or out-of-sample predictions.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for squared effect sizes or out-of-sample predictions.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for squared effect sizes or out-of-sample predictions.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for ^100 effect sizes or out of sample predictions.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for cubed effect sizes</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for ^100 effect sizes or out of sample predictions.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for cubed effect sizes</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for ^100 effect sizes or out of sample predictions.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for cubed effect sizes</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for ^14 effect sizes or out of sample predictions.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for ^14 effect sizes or out of sample predictions.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for ^14 effect sizes or out of sample predictions.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> No back-transformation required, identity link used.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for logit-transformed effect sizes or out-of-sample predictions</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for logit-transformed effect sizes or out-of-sample predictions</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for logit-transformed effect sizes or out-of-sample predictions</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for logit-transformed effect sizes or out-of-sample predictions</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for logit-transformed effect sizes or out-of-sample predictions</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for logit-transformed effect sizes or out-of-sample predictions</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for logit-transformed effect sizes or out-of-sample predictions</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for logit-transformed effect sizes or out-of-sample predictions</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for logit-transformed effect sizes or out-of-sample predictions</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for square-root transformed effect sizes or out-of-sample predictions.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for square-root transformed effect sizes or out-of-sample predictions.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for square-root transformed effect sizes or out-of-sample predictions.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Standardising and/or log-transforming response variables for <span style="color: #0000BB;">"yi"</span> estimates.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Computing meta-analysis inputsfor `estimate_type` = </span><span style="color: #0000BB; font-weight: bold;">"yi"</span> <span style="color: #00BBBB;">────────────────────</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Standardising out-of-sample predictions</span> ──</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Computing meta-analysis inputs:</span> <span style="color: #00BBBB;">─────────────────────────────────────────────</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Log-transforming response-variable</span> ──</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Log-transformed out-of-sample predictions, using <span style="color: #0000BB;">10000</span> simulations.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Applying VZ exclusions</span> <span style="color: #00BBBB;">──────────────────────────────────────────────────────</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> `VZ_cutoff` = <span style="color: #0000BB;">3</span> was recycled to match the number of unique datasets in `df`.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Excluding extreme values of VZ</span> ──</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → 0 extreme values of `VZ` removed at threshold of <span style="color: #0000BB;">3</span> for `dataset` <span style="color: #0000BB;">"blue tit"</span>, `estimate_type` = <span style="color: #0000BB;">"y25"</span>.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Excluding extreme values of VZ</span> ──</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → 0 extreme values of `VZ` removed at threshold of <span style="color: #0000BB;">3</span> for `dataset` <span style="color: #0000BB;">"blue tit"</span>, `estimate_type` = <span style="color: #0000BB;">"y25"</span>.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Excluding extreme values of VZ</span> ──</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → 0 extreme values of `VZ` removed at threshold of <span style="color: #0000BB;">3</span> for `dataset` <span style="color: #0000BB;">"blue tit"</span>, `estimate_type` = <span style="color: #0000BB;">"y25"</span>.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Excluding extreme values of VZ</span> ──</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → 0 extreme values of `se_log` removed at threshold of <span style="color: #0000BB;">3</span> for `dataset` <span style="color: #0000BB;">"blue tit"</span>, `estimate_type` = <span style="color: #0000BB;">"y25"</span>.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Excluding extreme values of VZ</span> ──</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → 0 extreme values of `se_log` removed at threshold of <span style="color: #0000BB;">3</span> for `dataset` <span style="color: #0000BB;">"blue tit"</span>, `estimate_type` = <span style="color: #0000BB;">"y25"</span>.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Excluding extreme values of VZ</span> ──</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → 0 extreme values of `se_log` removed at threshold of <span style="color: #0000BB;">3</span> for `dataset` <span style="color: #0000BB;">"blue tit"</span>, `estimate_type` = <span style="color: #0000BB;">"y25"</span>.</span>
+<span class="r-in"><span><span class="va">analysis_data</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">generate_outlier_subsets</span><span class="op">(</span>outcome_variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>dataset <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"eucalyptus"</span> <span class="op">=</span> <span class="st">"mean_log"</span>, <span class="st">"blue tit"</span> <span class="op">=</span> <span class="st">"Z"</span><span class="op">)</span>, <span class="st">"estimate_type"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"Zr"</span> <span class="op">=</span> <span class="st">"Zr"</span><span class="op">)</span><span class="op">)</span>, n_min <span class="op">=</span> <span class="op">-</span><span class="fl">3</span>, n_max <span class="op">=</span> <span class="op">-</span><span class="fl">3</span>, ignore_subsets <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">estimate_type</span> <span class="op">!=</span> <span class="st">"y25"</span>, <span class="va">dataset</span> <span class="op">!=</span> <span class="st">"eucalyptus"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> `n_min` = <span style="color: #0000BB;">-3</span> was recycled to match the number of unique datasets in `data`.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> `n_max` = <span style="color: #0000BB;">-3</span> was recycled to match the number of unique datasets in `data`.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 8 × 7</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   dataset  estimate_type data     diversity_data exclusion_set diversity_indices</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;named &gt;</span> <span style="color: #949494; font-style: italic;">&lt;named list&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;named list&gt;</span>     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> blue tit y25           <span style="color: #949494;">&lt;tibble&gt;</span> <span style="color: #949494;">&lt;tibble&gt;</span>       complete      <span style="color: #949494;">&lt;rowws_df&gt;</span>       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> blue tit y50           <span style="color: #949494;">&lt;tibble&gt;</span> <span style="color: #949494;">&lt;tibble&gt;</span>       complete      <span style="color: #949494;">&lt;rowws_df&gt;</span>       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> blue tit y75           <span style="color: #949494;">&lt;tibble&gt;</span> <span style="color: #949494;">&lt;tibble&gt;</span>       complete      <span style="color: #949494;">&lt;rowws_df&gt;</span>       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> eucalyp… y25           <span style="color: #949494;">&lt;tibble&gt;</span> <span style="color: #949494;">&lt;tibble&gt;</span>       complete      <span style="color: #949494;">&lt;rowws_df&gt;</span>       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> eucalyp… y50           <span style="color: #949494;">&lt;tibble&gt;</span> <span style="color: #949494;">&lt;tibble&gt;</span>       complete      <span style="color: #949494;">&lt;rowws_df&gt;</span>       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> eucalyp… y75           <span style="color: #949494;">&lt;tibble&gt;</span> <span style="color: #949494;">&lt;tibble&gt;</span>       complete      <span style="color: #949494;">&lt;rowws_df&gt;</span>       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span> blue tit y50           <span style="color: #949494;">&lt;tibble&gt;</span> <span style="color: #949494;">&lt;tibble&gt;</span>       complete-rm_… <span style="color: #949494;">&lt;rowws_df&gt;</span>       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">8</span> blue tit y75           <span style="color: #949494;">&lt;tibble&gt;</span> <span style="color: #949494;">&lt;tibble&gt;</span>       complete-rm_… <span style="color: #949494;">&lt;rowws_df&gt;</span>       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 1 more variable: effects_analysis &lt;named list&gt;</span></span>
+<span class="r-in"><span></span></span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>
 

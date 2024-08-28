@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ManyEcoEvo</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.4.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.7.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -93,21 +93,24 @@ The user can supply an alternate table of transformations depending on what is r
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p>To be called after to <code><a href="assign_transformation_type.html">assign_transformation_type()</a></code></p>
-<p>Other back-transformation functions: 
-<code><a href="assign_transformation_type.html">assign_transformation_type</a>()</code></p></div>
+<p>Other Back-transformation: 
+<code><a href="assign_transformation_type.html">assign_transformation_type</a>()</code>,
+<code><a href="back.html">back</a></code>,
+<code><a href="back_transform_response_vars_yi.html">back_transform_response_vars_yi</a>()</code>,
+<code><a href="conversion.html">conversion</a>()</code>,
+<code><a href="conversion_2.html">conversion_2</a>()</code>,
+<code><a href="convert_predictions.html">convert_predictions</a>()</code>,
+<code><a href="rename_prediction_cols.html">rename_prediction_cols</a>()</code></p></div>
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">clean_response_transformation</span><span class="op">(</span><span class="st">"power2"</span>, <span class="fu">ManyEcoEvo</span><span class="fu">:::</span><span class="va">transformation_tbl</span><span class="op">)</span> </span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> cleaned_transformation </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>               "square" </span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in flatten_chr(.):</span> could not find function "flatten_chr"</span>
 <span class="r-in"><span><span class="fu">clean_response_transformation</span><span class="op">(</span><span class="st">"log"</span>, <span class="fu">ManyEcoEvo</span><span class="fu">:::</span><span class="va">transformation_tbl</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> cleaned_transformation </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                  "log" </span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in flatten_chr(.):</span> could not find function "flatten_chr"</span>
 <span class="r-in"><span><span class="fu">clean_response_transformation</span><span class="op">(</span><span class="st">"new_transformation"</span>, <span class="fu">ManyEcoEvo</span><span class="fu">:::</span><span class="va">transformation_tbl</span> <span class="op">)</span> <span class="co"># Returns NA if not found</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> cleaned_transformation </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                     NA </span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in flatten_chr(.):</span> could not find function "flatten_chr"</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

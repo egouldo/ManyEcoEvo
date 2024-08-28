@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ManyEcoEvo</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.4.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.7.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -60,7 +60,7 @@
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">fit_boxcox_ratings_cont</span><span class="op">(</span></span>
-<span>  <span class="va">.data</span>,</span>
+<span>  <span class="va">data</span>,</span>
 <span>  <span class="va">outcome</span>,</span>
 <span>  <span class="va">outcome_var</span>,</span>
 <span>  <span class="va">...</span>,</span>
@@ -70,7 +70,7 @@
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>.data</dt>
+    <dl><dt>data</dt>
 <dd><p>Data for model fitting</p></dd>
 
 
@@ -86,23 +86,29 @@
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p>An object of class lmer.</p>
+<p>An object of class <code>lme4::lmerMod-class</code></p>
+
+
+    </div>
+    <div class="section level2">
+    <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
+    <div class="dont-index"><p>Other Model fitting and meta-analysis: 
+<code><a href="fit_MA_mv.html">fit_MA_mv</a>()</code>,
+<code><a href="fit_boxcox_ratings_cat.html">fit_boxcox_ratings_cat</a>()</code>,
+<code><a href="fit_boxcox_ratings_ord.html">fit_boxcox_ratings_ord</a>()</code>,
+<code><a href="fit_metafor_mv.html">fit_metafor_mv</a>()</code>,
+<code><a href="fit_metafor_mv_reduced.html">fit_metafor_mv_reduced</a>()</code>,
+<code><a href="fit_metafor_uni.html">fit_metafor_uni</a>()</code>,
+<code><a href="fit_multivar_MA.html">fit_multivar_MA</a>()</code>,
+<code><a href="fit_sorensen_glm.html">fit_sorensen_glm</a>()</code>,
+<code><a href="fit_uni_mixed_effects.html">fit_uni_mixed_effects</a>()</code>,
+<code><a href="poss_fit_boxcox_ratings_cat.html">poss_fit_boxcox_ratings_cat</a>()</code>,
+<code><a href="poss_fit_boxcox_ratings_cont.html">poss_fit_boxcox_ratings_cont</a>()</code>,
+<code><a href="poss_fit_boxcox_ratings_ord.html">poss_fit_boxcox_ratings_ord</a>()</code>,
+<code><a href="poss_fit_metafor_mv.html">poss_fit_metafor_mv</a>()</code>,
+<code><a href="poss_fit_uni_mixed_effects.html">poss_fit_uni_mixed_effects</a>()</code></p></div>
     </div>
 
-    <div class="section level2">
-    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Example Usage:</span></span></span>
-<span class="r-in"><span><span class="co"># Note, outcome = the name using NSE of the response variable, otucome_var = the</span></span></span>
-<span class="r-in"><span><span class="co"># variance associated with that variable.</span></span></span>
-<span class="r-in"><span><span class="co"># library(tidyverse);library(targets);library(metafor);library(tidymodels);library(multilevelmod)</span></span></span>
-<span class="r-in"><span><span class="co"># tar_load(meta_analysis_outputs)</span></span></span>
-<span class="r-in"><span><span class="co"># meta_analysis_outputs$data[[1]] %&gt;%</span></span></span>
-<span class="r-in"><span><span class="co">#   fit_boxcox_ratings_cont(.,</span></span></span>
-<span class="r-in"><span><span class="co">#                                   box_cox_abs_deviation_score_estimate,</span></span></span>
-<span class="r-in"><span><span class="co">#                                   VZr )</span></span></span>
-<span class="r-in"></span>
-</code></pre></div>
-    </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>
 

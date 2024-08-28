@@ -33,7 +33,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ManyEcoEvo</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.4.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.7.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -91,29 +91,12 @@
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/egouldo/ManyEcoEvo" class="external-link">ManyEcoEvo</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; Loading required package: rmarkdown</span></span>
 <span><span class="co">#&gt; Loading required package: bookdown</span></span>
-<span><span class="co">#&gt; Warning: replacing previous import 'purrr::%@%' by 'rlang::%@%' when loading</span></span>
-<span><span class="co">#&gt; 'ManyEcoEvo'</span></span>
-<span><span class="co">#&gt; Warning: replacing previous import 'purrr::flatten_lgl' by 'rlang::flatten_lgl'</span></span>
-<span><span class="co">#&gt; when loading 'ManyEcoEvo'</span></span>
-<span><span class="co">#&gt; Warning: replacing previous import 'purrr::splice' by 'rlang::splice' when</span></span>
-<span><span class="co">#&gt; loading 'ManyEcoEvo'</span></span>
-<span><span class="co">#&gt; Warning: replacing previous import 'purrr::flatten_chr' by 'rlang::flatten_chr'</span></span>
-<span><span class="co">#&gt; when loading 'ManyEcoEvo'</span></span>
-<span><span class="co">#&gt; Warning: replacing previous import 'purrr::flatten_raw' by 'rlang::flatten_raw'</span></span>
-<span><span class="co">#&gt; when loading 'ManyEcoEvo'</span></span>
-<span><span class="co">#&gt; Warning: replacing previous import 'purrr::flatten' by 'rlang::flatten' when</span></span>
-<span><span class="co">#&gt; loading 'ManyEcoEvo'</span></span>
-<span><span class="co">#&gt; Warning: replacing previous import 'purrr::flatten_dbl' by 'rlang::flatten_dbl'</span></span>
-<span><span class="co">#&gt; when loading 'ManyEcoEvo'</span></span>
-<span><span class="co">#&gt; Warning: replacing previous import 'purrr::invoke' by 'rlang::invoke' when</span></span>
-<span><span class="co">#&gt; loading 'ManyEcoEvo'</span></span>
-<span><span class="co">#&gt; Warning: replacing previous import 'purrr::flatten_int' by 'rlang::flatten_int'</span></span>
-<span><span class="co">#&gt; when loading 'ManyEcoEvo'</span></span>
-<span><span class="co">#&gt; Warning: replacing previous import 'recipes::fixed' by 'stringr::fixed' when</span></span>
-<span><span class="co">#&gt; loading 'ManyEcoEvo'</span></span>
-<span><span class="co">#&gt; Registered S3 method overwritten by 'EnvStats':</span></span>
-<span><span class="co">#&gt;   method         from</span></span>
-<span><span class="co">#&gt;   print.estimate lava</span></span>
+<span><span class="co">#&gt; Registered S3 method overwritten by 'parsnip':</span></span>
+<span><span class="co">#&gt;   method          from </span></span>
+<span><span class="co">#&gt;   print.nullmodel vegan</span></span>
+<span><span class="co">#&gt; Registered S3 method overwritten by 'lava':</span></span>
+<span><span class="co">#&gt;   method         from    </span></span>
+<span><span class="co">#&gt;   print.estimate EnvStats</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">suppressPackageStartupMessages</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="section level2" number="0.1">
 <h2 id="data-cleaning">
@@ -168,7 +151,7 @@
 <span>                     dataset <span class="op">=</span> <span class="st">"blue tit"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">id_col</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html" class="external-link">contains</a></span><span class="op">(</span><span class="st">"beta"</span><span class="op">)</span>, <span class="va">adjusted_df</span>, <span class="va">Zr</span>, <span class="va">VZr</span> <span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Computing meta-analysis inputsfor estimate type Zr</span> <span style="color: #00BBBB;">──────────────────────────</span></span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Computing meta-analysis inputsfor `estimate_type` = </span><span style="color: #0000BB; font-weight: bold;">"Zr"</span> <span style="color: #00BBBB;">────────────────────</span></span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ── <span style="font-weight: bold;">Computing standardised effect sizes `Zr` and variance `VZr`</span> ──</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -292,7 +275,7 @@
 <span>    <span class="va">back_transformed_data</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Computing meta-analysis inputsfor estimate type yi</span> <span style="color: #00BBBB;">──────────────────────────</span></span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Computing meta-analysis inputsfor `estimate_type` = </span><span style="color: #0000BB; font-weight: bold;">"yi"</span> <span style="color: #00BBBB;">────────────────────</span></span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ── <span style="font-weight: bold;">Standardising out-of-sample predictions</span> ──</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -333,20 +316,20 @@
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>        3    124.    6.04  112.  135.</span></span>
 <span><span class="va">blue_tit_back_transformed</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/pluck.html" class="external-link">pluck</a></span><span class="op">(</span><span class="st">"back_transformed_data"</span>, <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 5</span></span></span>
-<span><span class="co">#&gt;   scenario estimate se.fit ci.low ci.hi</span></span>
-<span><span class="co">#&gt;      <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>        1     9.35  0.328   8.69  9.98</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>        2    10.7   0.296  10.1  11.3 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>        3    11.1   0.272  10.6  11.6</span></span>
+<span><span class="co">#&gt;   scenario estimate  se.fit ci.low ci.hi</span></span>
+<span><span class="co">#&gt;      <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>        1     9.35 0.003<span style="text-decoration: underline;">29</span>   8.70  9.97</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>        2    10.7  0.002<span style="text-decoration: underline;">94</span>  10.1  11.3 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>        3    11.1  0.002<span style="text-decoration: underline;">69</span>  10.6  11.6</span></span>
 <span></span>
 <span><span class="co"># ---- back-transformed &amp; standardised predictions_data ----</span></span>
 <span><span class="va">blue_tit_standardised</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/pluck.html" class="external-link">pluck</a></span><span class="op">(</span><span class="st">"back_transformed_data"</span>, <span class="fl">1</span><span class="op">)</span> </span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 3</span></span></span>
-<span><span class="co">#&gt;   scenario      Z    VZ</span></span>
-<span><span class="co">#&gt;      <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>        1 -<span style="color: #BB0000;">0.778</span> 0.277</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>        2  0.353 0.250</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>        3  0.703 0.229</span></span>
+<span><span class="co">#&gt;   scenario      Z      VZ</span></span>
+<span><span class="co">#&gt;      <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>        1 -<span style="color: #BB0000;">0.778</span> 0.002<span style="text-decoration: underline;">77</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>        2  0.360 0.002<span style="text-decoration: underline;">48</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>        3  0.708 0.002<span style="text-decoration: underline;">27</span></span></span>
 <span></span>
 <span><span class="va">MA_data_yi</span> <span class="op">&lt;-</span> <span class="va">blue_tit_standardised</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">id_col</span>, <span class="va">back_transformed_data</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
