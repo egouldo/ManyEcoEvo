@@ -225,7 +225,8 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
      tar_target(prediction_checks,
                 command = if (!rlang::is_na(validated_augmented_data)) {
                   pointblank::interrogate(validated_augmented_data) %>% 
-                    pointblank::get_agent_report(., display_table = FALSE)
+                    pointblank::get_agent_report(., 
+                                                 display_table = FALSE)
                 } else{
                   NA
                 },
