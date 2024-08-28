@@ -16,13 +16,6 @@ a nested dataframe grouped by variables \code{exclusion_set}, \code{dataset}, \c
 Computes model summaries, tidy model summaries, model fit stats, funnel plots and forest plots for a dataframe of multiple fitted models
 }
 \seealso{
-Other targets-pipeline functions: 
-\code{\link{generate_rating_subsets}()},
-\code{\link{prepare_ManyEcoEvo}()},
-\code{\link{prepare_ManyEcoEvo_yi}()},
-\code{\link{prepare_response_variables_yi}()},
-\code{\link{prepare_review_data}()}
-
 Other Multi-dataset Wrapper Functions: 
 \code{\link{apply_VZ_exclusions}()},
 \code{\link{compute_MA_inputs}()},
@@ -43,4 +36,3 @@ Other Multi-dataset Wrapper Functions:
 \code{\link{summarise_variable_counts}()}
 }
 \concept{Multi-dataset Wrapper Functions}
-\concept{targets-pipeline functions}

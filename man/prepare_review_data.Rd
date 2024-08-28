@@ -20,7 +20,6 @@ Prepare peer-review data from Qualtrics
 \seealso{
 Other targets-pipeline functions: 
 \code{\link{generate_rating_subsets}()},
-\code{\link{make_viz}()},
 \code{\link{prepare_ManyEcoEvo}()},
 \code{\link{prepare_ManyEcoEvo_yi}()},
 \code{\link{prepare_response_variables_yi}()}

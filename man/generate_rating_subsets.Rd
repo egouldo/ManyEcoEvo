@@ -39,7 +39,6 @@ Other Multi-dataset Wrapper Functions:
 \code{\link{summarise_variable_counts}()}
 
 Other targets-pipeline functions: 
-\code{\link{make_viz}()},
 \code{\link{prepare_ManyEcoEvo}()},
 \code{\link{prepare_ManyEcoEvo_yi}()},
 \code{\link{prepare_response_variables_yi}()},

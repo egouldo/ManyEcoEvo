@@ -41,7 +41,6 @@ Other Multi-dataset Wrapper Functions:
 
 Other targets-pipeline functions: 
 \code{\link{generate_rating_subsets}()},
-\code{\link{make_viz}()},
 \code{\link{prepare_ManyEcoEvo_yi}()},
 \code{\link{prepare_response_variables_yi}()},
 \code{\link{prepare_review_data}()}
