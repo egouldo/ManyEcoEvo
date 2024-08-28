@@ -44,7 +44,8 @@ tar_option_set(
   storage = "worker",
   retrieval = "worker",
   controller = controller,
-  format = "qs"
+  format = "qs",
+  seed = 1234
   # debug = c("augmented_data_3efd9941")#, #augmented_data_a4d78efa
   # cue = tar_cue(mode = "always") #because we have silent errors!
 )
