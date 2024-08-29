@@ -41,7 +41,10 @@ fit_uni_mixed_effects <- function(data, N = 5) {
     
     return(NA)
     
-  } else if(data %>% count(mixed_model) %>% pointblank::test_col_vals_gte(columns = n, value = N)) {
+  } else if (!pointblank::test_col_vals_gte(data, 
+                                            columns = n, 
+                                            value = N, 
+                                            preconditions = \(x) count(x, mixed_model))) {
     
     cli::cli_warn(message = "Less than {.arg N} = {.val {N}} observations in ",
                   "each level of {.var mixed_model}. Returning {.val {NA}}.")
