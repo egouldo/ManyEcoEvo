@@ -125,52 +125,106 @@ generate_outlier_subsets <- function(data, outcome_variable = NULL, n_min = NULL
     formulae_match_n_max <- formulae_match(unique(data$dataset), n_min)
   }
   
-  matched_formulae <-  map(outcome_variable, 
-                           ~ formulae_match(x = names(.x), y = .x))
   
-  # ----- Generate Outlier Subsets -----
   if (str_detect(data$estimate_type, "Zr") %>% any(na.rm = TRUE)) {
     
     data_Zr <- data %>%
       filter(estimate_type == "Zr")
+
+    # ---- assign outcome variables ----
     
-    data_Zr <- 
-      map2(
-        names(matched_formulae), 
-        matched_formulae,
-        .f = ~ map_match_formulae(data_Zr, .x, .y)) %>% 
-      bind_rows() %>% 
-      drop_na(outcome_colname) %>% 
+    if (rlang::is_null(outcome_variable)) {
+      # NULL value supplied 
+      outcome_variable <- "Zr"
+      
+      cli::cli_alert_warning(
+        "Assigning default {.arg outcome_variable} = {.val {outcome_variable}}"
+        )
+      
+      data_Zr <- data_Zr %>% 
+        ungroup %>% 
+        mutate(outcome_colname = outcome_variable)
+        
+    } else if (rlang::is_character(outcome_variable)) {
+      # Single Value Supplied
+      stopifnot(length(outcome_variable) == 1)
+      pointblank::expect_col_exists(data_Zr, columns = {{outcome_variable}})
+      data_Zr <- data_Zr %>% 
+        ungroup %>% 
+        mutate(outcome_colname = outcome_variable)
+    } 
+    else{
+      # expression argument supplied
+      matched_formulae <-  map(outcome_variable, 
+                               ~ formulae_match(x = names(.x), y = .x))
+                               
+      data_Zr <- 
+        map2(
+          names(matched_formulae), 
+          matched_formulae,
+          .f = ~ map_match_formulae(data_Zr, .x, .y)) %>% 
+        bind_rows() %>% 
+        drop_na(outcome_colname)
+    }
+    
+    # ----- Generate Outlier Subsets for Zr datasets -----
+
+    data_Zr <- data_Zr %>% 
       map_match_formulae(variable_name = "dataset", 
-                         formulae_match_n_min, col_name = "n_min") %>%
+                         formulae_match_n_min, 
+                         col_name = "n_min") %>%
       map_match_formulae(variable_name = "dataset", 
-                         formulae_match_n_max, col_name = "n_max") %>% 
+                         formulae_match_n_max, 
+                         col_name = "n_max") %>% 
       apply_slice_conditionally(
         x = .,
         filter_vars = ignore_subsets) %>% 
       select(-outcome_colname, -n_min, -n_max)
+    
   }
   
+  # ---- Generate Outlier Subsets for yi datasets -----
   if (str_detect(data$estimate_type, "y") %>% 
       any(na.rm = TRUE)) {
     
-    if (!is.null(enexpr(ignore_subsets))) {
-      filter_vars <- quos(str_detect(estimate_type, "y"), 
-                          !!!rlang::call_args(enquo(ignore_subsets)))
-    } else {
-      filter_vars <- quo(str_detect(estimate_type, "y"))
-    }
-    
     data_yi <- data %>%
       filter(str_detect(estimate_type, "y"))
+      
+    # ---- assign outcome variables ----
     
-    data_yi <-  
-      map2(
-        names(matched_formulae), 
-        matched_formulae,
-        .f = ~ map_match_formulae(data_yi, .x, .y)) %>% 
-      bind_rows() %>% 
-      drop_na(outcome_colname) %>% 
+    if (rlang::is_null(outcome_variable)) {
+      # NULL value supplied 
+      outcome_variable <- "Z"
+      
+      cli::cli_alert_warning(
+        "Assigning default {.arg outcome_variable} = {.val {outcome_variable}}"
+      )
+      
+      data_yi <- data_yi %>% 
+        ungroup %>% 
+        mutate(outcome_colname = outcome_variable)
+    } else if (rlang::is_character(outcome_variable)) {
+      # Single Value Supplied
+      stopifnot(length(outcome_variable) == 1)
+      pointblank::expect_col_exists(data_yi, columns = {{outcome_variable}})
+      data_yi <- data_yi %>% 
+        ungroup %>% 
+        mutate(outcome_colname = outcome_variable)
+    } else {
+      # expression argument supplied
+      matched_formulae <-  map(outcome_variable, 
+                               ~ formulae_match(x = names(.x), y = .x))
+      
+      data_yi <-  
+        map2(
+          names(matched_formulae), 
+          matched_formulae,
+          .f = ~ map_match_formulae(data_yi, .x, .y)) %>% 
+        bind_rows() %>% 
+        drop_na(outcome_colname) 
+    }
+    
+    data_yi <- data_yi %>% 
       map_match_formulae(variable_name = "dataset", 
                          formulae_match_n_min, 
                          col_name = "n_min") %>%
@@ -181,6 +235,7 @@ generate_outlier_subsets <- function(data, outcome_variable = NULL, n_min = NULL
         x = .,
         filter_vars = filter_vars) %>% 
       select(-outcome_colname, -n_min, -n_max)
+    
   }
   
   out <- if (exists(x = "data_Zr") & exists(x = "data_yi")) {
