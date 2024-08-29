@@ -98,8 +98,10 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
                                c("blue tit", "eucalyptus")) |>  
                            generate_exclusion_subsets(estimate_type = "Zr") |> 
                            generate_rating_subsets() |> 
-                           generate_expertise_subsets(ManyEcoEvo:::expert_subset) |>
-                           generate_collinearity_subset(ManyEcoEvo:::collinearity_subset) |>
+                           generate_expertise_subsets(
+                             ManyEcoEvo:::expert_subset) |>
+                           generate_collinearity_subset(
+                             ManyEcoEvo:::collinearity_subset) |>
                            generate_outlier_subsets(
                              outcome_variable = 
                                list(dataset = list("eucalyptus" = "Zr", 
