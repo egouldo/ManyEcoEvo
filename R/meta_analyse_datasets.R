@@ -170,87 +170,49 @@ meta_analyse_datasets <- function(data, outcome_variable = NULL, outcome_SE = NU
   
   out <-
     data %>%
+      rowwise() %>% 
     dplyr::mutate(
-      effects_analysis =
-        purrr::pmap(
-          .l = list(
-            effects_analysis,
-            outcome_colname,
-            outcome_SE_colname
-          ),
-          .f = rm_inf_na
-        )
+      effects_analysis = list(rm_inf_na(effects_analysis, 
+                                        outcome_colname, 
+                                        outcome_SE_colname))
     ) %>%
     dplyr::mutate(
-      MA_mod =
-        purrr::pmap(
-          .l = list(effects_analysis, 
-                    outcome_colname, 
-                    outcome_SE_colname, 
-                    estimate_type),
-          .f = fit_MA_mv
-        ),
-      effects_analysis =
-        ifelse(is.na(MA_mod),
-               NA,
-               purrr::pmap(
-                 .l = list(effects_analysis, MA_mod, outcome_colname),
-                 .f = calculate_deviation_score
-               )
-        ),
-      effects_analysis =
-        ifelse(rlang::is_na(effects_analysis),
-               NA,
-               purrr::pmap(
-                 .l = list(effects_analysis, 
-                           dataset, 
-                           outcome_SE_colname),
-                 .f = box_cox_transform
-               )
-        ),
+      MA_mod = list(fit_MA_mv(effects_analysis, 
+                              outcome_colname, 
+                              outcome_SE_colname, 
+                              estimate_type)),
+      effects_analysis = ifelse(
+        rlang::is_na(MA_mod),
+        NA,
+        list(calculate_deviation_score(effects_analysis, 
+                                  MA_mod, 
+                                  outcome_colname))
+      ),
+      effects_analysis = ifelse(
+        rlang::is_na(effects_analysis),
+        NA,
+        list(box_cox_transform(effects_analysis, 
+                               dataset, 
+                               outcome_SE_colname))
+      ),
       sorensen_glm =
-        purrr::map(
-          .x = effects_analysis,
-          .f = ~ poss_fit_sorensen_glm(
-            data = .x
-          )
-        ),
+        list(poss_fit_sorensen_glm(effects_analysis)),
       box_cox_rating_cont =
-        purrr::map(
-          .x = effects_analysis,
-          .f = ~ fit_boxcox_ratings_cont(
-            data = .x,
-            outcome = box_cox_abs_deviation_score_estimate,
-            outcome_var = box_cox_var
-          )
-        ),
+        list(poss_fit_boxcox_ratings_cont(effects_analysis, 
+                                      box_cox_abs_deviation_score_estimate, 
+                                      box_cox_var)),
       box_cox_rating_cat =
-        purrr::map(
-          .x = effects_analysis,
-          .f = ~ poss_fit_boxcox_ratings_cat(
-            data = .x,
-            outcome = box_cox_abs_deviation_score_estimate,
-            outcome_var = box_cox_var,
-            interceptless = FALSE
-          )
-        ),
+        list(poss_fit_boxcox_ratings_cat(effects_analysis, 
+                                         box_cox_abs_deviation_score_estimate, 
+                                         box_cox_var, 
+                                         interceptless = FALSE)),
       box_cox_rating_cat_no_int =
-        purrr::map(
-          .x = effects_analysis,
-          .f = ~ poss_fit_boxcox_ratings_cat(
-            data = .x,
-            outcome = box_cox_abs_deviation_score_estimate,
-            outcome_var = box_cox_var,
-            interceptless = TRUE
-          )
-        ),
-      uni_mixed_effects =
-        purrr::map(
-          .x = effects_analysis,
-          .f = ~ fit_uni_mixed_effects(
-            data = .x
-          )
-        )
+        list(poss_fit_boxcox_ratings_cat(effects_analysis, 
+                                         box_cox_abs_deviation_score_estimate, 
+                                         box_cox_var, 
+                                         interceptless = TRUE)),
+      uni_mixed_effects = 
+        list(fit_uni_mixed_effects(effects_analysis))
     )
   
   # --- Fit Multivariate Models ---
