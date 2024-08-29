@@ -221,7 +221,7 @@ apply_slice_conditionally <- function(x, filter_vars){
                                  exclusion_set } 
                              else {"complete"}), {
     x %>%
-      filter(!!!filter_vars) %>%
+      filter(!!filter_vars) %>%
       mutate(data = 
                pmap(list(data, outcome_colname, n_min, n_max),
                     .f = ~ slice_conditionally(..1, 
