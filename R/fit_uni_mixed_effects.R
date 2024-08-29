@@ -20,8 +20,8 @@
 fit_uni_mixed_effects <- function(data, N = 5) {
   
   if (!pointblank::test_col_exists(data,
-                                  columns = c("mixed_model", 
-                                              starts_with("box_cox_abs_")))) {
+                                   columns = c("mixed_model", 
+                                               starts_with("box_cox_abs_")))) {
     
     cli::cli_alert_warning(
       c("Columns {.var mixed_model} and ", 
@@ -35,9 +35,9 @@ fit_uni_mixed_effects <- function(data, N = 5) {
     
   }  else if ( length(unique(data$mixed_model)) == 1) {
     
-    cli::cli_warn(message = "More than 1 unique value of {.var mixed_model} ",
+    cli::cli_warn(message = c("More than 1 unique value of {.var mixed_model} ",
                   "is needed to fit model with {.var mixed_model} ",
-                  "as predictor variable. Returning {.val {NA}}")
+                  "as predictor variable. Returning {.val {NA}}"))
     
     return(NA)
     
@@ -48,7 +48,7 @@ fit_uni_mixed_effects <- function(data, N = 5) {
     
     cli::cli_warn(message = "Less than {.arg N} = {.val {N}} observations in ",
                   "each level of {.var mixed_model}. Returning {.val {NA}}.")
-    
+    print(data %>% count(mixed_model))
     return(NA)
     
   } else{
