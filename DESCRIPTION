@@ -1,6 +1,6 @@
 Package: ManyEcoEvo
 Title: Meta-analyse data from 'Many-Analysts' style studies
-Version: 2.7.1
+Version: 2.7.2
 Authors@R: c(
     person("Elliot", "Gould", , "elliot.gould@unimelb.edu.au", role = c("aut", "cre"),
            comment = c(ORCID = "https://orcid.org/0000-0002-6585-538X")),
@@ -27,7 +27,7 @@ Imports:
     betapart,
     cli,
     data.table,
-    dplyr,
+    dplyr (>= 1.1.4),
     forcats,
     fs,
     glue,
@@ -67,6 +67,6 @@ Remotes:
     daniel1noble/orchaRd,
     NightingaleHealth/ggforestplot
 Encoding: UTF-8
-LazyData: false
+LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2

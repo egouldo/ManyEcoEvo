@@ -9,7 +9,7 @@
 #' @import dplyr
 #' @importFrom purrr map_if map2 pmap possibly
 #' @importFrom stringr str_detect
-#' @importFrom broom tidy
+#' @importFrom broom.mixed tidy
 #' @importFrom performance performance
 #' @importFrom metaviz viz_funnel
 #' @importFrom ggplot2 ggplot
@@ -23,7 +23,9 @@ make_viz <- function(data) {
   # ---- Define Helper Functions ----
   
   tidy_mod <- function(mod) {
-    broom::tidy(mod, conf.int = TRUE)
+    broom.mixed::tidy(mod, 
+                conf.int = TRUE,
+                include_studies = TRUE)
   }
   
   viz_funnel_2 <- function(x) {
@@ -36,57 +38,35 @@ make_viz <- function(data) {
   if (any(str_detect(unique(data$estimate_type), pattern = "Zr"))) {
     data_Zr <- data %>%
       filter(estimate_type == "Zr") %>%
-      group_by(exclusion_set, dataset, estimate_type, publishable_subset, expertise_subset, collinearity_subset, data) %>%
-      pivot_longer(
-        names_to = "model_name",
-        values_to = "model",
-        cols = c(
-          -exclusion_set,
-          -dataset,
-          -estimate_type,
-          -data,
-          -diversity_data,
-          -diversity_indices,
-          -effects_analysis,
-          -publishable_subset,
-          -expertise_subset,
-          -collinearity_subset
-        )
-      ) %>%
-      ungroup() %>%
       select(
         -data,
         -diversity_data,
         -diversity_indices,
         -effects_analysis
+      ) %>% 
+      pivot_longer(names_to = "model_name", values_to = "model",
+                   cols = c(starts_with("MA_mod"), 
+                            "sorensen_glm", 
+                            starts_with("box_cox_rating"), 
+                            "uni_mixed_effects")
       )
   }
   
   if (any(str_detect(unique(data$estimate_type), "y"))) {
     data_yi <- data %>%
       filter(estimate_type %in% c("yi", "y25", "y50", "y75")) %>%
-      group_by(exclusion_set, dataset, estimate_type, data) %>%
-      pivot_longer(
-        names_to = "model_name",
-        values_to = "model",
-        cols = c(
-          -exclusion_set,
-          -dataset,
-          -estimate_type,
-          -data,
-          -diversity_data,
-          -diversity_indices,
-          -effects_analysis
-        )
-      ) %>%
-      ungroup() %>%
       select(
         -data,
         -diversity_data,
         -diversity_indices,
         -effects_analysis
-      ) %>%
-      mutate(publishable_subset = NA)
+      ) %>% 
+      pivot_longer(names_to = "model_name", values_to = "model",
+                   cols = c(starts_with("MA_mod"), 
+                            "sorensen_glm", 
+                            starts_with("box_cox_rating"), 
+                            "uni_mixed_effects")
+      )
   }
   
   if (exists("data_Zr") & exists("data_yi")) {

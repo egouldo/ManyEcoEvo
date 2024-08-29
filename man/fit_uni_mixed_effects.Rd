@@ -4,23 +4,23 @@
 \alias{fit_uni_mixed_effects}
 \title{Fit model of Box-Cox transformed deviation scores as a function random-effects inclusion in analyses}
 \usage{
-fit_uni_mixed_effects(data)
+fit_uni_mixed_effects(data, N = 5)
 }
 \arguments{
-\item{data}{Dataframe containing box-cox transformed absolute deviation scores and binary column called \code{mixed_model} describing whether or not the analysis used a mixed-effects model.}
+\item{data}{Dataframe containing Box-Cox transformed absolute deviation scores and binary column called \code{mixed_model} describing whether or not the analysis used a mixed-effects model.}
+
+\item{N}{threshold number of analyses in each predictor category for fitting model}
 }
 \value{
 A fitted model object of class \code{glm} and \code{parsnip}
 }
 \description{
-Fits a univariate glm of box-cox transformed absolute deviation from the meta-analytic mean scores as a function of whether the analysis was a mixed effects model \(i.e. included random effects\) or not.
+Fits a univariate glm of Box-Cox transformed absolute deviation from the meta-analytic mean scores as a function of whether the analysis was a mixed effects model (i.e. included random effects) or not.
 }
 \examples{
 # library(tidyverse);library(targets);library(metafor);library(tidymodels)
 # tar_load(meta_analysis_outputs)
 # fit_uni_mixed_effects(meta_analysis_results$data[[1]])
-# Note: used tidymodels approach for dynamic outcome var selection
-# base R approach will be more succinct.
 }
 \seealso{
 \link[parsnip:details_linear_reg_glm]{parsnip::details_linear_reg_glm} for details on the \link[parsnip:linear_reg]{parsnip::linear_reg} engine.

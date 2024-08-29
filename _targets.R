@@ -98,8 +98,10 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
                                c("blue tit", "eucalyptus")) |>  
                            generate_exclusion_subsets(estimate_type = "Zr") |> 
                            generate_rating_subsets() |> 
-                           generate_expertise_subsets(ManyEcoEvo:::expert_subset) |>
-                           generate_collinearity_subset(ManyEcoEvo:::collinearity_subset) |>
+                           generate_expertise_subsets(
+                             ManyEcoEvo:::expert_subset) |>
+                           generate_collinearity_subset(
+                             ManyEcoEvo:::collinearity_subset) |>
                            generate_outlier_subsets(
                              outcome_variable = 
                                list(dataset = list("eucalyptus" = "Zr", 
@@ -107,16 +109,20 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
                              n_min = -2, 
                              n_max = -2, 
                              ignore_subsets = 
-                               list(collinearity_subset != "collinearity_removed", 
-                                    expertise_subset != "expert", 
-                                    publishable_subset == "All", 
-                                    exclusion_set != "complete")) |>
+                               rlang::exprs(
+                                 collinearity_subset != "collinearity_removed", 
+                                 expertise_subset != "expert", 
+                                 publishable_subset == "All", 
+                                 exclusion_set != "complete")) |>
                            compute_MA_inputs(estimate_type = "Zr") |> 
-                           meta_analyse_datasets(filter_vars = 
-                                                   rlang::exprs(exclusion_set == "complete",
-                                                                expertise_subset == "All",
-                                                                publishable_subset == "All",
-                                                                collinearity_subset == "All"))
+                           meta_analyse_datasets(
+                             outcome_variable = "Zr", 
+                             outcome_SE = "VZr",
+                             filter_vars = 
+                               rlang::exprs(exclusion_set == "complete",
+                                            expertise_subset == "All",
+                                            publishable_subset == "All",
+                                            collinearity_subset == "All"))
      ), #TODO looks like generating outlier subsets isn't necessary?? check what filter_vars does again?
      targets::tar_target(updated_prediction_files,
                          preprocess_updated_prediction_files(list_of_new_prediction_files)),
@@ -269,15 +275,6 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
                              VZ_colname = list("eucalyptus" = "se_log", 
                                                "blue tit" = "VZ"), 
                              VZ_cutoff = 3) %>%
-                           generate_exclusion_subsets() %>% #TODO: runs on ManyEcoEvo that contains Zr and yi results; DELETE, not needed
-                           generate_outlier_subsets(
-                             outcome_variable = 
-                               list(dataset = 
-                                      list("eucalyptus" = "mean_log", 
-                                           "blue tit" = "Z")), 
-                             n_min = -3, 
-                             n_max = -3, 
-                             ignore_subsets = NULL) %>%
                            compute_MA_inputs() %>%  
                            meta_analyse_datasets(
                              outcome_variable = 
@@ -286,7 +283,7 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
                              outcome_SE = 
                                list(dataset = 
                                       list("eucalyptus" = "se_log", "blue tit" = "VZ")),
-                             filter_vars = rlang::exprs(exclusion_set == "complete")) #TODO requires col exclusion_set from generate_exclusion_subsets() but don't need that fun in this pipeline anymore
+                             filter_vars = NULL) 
      ),
      targets::tar_target(name = ManyEcoEvo_yi_viz,
                          command = make_viz(ManyEcoEvo_yi_results)),
