@@ -41,3 +41,13 @@ Generate different subsets:
 - `generate_outlier_subsets()` 
 - `generate_rating_subsets()` 
 - `generate_yi_subsets()`
+
+## Out-of-sample predictions
+
+Note that the function `generate_exclusion_subsets()` does not currently need to be executed on the `ManyEcoEvo_yi` dataset since The default subsetting functions called in  `subset_fns_yi()` by this function don't result in any different subsets of data:
+
+```{r}
+ManyEcoEvo_yi %>% 
+  hoist(data, "exclusions_all",.transform = unique) %>% 
+  select(-contains("data"))
+```

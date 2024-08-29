@@ -269,7 +269,6 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
                              VZ_colname = list("eucalyptus" = "se_log", 
                                                "blue tit" = "VZ"), 
                              VZ_cutoff = 3) %>%
-                           generate_exclusion_subsets() %>% #TODO: runs on ManyEcoEvo that contains Zr and yi results; DELETE, not needed
                            generate_outlier_subsets(
                              outcome_variable = 
                                list(dataset = 
@@ -286,7 +285,7 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
                              outcome_SE = 
                                list(dataset = 
                                       list("eucalyptus" = "se_log", "blue tit" = "VZ")),
-                             filter_vars = rlang::exprs(exclusion_set == "complete")) #TODO requires col exclusion_set from generate_exclusion_subsets() but don't need that fun in this pipeline anymore
+                             filter_vars = NULL) 
      ),
      targets::tar_target(name = ManyEcoEvo_yi_viz,
                          command = make_viz(ManyEcoEvo_yi_results)),
