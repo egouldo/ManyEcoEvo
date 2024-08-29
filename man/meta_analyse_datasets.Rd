@@ -43,7 +43,7 @@ When the arguments \code{outcome_variable} and/or \code{outcome_variable} are no
 \item using \code{"Z"} as the standardised out-of-sample estimate and \code{"VZ" }as the standardised out-of-sample estimate error when \code{estimate_type} is one of \code{c("yi", "y25", "y50", "y75")}.
 }
 
-The function will check if the \code{data} dataframe contains the required columns for meta-analysis, including any variable names specified in calls to the \code{filter_vars} argument. If the required functions do not exist then the function will stop with an error.
+The function will check if the \code{data} dataframe contains the required columns for meta-analysis, including any variable names specified in calls to the \code{filter_vars} argument. If the required columns do not exist then the function will stop with an error.
 
 Function assumes that if argument \code{outcome_variable} is supplied, then \code{outcome_SE} is also supplied, and conversely, if \code{outcome_SE} is not supplied, then neither is \code{outcome_variable} (\emph{TODO} not yet checked in function).
 }
