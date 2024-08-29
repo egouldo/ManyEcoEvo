@@ -41,7 +41,7 @@
 #' - using `"Zr"` as the standardised effect size and `"VZr"` as the standard error when `estimate_type` is `"Zr"`.
 #' - using `"Z"` as the standardised out-of-sample estimate and `"VZ" `as the standardised out-of-sample estimate error when `estimate_type` is one of `c("yi", "y25", "y50", "y75")`.
 #' 
-#' The function will check if the `data` dataframe contains the required columns for meta-analysis, including any variable names specified in calls to the `filter_vars` argument. If the required functions do not exist then the function will stop with an error.
+#' The function will check if the `data` dataframe contains the required columns for meta-analysis, including any variable names specified in calls to the `filter_vars` argument. If the required columns do not exist then the function will stop with an error.
 #'  
 #' Function assumes that if argument `outcome_variable` is supplied, then `outcome_SE` is also supplied, and conversely, if `outcome_SE` is not supplied, then neither is `outcome_variable` (*TODO* not yet checked in function).
 #' 
