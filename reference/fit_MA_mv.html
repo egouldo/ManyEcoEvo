@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ManyEcoEvo</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.7.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.7.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -120,7 +120,29 @@
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">ManyEcoEvo_results</span><span class="op">$</span><span class="va">effects_analysis</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
 <span class="r-in"><span>  <span class="fu">fit_MA_mv</span><span class="op">(</span><span class="va">beta_estimate</span>, <span class="va">beta_SE</span>, <span class="st">"Zr"</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'ManyEcoEvo_results' not found</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> ── <span style="font-weight: bold;">Fitting metaregression</span> ──</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Multivariate Meta-Analysis Model (k = 131; method: REML)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Variance Components:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                estim     sqrt  nlvls  fixed                   factor </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> sigma^2.1   979.7136  31.3004     63     no           TeamIdentifier </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> sigma^2.2  6623.0949  81.3824    131     no  TeamIdentifier/study_id </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Test for Heterogeneity:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Q(df = 130) = 7544.9806, p-val &lt; .0001</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Model Results:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> estimate      se     zval    pval     ci.lb   ci.ub    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -10.9500  8.4194  -1.3006  0.1934  -27.4517  5.5518    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

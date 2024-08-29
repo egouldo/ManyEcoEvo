@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">ManyEcoEvo</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.7.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.7.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,9 +53,14 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="development version" id="manyecoevo-development-version">ManyEcoEvo (development version)<a class="anchor" aria-label="anchor" href="#manyecoevo-development-version"></a></h2>
+<h2 class="pkg-version" data-toc-text="2.7.2" id="manyecoevo-272">ManyEcoEvo 2.7.2<a class="anchor" aria-label="anchor" href="#manyecoevo-272"></a></h2>
 <!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
-<ul><li>#118 docs: Add explanation about updated behaviour when <code>estimate_type</code> is missing in <code>ManyEcoEvo</code> dataframe</li>
+<ul><li>separated column creation to occur under three conditions: NULL outcome_variable supplied, character string supplied, and expression argument supplied</li>
+<li>separated subset creation to occur separately on results of conditional evaluation</li>
+<li>Added conditional behaviour for when character vector supplied</li>
+<li>feat!: added arg checks <a href="https://github.com/egouldo/ManyEcoEvo/issues/116" class="external-link">#116</a> and cli output for when this condition is triggered</li>
+<li>explicitly supply <code>outcome_variable</code> and <code>outcome_SE</code> args for Zr</li>
+<li>#118 docs: Add explanation about updated behaviour when <code>estimate_type</code> is missing in <code>ManyEcoEvo</code> dataframe</li>
 <li>#118 build: devtools::document()</li>
 </ul></div>
     <div class="section level2">

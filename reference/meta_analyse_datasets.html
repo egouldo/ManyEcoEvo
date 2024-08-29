@@ -32,7 +32,7 @@ The deviation scores on transformed categorical ratings but with no intercept (f
     
     <a class="navbar-brand me-2" href="../index.html">ManyEcoEvo</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.7.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.7.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -121,7 +121,7 @@ The deviation scores on transformed categorical ratings but with no intercept (f
     <p>When <code>filter_vars</code> are supplied the function will filter the <code>data</code> dataframe by the expressions in the list, any data subsets excluded by filtering will not have multivariate met-analysis models fitted with <code><a href="fit_multivar_MA.html">fit_multivar_MA()</a></code>.</p>
 <p>When the arguments <code>outcome_variable</code> and/or <code>outcome_variable</code> are not supplied, the function defaults to:</p><ul><li><p>using <code>"Zr"</code> as the standardised effect size and <code>"VZr"</code> as the standard error when <code>estimate_type</code> is <code>"Zr"</code>.</p></li>
 <li><p>using <code>"Z"</code> as the standardised out-of-sample estimate and <code>"VZ" </code>as the standardised out-of-sample estimate error when <code>estimate_type</code> is one of <code>c("yi", "y25", "y50", "y75")</code>.</p></li>
-</ul><p>The function will check if the <code>data</code> dataframe contains the required columns for meta-analysis, including any variable names specified in calls to the <code>filter_vars</code> argument. If the required functions do not exist then the function will stop with an error.</p>
+</ul><p>The function will check if the <code>data</code> dataframe contains the required columns for meta-analysis, including any variable names specified in calls to the <code>filter_vars</code> argument. If the required columns do not exist then the function will stop with an error.</p>
 <p>Function assumes that if argument <code>outcome_variable</code> is supplied, then <code>outcome_SE</code> is also supplied, and conversely, if <code>outcome_SE</code> is not supplied, then neither is <code>outcome_variable</code> (<em>TODO</em> not yet checked in function).</p>
     </div>
     <div class="section level2">

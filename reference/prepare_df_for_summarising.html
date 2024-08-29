@@ -20,7 +20,7 @@ or a Bayesian model."><meta property="og:image" content="https://egouldo.github.
     
     <a class="navbar-brand me-2" href="../index.html">ManyEcoEvo</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.7.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.7.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -96,7 +96,26 @@ or a Bayesian model.</p>
 <span class="r-in"><span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/unnest.html" class="external-link">unnest</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html" class="external-link">everything</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
 <span class="r-in"><span>  <span class="fu">prepare_df_for_summarising</span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> 'ManyEcoEvo' is not an exported object from 'namespace:ManyEcoEvo'</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 302 × 40</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    response_id       submission_id analysis_id split_id TeamIdentifier id_col   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> R_11787O3NmejXKAH             1           2        2 Ayr            Ayr-1-2-2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> R_11787O3NmejXKAH             1           2        3 Ayr            Ayr-1-2-3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> R_11787O3NmejXKAH             1           2        1 Ayr            Ayr-1-2-1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> R_126erjKKuN3IwSJ             2           2        1 Bega           Bega-2-2…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> R_126erjKKuN3IwSJ             2           2        2 Bega           Bega-2-2…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> R_126erjKKuN3IwSJ             1           1        1 Bega           Bega-1-1…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> R_126erjKKuN3IwSJ             1           1        2 Bega           Bega-1-1…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> R_12cozGev3IOOBG2             4           4        1 Bell           Bell-4-4…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> R_12cozGev3IOOBG2             3           3        1 Bell           Bell-3-3…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> R_12cozGev3IOOBG2             1           1        1 Bell           Bell-1-1…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 292 more rows</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 34 more variables: beta_estimate &lt;dbl&gt;, contrast &lt;chr&gt;, adjusted_df &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   beta_SE &lt;dbl&gt;, transformation &lt;chr&gt;, link_function_reported &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   dataset &lt;chr&gt;, mixed_model &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   response_transformation_description &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   response_transformation_status &lt;chr&gt;, response_variable_type &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   response_construction_description &lt;chr&gt;, response_variable_name &lt;chr&gt;, …</span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
