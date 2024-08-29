@@ -9,7 +9,7 @@
 #' @import dplyr
 #' @importFrom purrr map_if map2 pmap possibly
 #' @importFrom stringr str_detect
-#' @importFrom broom tidy
+#' @importFrom broom.mixed tidy
 #' @importFrom performance performance
 #' @importFrom metaviz viz_funnel
 #' @importFrom ggplot2 ggplot
@@ -23,7 +23,7 @@ make_viz <- function(data) {
   # ---- Define Helper Functions ----
   
   tidy_mod <- function(mod) {
-    broom::tidy(mod, 
+    broom.mixed::tidy(mod, 
                 conf.int = TRUE,
                 include_studies = TRUE)
   }
