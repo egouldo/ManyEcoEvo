@@ -23,7 +23,9 @@ make_viz <- function(data) {
   # ---- Define Helper Functions ----
   
   tidy_mod <- function(mod) {
-    broom::tidy(mod, conf.int = TRUE)
+    broom::tidy(mod, 
+                conf.int = TRUE,
+                include_studies = TRUE)
   }
   
   viz_funnel_2 <- function(x) {
