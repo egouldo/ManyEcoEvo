@@ -53,7 +53,7 @@ fit_uni_mixed_effects <- function(data, N = 5) {
     
   } else{
     
-    cli::cli_h2(c("Fitting glm for Box-Cox transformed outcome with inclusion of random effects (binary variable) as predictor"))
+    
     
     data <- data %>%
       dplyr::select(dplyr::starts_with("box_cox_abs_"), 
@@ -66,6 +66,8 @@ fit_uni_mixed_effects <- function(data, N = 5) {
       recipes::update_role(starts_with("box_cox_abs_"), new_role = "outcome") %>%
       recipes::step_mutate(mixed_model = as.factor(mixed_model)) %>%
       recipes::step_naomit()
+    
+    cli::cli_h2(c("Fitting glm for Box-Cox transformed outcome with inclusion of random effects (binary variable) as predictor"))
     
     glm_mod <- parsnip::linear_reg(engine = "glm")
     
