@@ -1,8 +1,8 @@
 #' Fit model of Box-Cox transformed deviation scores as a function random-effects inclusion in analyses
-#' @description Fits a univariate glm of box-cox transformed absolute deviation from the meta-analytic mean scores as a function of whether the analysis was a mixed effects model \(i.e. included random effects\) or not.
+#' @description Fits a univariate glm of Box-Cox transformed absolute deviation from the meta-analytic mean scores as a function of whether the analysis was a mixed effects model (i.e. included random effects) or not.
 #'
-#' @param data Dataframe containing box-cox transformed absolute deviation scores and binary column called `mixed_model` describing whether or not the analysis used a mixed-effects model.
-#'
+#' @param data Dataframe containing Box-Cox transformed absolute deviation scores and binary column called `mixed_model` describing whether or not the analysis used a mixed-effects model.
+#' @param N threshold number of analyses in each predictor category for fitting model
 #' @return A fitted model object of class `glm` and `parsnip`
 #' @export
 #' @family Model fitting and meta-analysis
@@ -10,8 +10,6 @@
 #' # library(tidyverse);library(targets);library(metafor);library(tidymodels)
 #' # tar_load(meta_analysis_outputs)
 #' # fit_uni_mixed_effects(meta_analysis_results$data[[1]])
-#' # Note: used tidymodels approach for dynamic outcome var selection
-#' # base R approach will be more succinct.
 #' @import dplyr
 #' @importFrom cli cli_h2 cli_warn cli_alert_warning
 #' @importFrom pointblank test_col_exists
@@ -19,11 +17,9 @@
 #' @importFrom parsnip fit linear_reg
 #' @importFrom workflows workflow add_model add_recipe extract_fit_parsnip
 #' @seealso [parsnip::details_linear_reg_glm] for details on the [parsnip::linear_reg] engine. 
-fit_uni_mixed_effects <- function(data) {
+fit_uni_mixed_effects <- function(data, N = 5) {
   
-  cli::cli_h2(c("Fitting glm for box-cox transformed outcome with inclusion of random effects (binary variable) as predictor"))
-  
-  if (pointblank::test_col_exists(data,
+  if (!pointblank::test_col_exists(data,
                                   columns = c("mixed_model", 
                                               starts_with("box_cox_abs_")))) {
     
@@ -45,7 +41,16 @@ fit_uni_mixed_effects <- function(data) {
     
     return(NA)
     
-  } else {
+  } else if(data %>% count(mixed_model) %>% pointblank::test_col_vals_gte(columns = n, value = N)) {
+    
+    cli::cli_warn(message = "Less than {.arg N} = {.val {N}} observations in ",
+                  "each level of {.var mixed_model}. Returning {.val {NA}}.")
+    
+    return(NA)
+    
+  } else{
+    
+    cli::cli_h2(c("Fitting glm for Box-Cox transformed outcome with inclusion of random effects (binary variable) as predictor"))
     
     data <- data %>%
       dplyr::select(dplyr::starts_with("box_cox_abs_"), 
