@@ -101,16 +101,37 @@ meta_analyse_datasets <- function(data, outcome_variable = NULL, outcome_SE = NU
     if (any(str_detect(unique(data$estimate_type), pattern = "Zr"))) {
       outcome_variable <- "Zr"
       outcome_SE <- "VZr"
+      cli::cli_bullets(
+        c("i" = 
+            "Assigning default {.arg outcome_variable} = {.val {outcome_variable}}", 
+          "i" =  
+            "Assigning default {.arg outcome_SE} = {.val {outcome_SE}}")
+      )
     } else {
       outcome_variable <- "Z"
       outcome_SE <- "VZ"
+      cli::cli_bullets(
+        c("i" = 
+            "Assigning default {.arg outcome_variable} = {.val {outcome_variable}}", 
+          "i" =  
+            "Assigning default {.arg outcome_SE} = {.val {outcome_SE}}")
+      )
     } 
     data <- data %>% 
       ungroup %>% 
       mutate(outcome_colname = outcome_variable,
              outcome_SE_colname = outcome_SE)
+  } else if (rlang::is_character(outcome_variable)) { 
+    # Single value supplied
+    stopifnot(length(outcome_variable) == 1,
+              length(outcome_SE) == 1)
+
+    data <- data %>% 
+      ungroup %>% 
+      mutate(outcome_colname = outcome_variable,
+             outcome_SE_colname = outcome_SE)
   } else {
-    # Argument supplied
+    # expressions argument supplied
     matched_formulae_outcome <- 
       map(outcome_variable,
           ~ formulae_match(x = names(.x), y = .x))
