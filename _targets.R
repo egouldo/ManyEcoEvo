@@ -275,14 +275,6 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
                              VZ_colname = list("eucalyptus" = "se_log", 
                                                "blue tit" = "VZ"), 
                              VZ_cutoff = 3) %>%
-                           generate_outlier_subsets(
-                             outcome_variable = 
-                               list(dataset = 
-                                      list("eucalyptus" = "mean_log", 
-                                           "blue tit" = "Z")), 
-                             n_min = -3, 
-                             n_max = -3, 
-                             ignore_subsets = NULL) %>%
                            compute_MA_inputs() %>%  
                            meta_analyse_datasets(
                              outcome_variable = 
