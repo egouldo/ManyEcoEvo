@@ -62,21 +62,21 @@ generate_outlier_subsets <- function(data, outcome_variable = NULL, n_min = NULL
                         "estimate_type", 
                         "dataset")
   
-  #TODO consider switching to exprs instead of list as input
-  # see meta_analyse_datasets
-  if (!is.null(enexpr(ignore_subsets))) { 
-    ignore_subsets_columns <- rlang::call_args(enquo(ignore_subsets)) %>% 
-      map(rlang::f_lhs) %>% 
-      map(rlang::as_string) %>% 
-      list_c() %>% 
-      append(values = required_columns) %>% 
-      unique()
-  } else {
-    ignore_subsets_columns <- required_columns
+  if (rlang::is_list(ignore_subsets)) {
+    if (!all(map_lgl(ignore_subsets, rlang::is_call))) {
+      cli_abort("{.arg filter_vars} must be a list of calls")
+    } else {
+      required_columns <-  ignore_subsets %>% 
+        map(rlang::f_lhs) %>% 
+        map(rlang::as_string) %>% 
+        list_c() %>%
+        append(values = required_columns) %>% 
+        unique()
+    }
   }
   
   pointblank::expect_col_exists(data, 
-                                columns = ignore_subsets_columns)
+                                columns = required_columns)
   
   if (is.list(n_min)) {
     map(n_min, ~ {
@@ -125,31 +125,29 @@ generate_outlier_subsets <- function(data, outcome_variable = NULL, n_min = NULL
     formulae_match_n_max <- formulae_match(unique(data$dataset), n_min)
   }
   
-  matched_formulae <-  map(outcome_variable, ~ formulae_match(x = names(.x), y = .x))
+  matched_formulae <-  map(outcome_variable, 
+                           ~ formulae_match(x = names(.x), y = .x))
   
   # ----- Generate Outlier Subsets -----
   if (str_detect(data$estimate_type, "Zr") %>% any(na.rm = TRUE)) {
-    
-    if (!is.null(enexpr(ignore_subsets))) {
-      filter_vars <- quos(estimate_type == "Zr", 
-                          !!!rlang::call_args(enquo(ignore_subsets)))
-    } else {
-      filter_vars <- quo(estimate_type == "Zr")
-    }
     
     data_Zr <- data %>%
       filter(estimate_type == "Zr")
     
     data_Zr <- 
-      map2(names(matched_formulae), matched_formulae,
-           .f = ~ map_match_formulae(data_Zr, .x, .y)) %>% 
+      map2(
+        names(matched_formulae), 
+        matched_formulae,
+        .f = ~ map_match_formulae(data_Zr, .x, .y)) %>% 
       bind_rows() %>% 
       drop_na(outcome_colname) %>% 
-      map_match_formulae(variable_name = "dataset", formulae_match_n_min, col_name = "n_min") %>%
-      map_match_formulae(variable_name = "dataset", formulae_match_n_max, col_name = "n_max") %>% 
+      map_match_formulae(variable_name = "dataset", 
+                         formulae_match_n_min, col_name = "n_min") %>%
+      map_match_formulae(variable_name = "dataset", 
+                         formulae_match_n_max, col_name = "n_max") %>% 
       apply_slice_conditionally(
         x = .,
-        filter_vars = filter_vars) %>% 
+        filter_vars = ignore_subsets) %>% 
       select(-outcome_colname, -n_min, -n_max)
   }
   
@@ -166,14 +164,19 @@ generate_outlier_subsets <- function(data, outcome_variable = NULL, n_min = NULL
     data_yi <- data %>%
       filter(str_detect(estimate_type, "y"))
     
-    data_yi <-  map2(
-      names(matched_formulae), 
-      matched_formulae,
-      .f = ~ map_match_formulae(data_yi, .x, .y)) %>% 
+    data_yi <-  
+      map2(
+        names(matched_formulae), 
+        matched_formulae,
+        .f = ~ map_match_formulae(data_yi, .x, .y)) %>% 
       bind_rows() %>% 
       drop_na(outcome_colname) %>% 
-      map_match_formulae(variable_name = "dataset", formulae_match_n_min, col_name = "n_min") %>%
-      map_match_formulae(variable_name = "dataset", formulae_match_n_max, col_name = "n_max") %>% 
+      map_match_formulae(variable_name = "dataset", 
+                         formulae_match_n_min, 
+                         col_name = "n_min") %>%
+      map_match_formulae(variable_name = "dataset", 
+                         formulae_match_n_max, 
+                         col_name = "n_max") %>% 
       apply_slice_conditionally(
         x = .,
         filter_vars = filter_vars) %>% 
@@ -220,37 +223,37 @@ apply_slice_conditionally <- function(x, filter_vars){
                                if ("exclusion_set" %in% colnames(.)) {
                                  exclusion_set } 
                              else {"complete"}), {
-    x %>%
-      filter(!!filter_vars) %>%
-      mutate(data = 
-               pmap(list(data, outcome_colname, n_min, n_max),
-                    .f = ~ slice_conditionally(..1, 
-                                               n_min = ..3, 
-                                               n_max = ..4, 
-                                               outcome_variable = ..2
-                    ))) %>%
-      mutate( exclusion_set = 
-                if ("exclusion_set" %in% colnames(.)) {
-                  paste0(exclusion_set, "-rm_outliers") } 
-              else {"complete-rm_outliers"},
-        data =
-          map2(
-            .x = data,
-            .y = data,
-            .f = ~ semi_join(.x, .y, 
-                             by = join_by(id_col)) %>% 
-              distinct()
-          ),
-        diversity_data =
-          map2(
-            .x = diversity_data,
-            .y = data,
-            .f = ~ semi_join(.x, .y, 
-                             by = join_by(id_col)) %>% 
-              distinct()
-          )
-      )
-  })
+                               x %>%
+                                 filter(!!!filter_vars) %>%
+                                 mutate(data = 
+                                          pmap(list(data, outcome_colname, n_min, n_max),
+                                               .f = ~ slice_conditionally(..1, 
+                                                                          n_min = ..3, 
+                                                                          n_max = ..4, 
+                                                                          outcome_variable = ..2
+                                               ))) %>%
+                                 mutate( exclusion_set = 
+                                           if ("exclusion_set" %in% colnames(.)) {
+                                             paste0(exclusion_set, "-rm_outliers") } 
+                                         else {"complete-rm_outliers"},
+                                         data =
+                                           map2(
+                                             .x = data,
+                                             .y = data,
+                                             .f = ~ semi_join(.x, .y, 
+                                                              by = join_by(id_col)) %>% 
+                                               distinct()
+                                           ),
+                                         diversity_data =
+                                           map2(
+                                             .x = diversity_data,
+                                             .y = data,
+                                             .f = ~ semi_join(.x, .y, 
+                                                              by = join_by(id_col)) %>% 
+                                               distinct()
+                                           )
+                                 )
+                             })
   
   return(out)
 }
