@@ -27,7 +27,7 @@ Imports:
     betapart,
     cli,
     data.table,
-    dplyr,
+    dplyr (>= 1.1.4),
     forcats,
     fs,
     glue,
