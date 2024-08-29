@@ -213,7 +213,8 @@ meta_analyse_datasets <- function(data, outcome_variable = NULL, outcome_SE = NU
                                          interceptless = TRUE)),
       uni_mixed_effects = 
         list(fit_uni_mixed_effects(effects_analysis))
-    )
+    ) %>% 
+    ungroup()
   
   # --- Fit Multivariate Models ---
   
