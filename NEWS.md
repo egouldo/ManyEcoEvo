@@ -1,7 +1,12 @@
-# ManyEcoEvo (development version)
+# ManyEcoEvo 2.7.2
 
 <!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
 
+- separated column creation to occur under three conditions: NULL outcome_variable supplied, character string supplied, and expression argument supplied
+- separated subset creation to occur separately on results of conditional evaluation
+- Added conditional behaviour for when character vector supplied
+- feat!: added arg checks #116 and cli output for when this condition is triggered
+- explicitly supply `outcome_variable` and `outcome_SE` args for Zr
 - #118 docs: Add explanation about updated behaviour when `estimate_type` is missing in `ManyEcoEvo` dataframe
 - #118 build: devtools::document()
 
