@@ -1,3 +1,7 @@
+# ManyEcoEvo 2.7.3
+
+- Fix #136 generate `Zr` outlier subsets on `exclusion_set == "complete"`, not on `exclusion_set == "partial"`
+
 # ManyEcoEvo 2.7.2
 
 <!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
