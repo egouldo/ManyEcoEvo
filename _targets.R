@@ -113,7 +113,7 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
                                  collinearity_subset != "collinearity_removed", 
                                  expertise_subset != "expert", 
                                  publishable_subset == "All", 
-                                 exclusion_set != "complete")) |>
+                                 exclusion_set == "complete")) |>
                            compute_MA_inputs(estimate_type = "Zr") |> 
                            meta_analyse_datasets(
                              outcome_variable = "Zr", 
