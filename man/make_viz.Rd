@@ -7,15 +7,36 @@
 make_viz(data)
 }
 \arguments{
-\item{data}{a nested dataframe with processed and standardised data stored in list-column \code{data}, grouped by variables \code{exclusion_set}, \code{dataset}, \code{estimate_type}, \code{publishable_subset}, \code{expertise_subset}, \code{collinearity_subset}. Each group contains a list-column \code{model} containing fitted models of class \code{rma.uni}, \code{rma.mv} or \code{merMod}.}
+\item{data}{a nested tibble with processed and standardised data stored in list-column \code{data}, grouped by variables \code{exclusion_set}, \code{dataset}, \code{estimate_type}, \code{publishable_subset}, \code{expertise_subset}, \code{collinearity_subset}. Each group contains a list-column \code{model} containing fitted models of class \code{rma.uni}, \code{rma.mv} or \code{merMod}.}
 }
 \value{
-a nested dataframe grouped by variables \code{exclusion_set}, \code{dataset}, \code{estimate_type}, \code{publishable_subset}, \code{expertise_subset}, \code{collinearity_subset} containing model summaries, tidy model summaries, model fit stats, funnel plots and forest plots
+a nested tibble containing model summaries, fit statistics, plots, model parameters and other components of fitted model objects, see details.
 }
 \description{
-Computes model summaries, tidy model summaries, model fit stats, funnel plots and forest plots for a dataframe of multiple fitted models
+Compute model summaries, tidy model summaries, model fit statistics, funnel plots and forest plots for a tibble of multiple fitted models
+}
+\details{
+\code{\link[=make_viz]{make_viz()}} is a wrapper function that takes a nested tibble of fitted models and computes model summaries, tidy model summaries, model fit statistics, funnel plots and forest plots for each model. The function is designed to be used in conjunction with \code{ManyEcoEvo_results}-type datasets, which contains multiple fitted models for each dataset and estimate type.
+
+The following functions are applied to each model:
+\itemize{
+\item \code{mod_summary}:  \code{\link[base:summary]{base::summary()}} to extract model summaries
+\item \code{tidy_mod_summary}: \code{\link[broom.mixed:reexports]{broom.mixed::tidy()}} to extract tidy model summaries
+\item \code{mod_fit_stats} / \code{mod_glance}:  \code{\link[performance:model_performance]{performance::performance()}} and \code{\link[broom:reexports]{broom::glance()}} to extract model fit statistics
+\item \code{funnel_plot}:  \code{\link[metaviz:viz_funnel]{metaviz::viz_funnel()}} to create funnel plots for \code{rma.uni} models
+\item \code{forest_plot}:  \code{\link[=gg_forest]{gg_forest()}} to create forest plots for \code{rma.mv} models
+\item \code{MA_fit_stats}:  \code{\link[=get_MA_fit_stats]{get_MA_fit_stats()}} to extract model fit statistics for \code{rma.mv} models
+\item \code{model_params}: \code{\link[parameters:model_parameters]{parameters::parameters()}} to extract model parameters
+}
+
+Note that where the fitted model object doesn't exist, i.e. is a \code{NA} or \code{NULL} value, the function will return \code{NA} for all components.
+}
+\examples{
+make_viz(ManyEcoEvo_results)
 }
 \seealso{
+\code{\link[=get_MA_fit_stats]{get_MA_fit_stats()}}, \code{\link[=gg_forest]{gg_forest()}}
+
 Other Multi-dataset Wrapper Functions: 
 \code{\link{apply_VZ_exclusions}()},
 \code{\link{compute_MA_inputs}()},
