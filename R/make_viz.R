@@ -103,7 +103,17 @@ make_viz <- function(data) {
         map_if(
           .x = model,
           .p = ~ !rlang::is_na(.x),
-          .f = purrr::possibly(performance::performance, # switch to performance from glance
+          .f = purrr::possibly(performance::performance,
+                               otherwise = NA,
+                               quiet = FALSE
+          ),
+          .else = ~ return(NA)
+        ),
+      mod_glance = 
+        map_if(
+          .x = model,
+          .p = ~ !rlang::is_na(.x),
+          .f = purrr::possibly(broom::glance, 
                                otherwise = NA,
                                quiet = FALSE
           ),
