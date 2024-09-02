@@ -1,3 +1,13 @@
+# ManyEcoEvo 2.7.4
+
+- docs: Update function documentation #140
+  - add `@detail` explaining functions applied and which output list-column they map onto
+  - update `@return` since grouped columns are no longer output
+  - add `@seealso`
+  - add `@importFrom` call for `broom::glance()`
+  - Add example
+- feat: add `broom::glance()` back into `make_viz()` workflow #140
+
 # ManyEcoEvo 2.7.3
 
 - Fix #136 generate `Zr` outlier subsets on `exclusion_set == "complete"`, not on `exclusion_set == "partial"`
