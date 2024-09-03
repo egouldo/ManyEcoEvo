@@ -1,13 +1,12 @@
 # ManyEcoEvo (development version)
 
+# ManyEcoEvo 2.7.5
+
 <!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
 
 - build!: `usethis::use_data()` update results of `make_viz()`
 * - build!: force `tar_make()` for #140
 * - build!: force `tar_make()` for #140, add targets meta
-
-
-# ManyEcoEvo 2.7.5
 
 # ManyEcoEvo 2.7.4
 
