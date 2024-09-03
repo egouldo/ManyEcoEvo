@@ -263,6 +263,22 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
                                                          all_prediction_data)),
      targets::tar_target(name = ManyEcoEvo_yi_results,
                          command =  ManyEcoEvo_yi %>% 
+                           mutate(data = 
+                                    map_if(data, 
+                                           ~ filter(.x, 
+                                                    stringr::str_detect(response_variable_name, 
+                                                                        "average.proportion.of.plots.containing",
+                                                                        negate = TRUE)),
+                                           .p = dataset == "eucalyptus")) %>%   
+                           mutate(
+                             diversity_data =
+                               map2(
+                                 .x = diversity_data,
+                                 .y = data,
+                                 .f = ~ semi_join(.x, .y, join_by(id_col)) %>% 
+                                   distinct()
+                               )
+                           ) %>% 
                            prepare_response_variables(
                              estimate_type = "yi",
                              param_table = 
