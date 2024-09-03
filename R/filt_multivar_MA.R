@@ -19,6 +19,7 @@
 #' @importFrom tidyr unite
 #' @importFrom cli cli_alert_info cli_bullets cli_h2 style_italic
 #' @importFrom glue glue
+#' @importFrom tidyselect any_of
 #' @details
 #' Depending on whether enough analyses in `data_tbl` have been conducted with the `mixed_model` variable, the function will fit a model with or without the predictor `mixed_model`.
 #'
@@ -30,6 +31,7 @@
 #' - `box_cox_abs_deviation_score_estimate`: response variable, Box-Cox transformed deviation from the meta-analytic mean effect-size for each analysis
 #' - `mixed_model`: binary variable indicating whether the analysis used a mixed effects model or not
 #' - `ReviewerId`: reviewer identifier
+#' - one of `study_id` or `id_col` to uniquely identify each analysis for checking that the threshold `N` is met.
 #' @family Model fitting and meta-analysis
 fit_multivar_MA <- function(data_tbl, N = 5, ..., env = rlang::caller_env()) {
   
@@ -43,7 +45,8 @@ fit_multivar_MA <- function(data_tbl, N = 5, ..., env = rlang::caller_env()) {
         PublishableAsIs,
         mean_diversity_index,
         ReviewerId,
-        mixed_model
+        mixed_model,
+        any_of(c("id_col", "study_id"))
       ))
   
   # ----- Define Models -----
@@ -69,6 +72,7 @@ fit_multivar_MA <- function(data_tbl, N = 5, ..., env = rlang::caller_env()) {
   
   pass_threshold <-
     data_tbl %>%
+    distinct(pick(any_of(c("study_id", "id_col"))), mixed_model) %>% 
     count(mixed_model) %>%
     pointblank::test_col_vals_gte(n, N)
   
