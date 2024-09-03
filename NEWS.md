@@ -1,3 +1,5 @@
+# ManyEcoEvo (development version)
+
 <!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
 
 - build!: `usethis::use_data()` update results of `make_viz()`
