@@ -32,6 +32,7 @@ Expects the following columns in \code{data_tbl}:
 \item \code{box_cox_abs_deviation_score_estimate}: response variable, Box-Cox transformed deviation from the meta-analytic mean effect-size for each analysis
 \item \code{mixed_model}: binary variable indicating whether the analysis used a mixed effects model or not
 \item \code{ReviewerId}: reviewer identifier
+\item one of \code{study_id} or \code{id_col} to uniquely identify each analysis for checking that the threshold \code{N} is met.
 }
 }
 \seealso{
