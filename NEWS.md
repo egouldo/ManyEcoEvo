@@ -1,4 +1,9 @@
-# ManyEcoEvo (development version)
+<!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
+# ManyEcoEvo 2.7.5.9001
+
+* - build!: `usethis::use_data()` update results of `make_viz()`
+* Increment version number to 2.7.5
+* docs: update changelog
 
 # ManyEcoEvo 2.7.5
 
