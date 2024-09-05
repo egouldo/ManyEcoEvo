@@ -23,7 +23,7 @@
 #' If the user chooses to supply `.fn` and `...` arguments, the function will transform
 #' the population parameter estimates in `param_table` to the same scale as the
 #' `outcome_variable` in `data` using `.fn`, before calculating the threshold for exclusion.
-#' 
+#' @export
 #' @return A dataframe of analyst estimates with extreme estimates excluded
 #' @examples
 #' # example code
