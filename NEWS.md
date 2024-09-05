@@ -1,11 +1,27 @@
+# ManyEcoEvo 2.7.6
+
+<!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
+
+- build!: fix #146 regenerate yi data after excluding extreme values
+- build!: don't forget to filter the corresponding diversity data after exclusions!
+
+* Increment version number to 2.7.5
+* docs: update changelog
+*  bug: #146 export function
+*  docs!: #146 `devtools::document()`
+* feat: #146 add function for excluding extreme estimates based on a multiplier threshold for population parameter estimates
+* bug: exclude analysis with non-count-based dependent variable from `yi` analysis #145
+* bug: ensure outlier subset creation occurs on all `exclusion_set` values in Zr #144
+* bug: fix threshold checking for multivariate model fitting #147
+- build!: `usethis::use_data()` update results of `make_viz()`
+
+# ManyEcoEvo 2.7.5
+
 <!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
 
 - build!: `usethis::use_data()` update results of `make_viz()`
 * - build!: force `tar_make()` for #140
 * - build!: force `tar_make()` for #140, add targets meta
-
-
-# ManyEcoEvo 2.7.5
 
 # ManyEcoEvo 2.7.4
 
