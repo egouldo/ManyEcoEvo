@@ -8,7 +8,7 @@
 #' @param .fn An optional function that will transform parameter estimates to the same scale as `outcome_variable` in `data`
 #' @param ... Arguments supplied to `.fn`
 #' @import dplyr
-#' @importFrom rlang enquo env as_wuosures enquos enquo current_env quo_set_env is_null
+#' @importFrom rlang enquo env as_quosures enquos enquo current_env quo_set_env is_null
 #' @importFrom cli cli_h3 cli_alert_success
 #' @importFrom purrr map list_c
 #' @importFrom tidyr pivot_wider hoist
