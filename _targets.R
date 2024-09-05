@@ -263,13 +263,15 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
                                                          all_prediction_data)),
      targets::tar_target(name = ManyEcoEvo_yi_results,
                          command =  ManyEcoEvo_yi %>% 
-                           mutate(data = 
-                                    map_if(data, 
-                                           ~ filter(.x, 
-                                                    stringr::str_detect(response_variable_name, 
-                                                                        "average.proportion.of.plots.containing",
-                                                                        negate = TRUE)),
-                                           .p = dataset == "eucalyptus")) %>%   
+                           mutate(
+                             data = 
+                               map_if(data, 
+                                      ~ filter(.x, 
+                                               stringr::str_detect(
+                                                 response_variable_name, 
+                                                 "average.proportion.of.plots.containing",
+                                                 negate = TRUE)),
+                                      .p = dataset == "eucalyptus")) %>%   
                            mutate(
                              diversity_data =
                                map2(
@@ -286,6 +288,20 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
                              dataset_standardise = "blue tit",
                              dataset_log_transform = "eucalyptus") %>%
                            generate_yi_subsets() %>% #TODO: must be run after prepare_response_variables??
+                           rowwise() %>% 
+                           mutate(data = if (dataset == "eucalyptus") {
+                             list(
+                               exclude_extreme_estimates(
+                                 data, 
+                                 outcome_variable = "mean_log", 
+                                 outcome_SE = "se_log", 
+                                 param_table = ManyEcoEvo:::analysis_data_param_tables, 
+                                 sd_threshold = 3, 
+                                 .fn = log_transform, 
+                                 estimate = mean, 
+                                 std.error = sd))
+                           } else {list(data)} ) %>% 
+                           ungroup %>% 
                            apply_VZ_exclusions(
                              VZ_colname = list("eucalyptus" = "se_log", 
                                                "blue tit" = "VZ"), 
