@@ -300,7 +300,14 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
                                  .fn = log_transform, 
                                  estimate = mean, 
                                  std.error = sd))
-                           } else {list(data)} ) %>% 
+                           } else {list(data)},
+                           diversity_data = if (dataset == "eucalyptus") {
+                             list(
+                               semi_join(diversity_data, 
+                                         data, 
+                                         by = "id_col") %>% 
+                                 distinct())
+                           } else {list(diversity_data)}) %>% 
                            ungroup %>% 
                            apply_VZ_exclusions(
                              VZ_colname = list("eucalyptus" = "se_log", 
