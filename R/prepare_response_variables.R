@@ -139,7 +139,7 @@ prepare_response_variables <- function(ManyEcoEvo,
     if ( all(is.null(dataset_standardise), 
              is.null(dataset_log_transform))) {
       
-      cli::cli_alert_info("No standardisation or log-transformation applied to response variables for {.val {estimate_type}} estimates.")
+      cli::cli_alert_info("No standardisation or transformation applied to response variables for {.val {estimate_type}} estimates.")
       
       transform_datasets <- 
         tibble(
@@ -150,7 +150,7 @@ prepare_response_variables <- function(ManyEcoEvo,
       
     } else { #yi + standardise and/or log-transform
       
-      cli::cli_alert_info("Standardising and/or log-transforming response variables for {.val {estimate_type}} estimates.")
+      cli::cli_alert_info("Standardising and/or transforming of response variables for {.val {estimate_type}} estimates.")
       
       transform_datasets <- 
         bind_rows( 
@@ -170,7 +170,6 @@ prepare_response_variables <- function(ManyEcoEvo,
   } else { # Zr
     
     if (!is.null(param_table)) {
-      
       cli::cli_abort("{.arg param_table} must be {.val NULL} for {.val {estimate_type}} data")
     }
     
