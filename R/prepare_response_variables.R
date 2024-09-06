@@ -1,6 +1,6 @@
 #' Prepare response variable data for nested ManyEcoEvo dataset
 #'
-#' @param ManyEcoEvo Complete ManyEcoEvo dataset containing nested datasets for each different analysis and exclusion set dataset
+#' @param data Complete ManyEcoEvo dataset containing nested datasets for each different analysis and exclusion set dataset
 #' @param estimate_type A character string of length 1, equal to either "Zr", "yi", "y25", "y50", "y75", indicating what type of estimates are being prepared.
 #' @param param_table A table of parameters \(mean, sd\) for *most* response variables used by analysts. This tibble is pulled from the named object exported by `ManyEcoEvo::`. but can be overwritten with the users's own `param_table` dataset.
 #' @param dataset_standardise A character string of length 1, equal to the name of the dataset to standardise the response variables to. If `NULL` (default), no datasets are standardised.
@@ -8,7 +8,7 @@
 #' @return A tibble of nested list-columns
 #' @details Operates on nested list-columns of dataframes, where each dataframe contains the response variable data for a single analysis. The function standardises the response variable data for each analysis, and returns the modified dataset to the `data` list-column.
 #' 
-#' Note that if `ManyEcoEvo` does not have an `estimate_type` column, it will be added with the value of `estimate_type`. This is because some transformation functions require the `estimate_type` column to be present in the dataset.
+#' Note that if `data` does not have an `estimate_type` column, it will be added with the value of `estimate_type`. This is because some transformation functions require the `estimate_type` column to be present in the dataset.
 #' 
 #' @family targets-pipeline functions.
 #' @family Multi-dataset Wrapper Functions
@@ -21,7 +21,7 @@
 #' @importFrom tidyr tibble drop_na
 #' @examples
 #' ManyEcoEvo %>% prepare_response_variables(estimate_type = "Zr")
-prepare_response_variables <- function(ManyEcoEvo,
+prepare_response_variables <- function(data,
                                        estimate_type = character(1L),
                                        param_table = NULL,
                                        dataset_standardise = NULL,
@@ -32,15 +32,15 @@ prepare_response_variables <- function(ManyEcoEvo,
             choices = c("Zr", "yi", "y25", "y50", "y75"), 
             several.ok = FALSE)
   
-  stopifnot(is.data.frame(ManyEcoEvo))
+  stopifnot(is.data.frame(data))
   
-  pointblank::expect_col_exists(object = ManyEcoEvo, 
-                                columns = c(dataset, data))
+  pointblank::expect_col_exists(object = data, 
+                                columns = c("dataset", "data"))
   
-  if (!pointblank::test_col_exists(ManyEcoEvo, "estimate_type")) {
+  if (!pointblank::test_col_exists(data, "estimate_type")) {
     
-    ManyEcoEvo <- dplyr::mutate(ManyEcoEvo, 
-                                estimate_type = estimate_type)
+    data <- dplyr::mutate(data, 
+                          estimate_type = estimate_type)
     
   }
   
@@ -49,11 +49,11 @@ prepare_response_variables <- function(ManyEcoEvo,
     stopifnot(
       is.character(dataset_standardise), 
       length(dataset_standardise) >= 1, 
-      length(dataset_standardise) <= length(unique(ManyEcoEvo$dataset))
+      length(dataset_standardise) <= length(unique(data$dataset))
     )
     
     match.arg(dataset_standardise, 
-              choices = ManyEcoEvo$dataset,
+              choices = data$dataset,
               several.ok = TRUE)
   }
   
@@ -62,11 +62,11 @@ prepare_response_variables <- function(ManyEcoEvo,
     stopifnot(
       is.character(dataset_log_transform), 
       length(dataset_log_transform) >= 1, 
-      length(dataset_log_transform) <= length(unique(ManyEcoEvo$dataset))
+      length(dataset_log_transform) <= length(unique(data$dataset))
     )
     
     match.arg(dataset_log_transform, 
-              choices = ManyEcoEvo$dataset,
+              choices = data$dataset,
               several.ok = TRUE)
   }
   
@@ -101,7 +101,7 @@ prepare_response_variables <- function(ManyEcoEvo,
   
   # ------ Prepare Response Variables ------
   
-  out <- ManyEcoEvo
+  out <- data
   
   if (estimate_type != "Zr") {
     
