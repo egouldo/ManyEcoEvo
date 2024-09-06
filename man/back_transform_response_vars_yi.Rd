@@ -2,16 +2,16 @@
 % Please edit documentation in R/prepare_response_variables_yi.R
 \name{back_transform_response_vars_yi}
 \alias{back_transform_response_vars_yi}
-\title{Back Transform Response Variables - yi}
+\title{Back-transform analyst \code{yi} estiamtes to the response scale}
 \usage{
 back_transform_response_vars_yi(
-  dat,
+  data,
   estimate_type = character(1L),
   dataset = character(1L)
 )
 }
 \arguments{
-\item{dat}{A dataframe of out of sample predictions analyst submission data}
+\item{data}{dataframe of out of sample predictions analyst submission data}
 
 \item{estimate_type}{The type of estimate to be standardised. Character vector of length 1, whose value may be  "yi", "y25", "y50", "y75".}
 
@@ -21,7 +21,7 @@ back_transform_response_vars_yi(
 A tibble of analyst data with standardised values contained in a list-column called 'back_transformed_data'
 }
 \description{
-Back Transform Response Variables - yi
+Back-transform analyst \code{yi} estiamtes to the response scale
 }
 \seealso{
 Other Analysis-level functions: 
