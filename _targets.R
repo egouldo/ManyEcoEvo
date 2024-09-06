@@ -190,7 +190,8 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
                          response_transformation_status,
                          link_function_reported,
                          adjusted_df,
-                         review_data
+                         review_data,
+                         sample_size
                   ) %>% 
                   drop_na(split_id) %>% #TODO, remove this `drop_na()` once we have fixed missing NA `gh issue view 109 -w`; `gh issue view 102 -w`
                   anti_join(., #TODO remove analyses where there are multiple submissions per split_id (~20) `gh issue view 109 -w`; `gh issue view 102 -w`
