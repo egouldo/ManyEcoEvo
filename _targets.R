@@ -248,11 +248,12 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
                 command = groups %>% #must be groups, not grouped_prediction_validation_data bc the row order changes
                   mutate(augmented_data = augmented_data,
                          checks = prediction_checks,
-                         validation_fail = modify_if(.x = checks, 
-                                                     .p = negate(rlang::is_na),
-                                                     .f = ~ filter(.x, f_pass < 1, 
-                                                                   stringr::str_detect(columns, "estimate|fit")) %>% 
-                                                       nrow(.)) %>% 
+                         validation_fail = 
+                           modify_if(.x = checks, 
+                                     .p = negate(rlang::is_na),
+                                     .f = ~ filter(.x, f_pass < 1, 
+                                                   stringr::str_detect(columns, "estimate|fit")) %>% 
+                                       nrow(.)) %>% 
                            flatten_dbl(.) %>% 
                            as.logical(.))),
      targets::tar_target(name = ManyEcoEvo_viz,
