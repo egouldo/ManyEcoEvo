@@ -1,7 +1,7 @@
 #' Convert Predictions
-#' @description Converts out of sample predictions on the link scale back to the response scale
+#' @description Converts out-of-sample predictions on the link scale back to the response scale
 #' @param augmented_data A tibble of out of analyst's sample prediction data for 3 scenarios
-#' @return A tibble of out of sample predictions on the response variable scale of the response variable used by the analyst
+#' @return A tibble of out-of-sample predictions on the response variable scale of the response variable used by the analyst
 #' @family Analysis-level functions
 #' @export
 #' @import dplyr
