@@ -58,7 +58,6 @@ reference:
   contents:
   - make_param_table
   - compute_MA_inputs
-  - compute_metaanalysis_inputs
   - get_diversity_data
   - starts_with("prepare_")
   - split_yi_subsets
@@ -105,7 +104,7 @@ reference:
 - subtitle: Wrapper Functions
   desc: ''
   contents:
-  - compute_metaanalysis_inputs
+  - compute_MA_inputs
   - meta_analyse_datasets
   - make_viz
 - subtitle: Generate data subsets of full ManyEcoEvo or ManyAnalyst dataset
