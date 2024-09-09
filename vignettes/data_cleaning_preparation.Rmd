@@ -80,8 +80,7 @@ blue_tit_predictions <-
 # ----- back-transform analyst estimates to original response scale ----
 blue_tit_back_transformed <- 
   blue_tit_predictions %>% 
-  back_transform_response_vars_yi(estimate_type = "yi",
-                                  dataset = "blue tit") %>% 
+  back_transform_response_vars_yi() %>% 
   ungroup %>% 
   select(
     id_col,
