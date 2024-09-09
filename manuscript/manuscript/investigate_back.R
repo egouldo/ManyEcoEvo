@@ -1,4 +1,6 @@
 devtools::load_all()
+
+#+ message = FALSE, warning = FALSE
 out <- targets::tar_read(ManyEcoEvo_yi) %>% 
   mutate(
     data = 
@@ -147,17 +149,22 @@ back_transformed_sd_sims <-
   relocate(contains("sd_log"), .after = starts_with("sd.")) %>% 
   select(-contains("ci"), -contains("lower"), -contains("upper")) 
 
-check_transformations_se
+#' # Euc checking
 
-back_transformed_se_sims
+#+ 
+# ---- report euc results ----
+check_transformations_se %>% knitr::kable()
 
-check_transformations_sd
+back_transformed_se_sims %>%  knitr::kable()
 
-back_transformed_sd_sims
+check_transformations_sd %>%  knitr::kable()
 
+back_transformed_sd_sims %>% knitr::kable()
+
+#' # BT checking
+
+#+ message = FALSE, warning = FALSE
 # ---- blue tit ---
-    
-    
 bt <- targets::tar_read(ManyEcoEvo_yi) %>% filter(dataset == "blue tit") %>% 
   pluck("data", 1)
 
@@ -195,4 +202,5 @@ check_transformations_se <-
   relocate(contains("sd_log"), .after = starts_with("sd.")) %>% 
   select(-contains("ci"), -contains("lower"), -contains("upper")) 
 
-check_transformations_se
+#+ 
+check_transformations_se %>% knitr::kable()
