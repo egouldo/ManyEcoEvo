@@ -96,7 +96,7 @@ data(ManyEcoEvo_yi)
 ManyEcoEvo_yi \%>\%
 filter(dataset == "eucalyptus") \%>\%
   pluck("data", 1) \%>\%
-  back_transform_response_vars_yi("yi", "eucalyptus") \%>\%
+  back_transform_response_vars_yi() \%>\%
   log_transform_response()
 }
 \seealso{
