@@ -1,5 +1,21 @@
 # ManyEcoEvo (development version)
 
+<!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
+
+- #151 rm reprex and investigation script
+- fix!: #151 revert to taking sd() from normalised distribution prior to back-transformation and assigning as SE
+- analysis #151 add additional reprex chunk to quiet output
+- docs:! `devtools::document()`
+- analysis #151 add reprex chunk options to quiet messages, add headings
+- analysis: #151 investigate extreme precision after changing back-transformation fns
+- bug, refactor!: extract SD in addition to SE for analysis #151
+- refactor!: rm unnecessary arguments to `back_transform_response_vars_yi()`, update call of function within `prepare_response_variables_yi()` #97
+- refactor!: change method for renaming prediction columns (generalise beyond BT / Euc)
+- docs!: #102 add roxygen imports to function doc
+- #151 retain sample size
+- bug fix in arg checking #116
+- #97 rename first data argument #102 update roxygen doc, add imports
+
 # ManyEcoEvo 2.7.6
 
 <!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
