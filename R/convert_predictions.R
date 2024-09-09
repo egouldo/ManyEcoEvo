@@ -10,6 +10,9 @@
 #' @importFrom cli cli_alert_warning cli_abort
 #' @importFrom data.table setnames
 #' @importFrom pointblank has_columns
+#' @importFrom tibble tibble deframe
+#' @importFrom purrr discard
+#' @importFrom tidyselect any_of
 #' @family Back-transformation
 #' @seealso [rename_prediction_cols()]
 convert_predictions <- function(augmented_data,
