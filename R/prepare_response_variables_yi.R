@@ -9,30 +9,22 @@
 #' `estimate_type` is used to specify the type of estimate to be standardised and parsed to [back_transform_response_vars_yi()]
 #' @seealso [back_transform_response_vars_yi()]. To be called prior to [generate_yi_subsets()].
 #' @import dplyr
-#' @importFrom purrr map2
+#' @importFrom purrr map2 map
+#' @importFrom pointblank expect_col_exists
 #' @family targets-pipeline functions
 #' @family Multi-dataset Wrapper Functions
 #' @export
-prepare_response_variables_yi <- function(data,
-                                          estimate_type = character(1L),
-                                          param_table = NULL) {
+prepare_response_variables_yi <- function(data) {
   stopifnot(is.data.frame(data))
-  # TODO run checks on data
-  match.arg(estimate_type, choices = c("yi", "y25", "y50", "y75"), several.ok = FALSE)
+  
+  pointblank::expect_col_exists(data, c("data", "diversity_data"))
   
   out <- data %>%
     ungroup() %>%
     dplyr::mutate(
-      data = purrr::map2(
-        .x = data, .y = dataset,
-        .f = ~ back_transform_response_vars_yi(
-          dat = .x,
-          estimate_type = !!{
-            estimate_type
-          },
-          param_table,
-          dataset = .y
-        )
+      data = purrr::map(
+        .x = data, 
+        .f = prepare_response_variables_yi
       ),
       diversity_data = purrr::map2(
         .x = diversity_data,
@@ -47,10 +39,10 @@ prepare_response_variables_yi <- function(data,
 #' Back-transform analyst `yi` estiamtes to the response scale
 #'
 #' @param data dataframe of out of sample predictions analyst submission data
-#' @param estimate_type The type of estimate to be standardised. Character vector of length 1, whose value may be  "yi", "y25", "y50", "y75".
-#' @param dataset One of either "blue tit" or "eucalyptus"
-#'
 #' @return A tibble of analyst data with standardised values contained in a list-column called 'back_transformed_data'
+#' @details
+#' `data` must contain the columns: `id_col`, `augmented_data`, `transformation`, `response_transformation_status`, where `augmented_data` is a list-column of dataframes containing the analyst predictions, `transformation` is the transformation used in the model, and `response_transformation_status` is the status of the response transformation.
+#' 
 #' @export
 #' @import dplyr
 #' @importFrom purrr pmap
@@ -58,12 +50,9 @@ prepare_response_variables_yi <- function(data,
 #' @importFrom pointblank col_exists
 #' @family Analysis-level functions
 #' @family Back-transformation
-back_transform_response_vars_yi <- function(data,
-                                            estimate_type = character(1L),
-                                            dataset = character(1L)) {
+back_transform_response_vars_yi <- function(data) {
   # TODO insert checks that appropriate columns exist
   # TODO apply to data and check that all cases accounted for!
-  match.arg(estimate_type, choices = c("yi", "y25", "y50", "y75"), several.ok = FALSE)
   
   out <- data %>%
     pointblank::col_exists(

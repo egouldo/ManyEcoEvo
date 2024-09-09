@@ -116,14 +116,9 @@ prepare_response_variables <- function(data,
     out <- out %>%
       ungroup() %>%
       dplyr::mutate(
-        data = purrr::map2( #TODO assign to data or not?
+        data = purrr::map(
           .x = data, 
-          .y = dataset,
-          .f = ~ back_transform_response_vars_yi(
-            dat = .x,
-            estimate_type = !!{estimate_type},
-            dataset = .y
-          )
+          .f = ~ back_transform_response_vars_yi(.x)
         ),
         diversity_data = 
           map2(
