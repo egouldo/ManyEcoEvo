@@ -4,11 +4,7 @@
 \alias{prepare_response_variables_yi}
 \title{Prepare response variable data for nested ManyEcoEvo \code{yi} dataset}
 \usage{
-prepare_response_variables_yi(
-  data,
-  estimate_type = character(1L),
-  param_table = NULL
-)
+prepare_response_variables_yi(data)
 }
 \arguments{
 \item{data}{Complete ManyEcoEvo-style dataset containing nested datasets for each different analysis and exclusion set dataset.}

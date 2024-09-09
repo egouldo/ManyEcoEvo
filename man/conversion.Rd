@@ -46,7 +46,6 @@ Other Back-transformation:
 \code{\link{back_transform_response_vars_yi}()},
 \code{\link{clean_response_transformation}()},
 \code{\link{conversion_2}()},
-\code{\link{convert_predictions}()},
-\code{\link{rename_prediction_cols}()}
+\code{\link{convert_predictions}()}
 }
 \concept{Back-transformation}

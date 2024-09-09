@@ -5,7 +5,7 @@
 \title{Prepare response variable data for nested ManyEcoEvo dataset}
 \usage{
 prepare_response_variables(
-  ManyEcoEvo,
+  data,
   estimate_type = character(1L),
   param_table = NULL,
   dataset_standardise = NULL,
@@ -14,7 +14,7 @@ prepare_response_variables(
 )
 }
 \arguments{
-\item{ManyEcoEvo}{Complete ManyEcoEvo dataset containing nested datasets for each different analysis and exclusion set dataset}
+\item{data}{Complete ManyEcoEvo dataset containing nested datasets for each different analysis and exclusion set dataset}
 
 \item{estimate_type}{A character string of length 1, equal to either "Zr", "yi", "y25", "y50", "y75", indicating what type of estimates are being prepared.}
 
@@ -33,10 +33,9 @@ Prepare response variable data for nested ManyEcoEvo dataset
 \details{
 Operates on nested list-columns of dataframes, where each dataframe contains the response variable data for a single analysis. The function standardises the response variable data for each analysis, and returns the modified dataset to the \code{data} list-column.
 
-Note that if \code{ManyEcoEvo} does not have an \code{estimate_type} column, it will be added with the value of \code{estimate_type}. This is because some transformation functions require the \code{estimate_type} column to be present in the dataset.
+Note that if \code{data} does not have an \code{estimate_type} column, it will be added with the value of \code{estimate_type}. This is because some transformation functions require the \code{estimate_type} column to be present in the dataset.
 }
 \examples{
-data(ManyEcoEvo)
 ManyEcoEvo \%>\% prepare_response_variables(estimate_type = "Zr")
 }
 \seealso{

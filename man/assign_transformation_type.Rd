@@ -32,7 +32,6 @@ Other Back-transformation:
 \code{\link{clean_response_transformation}()},
 \code{\link{conversion}()},
 \code{\link{conversion_2}()},
-\code{\link{convert_predictions}()},
-\code{\link{rename_prediction_cols}()}
+\code{\link{convert_predictions}()}
 }
 \concept{Back-transformation}

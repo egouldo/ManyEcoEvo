@@ -31,7 +31,6 @@ Other Analysis-level functions:
 \code{\link{convert_predictions}()},
 \code{\link{folded_params}()},
 \code{\link{pmap_wrap}()},
-\code{\link{rename_prediction_cols}()},
 \code{\link{variance_box_cox}()}
 }
 \concept{Analysis-level functions}

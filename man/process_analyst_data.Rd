@@ -112,7 +112,6 @@ Other Analysis-level functions:
 \code{\link{convert_predictions}()},
 \code{\link{est_to_zr}()},
 \code{\link{folded_params}()},
-\code{\link{rename_prediction_cols}()},
 \code{\link{variance_box_cox}()}
 
 Other Analysis-level functions: 
@@ -123,7 +122,6 @@ Other Analysis-level functions:
 \code{\link{convert_predictions}()},
 \code{\link{est_to_zr}()},
 \code{\link{folded_params}()},
-\code{\link{rename_prediction_cols}()},
 \code{\link{variance_box_cox}()}
 }
 \concept{Analysis-level functions}

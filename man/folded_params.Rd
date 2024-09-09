@@ -30,7 +30,6 @@ Other Analysis-level functions:
 \code{\link{convert_predictions}()},
 \code{\link{est_to_zr}()},
 \code{\link{pmap_wrap}()},
-\code{\link{rename_prediction_cols}()},
 \code{\link{variance_box_cox}()}
 }
 \concept{Analysis-level functions}
