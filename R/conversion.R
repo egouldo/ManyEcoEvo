@@ -73,7 +73,7 @@ conversion <- function(beta, se, transformation, sim = 10000) {
       pluck(1, 2) %>%
       as.numeric()
     if (rlang::is_na(n)) {
-      return(data.frame(mean_origin = NA, m_est = NA, se_origin = NA, lower = NA, upper = NA))
+      return(data.frame(mean_origin = NA, m_est = NA, se_origin = NA, sd_origin = NA, lower = NA, upper = NA))
     } else {
       power_back(beta, se, sim, n)
     }
@@ -82,12 +82,12 @@ conversion <- function(beta, se, transformation, sim = 10000) {
       pluck(1, 3) %>%
       as.numeric()
     if (rlang::is_na(n)) {
-      return(data.frame(mean_origin = NA, m_est = NA, se_origin = NA, lower = NA, upper = NA))
+      return(data.frame(mean_origin = NA, m_est = NA, se_origin = NA, sd_origin = NA, lower = NA, upper = NA))
     } else {
       divide_back(beta, se, sim, n)
     }
   } else if (transformation == "double_transformation") {
-    return(data.frame(mean_origin = NA, m_est = NA, se_origin = NA, lower = NA, upper = NA))
+    return(data.frame(mean_origin = NA, m_est = NA, se_origin = NA, sd_origin = NA, lower = NA, upper = NA))
   } else {
     identity_back(beta, se, sim) # TODO change conditional logic to ensure strange transformations not put through here
   }

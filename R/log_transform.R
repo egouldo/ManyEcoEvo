@@ -19,11 +19,13 @@ log_transform <- function(estimate = numeric(1L),
     na.omit()
   
   m_est <- mean(log_simulated)
-  std.error_est <- sd(log_simulated) / sqrt(length(log_simulated))
+  sd_est <- sd(log_simulated)
+  std.error_est <- sd_est / sqrt(length(log_simulated))
   quantiles <- quantile(log_simulated, c(0.025, 0.975), na.rm = TRUE)
   
   out <- data.frame(mean_log = m_est, 
                     se_log = std.error_est, 
+                    sd_log = sd_est,
                     lower = quantiles[[1]], 
                     upper = quantiles[[2]])
   
