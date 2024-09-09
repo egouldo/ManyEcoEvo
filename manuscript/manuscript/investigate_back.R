@@ -183,6 +183,7 @@ back_transformed_se_bt <-
   select(contains("id"), starts_with("estimate"), starts_with("se"), starts_with("sd"), transformation_type) %>% 
   rename("sd.fit.back" = "sd.fit") 
 
+#+ message = FALSE, warning = FALSE
 check_transformations_se <- 
   back_transformed_se %>% 
   rowwise(id_col, scenario) %>% 
