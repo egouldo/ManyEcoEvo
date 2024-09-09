@@ -1,3 +1,4 @@
+devtools::load_all()
 out <- targets::tar_read(ManyEcoEvo_yi) %>% 
   mutate(
     data = 
@@ -146,6 +147,13 @@ back_transformed_sd_sims <-
   relocate(contains("sd_log"), .after = starts_with("sd.")) %>% 
   select(-contains("ci"), -contains("lower"), -contains("upper")) 
 
+check_transformations_se
+
+back_transformed_se_sims
+
+check_transformations_sd
+
+back_transformed_sd_sims
 
 # ---- blue tit ---
     
@@ -186,3 +194,5 @@ check_transformations_se <-
   relocate(contains("se_log"), .after = starts_with("se.")) %>% 
   relocate(contains("sd_log"), .after = starts_with("sd.")) %>% 
   select(-contains("ci"), -contains("lower"), -contains("upper")) 
+
+check_transformations_se
