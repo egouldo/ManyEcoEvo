@@ -96,7 +96,7 @@ data(ManyEcoEvo_yi)
 ManyEcoEvo_yi \%>\%
 filter(dataset == "eucalyptus") \%>\%
   pluck("data", 1) \%>\%
-  back_transform_response_vars_yi("yi", "eucalyptus") \%>\%
+  back_transform_response_vars_yi() \%>\%
   log_transform_response()
 }
 \seealso{
@@ -112,7 +112,6 @@ Other Analysis-level functions:
 \code{\link{convert_predictions}()},
 \code{\link{est_to_zr}()},
 \code{\link{folded_params}()},
-\code{\link{rename_prediction_cols}()},
 \code{\link{variance_box_cox}()}
 
 Other Analysis-level functions: 
@@ -123,7 +122,6 @@ Other Analysis-level functions:
 \code{\link{convert_predictions}()},
 \code{\link{est_to_zr}()},
 \code{\link{folded_params}()},
-\code{\link{rename_prediction_cols}()},
 \code{\link{variance_box_cox}()}
 }
 \concept{Analysis-level functions}

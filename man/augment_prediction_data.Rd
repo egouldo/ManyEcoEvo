@@ -9,12 +9,12 @@ augment_prediction_data(.data, checks, dataset)
 \arguments{
 \item{.data}{A data.frame of out of-sample-predictions analyst submission data}
 
-\item{checks}{A data.frame of pointblank interrogation output for \code{.data}}
+\item{checks}{A data.frame of \verb{pointblank::} interrogation output for \code{.data}}
 
 \item{dataset}{A character string equal to either "blue tit" or "eucalyptus"}
 }
 \value{
-A dataframe. Individual analyst submission containing augmented
+A dataframe of individual analyst submission containing augmented
 out-of-sample prediction data ready for meta-analysis.
 }
 \description{

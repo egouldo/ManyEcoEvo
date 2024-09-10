@@ -67,13 +67,16 @@ conversion <- function(beta, se, transformation, sim = 10000) {
     square_root_back(beta, se, sim)
   } else if (transformation == "(power3)/100") {
     x100 <- divide_back(beta, se, sim, 100)
-    cube_back(x100$mean_origin, x100$se_origin, sim = 1000)
+    cube_back(x100$mean_origin, x100$se_origin, sim)
   } else if (stringr::str_detect(transformation, "power")) {
     n <- str_split(transformation, "power") %>%
       pluck(1, 2) %>%
       as.numeric()
     if (rlang::is_na(n)) {
-      return(data.frame(mean_origin = NA, m_est = NA, se_origin = NA, lower = NA, upper = NA))
+      return(data.frame(mean_origin = NA, 
+                        se_origin = NA, 
+                        lower = NA, 
+                        upper = NA))
     } else {
       power_back(beta, se, sim, n)
     }
@@ -82,12 +85,18 @@ conversion <- function(beta, se, transformation, sim = 10000) {
       pluck(1, 3) %>%
       as.numeric()
     if (rlang::is_na(n)) {
-      return(data.frame(mean_origin = NA, m_est = NA, se_origin = NA, lower = NA, upper = NA))
+      return(data.frame(mean_origin = NA, 
+                        se_origin = NA, 
+                        lower = NA, 
+                        upper = NA))
     } else {
       divide_back(beta, se, sim, n)
     }
   } else if (transformation == "double_transformation") {
-    return(data.frame(mean_origin = NA, m_est = NA, se_origin = NA, lower = NA, upper = NA))
+    return(data.frame(mean_origin = NA, 
+                      se_origin = NA, 
+                      lower = NA, 
+                      upper = NA))
   } else {
     identity_back(beta, se, sim) # TODO change conditional logic to ensure strange transformations not put through here
   }

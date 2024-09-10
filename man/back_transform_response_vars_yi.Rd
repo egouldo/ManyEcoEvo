@@ -4,24 +4,19 @@
 \alias{back_transform_response_vars_yi}
 \title{Back-transform analyst \code{yi} estiamtes to the response scale}
 \usage{
-back_transform_response_vars_yi(
-  data,
-  estimate_type = character(1L),
-  dataset = character(1L)
-)
+back_transform_response_vars_yi(data)
 }
 \arguments{
 \item{data}{dataframe of out of sample predictions analyst submission data}
-
-\item{estimate_type}{The type of estimate to be standardised. Character vector of length 1, whose value may be  "yi", "y25", "y50", "y75".}
-
-\item{dataset}{One of either "blue tit" or "eucalyptus"}
 }
 \value{
 A tibble of analyst data with standardised values contained in a list-column called 'back_transformed_data'
 }
 \description{
 Back-transform analyst \code{yi} estiamtes to the response scale
+}
+\details{
+\code{data} must contain the columns: \code{id_col}, \code{augmented_data}, \code{transformation}, \code{response_transformation_status}, where \code{augmented_data} is a list-column of dataframes containing the analyst predictions, \code{transformation} is the transformation used in the model, and \code{response_transformation_status} is the status of the response transformation.
 }
 \seealso{
 Other Analysis-level functions: 
@@ -32,7 +27,6 @@ Other Analysis-level functions:
 \code{\link{est_to_zr}()},
 \code{\link{folded_params}()},
 \code{\link{pmap_wrap}()},
-\code{\link{rename_prediction_cols}()},
 \code{\link{variance_box_cox}()}
 
 Other Back-transformation: 
@@ -41,8 +35,7 @@ Other Back-transformation:
 \code{\link{clean_response_transformation}()},
 \code{\link{conversion}()},
 \code{\link{conversion_2}()},
-\code{\link{convert_predictions}()},
-\code{\link{rename_prediction_cols}()}
+\code{\link{convert_predictions}()}
 }
 \concept{Analysis-level functions}
 \concept{Back-transformation}
