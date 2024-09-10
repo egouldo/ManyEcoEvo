@@ -4,10 +4,10 @@
 \alias{generate_exclusion_subsets}
 \title{Generate subsets of analyst data based on different exclusion criteria}
 \usage{
-generate_exclusion_subsets(ManyEcoEvo, estimate_type = NULL)
+generate_exclusion_subsets(data, estimate_type = NULL)
 }
 \arguments{
-\item{ManyEcoEvo}{A dataframe containing at minimum the character column \code{dataset} and list-columns \code{data} and \code{diversity_data}.}
+\item{data}{A dataframe containing at minimum the character column \code{dataset} and list-columns \code{data} and \code{diversity_data}.}
 
 \item{estimate_type}{character vector, one of \code{"Zr", "yi", "y25", "y50", "y75", NULL}.}
 }
@@ -18,11 +18,11 @@ A \code{dataframe} grouped by \code{dataset} and \code{exclusion_set} that conta
 Generates subsets of data with different combinations of outliers removed for different \code{exclusion_set}s.
 }
 \details{
-If \code{estimate_type} is \code{NULL}, the column \code{estimate_type} must be in \code{ManyEcoEvo}.
+If \code{estimate_type} is \code{NULL}, the column \code{estimate_type} must be in \code{data}.
 
 This function uses the functions \code{\link[=subset_fns_Zr]{subset_fns_Zr()}} and []subset_fns_yi() to create named lists with elements containing \verb{purrr::}-style lambda functions, whose element name is the name of the function.
 
-If \code{NULL} is provided to the argument \code{estimate_type}, then the column \code{estimate_type} must exist in \code{ManyEcoEvo}, as this column will be used to filter the exclusion criteria functions.
+If \code{NULL} is provided to the argument \code{estimate_type}, then the column \code{estimate_type} must exist in \code{data}, as this column will be used to filter the exclusion criteria functions.
 
 The value of column \code{exclusion_set} in the returned object will be the name of the exclusion criteria function, with the prefix "subset_" removed, derived from either \code{\link[=subset_fns_Zr]{subset_fns_Zr()}} or \code{\link[=subset_funs_yi]{subset_funs_yi()}}, depending on the \code{estimate_type}.
 
