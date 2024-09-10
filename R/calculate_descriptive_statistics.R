@@ -22,7 +22,23 @@
 #'   prepare_df_for_summarising()
 #' @import dplyr
 prepare_df_for_summarising <- function(data) {
+  
+  pointblank::expect_col_exists(
+    data, 
+    columns = c(
+      num_fixed_variables,
+      num_random_variables,
+      sample_size,
+      num_interactions,
+      Bayesian, 
+      mixed_model,
+      num_fixed_effects,
+      num_random_effects,
+      linear_model
+    ))
+  
   data %>%
+    ungroup() %>% 
     mutate(
       across(
         .cols = c(
@@ -64,6 +80,7 @@ prepare_df_for_summarising <- function(data) {
 #' @importFrom purrr map
 #' @importFrom purrr list_flatten
 #' @importFrom tibble tibble
+#' @importFrom pointblank expect_col_exists
 #' @examples
 #' id_subsets <- list(ManyEcoEvo:::effect_ids, ManyEcoEvo:::prediction_ids)
 #' subset_names <- c("effects", "predictions")
@@ -81,9 +98,29 @@ prepare_df_for_summarising <- function(data) {
 #'   filter_expressions = filter_vars
 #' )
 prepare_sorenson_summary_data <- function(data, data_subset_name = "all", id_subsets = list(), subset_names = character(0L), filter_expressions = NULL) {
+  # ---- Argument Checking ----
   if (length(id_subsets) != length(subset_names)) {
     cli::cli_abort("Length of `id_subsets` and `subset_names` must be equal")
   }
+  
+  required_colnames <- c("diversity_indices", "data")
+  
+  if (rlang::is_list(filter_expressions)) {
+    if (!all(map_lgl(filter_expressions, rlang::is_call))) {
+      cli_abort("{.arg filter_expressions} must be a list of calls")
+    } else {
+      required_colnames <-  filter_expressions %>% 
+        map(rlang::f_lhs) %>% 
+        map(rlang::as_string) %>% 
+        list_c() %>%
+        append(values = required_colnames) %>% 
+        unique()
+    }
+  }
+  
+  pointblank::expect_col_exists(data, columns = required_colnames)
+  
+  # ---- Prepare Data ----
   
   out <-
     data %>%
@@ -121,10 +158,10 @@ prepare_sorenson_summary_data <- function(data, data_subset_name = "all", id_sub
 #' @export
 #' @importFrom cli cli_abort
 #' @import dplyr
-#' @importFrom tidyr unnest
-#' @importFrom purrr map
-#' @importFrom purrr list_flatten
+#' @importFrom tidyr unnest separate_wider_delim
+#' @importFrom purrr map list_flatten
 #' @importFrom tibble tibble
+#' @importFrom pointblank expect_col_exists
 #' @examples
 #' id_subsets <- list(ManyEcoEvo:::effect_ids, ManyEcoEvo:::prediction_ids)
 #' subset_names <- c("effects", "predictions")
@@ -139,12 +176,14 @@ prepare_diversity_summary_data <- function(data, data_subset_name = "all", id_su
     cli::cli_abort("Length of `id_subsets` and `subset_names` must be equal")
   }
   
+  pointblank::expect_col_exists(data, "diversity_data")
+  
   data %>%
     select(diversity_data) %>%
     unnest(everything()) %>%
     mutate(new = id_col) %>%
     separate_wider_delim(new, "-",
-                         names = c("response_id", "submission_id", "analysis_id", "split_id"),
+                         names = c("response_id", "submission_id", "analysis_id", "split_id"), #TODO generalise
                          too_many = "merge"
     ) %>%
     mutate_at(c("submission_id", "analysis_id", "split_id"), as.numeric) %>%
@@ -172,10 +211,11 @@ prepare_diversity_summary_data <- function(data, data_subset_name = "all", id_su
 #' @export
 #' @importFrom cli cli_abort
 #' @import dplyr
-#' @importFrom tidyr unnest
-#' @importFrom purrr map
-#' @importFrom purrr list_flatten
+#' @importFrom tidyr unnest drop_na
+#' @importFrom purrr map list_flatten
 #' @importFrom tibble tibble
+#' @importFrom janitor compare_df_cols
+#' @importFrom pointblank expect_col_exists
 #' @examples
 #' id_subsets <- list(ManyEcoEvo:::effect_ids, ManyEcoEvo:::prediction_ids)
 #' subset_names <- c("effects", "predictions")
@@ -185,10 +225,22 @@ prepare_diversity_summary_data <- function(data, data_subset_name = "all", id_su
 #'   id_subsets,
 #'   subset_names
 #' )
-prepare_analyst_summary_data <- function(data, data_subset_name = "all", id_subsets = list(), subset_names = character(0L)) {
+prepare_analyst_summary_data <- function(data, data_subset_name = "all", id_subsets, subset_names = character(0L)) {
   if (length(id_subsets) != length(subset_names)) {
     cli::cli_abort("Length of `id_subsets` and `subset_names` must be equal")
   }
+  
+  stopifnot( 
+    "data should be a data.frame" = is.data.frame(data),
+    "id_subsets must be a list" = 
+      is.list(id_subsets),
+    "Colnames of id_subsets are not equal" = 
+      {janitor::compare_df_cols(id_subsets) %>% 
+          drop_na() %>% 
+          nrow()} >= 1
+  )
+  
+  pointblank::expect_col_exists(data, columns = "data")
   
   make_subset <- function(x, y) {
     left_join(x, y, by = join_by("id_col")) %>%
@@ -222,16 +274,11 @@ prepare_analyst_summary_data <- function(data, data_subset_name = "all", id_subs
 #' @export
 #' @importFrom cli cli_abort
 #' @import dplyr
-#' @importFrom purrr map
-#' @importFrom purrr reduce
-#' @importFrom purrr reduce2
-#' @importFrom purrr pmap
-#' @importFrom purrr list_rbind
-#' @importFrom purrr set_names
-#' @importFrom tidyr pivot_longer
-#' @importFrom tidyr pivot_wider
-#' @importFrom tidyr unnest
+#' @importFrom purrr map reduce reduce2 pmap list_rbind set_names map_lgl list_c pluck
+#' @importFrom tidyr pivot_longer pivot_wider unnest spread drop_na
 #' @importFrom tibble enframe
+#' @importFrom pointblank expect_col_exists
+#' @importFrom rlang is_null is_list
 #' @examples
 #' id_subsets <- list(ManyEcoEvo:::effect_ids, ManyEcoEvo:::prediction_ids)
 #' subset_names <- c("effects", "predictions")
@@ -244,9 +291,44 @@ prepare_analyst_summary_data <- function(data, data_subset_name = "all", id_subs
 #' )
 #' summarise_study(ManyEcoEvo::ManyEcoEvo, ManyEcoEvo::ManyEcoEvo_results, id_subsets, subset_names, filter_vars = filter_vars)
 summarise_study <- function(ManyEcoEvo, ManyEcoEvo_results, id_subsets, subset_names, filter_vars = NULL) {
+  
   if (length(id_subsets) != length(subset_names)) {
     cli::cli_abort("Length of `id_subsets` and `subset_names` must be equal")
   }
+  
+  stopifnot(
+    is.data.frame(ManyEcoEvo),
+    is.data.frame(ManyEcoEvo_results),
+    rlang::is_null(filter_vars) | rlang::is_list(filter_vars)
+  )
+  
+  required_columns_ManyEcoEvo <- c("diversity_data")
+  
+  pointblank::expect_col_exists(
+    ManyEcoEvo, 
+    columns = required_columns_ManyEcoEvo
+  )
+  
+  required_colnanmes_ManyEcoEvo_results <- NULL
+  
+  if (rlang::is_list(filter_vars)) {
+    if (!all(map_lgl(filter_vars, rlang::is_call))) {
+      cli_abort("{.arg filter_vars} must be a list of calls")
+    } else {
+      required_colnanmes_ManyEcoEvo_results <-  filter_vars %>% 
+        map(rlang::f_lhs) %>% 
+        map(rlang::as_string) %>% 
+        list_c() %>%
+        append(values = required_colnanmes_ManyEcoEvo_results) %>% 
+        unique()
+    }
+  }
+  
+  pointblank::expect_col_exists(
+    ManyEcoEvo_results, 
+    columns = required_colnanmes_ManyEcoEvo_results
+  )
+  
   
   # ------ Prepare Summary Data Subsets ------
   
@@ -437,6 +519,9 @@ summarise_study <- function(ManyEcoEvo, ManyEcoEvo_results, id_subsets, subset_n
 #'   calc_teams_per_dataset("all")
 #' @import dplyr
 calc_teams_per_dataset <- function(data, subset_name = character(1L)) {
+  
+  pointblank::expect_col_exists(data, columns = c("TeamIdentifier", "dataset"))
+  
   data %>%
     group_by(dataset) %>%
     count(TeamIdentifier) %>%
@@ -461,7 +546,11 @@ calc_teams_per_dataset <- function(data, subset_name = character(1L)) {
 #'   prepare_df_for_summarising() %>%
 #'   calc_analyses_per_team("All")
 #' @import dplyr
+#' @importFrom pointblank expect_col_exists
 calc_analyses_per_team <- function(data, subset_name = character(1L)) { # TODO this is calculating number of analyses per dataset not number of analyses per team per dataset ...
+  
+  pointblank::expect_col_exists(data, columns = c("dataset"))
+  
   data %>%
     count(dataset, name = "totalanalyses") %>%
     mutate(subset = subset_name)
@@ -485,7 +574,8 @@ calc_analyses_per_team <- function(data, subset_name = character(1L)) { # TODO t
 #' @return A tibble containing the mean, standard deviation, minimum and maximum
 #' values for each numeric variable used in analyses of each dataset for a given subset.
 #' @export
-#'
+#' @importFrom pointblank expect_col_exists
+#' @import dplyr
 #' @examples
 #' ManyEcoEvo::ManyEcoEvo %>%
 #'   select(data) %>%
@@ -493,6 +583,14 @@ calc_analyses_per_team <- function(data, subset_name = character(1L)) { # TODO t
 #'   prepare_df_for_summarising() %>%
 #'   calc_summary_stats_numeric("All")
 calc_summary_stats_numeric <- function(data, subset_name = character(1L)) {
+  
+  pointblank::expect_col_exists(data, 
+                                columns = c("dataset",
+                                            "num_fixed_effects",
+                                            "num_random_effects",
+                                            "sample_size",
+                                            "num_interactions"))
+  
   data %>%
     group_by(dataset) %>%
     summarise(
@@ -504,10 +602,10 @@ calc_summary_stats_numeric <- function(data, subset_name = character(1L)) {
           interactions = num_interactions,
         ),
         .fns = list(
-          mean = ~ mean(.x, na.rm = T) %>% round(2),
-          sd = ~ sd(.x, na.rm = T) %>% round(2),
-          min = ~ min(.x, na.rm = T),
-          max = ~ max(.x, na.rm = T)
+          mean = ~ mean(.x, na.rm = TRUE) %>% round(2),
+          sd = ~ sd(.x, na.rm = TRUE) %>% round(2),
+          min = ~ min(.x, na.rm = TRUE),
+          max = ~ max(.x, na.rm = TRUE)
         ),
         .names = "{.fn}_{.col}"
       ),
@@ -528,7 +626,8 @@ calc_summary_stats_numeric <- function(data, subset_name = character(1L)) {
 #'
 #' @return A tibble containing the sum of binary variables used in analyses of each dataset for a given subset.
 #' @export
-#'
+#' @importFrom pointblank expect_col_exists
+#' @import dplyr
 #' @examples
 #' ManyEcoEvo::ManyEcoEvo %>%
 #'   select(data) %>%
@@ -536,12 +635,20 @@ calc_summary_stats_numeric <- function(data, subset_name = character(1L)) {
 #'   prepare_df_for_summarising() %>%
 #'   calc_summary_stats_binary("All")
 calc_summary_stats_binary <- function(data, subset_name = character(1L)) {
+  
+  pointblank::expect_col_exists(data, 
+                                columns = c("dataset",
+                                            "lm",
+                                            "mixed_model",
+                                            "Bayesian"))
+  
   data %>%
     group_by(dataset) %>%
     summarise(.,
               sum_linear = sum(lm, na.rm = T),
               sum_mixed = sum(mixed_model, na.rm = T),
-              sum_Bayesian = sum(Bayesian, na.rm = T), subset = subset_name
+              sum_Bayesian = sum(Bayesian, na.rm = T), 
+              subset = subset_name
     )
 }
 
@@ -603,13 +710,14 @@ count_conclusions <- function(data, subset_name = character(1L)) {
                                     "dataset"
                                   )
   )
+  
   out <- data %>%
     filter(split_id == 1 & analysis_id == 1) %>% #TODO switch to using `first()` so that we don't require columns split_id and analysis_id to exist
     group_by(dataset, pick(contains("Conclusion"))) %>%
     summarise(count = n(), .groups = "drop") %>%
     filter(
       if_any(contains("Conclusion"), ~ !is.na(.x)),
-      if_any(contains("Conclusion"), ~ .x != "CHECK")
+      if_any(contains("Conclusion"), ~ .x != "CHECK") #TODO rm
     ) %>%
     mutate(subset = subset_name)
   
