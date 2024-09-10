@@ -3,14 +3,14 @@
 #' @description
 #' Generates subsets of data with different combinations of outliers removed for different `exclusion_set`s.
 #'
-#' @param ManyEcoEvo A dataframe containing at minimum the character column `dataset` and list-columns `data` and `diversity_data`.
+#' @param data A dataframe containing at minimum the character column `dataset` and list-columns `data` and `diversity_data`.
 #' @param estimate_type character vector, one of \code{"Zr", "yi", "y25", "y50", "y75", NULL}.
 #' @details 
-#' If `estimate_type` is `NULL`, the column `estimate_type` must be in `ManyEcoEvo`. 
+#' If `estimate_type` is `NULL`, the column `estimate_type` must be in `data`. 
 #' 
 #' This function uses the functions [subset_fns_Zr()] and []subset_fns_yi() to create named lists with elements containing `purrr::`-style lambda functions, whose element name is the name of the function.
 #' 
-#' If `NULL` is provided to the argument `estimate_type`, then the column `estimate_type` must exist in `ManyEcoEvo`, as this column will be used to filter the exclusion criteria functions.
+#' If `NULL` is provided to the argument `estimate_type`, then the column `estimate_type` must exist in `data`, as this column will be used to filter the exclusion criteria functions.
 #' 
 #' The value of column `exclusion_set` in the returned object will be the name of the exclusion criteria function, with the prefix "subset_" removed, derived from either [subset_fns_Zr()] or [subset_funs_yi()], depending on the `estimate_type`.
 #' 
@@ -25,7 +25,7 @@
 #' @importFrom purrr map2 exec
 #' @importFrom pointblank test_col_exists
 #' @importFrom rlang is_null
-generate_exclusion_subsets <- function(ManyEcoEvo, estimate_type = NULL) {
+generate_exclusion_subsets <- function(data, estimate_type = NULL) {
 
   match.arg(
     arg = estimate_type,
@@ -54,16 +54,16 @@ generate_exclusion_subsets <- function(ManyEcoEvo, estimate_type = NULL) {
     )
 
   if (!rlang::is_null(estimate_type)) { # When argument `estimate_type` is not NULL
-    if (pointblank::test_col_exists(ManyEcoEvo, "estimate_type")) {
-      ManyEcoEvo <- ManyEcoEvo %>%
+    if (pointblank::test_col_exists(data, "estimate_type")) {
+      data <- data %>%
         select(-"estimate_type")
     }
 
     df <- subset_fns_df %>%
       pointblank::col_exists("estimate_type") %>%
       dplyr::filter(estimate_type == !!{{ estimate_type }}) %>%
-      dplyr::mutate(ManyEcoEvo = list(ManyEcoEvo)) %>%
-      tidyr::unnest(ManyEcoEvo) %>%
+      dplyr::mutate(data = list(data)) %>%
+      tidyr::unnest(data) %>%
       ungroup() %>% 
       dplyr::mutate(
         data =
@@ -82,7 +82,7 @@ generate_exclusion_subsets <- function(ManyEcoEvo, estimate_type = NULL) {
         .keep = "unused"
       ) # TODO duplicate cols for euc R_1LRqq2WHrQaENtM, glasgow?
   } else { # When argument estimate_type is NULL
-    df <- ManyEcoEvo %>%
+    df <- data %>%
       pointblank::col_exists("estimate_type") %>%
       dplyr::left_join(subset_fns_df, by = join_by("estimate_type")) %>%
       ungroup() %>%
