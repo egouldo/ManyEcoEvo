@@ -19,6 +19,8 @@
 #' @importFrom stringr str_detect
 generate_rating_subsets <- function(data) {
   
+  pointblank::expect_col_exists(data, c("data", "diversity_data", "exclusion_set"))
+  
   out <- data %>%
     filter(exclusion_set == "complete" | exclusion_set == "partial") %>%
     mutate(
