@@ -344,7 +344,7 @@
     },
     "bayestestR": {
       "Package": "bayestestR",
-      "Version": "0.13.2",
+      "Version": "0.14.0",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -356,7 +356,7 @@
         "stats",
         "utils"
       ],
-      "Hash": "4a6a2eebe2db1dfb1c792c4ed91e73dc"
+      "Hash": "71e7da5d38487173de67a1f0d763ceef"
     },
     "beeswarm": {
       "Package": "beeswarm",
@@ -769,7 +769,7 @@
     },
     "correlation": {
       "Package": "correlation",
-      "Version": "0.8.4",
+      "Version": "0.8.5",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -781,7 +781,7 @@
         "parameters",
         "stats"
       ],
-      "Hash": "d8bd29a9abda6eed9aaab3ba5769f231"
+      "Hash": "0995955fd59a01caf80918913bc5066c"
     },
     "corrplot": {
       "Package": "corrplot",
@@ -920,7 +920,7 @@
     },
     "datawizard": {
       "Package": "datawizard",
-      "Version": "0.10.0",
+      "Version": "0.12.3",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -929,7 +929,7 @@
         "stats",
         "utils"
       ],
-      "Hash": "62d6ec10346d3302a1299e1c54641d83"
+      "Hash": "611537168bbb78b57720de109ec1ad19"
     },
     "dbplyr": {
       "Package": "dbplyr",
@@ -1134,7 +1134,7 @@
     },
     "effectsize": {
       "Package": "effectsize",
-      "Version": "0.8.8",
+      "Version": "0.8.9",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -1147,7 +1147,7 @@
         "stats",
         "utils"
       ],
-      "Hash": "6709e156cf7869d95d8fd6e365337d2c"
+      "Hash": "7aceb5e07b6d48171c6b56714cc305ea"
     },
     "ellipsis": {
       "Package": "ellipsis",
@@ -2099,7 +2099,7 @@
     },
     "insight": {
       "Package": "insight",
-      "Version": "0.20.2",
+      "Version": "0.20.4",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -2108,7 +2108,7 @@
         "stats",
         "utils"
       ],
-      "Hash": "74a0751aafb4d4bc140531e46deda4ab"
+      "Hash": "8457d6e682a49f2c87b698a830527b09"
     },
     "ipred": {
       "Package": "ipred",
@@ -2578,7 +2578,7 @@
     },
     "modelbased": {
       "Package": "modelbased",
-      "Version": "0.8.7",
+      "Version": "0.8.8",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -2593,7 +2593,7 @@
         "stats",
         "utils"
       ],
-      "Hash": "857859a5dd55f53a2c6ab14fbdb6acc1"
+      "Hash": "be0465e9a8078f1c5a15344a2c130266"
     },
     "modelenv": {
       "Package": "modelenv",
@@ -2878,7 +2878,7 @@
     },
     "parameters": {
       "Package": "parameters",
-      "Version": "0.22.1",
+      "Version": "0.22.2",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -2891,7 +2891,7 @@
         "stats",
         "utils"
       ],
-      "Hash": "d54adeaf90f744bd8a342a46153a3fe5"
+      "Hash": "ee0115da94a9cf7c451615415ce65c03"
     },
     "parsnip": {
       "Package": "parsnip",
@@ -2971,7 +2971,7 @@
     },
     "performance": {
       "Package": "performance",
-      "Version": "0.12.2",
+      "Version": "0.12.3",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -2982,7 +2982,7 @@
         "stats",
         "utils"
       ],
-      "Hash": "6d0d9762077b82869a0ea9b17787b01e"
+      "Hash": "92be9503bc3394c464688fb6b03002e3"
     },
     "permute": {
       "Package": "permute",
@@ -3868,7 +3868,7 @@
     },
     "see": {
       "Package": "see",
-      "Version": "0.8.4",
+      "Version": "0.9.0",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -3886,7 +3886,7 @@
         "performance",
         "stats"
       ],
-      "Hash": "3d2fd0b72314499e6af4fd20d39309dc"
+      "Hash": "743de04e180938d89e913f392dc9a104"
     },
     "selectr": {
       "Package": "selectr",
