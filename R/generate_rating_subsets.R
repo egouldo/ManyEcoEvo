@@ -2,7 +2,7 @@
 #' @description Generates two subsets of data based on for both complete and partial exclusion datasets for both `yi` and `Zr` estimates.
 #'
 #'
-#' @param ManyEcoEvo a ManyEcoEvo dataframe containing formatted raw `data`, formatted `diversity_data`, the `estimate_type`, and `dataset`
+#' @param data a ManyEcoEvo dataframe containing formatted raw `data`, formatted `diversity_data`, the `estimate_type`, and `dataset`
 #'
 #' @return A ManyEcoEvo dataframe with added column `exclusion_set` with new subsets of `data` and `diversity_data`
 #' @export
@@ -17,9 +17,9 @@
 #' @importFrom forcats fct_relevel as_factor
 #' @importFrom tidyr unnest pivot_longer nest
 #' @importFrom stringr str_detect
-generate_rating_subsets <- function(ManyEcoEvo) {
+generate_rating_subsets <- function(data) {
   
-  out <- ManyEcoEvo %>%
+  out <- data %>%
     filter(exclusion_set == "complete" | exclusion_set == "partial") %>%
     mutate(
       data =
@@ -93,7 +93,7 @@ generate_rating_subsets <- function(ManyEcoEvo) {
   
   # Bind new subsets with input data
   out <- bind_rows(
-    ManyEcoEvo %>%
+    data %>%
       mutate(publishable_subset = "All"),
     out
   )
