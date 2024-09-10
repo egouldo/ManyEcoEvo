@@ -15,6 +15,7 @@ toc()
 
 
 # ---- Read targets and use data ----
+Sys.sleep(10) # Wait for targets to finish building
 
 # Load targets required for main manuscript / package:
 tic()
