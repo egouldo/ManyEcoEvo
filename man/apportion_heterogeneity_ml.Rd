@@ -13,7 +13,7 @@ apportion_heterogeneity_ml(fitted_model)
 A named numeric vector of length 2.
 }
 \description{
-Estimates how much the total variance $I^2$ can be attributed to between- and within- cluster heterogeneity separately.
+Estimates how much the total variance \eqn{I^2} can be attributed to between- and within- cluster heterogeneity separately.
 }
 \details{
 From \url{http://www.metafor-project.org/doku.php/tips:i2_multilevel_multivariate}

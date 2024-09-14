@@ -30,5 +30,5 @@ make_param_table(ManyEcoEvo::blue_tit_data)
 make_param_table(ManyEcoEvo::euc_data)
 }
 \seealso{
-The table from this function is used to standardize out-of-sample predictions $y_i$ in \code{\link[=pred_to_Z]{pred_to_Z()}}
+The table from this function is used to standardize out-of-sample predictions \eqn{y_i} in \code{\link[=pred_to_Z]{pred_to_Z()}}
 }

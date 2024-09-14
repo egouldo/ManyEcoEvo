@@ -12,7 +12,7 @@ A named list of \code{lambda} functions
 \description{
 Generates a list of functions that are used to subset the
 processed ManyEcoEvo dataset (e.g.\verb{data(ManyEcoEvo_results}) containing
-out-of-sample predictions $y_i$.
+out-of-sample predictions \eqn{y_i}.
 }
 \details{
 The subset functions are used to filter out predictions that are not

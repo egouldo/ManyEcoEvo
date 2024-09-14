@@ -15,7 +15,7 @@ conversion_2(beta, se, response_transformation, link_fun, sim = 10000)
 
 \item{link_fun}{Character string describing link function}
 
-\item{sim}{Number of simulations to use during back-transformation. Defaults to $10000$.}
+\item{sim}{Number of simulations to use during back-transformation. Defaults to \code{10000}.}
 }
 \value{
 The outputs of a back-transformation function, see family back-transformations
