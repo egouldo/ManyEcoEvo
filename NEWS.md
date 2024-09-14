@@ -1,7 +1,15 @@
-# ManyEcoEvo (development version)
+# ManyEcoEvo 2.7.6.9002
 
 <!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
 
+- [docs]!: `devtools::document()`
+- [bug]!: #153 update deviation ~ peer-rating model structures
+- [docs]: #102 wrap equations in `\eqn{}` instead of `$ $`
+- [docs]!: `devtools::document()`
+- #116 add argument check
+- #97 rename `ManyEcoEvo` arg as `data`
+- fix #75 ensure columns not rm in rating subset generation, and that review data cols are all re-nested
+- add argument checking for summary fns #116 and update roxygen imports #102
 - #151 rm reprex and investigation script
 - fix!: #151 revert to taking sd() from normalised distribution prior to back-transformation and assigning as SE
 - analysis #151 add additional reprex chunk to quiet output
