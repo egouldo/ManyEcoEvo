@@ -1,4 +1,4 @@
-# ManyEcoEvo 2.7.6.9002
+# ManyEcoEvo 2.7.6.9003
 
 <!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
 
