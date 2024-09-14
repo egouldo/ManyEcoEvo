@@ -5,7 +5,7 @@
 #' @param se Standard error of the `beta` estimate, numeric vector of length 1
 #' @param response_transformation Character string describing transformation
 #' @param link_fun Character string describing link function
-#' @param sim Number of simulations to use during back-transformation. Defaults to $10000$.
+#' @param sim Number of simulations to use during back-transformation. Defaults to `10000`.
 #'
 #' @return The outputs of a back-transformation function, see family back-transformations
 #' @export

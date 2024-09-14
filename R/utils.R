@@ -52,7 +52,7 @@ subset_fns_Zr <- function() { # TODO update calling of this fn (switch to fn rat
 #'
 #' @description Generates a list of functions that are used to subset the 
 #' processed ManyEcoEvo dataset (e.g.`data(ManyEcoEvo_results`) containing 
-#' out-of-sample predictions $y_i$. 
+#' out-of-sample predictions \eqn{y_i}. 
 #' 
 #' @details 
 #' The subset functions are used to filter out predictions that are not 
