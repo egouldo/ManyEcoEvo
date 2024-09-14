@@ -6,6 +6,9 @@
 #' @param outcome_var Variance of the `outcome` variable
 #'
 #' @return An object of class `lme4::lmerMod-class`
+#' @details The model is fitted using the [lme4::lmer()] function. The outcome variable is selected by the user `outcome`, and the variance of the outcome variable is specified in the argument `outcome_var`. The model is fitted with the continuous ratings predictor `RateAnalysis` and a random effect for `ReviewerId`. 
+#' 
+#' Note that the variables `study_id`, `outcome`, `outcome_var`, and the list-column `review_data` must be present in `data`. The `review_data` column is unnested (see [tidyr::unnest()]) by the function before fitting the model. Within `review_data`, the variables `RateAnalysis` and `ReviewerId` must be present.
 #' @export
 #' @family Model fitting and meta-analysis
 #' @import dplyr
@@ -21,7 +24,7 @@ fit_boxcox_ratings_cont <- function(data, outcome, outcome_var, ..., env = rlang
   )
   pointblank::expect_col_exists(
     data, 
-    columns = c(starts_with("box_cox_abs_"),
+    columns = c(
                 {{outcome}},
                 {{outcome_var}},
                 study_id,
@@ -41,14 +44,15 @@ fit_boxcox_ratings_cont <- function(data, outcome, outcome_var, ..., env = rlang
     ) %>%
     unnest(cols = c(review_data)) %>%
     ungroup() %>%
-    pointblank::col_exists(columns = c("RateAnalysis", "ReviewerId")) %>% 
+    pointblank::col_exists(columns = c("RateAnalysis",
+                                       "ReviewerId")) %>% 
     mutate(., obs_id = 1:nrow(.)) 
   
   f <- rlang::new_formula(
     rlang::ensym(outcome),
     rlang::expr(
       RateAnalysis +
-        (1 | study_id) # NOTE: ReviewerId removed due to singularity
+        (1 | ReviewerId) 
     ),
     env = env
   )

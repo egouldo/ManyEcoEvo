@@ -7,6 +7,9 @@
 #' @param interceptless A logical relating to whether the model should be interceptless or not. Defaults to `FALSE`.
 #'
 #' @return An object of class `lme4::lmerMod-class`
+#' @details The model is fitted using the [lme4::lmer()] function with the outcome variable as the response variable and the categorical ratings predictor as the fixed effect `PublishableAsIs`. The model is fitted with a random effect of `study_id` to account for the repeated observations within analyses due to multiple peer-reviews per analysis.
+#' 
+#' Note that the variables `study_id`, `outcome`, `outcome_var`, and the list-column `review_data` must be present in `data`. The `review_data` column is unnested (see [tidyr::unnest()]) by the function before fitting the model. Within `review_data`, the variables `PublishableAsIs` and `ReviewerId` must be present.
 #' @export
 #' @family Model fitting and meta-analysis
 #' @importFrom lme4 lmer
@@ -34,7 +37,7 @@ fit_boxcox_ratings_cat <- function(data, outcome, outcome_var, interceptless = F
   
   pointblank::expect_col_exists(
     data, 
-    columns = c(starts_with("box_cox_abs_"),
+    columns = c(
                 {{outcome}},
                 {{outcome_var}},
                 study_id,
@@ -48,7 +51,7 @@ fit_boxcox_ratings_cat <- function(data, outcome, outcome_var, interceptless = F
     data %>%
     unnest(cols = c(review_data)) %>%
     pointblank::col_exists(
-      columns = c("PublishableAsIs", "ReviewerId")
+      columns = c("PublishableAsIs"),
     ) %>%
     select(
       study_id,
@@ -76,7 +79,7 @@ fit_boxcox_ratings_cat <- function(data, outcome, outcome_var, interceptless = F
       rlang::ensym(outcome),
       rlang::expr(
         PublishableAsIs +
-          (1 | ReviewerId)
+          (1 | study_id)
       ),
       env = env
     )
@@ -86,7 +89,7 @@ fit_boxcox_ratings_cat <- function(data, outcome, outcome_var, interceptless = F
     f <- rlang::new_formula(
       rlang::ensym(outcome),
       rlang::expr(
-        -1 + PublishableAsIs + (1 | ReviewerId)
+        -1 + PublishableAsIs + (1 | study_id)
       ),
       env = env
     )
