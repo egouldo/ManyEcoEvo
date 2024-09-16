@@ -51,13 +51,12 @@ fit_boxcox_ratings_cat <- function(data, outcome, outcome_var, interceptless = F
     data %>%
     unnest(cols = c(review_data)) %>%
     pointblank::col_exists(
-      columns = c("PublishableAsIs"),
+      columns = c("PublishableAsIs", "ReviewerId"),
     ) %>%
     select(
       study_id,
       ReviewerId,
       PublishableAsIs,
-      starts_with("box_cox_"), #TODO - delete this row?
       {{ outcome }},
       {{ outcome_var }}
     ) %>%
@@ -79,7 +78,7 @@ fit_boxcox_ratings_cat <- function(data, outcome, outcome_var, interceptless = F
       rlang::ensym(outcome),
       rlang::expr(
         PublishableAsIs +
-          (1 | study_id)
+          (1 | ReviewerId)
       ),
       env = env
     )
@@ -89,7 +88,7 @@ fit_boxcox_ratings_cat <- function(data, outcome, outcome_var, interceptless = F
     f <- rlang::new_formula(
       rlang::ensym(outcome),
       rlang::expr(
-        -1 + PublishableAsIs + (1 | study_id)
+        -1 + PublishableAsIs + (1 | ReviewerId)
       ),
       env = env
     )
