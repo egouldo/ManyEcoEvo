@@ -1,7 +1,8 @@
-# ManyEcoEvo 2.7.6.9003
-
 <!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
 
+# ManyEcoEvo 2.7.6.9004
+
+- #153 Revert back to ReviewerID random effect for Deviation ~ Categorical Ratings model
 - [docs]!: `devtools::document()`
 - [bug]!: #153 update deviation ~ peer-rating model structures
 - [docs]: #102 wrap equations in `\eqn{}` instead of `$ $`
