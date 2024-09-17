@@ -31,7 +31,7 @@ plot_cont_rating_effects <- function(df = data.frame(), response = character(), 
     mod <- lm(f, data = df)
   } else {
     f <- as.formula(paste(as.name(response), "~ ", as.name(predictor), "+ (1 | ", as.name(group), ")"))
-    mod <- lmer(formula = f, data = df)
+    mod <- lme4::lmer(formula = f, data = df)
   } # Because ggeffects looks for the model variable in the gloabl environment...
 
   predictions <- ggeffects::ggpredict(mod)
