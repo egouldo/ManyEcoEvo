@@ -380,18 +380,18 @@ transformation_tbl <- tribble(
   "scaling and centering", "identity",
   "mean centered and standardized", "identity",
   "log", "log",
-  "orderNorm", NA, # TODO, ensure that this is the best behaviour - we need to exclude this first, rather than let it through here.. because else it gets passed through identity_back() inside conversion()
+  "orderNorm", NA,
   "divided.by.14", "divided.by.14",
   "square.root", "square_root",
   "back.transformed", "back.transformed",
   "z.score", "identity",
   "(power3)/100", "(power3)/100"
-) 
-
+)
 
 # ------- Write data internally -------
 
-usethis::use_data(expert_subset,
+usethis::use_data(
+  expert_subset,
   analysis_data_param_tables,
   collinearity_subset,
   prediction_ids,
