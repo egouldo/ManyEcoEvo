@@ -30,7 +30,7 @@ suppressPackageStartupMessages(library(tidyverse))
 
 ### Anonymising Data
 
-We have anonymised our public dataset `data(ManyEcoEvo)` `anonymise_teams()`, which takes a look-up table of new and old identifier names with which to replace each analysis identifier. The lookup table and original non-anonymised data can be stored in a private repository or component, on the OSF for example, while the anonymised dataset can be released publicly.
+We have anonymised our dataset using `anonymise_teams()`; which takes a look-up table of new and old identifier names with which to replace each analysis identifier. Our public dataset is `data(ManyEcoEvo)`. The lookup table and de-anonymised dataset is stored in a private component on the project's OSF. We recommend this practice of separating the anonymised and de-anonymised data, to ensure that the identities of analysts remain confidential while adhering to open practices.
 
 ## Data Pre-processing for Meta-analysis
 
