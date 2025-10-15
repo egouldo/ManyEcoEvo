@@ -364,7 +364,7 @@ prediction_ids <- tibble::tribble(
   "Childers-1-1-1",
   "Childers-2-2-1",
   "Cessnock-1-1-1"
-) # TODO ask HF where/how derived (used data pasta to copy from HF's files)
+) # Derived by HF
 
 # ------ Create transformation_tbl -----
 
