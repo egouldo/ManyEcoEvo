@@ -191,7 +191,9 @@ prepare_diversity_summary_data <- function(data, data_subset_name = "all", id_su
       map(id_subsets, left_join, ., by = join_by("id_col"))
     }) %>%
     list_flatten() %>%
-    tibble(data = ., subset_name = c(data_subset_name, subset_names))
+    tibble(data = ., subset_name = 
+             c(data_subset_name, 
+               subset_names))
 }
 
 #' Prepare data for summarising analyst summary statistics
@@ -477,13 +479,20 @@ summarise_study <- function(ManyEcoEvo, ManyEcoEvo_results, id_subsets, subset_n
   
   # ----- Combine Outputs -----
   
-  list(subsets_tibble, subsets_tibble_variables, subsets_tibble_sorensen) %>%
+  list(subsets_tibble, 
+       subsets_tibble_variables, 
+       subsets_tibble_sorensen) %>%
     reduce(left_join, by = join_by("data", "subset_name")) %>%
     left_join(Total_Teams_Per_Analysis,
               by = join_by("subset_name" == "subset")
     ) %>%
     reduce2(
-      .x = list(SorensenSummary, teams_per_subset, Table4, Table3, Table2, Table1),
+      .x = list(SorensenSummary, 
+                teams_per_subset, 
+                Table4, 
+                Table3, 
+                Table2, 
+                Table1),
       .y = c(
         "sorensen_summary",
         "teams_per_subset",
