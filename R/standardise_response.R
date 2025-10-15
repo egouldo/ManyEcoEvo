@@ -59,7 +59,9 @@ standardise_response <- function(data,
   
   # TODO insert checks that appropriate columns exist
   # TODO apply to data and check that all cases accounted for!
-  match.arg(estimate_type, choices = c("Zr", "yi", "y25", "y50", "y75"), several.ok = FALSE)
+  match.arg(estimate_type, 
+            choices = c("Zr", "yi", "y25", "y50", "y75"), 
+            several.ok = FALSE)
   
   cli::cli_h1(c("Computing meta-analysis inputs", 
                 "for {.arg estimate_type} = ", 
@@ -69,7 +71,9 @@ standardise_response <- function(data,
     
     # ------ Convert Effect Sizes to Zr -------
     
-    cli::cli_h2(paste0("Computing standardised effect sizes ", "{.code Zr}", " and variance ", "{.code VZr}"))
+    cli::cli_h2(paste0("Computing standardised effect sizes ", 
+                       "{.code Zr}", 
+                       " and variance ", "{.code VZr}"))
     
     data <- data %>%
       dplyr::mutate(

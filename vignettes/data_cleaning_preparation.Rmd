@@ -44,14 +44,14 @@ We provide the function `standardise_response()` to standardise a data-frame of 
 
 data("ManyEcoEvo")
 
-blue_tit_effect_sizes <- 
-  ManyEcoEvo %>% 
-  dplyr::filter(dataset == "blue tit") %>% 
-  pluck("data", 1) %>% 
-  slice(1:10) %>% 
-  select(contains("id"), 
+blue_tit_effect_sizes <-
+  ManyEcoEvo %>%
+  dplyr::filter(dataset == "blue tit") %>%
+  pluck("data", 1) %>%
+  slice(1:10) %>%
+  select(contains("id"),
          -response_id_S2,
-         contains("beta"), 
+         contains("beta"),
          adjusted_df)
 
 blue_tit_effect_sizes
@@ -60,7 +60,11 @@ standardise_response(dat = blue_tit_effect_sizes,
                      estimate_type = "Zr",
                      param_table = NULL, 
                      dataset = "blue tit") %>% 
-  select(id_col, contains("beta"), adjusted_df, Zr, VZr )
+  select(id_col, 
+         contains("beta"), 
+         adjusted_df, 
+         Zr, 
+         VZr )
 ```
 
 Note that if any of `beta_estimate`, `beta_SE` or `adjusted_df` are missing, `standardise_response()` is unable to compute standardised correlation coefficients $Z_r$ and the associated variance $\text{VZ}_r$.
@@ -88,7 +92,7 @@ blue_tit_back_transformed <-
     contains("transformation"),
     augmented_data, 
     back_transformed_data
-  ) #TODO transformation column seems wrong! but output from convert_predictions() suggests correct transformation occured!
+  ) #TODO transformation column seems wrong! but output from convert_predictions() suggests correct transformation occurred!
 
 blue_tit_back_transformed
 
@@ -106,27 +110,35 @@ blue_tit_standardised <-
     id_col,
     params, 
     transformation,
-    augmented_data, 
+    augmented_data,
     back_transformed_data
   )
 
 blue_tit_standardised
 
 # ----- parameters ---- 
-blue_tit_standardised %>% pluck("params", 1) 
-blue_tit_standardised %>% pluck("params", 2) # gets a different set depending on the variable
+blue_tit_standardised %>%
+  pluck("params", 1) 
+blue_tit_standardised %>%
+  pluck("params", 2) # gets a different set depending on the variable
 
 # ---- raw predictions data ----
-blue_tit_back_transformed %>% pluck("augmented_data", 1)
-blue_tit_back_transformed %>% pluck("back_transformed_data", 1)
+blue_tit_back_transformed %>%
+  pluck("augmented_data", 1)
+blue_tit_back_transformed %>% 
+  pluck("back_transformed_data", 1)
 
 # ---- back-transformed & standardised predictions_data ----
-blue_tit_standardised %>% pluck("back_transformed_data", 1) 
+blue_tit_standardised %>% 
+  pluck("back_transformed_data", 1) 
 
 MA_data_yi <- blue_tit_standardised %>% 
   select(id_col, back_transformed_data) %>% 
   unnest(back_transformed_data) %>% 
-  pointblank::col_vals_between(columns = "Z", left = -3, right = 3, inclusive = TRUE)
+  pointblank::col_vals_between(columns = "Z", 
+                               left = -3, 
+                               right = 3, 
+                               inclusive = TRUE)
 ```
 
 ### Standardising effect-sizes to $Z_r$ {#sec-standardisation}
