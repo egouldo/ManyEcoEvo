@@ -34,7 +34,7 @@ We have anonymised our dataset using `anonymise_teams()`; which takes a look-up 
 
 ## Data Pre-processing for Meta-analysis
 
-The meta-analysis requires that all estimates are on the same scale. This is because the meta-analysis is based on the assumption that the outcome measures are comparable. Note that the ManyAnalysts project utilises two different outcomes for meta-analysis, standardised effect-sizes, or $Z_r$ and out-of-sample predictions $y_i$, But alternative effect-size measures may be utilised instead[^1].
+Meta-analysis requires that all estimates are standardised to the same scale. This is because the meta-analysis is based on the assumption that the outcome measures are comparable. Note that the ManyAnalysts project utilises two different outcomes for meta-analysis, standardised effect-sizes, or $Z_r$ and out-of-sample predictions $y_i$, But alternative effect-size measures may be utilised instead[^1] for your meta-analysis. 
 
 [^1]: See Table 2 in @nakagawa2023: <https://environmentalevidencejournal.biomedcentral.com/articles/10.1186/s13750-023-00301-6/tables/2>
 
