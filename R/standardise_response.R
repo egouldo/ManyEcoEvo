@@ -37,8 +37,6 @@ NULL
 #' variable will not be standardised, and NA will be returned for that entry in `back_transformed_data`.
 #' @export
 #' @describeIn process_analyst_data Standardise response data for meta-analysis
-#' @family Analysis-level functions
-#' @seealso [est_to_zr()],[assign_transformation_type()], [pred_to_Z()]
 #' @examples
 #' # Standardise effect-sizes for eucalyptus dataset
 #' 
@@ -194,7 +192,6 @@ process_response <- function(data, ...){
 #' @importFrom purrr map
 #' @importFrom rlang is_na
 #' @describeIn process_analyst_data Standardise response data for meta-analysis
-#' @family Analysis-level functions
 log_transform_response <- function(data, sim = 10000L, ...) {
   # TODO insert checks that appropriate columns exist
   # TODO apply to data and check that all cases accounted for!
