@@ -196,7 +196,6 @@ prepare_response_variables <- function(data,
 }
 
 #' Wrapper function to standardise response variables
-#' @rdname process_analyst_data
 #' @seealso This internal helper function is called by [prepare_response_variables()]
 #' @importFrom rlang caller_env exec
 #' @keywords internal
