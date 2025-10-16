@@ -2,7 +2,7 @@
 % Please edit documentation in R/apply_sorensen_calc.R
 \name{apply_sorensen_calc}
 \alias{apply_sorensen_calc}
-\title{Applies the sorensen diversity index calculation to variable diversity dataset}
+\title{Applies the Sorensen diversity index calculation to variable diversity dataset}
 \usage{
 apply_sorensen_calc(data)
 }
@@ -13,7 +13,7 @@ apply_sorensen_calc(data)
 A tibble containing the variables \code{id_col}, \code{mean_diversity_index} and \code{num_variables}
 }
 \description{
-Applies the sorensen diversity index calculation to variable diversity dataset
+Applies the Sorensen diversity index calculation to variable diversity dataset
 }
 \seealso{
 \code{\link[=calculate_sorensen_diversity_index]{calculate_sorensen_diversity_index()}}
@@ -25,7 +25,7 @@ Other Analysis-level functions:
 \code{\link{convert_predictions}()},
 \code{\link{est_to_zr}()},
 \code{\link{folded_params}()},
-\code{\link{pmap_wrap}()},
+\code{\link{pred_to_Z}()},
 \code{\link{variance_box_cox}()}
 }
 \concept{Analysis-level functions}

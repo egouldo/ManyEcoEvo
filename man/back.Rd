@@ -78,7 +78,6 @@ We assume analysts' estimates are normally distributed. Each function uses a nor
 }}
 \seealso{
 Other Back-transformation: 
-\code{\link{assign_transformation_type}()},
 \code{\link{back_transform_response_vars_yi}()},
 \code{\link{clean_response_transformation}()},
 \code{\link{conversion}()},
@@ -86,7 +85,6 @@ Other Back-transformation:
 \code{\link{convert_predictions}()}
 
 Other Back-transformation: 
-\code{\link{assign_transformation_type}()},
 \code{\link{back_transform_response_vars_yi}()},
 \code{\link{clean_response_transformation}()},
 \code{\link{conversion}()},
@@ -94,7 +92,6 @@ Other Back-transformation:
 \code{\link{convert_predictions}()}
 
 Other Back-transformation: 
-\code{\link{assign_transformation_type}()},
 \code{\link{back_transform_response_vars_yi}()},
 \code{\link{clean_response_transformation}()},
 \code{\link{conversion}()},
@@ -102,7 +99,6 @@ Other Back-transformation:
 \code{\link{convert_predictions}()}
 
 Other Back-transformation: 
-\code{\link{assign_transformation_type}()},
 \code{\link{back_transform_response_vars_yi}()},
 \code{\link{clean_response_transformation}()},
 \code{\link{conversion}()},
@@ -110,7 +106,6 @@ Other Back-transformation:
 \code{\link{convert_predictions}()}
 
 Other Back-transformation: 
-\code{\link{assign_transformation_type}()},
 \code{\link{back_transform_response_vars_yi}()},
 \code{\link{clean_response_transformation}()},
 \code{\link{conversion}()},
@@ -118,7 +113,6 @@ Other Back-transformation:
 \code{\link{convert_predictions}()}
 
 Other Back-transformation: 
-\code{\link{assign_transformation_type}()},
 \code{\link{back_transform_response_vars_yi}()},
 \code{\link{clean_response_transformation}()},
 \code{\link{conversion}()},
@@ -126,7 +120,6 @@ Other Back-transformation:
 \code{\link{convert_predictions}()}
 
 Other Back-transformation: 
-\code{\link{assign_transformation_type}()},
 \code{\link{back_transform_response_vars_yi}()},
 \code{\link{clean_response_transformation}()},
 \code{\link{conversion}()},
@@ -134,7 +127,6 @@ Other Back-transformation:
 \code{\link{convert_predictions}()}
 
 Other Back-transformation: 
-\code{\link{assign_transformation_type}()},
 \code{\link{back_transform_response_vars_yi}()},
 \code{\link{clean_response_transformation}()},
 \code{\link{conversion}()},
@@ -142,7 +134,6 @@ Other Back-transformation:
 \code{\link{convert_predictions}()}
 
 Other Back-transformation: 
-\code{\link{assign_transformation_type}()},
 \code{\link{back_transform_response_vars_yi}()},
 \code{\link{clean_response_transformation}()},
 \code{\link{conversion}()},
@@ -150,7 +141,6 @@ Other Back-transformation:
 \code{\link{convert_predictions}()}
 
 Other Back-transformation: 
-\code{\link{assign_transformation_type}()},
 \code{\link{back_transform_response_vars_yi}()},
 \code{\link{clean_response_transformation}()},
 \code{\link{conversion}()},
@@ -158,7 +148,6 @@ Other Back-transformation:
 \code{\link{convert_predictions}()}
 
 Other Back-transformation: 
-\code{\link{assign_transformation_type}()},
 \code{\link{back_transform_response_vars_yi}()},
 \code{\link{clean_response_transformation}()},
 \code{\link{conversion}()},

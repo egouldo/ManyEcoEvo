@@ -30,7 +30,7 @@ Other Analysis-level functions:
 \code{\link{box_cox_transform}()},
 \code{\link{convert_predictions}()},
 \code{\link{folded_params}()},
-\code{\link{pmap_wrap}()},
+\code{\link{pred_to_Z}()},
 \code{\link{variance_box_cox}()}
 }
 \concept{Analysis-level functions}

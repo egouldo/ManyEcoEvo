@@ -30,11 +30,10 @@ Other Analysis-level functions:
 \code{\link{box_cox_transform}()},
 \code{\link{est_to_zr}()},
 \code{\link{folded_params}()},
-\code{\link{pmap_wrap}()},
+\code{\link{pred_to_Z}()},
 \code{\link{variance_box_cox}()}
 
 Other Back-transformation: 
-\code{\link{assign_transformation_type}()},
 \code{\link{back}},
 \code{\link{back_transform_response_vars_yi}()},
 \code{\link{clean_response_transformation}()},
