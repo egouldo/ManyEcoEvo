@@ -1,5 +1,7 @@
 #' Process Response Data for Meta-Analysis
 #' 
+#' @description
+#' This is a family of functions that process response data for meta-analysis, either standardising effect sizes / out-of-sample predictions, or simply formatting the data for meta-analysis without standardisation or transformation.
 #' @param data A tibble of analyst data with a list-column called
 #' @param ... Ignored
 #' @importFrom cli cli_h1 cli_h2 
@@ -142,8 +144,6 @@ standardise_response <- function(data,
 
 #' Process response data for meta-analysis
 #' 
-#' @description
-#' This function generates the response data for meta-analysis without standardising the effect sizes / out-of-sample predictions.
 #' @describeIn process_analyst_data Process response data for meta-analysis but do not standardise effect-sizes
 #' @details
 #' # `process_response()`
