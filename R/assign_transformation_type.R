@@ -9,7 +9,7 @@
 #' @export
 #' @import dplyr
 #' @importFrom rlang is_na
-#' @family Back-transformation
+#' @family Back-transformation Analysis-level functions
 #' @seealso [prepare_response_variables_yi(), standardise_response()]. To be called prior to [clean_response_transformation()].
 assign_transformation_type <- function(response_transformation = character(1L),
                                        link_fun = character(1L)) {
