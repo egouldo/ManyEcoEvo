@@ -23,7 +23,7 @@ NULL
 #' @details
 #' # `standardise_response()`
 #'
-#' When the `estimate_type` is `"Zr"`, [standardise_response()] standardises 
+#' When the `estimate_type` is `"Zr"`, `standardise_response()` standardises 
 #' effect-sizes with [est_to_zr()], assuming that the `beta_estimate` and 
 #' `beta_SE` values have already been back-transformed to the appropriate scale. #TODO check this.
 #' 
@@ -175,9 +175,9 @@ process_response <- function(data, ...){
 #' 
 #' @param sim a numeric vector of length 1L with the number of simulations that should be passed to [log_transform()]
 #' @details
-#' # [log_transform_response()]
+#' # log_transform_response()
 #' 
-#' maps [log_transform_yi()] onto back-transformed data stored in list-columns within [data]
+#' maps [log_transform_yi()] onto back-transformed data stored in list-columns within `data`
 #' @examples
 #' data(ManyEcoEvo_yi)
 #' ManyEcoEvo_yi %>%
