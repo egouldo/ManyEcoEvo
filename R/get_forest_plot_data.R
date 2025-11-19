@@ -17,16 +17,18 @@ get_forest_plot_data <- function(model){
     dplyr::mutate(
       point_shape = 
         ifelse(stringr::str_detect(term, "overall"), 
-               "diamond", 
-               "circle"),
+               "mean", 
+               "study"),
       term = 
         forcats::fct_reorder(term, 
                              estimate) %>% 
         forcats::fct_reorder(., 
                              point_shape,
-                             .desc = TRUE),
+                             .desc = FALSE),
       parameter_type = case_when(str_detect(term, "overall") ~ "mean",
                                  TRUE ~ "study"),
+      # point_shape = factor(point_shape, levels = c("study", "mean")),
+      # parameter_type = factor(parameter_type, levels = c("study", "mean")),
       meta_analytic_mean =  pull(., estimate, type) %>% 
         keep_at(at = "summary")) %>% 
     select(-type, Parameter = term, everything())
@@ -56,7 +58,8 @@ plot_forest <- function(data, intercept = TRUE, MA_mean = TRUE){
     data <- filter(data, Parameter != "overall")
   }
   
-  p <- ggplot(data, aes(y = estimate, 
+  p <- data %>% 
+    ggplot(aes(y = estimate, 
                         x =  Parameter, 
                         ymin = conf.low, 
                         ymax = conf.high,
@@ -69,14 +72,19 @@ plot_forest <- function(data, intercept = TRUE, MA_mean = TRUE){
           text = element_text(family = "Helvetica")#,
           # axis.text.y = element_blank()
     ) +
-    guides(shape = guide_legend(title = NULL), 
-           colour = guide_legend(title = NULL)) +
+    # guides(shape = guide_legend(title = NULL), 
+    #        colour = guide_legend(title = NULL)
+    #        ) +
     coord_flip() +
     ylab(bquote(Standardised~Effect~Size~Z[r])) +
     xlab(element_blank()) +
     # scale_y_continuous(breaks = c(-4,-3,-2,-1,0,1),
     # minor_breaks = seq(from = -4.5, to = 1.5, by = 0.5)) +
-    NatParksPalettes::scale_color_natparks_d("Glacier")
+    # NatParksPalettes::scale_color_natparks_d("Glacier")
+    scale_shape_manual(values = c("study" = 16, "mean" = 23), # circle and diamond
+                       name = NULL) +
+    scale_color_manual(values = c("study" = "#088096", "mean" = "#01353D"),
+                       name = NULL) 
   
   if (intercept == TRUE) {
     p <- p + geom_hline(yintercept = 0)
