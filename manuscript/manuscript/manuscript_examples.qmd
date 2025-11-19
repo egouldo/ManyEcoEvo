@@ -1,0 +1,207 @@
+---
+title: "Introducing the `ManyEcoEvo::` package"
+author: "Elliot Gould"
+format: html
+number-sections: true
+description: |
+  The `ManyEcoEvo` package provides tools for analysing many-analyst style data, specifically designed for the ManyEcoEvo project described in Gould et al. (202). This vignette demonstrates the core functionality for processing effect size estimates and conducting meta-analyses on data from multiple research teams analysing the same datasets.
+editor: visual
+tidy: styler
+---
+
+```{r setup}
+#| echo: false
+#| message: false
+# library(ManyEcoEvo)
+devtools::load_all()
+library(dplyr)
+library(metafor)
+library(tidyverse)
+set.seed(1)
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.width = 7,
+  fig.height = 5,
+  message = FALSE,
+  warning = FALSE
+)
+```
+
+The ManyEcoEvo dataset contains anonymised analyst responses for two research questions: one examining blue tit nestling growth (evolutionary biology) and another examining eucalyptus seedling recruitment (conservation ecology).
+
+```{r}
+# Load the built-in dataset
+data("ManyEcoEvo")
+# Examine the basic structure
+ManyEcoEvo
+glimpse(ManyEcoEvo)
+```
+
+The data is structured with list-columns:
+
+-    `data`: Contains the effect size estimates and analysis metadata for each dataset
+-    `diversity_data`: Contains information about variables used by each analysis team
+
+We will work with a subset of the the Blue tit dataset for illustration purposes.
+
+```{r}
+# Key columns for effect size analysis
+key_cols <- c("id_col", "TeamIdentifier", "beta_estimate", "beta_SE", 
+              "sample_size", "adjusted_df", "dataset", "mixed_model")
+
+analysis_data <- ManyEcoEvo %>% 
+  mutate(
+    data = map(data, ~ .x %>% 
+                  # mutate(study_id = id_col) %>% 
+                 filter(if_all(all_of(key_cols), ~ !is.na(.))) %>% 
+      slice_sample(n = 25) %>%
+      arrange(TeamIdentifier, analysis_id)
+    ),
+    diversity_data = map2(diversity_data, data, ~ 
+      semi_join(.x, .y, by = "id_col")
+    )
+  )
+
+effect_sizes <- analysis_data %>% 
+  pluck("data", 1) %>% 
+  select(all_of(key_cols))
+
+head(effect_sizes)
+```
+
+Each row represents a unique analysis (`id_col`), potentially with multiple analyses per team (`TeamIdentifier`).
+
+# Analysing the Blue tit dataset
+
+## Data Preparation for Meta-analysis
+
+The first step in any meta-analysis is ensuring that the estimands of interest – in this case, effect sizes as correlation coefficients – are on the same response scale to ensure that we are not 'comparing apples to oranges.'
+
+The meta-analyses in the ManyEcoEvo project are performed on Fishers' Z transformed correlation coefficients $Z_r$ with the function `est_to_zr()`, which is called b `standardise_response()`, adding columns of standardised estimates `Zr` and their variance `VZr`:
+
+```{r}
+
+standardised_effect_sizes <- effect_sizes %>% 
+  standardise_response(estimate_type = "Zr")
+
+standardised_effect_sizes %>% glimpse()
+```
+
+Now that we have standardised the analysts' estimates, we can progress to conducting our meta-analysis.
+
+## Meta-analysis and Univariate Analyses
+
+We fit a metaregression to the standardised effect sizes, using the `metafor::` package, with nested random effects:
+
+```{r}
+standardised_effect_sizes <- standardised_effect_sizes %>% 
+    mutate(study_id = id_col)
+
+ma_model <- fit_MA_mv(
+  effects_analysis = standardised_effect_sizes,
+  outcome_colname = "Zr",
+  outcome_SE_colname = "VZr", 
+  estimate_type = "Zr"
+)
+
+summary(ma_model)
+```
+
+### Calculate inputs for univariate analyses
+
+Calculate deviation of $Z_r$ from the meta-analytic mean for each analysis `id_col`, then Box-Cox transform each deviation score:
+
+```{r}
+effect_size_data <- standardised_effect_sizes %>% 
+  calculate_deviation_score(
+                          meta_analytic_model = ma_model,
+                          outcome_colname = "Zr"
+                          ) %>% 
+  # select(starts_with("abs_deviation_score_"))
+  box_cox_transform(dataset = "blue tit",
+                    outcome_SE_colname = "VZr")
+```
+
+Calculate mean Sorensen's diversity index for each analysis:
+
+```{r}
+
+# Extract diversity data
+diversity_data <- analysis_data %>% 
+  pluck("diversity_data", 1)
+
+mean_sorensen_data <- 
+  diversity_data %>% 
+  calculate_sorensen_diversity_index(.id = "id_col")
+
+mean_sorensen_data
+```
+
+### Regression on distinctiveness of analysis variables
+
+Join required `mean_diversity_indices` into `effect_size_data` and fit a univariate `glm::` model of deviation scores on mean Sorensen's diversity index. Note that the returned model is fitted using `parsnip::`.
+
+```{r}
+effect_size_data <- effect_size_data %>%
+  left_join(mean_sorensen_data, 
+            by = join_by(id_col))
+
+diversity_model <- fit_sorensen_glm(effect_size_data)
+diversity_model # View model summary
+```
+
+### Visualise Results
+
+Create a forest plot for the blue tit meta-analysis:
+
+```{r}
+get_forest_plot_data(ma_model) %>% 
+  plot_forest(intercept = TRUE)
+```
+
+Create a marginal effects plot for the univariate analysis on the distinctiveness of variables, back-transforming the response variables for easier interpretation:
+
+```{r}
+
+plot_effects_diversity(mod = diversity_model, 
+                       df = effect_size_data , 
+                       back_transform = TRUE)
+```
+
+# Scaling Up
+
+We conducted further univariate regressions to quantify the effects of different analysis features on heterogeneity among analysts' results in addition to the distinctiveness of variables in each analysis, as we illustrated above. We also performed the full analysis on a second dataset, the Eucalyptus dataset, and repeated the analysis on different outcome variables (point predictions from analysts' models, not shown in this manuscript), and different subsets of data (e.g., with outliers removed, with poorly rated analyses, among others).
+
+To make conducting multiple analyses easier and to facilitate scaling up the analysis pipeline for repeated application over different analysis questions, data subsets, and outcome variables, we provide a selection of 'wrapper' functions. The wrapper frameworks utilise the tidyverse's (ref) list-column data structures and iteration with `purrr::` (ref purrr and R4ds list-cols + iteration). Here, we illustrate the simplest case demonstrating this functionality, standardising the estimates in the Blue tit and Eucalyptus datasets, and computing the Sorensen diversity indices, and meta-analysing both datasets (separately) before constructing outputs for further visualisation.
+
+```{r}
+#| message: false
+#| warning: false
+#| results: hide
+meta_analysis_results <- 
+  analysis_data %>% 
+  prepare_response_variables(
+    estimate_type = "Zr",
+    dataset_standardise = 
+      c("blue tit", "eucalyptus")) %>% 
+  compute_MA_inputs() %>% 
+  meta_analyse_datasets() %>% 
+  make_viz()
+```
+
+The `make_viz()` function creates many other visualisation and summary objects for easy extraction:
+
+```{r}
+# Extract heterogeneity statistics
+meta_analysis_results %>% 
+  select(dataset, MA_fit_stats) %>%
+    unnest(MA_fit_stats) %>% 
+  drop_na()
+
+# Model fit statistics for univariate model of effect of peer-review ratings on heterogeneity
+meta_analysis_results %>% 
+  filter(model_name == "box_cox_rating_cat") %>% 
+  select(dataset, mod_fit_stats) %>% 
+  unnest(c(dataset, mod_fit_stats))
+```
