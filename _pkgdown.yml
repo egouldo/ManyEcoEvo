@@ -61,7 +61,6 @@ reference:
   - get_diversity_data
   - starts_with("prepare_")
   - split_yi_subsets
-  - rename_prediction_cols
 - title: Model Fitting & Meta-analysis
   desc: |
     Functions for fitting meta-analysis and other models described in *Gould
