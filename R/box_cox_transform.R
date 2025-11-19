@@ -16,7 +16,7 @@
 #' @importFrom stringr str_starts
 #' @importFrom tidyr hoist
 #' @seealso [variance_boxcox()], [folded_params()]
-box_cox_transform <- function(data, dataset, outcome_SE_colname) {
+box_cox_transform <- function(data, dataset, outcome_SE_colname) { #TODO undocumented arg 
   # ----- Argument Checking -----
   if ( any(rlang::is_na(data), rlang::is_null(data))) {
     cli::cli_alert_warning(
