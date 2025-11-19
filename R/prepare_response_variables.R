@@ -140,7 +140,7 @@ prepare_response_variables <- function(data,
         tibble(
           dataset = unique(out$dataset),
           fns = list(process_response) %>% 
-            set_names("process_response")
+            set_names("process_response") # Use the `process_response` fn
         )
       
     } else { #yi + standardise and/or log-transform
@@ -152,12 +152,12 @@ prepare_response_variables <- function(data,
           tibble(
             dataset = dataset_log_transform,
             fns = list(log_transform_response) %>% 
-              set_names("log_transform_response")
+              set_names("log_transform_response") # Use the `log_transform_response` fn
           ),
           tibble(
             dataset = dataset_standardise,
             fns = list(standardise_response) %>% 
-              set_names("standardise_response")
+              set_names("standardise_response") # Use the `standardise_response` fn
           )) %>% 
         drop_na() # in case of NULLs
       
@@ -173,7 +173,7 @@ prepare_response_variables <- function(data,
     transform_datasets <- 
       tibble(
         dataset = unique(out$dataset),
-        fns = list(standardise_response)  %>% 
+        fns = list(standardise_response)  %>% # Use the `standardise_response` fn
           set_names("standardise_response")
       )
   } 
@@ -183,7 +183,7 @@ prepare_response_variables <- function(data,
   out <- out %>%
     ungroup() %>%
     left_join(transform_datasets, by = "dataset") %>% 
-    mutate(fns = coalesce(fns, list(process_response))) %>%
+    mutate(fns = coalesce(fns, list(process_response))) %>% # Use the `process_response` fn
     mutate(data = pmap(.l = ., 
                        .f = pmap_wrap,
                        # estimate_type = !!{{estimate_type}},
