@@ -12,7 +12,7 @@
 #' - The deviation scores on transformed categorical ratings but with no intercept (for nice plotting / exploration).
 #'
 #' @param data A nested- dataframe grouped by `dataset` and / or `exclusion_set`, `estimate_type`, containing the list-column of prepared analyst subset data `effects_analysis` ready for meta-analysis.
-#' @param filter_vars A list of expressions to filter the `data` dataframe by. E.g. `rlang::exprs(exclusion_set == "complete", expertise_subset == "All", publishable_subset == "All", collinearity_subset == "All")`
+#' @param filter_vars An optional list of expressions to filter the `data` dataframe by. E.g. `rlang::exprs(exclusion_set == "complete", expertise_subset == "All", publishable_subset == "All", collinearity_subset == "All")`
 #' #' @param outcome_variable A named list containing either/and a list of `dataset`s and their corresponding outcome variables for each value of `dataset`, a list of `estimate_type`s and their corresponding outcome variables for each value of `estimate_type`.
 #' @return A nested dataframe with all columns of object parsed to arg `data`, but with additional columns for the results of each analysis: `MA_mod`, `sorensen_glm`, `box_cox_ratings_cont`, `box_cox_ratings_cat`, `box_cox_rating_cat_no_int`, `uni_mixed_effects`
 #' @export
