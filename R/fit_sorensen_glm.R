@@ -12,9 +12,21 @@
 #' @importFrom cli cli_h2 cli_alert_info
 #' @importFrom pointblank expect_col_exists
 #' @importFrom purrr simplify
+#' @importFrom rlang try_fetch
 fit_sorensen_glm <- function(data) {
   cli::cli_h2(c("Fitting glm for box-cox transformed outcome with sorensen diversity index as predictor"))
-  cli::cli_alert_info(dplyr::cur_group() %>% purrr::simplify()) # TODO only run when applied within a tibble on a list-col... want fn available on its own
+  # Only run cur_group() when called within a dplyr grouping context
+  rlang::try_fetch(
+    {
+      group_info <- dplyr::cur_group()
+      if (length(group_info) > 0) {
+        cli::cli_alert_info(group_info %>% purrr::simplify())
+      }
+    },
+    error = function(cnd) {
+      # Silently ignore if not in a dplyr grouping context
+    }
+  )
   
   pointblank::expect_col_exists(data, 
                                 columns = c(starts_with("box_cox_abs_"),

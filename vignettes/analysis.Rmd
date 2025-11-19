@@ -2,9 +2,9 @@
 title: "Analysing Many-Analyst Data"
 output: 
   bookdown::html_document2:
-      base_format: rmarkdown::html_vignette
-      fig_caption: yes
-      toc: true
+    base_format: rmarkdown::html_vignette
+    fig_caption: yes
+    toc: true
 pkgdown:
   as_is: true
 vignette: >
@@ -22,25 +22,210 @@ knitr::opts_chunk$set(
 
 ```{r setup}
 library(ManyEcoEvo)
+library(dplyr)
+library(metafor)
+library(tidyverse)
 ```
 
-Briefly describe what analyses we implemented, sending reader to the Gould et al. paper. and pointing out what functions correspond to which analyses.
+# Introduction
 
-You could theoretically write your own function for this, but the functions packaged here allow you to implement our specific meta-analyses.
+This vignette demonstrates the core analytical functions in the ManyEcoEvo package for analyzing many-analyst data. The package implements the specific meta-analyses described in Gould et al. (2025), providing functions for meta-analysis, secondary analyses examining sources of variation, and visualization of results.
 
-# Analysis
+The functions packaged here allow you to implement the specific meta-analytical approaches developed for the ManyEcoEvo project and reproduce the analyses described in Gould et al. (2025).
 
-## Meta-analysis
+```{r create-example-data}
+# Create example dataset for demonstration using ManyEcoEvo_results
+# This data already has effect sizes (Zr) and variances (VZr) calculated
 
-## Univariate analyses
+filter_vars <- rlang::exprs(exclusion_set == "complete",
+                            expertise_subset == "All",
+                            publishable_subset == "All",
+                            collinearity_subset == "All", 
+                            dataset == "blue tit")
 
-# Extracting model results
+analysis_data <- ManyEcoEvo_results %>% 
+  dplyr::filter(!!!filter_vars) %>% 
+  mutate(
+    data = map(data, ~ .x %>% 
+      slice_sample(n = 25) %>%
+      arrange(TeamIdentifier, analysis_id)
+    ),
+    diversity_data = map2(diversity_data, data, ~ 
+      semi_join(.x, .y, by = "id_col")
+    )
+  )
+
+# Extract the prepared effect size data
+effect_size_data <- analysis_data %>% pluck("data", 1)
+
+# Preview the structure - note Zr and VZr columns are already calculated
+glimpse(effect_size_data)
+```
+
+# Model Fitting & Meta-analysis Functions
+
+The core of the ManyEcoEvo analysis pipeline involves fitting meta-analysis models using the package's wrapper functions around metafor.
+
+## Using fit_MA_mv()
+
+```{r fit-MA-mv-demo}
+# Fit meta-analysis using package function with prepared data
+ma_model <- fit_MA_mv(
+  effects_analysis = effect_size_data,
+  outcome_colname = "Zr",
+  outcome_SE_colname = "VZr", 
+  estimate_type = "Zr"
+)
+
+# View summary
+summary(ma_model)
+```
+
+## Using fit_metafor_mv()
+
+```{r fit-metafor-mv-demo}
+# The underlying metafor wrapper function
+metafor_model <- fit_metafor_mv(
+  estimate = effect_size_data$Zr,
+  variance = effect_size_data$VZr,
+  estimate_type = "Zr",
+  data = effect_size_data
+)
+
+summary(metafor_model)
+```
+
+# Secondary Analyses Functions
+
+Beyond basic meta-analysis, the package implements several secondary analyses to understand sources of variation between analysts.
+
+## Univariate Analyses
+
+These analyses examine relationships between analytical choices and effect size deviations from the meta-analytic mean.
+
+```{r deviation-scores}
+# Calculate deviation scores from meta-analytic mean
+meta_mean <- coef(ma_model)
+
+effect_size_data_with_deviations <- effect_size_data %>%
+  mutate(
+    deviation = abs(Zr - meta_mean),
+    # Box-cox transformation of deviation scores
+    box_cox_abs_deviation_score_estimate = car::bcPower(deviation + 0.01, lambda = 0)
+  )
+```
+
+### Regression on Analytical Diversity
+
+```{r diversity-regression}
+# Add diversity data from the nested diversity_data column
+diversity_data <- analysis_data %>% 
+  unnest(diversity_data) %>%
+  select(id_col, sorensen_index = mean_sorensen_index) # placeholder column name
+
+effect_size_with_diversity <- effect_size_data_with_deviations %>%
+  left_join(diversity_data, by = "id_col")
+
+# GLM regression of deviation scores on Sorensen diversity indices
+diversity_model <- glm(
+  box_cox_abs_deviation_score_estimate ~ sorensen_index, 
+  data = effect_size_with_diversity,
+  family = gaussian()
+)
+
+summary(diversity_model)
+```
+
+### Regression on Peer-Review Ratings
+
+```{r review-regression}
+# Extract review data from the nested review_data column
+review_data <- effect_size_data %>%
+  select(id_col, review_data) %>%
+  unnest(review_data) %>%
+  # Placeholder - exact column names to be determined
+  select(id_col, RateAnalysis, PublishableAsIs) 
+
+effect_size_with_reviews <- effect_size_data_with_deviations %>%
+  left_join(review_data, by = "id_col")
+
+# Regression on continuous peer-review ratings
+rating_model <- glm(
+  box_cox_abs_deviation_score_estimate ~ RateAnalysis,
+  data = effect_size_with_reviews,
+  family = gaussian()
+)
+
+# Regression on categorical peer-review ratings  
+categorical_model <- glm(
+  box_cox_abs_deviation_score_estimate ~ PublishableAsIs,
+  data = effect_size_with_reviews,
+  family = gaussian()
+)
+
+summary(rating_model)
+summary(categorical_model)
+```
+
+### Regression on Model Types
+
+```{r model-type-regression}
+# Examine whether mixed-effects models deviate more from meta-analytic mean
+model_type_regression <- glm(
+  box_cox_abs_deviation_score_estimate ~ mixed_model,
+  data = effect_size_data_with_deviations,
+  family = gaussian()
+)
+
+summary(model_type_regression)
+
+# Regression on Bayesian vs frequentist approaches
+bayesian_regression <- glm(
+  box_cox_abs_deviation_score_estimate ~ Bayesian,
+  data = effect_size_data_with_deviations,
+  family = gaussian()
+)
+
+summary(bayesian_regression)
+```
+
+## Multivariate Analysis
+
+```{r multivariate-analysis}
+# Combine all predictors for multivariate regression
+# Placeholder - exact data joining to be determined
+full_analysis_data <- effect_size_data_with_deviations %>%
+  left_join(diversity_data, by = "id_col") %>%
+  left_join(review_data, by = "id_col")
+
+# Multivariate regression combining multiple predictors
+multivariate_model <- glm(
+  box_cox_abs_deviation_score_estimate ~ sorensen_index + mixed_model + Bayesian + RateAnalysis,
+  data = full_analysis_data,
+  family = gaussian()
+)
+
+summary(multivariate_model)
+```
+
+# Extracting Analysis Outputs Functions
+
+The package provides functions to extract key statistics and results from fitted models.
 
 ## Model Checking
 
-## Heterogeneity statistics
+```{r model-checking}
+# Check meta-analysis model assumptions
+plot(ma_model)
 
-## Forest Plots
+# Extract heterogeneity statistics
+tau_squared <- ma_model$tau2
+i_squared <- ma_model$I2
 
-## Specification Curves
+paste("Tau-squared:", round(tau_squared, 3))
+paste("I-squared:", round(i_squared, 1), "%")
+```
 
+## Heterogeneity Statistics
+
+```{r heterog
