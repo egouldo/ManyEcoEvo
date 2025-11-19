@@ -2,16 +2,12 @@
 % Please edit documentation in R/prepare_response_variables_yi.R
 \name{prepare_response_variables_yi}
 \alias{prepare_response_variables_yi}
-\title{Prepare response variable data for nested ManyEcoEvo dataset - out of sample predictions only}
+\title{Prepare response variable data for nested ManyEcoEvo \code{yi} dataset}
 \usage{
-prepare_response_variables_yi(
-  ManyEcoEvo,
-  estimate_type = character(1L),
-  param_table = NULL
-)
+prepare_response_variables_yi(data)
 }
 \arguments{
-\item{ManyEcoEvo}{Complete ManyEcoEvo dataset containing nested datasets for each different analysis and exclusion set dataset}
+\item{data}{Complete ManyEcoEvo-style dataset containing nested datasets for each different analysis and exclusion set dataset.}
 
 \item{estimate_type}{A character string of length 1, equal to either "yi", "y25", "y50", "y75", indicating what type of estimates are being prepared.}
 
@@ -21,7 +17,7 @@ prepare_response_variables_yi(
 A tibble of nested list-columns
 }
 \description{
-Prepare response variable data for nested ManyEcoEvo dataset - out of sample predictions only
+Prepare response variable data for nested ManyEcoEvo \code{yi} dataset
 }
 \details{
 Operates on nested list-columns of data. The function back-transforms the response variables from the link to the response scale for each dataset in the ManyEcoEvo dataset. The back-transformed data is stored in a list-column called \code{back_transformed_data}. It is useful for when wanting to conduct a meta-analysis on the response scale, e.g. for the \emph{Eucalyptus} count data.

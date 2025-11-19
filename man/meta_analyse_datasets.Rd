@@ -14,7 +14,7 @@ meta_analyse_datasets(
 \arguments{
 \item{data}{A nested- dataframe grouped by \code{dataset} and / or \code{exclusion_set}, \code{estimate_type}, containing the list-column of prepared analyst subset data \code{effects_analysis} ready for meta-analysis.}
 
-\item{filter_vars}{A list of expressions to filter the \code{data} dataframe by. E.g. \code{rlang::exprs(exclusion_set == "complete", expertise_subset == "All", publishable_subset == "All", collinearity_subset == "All")}
+\item{filter_vars}{An optional list of expressions to filter the \code{data} dataframe by. E.g. \code{rlang::exprs(exclusion_set == "complete", expertise_subset == "All", publishable_subset == "All", collinearity_subset == "All")}
 #' @param outcome_variable A named list containing either/and a list of \code{dataset}s and their corresponding outcome variables for each value of \code{dataset}, a list of \code{estimate_type}s and their corresponding outcome variables for each value of \code{estimate_type}.}
 }
 \value{

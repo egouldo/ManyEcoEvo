@@ -29,8 +29,7 @@ Other Analysis-level functions:
 \code{\link{box_cox_transform}()},
 \code{\link{convert_predictions}()},
 \code{\link{est_to_zr}()},
-\code{\link{pmap_wrap}()},
-\code{\link{rename_prediction_cols}()},
+\code{\link{pred_to_Z}()},
 \code{\link{variance_box_cox}()}
 }
 \concept{Analysis-level functions}

@@ -24,4 +24,15 @@ The function computes the Z-score and VZ-score for each out-of-sample prediction
 }
 \seealso{
 Equivalent to\code{\link[=log_transform_yi]{log_transform_yi()}} in terms of workflow data hierarchy.
+
+Other Analysis-level functions: 
+\code{\link{Z_VZ_preds}()},
+\code{\link{apply_sorensen_calc}()},
+\code{\link{back_transform_response_vars_yi}()},
+\code{\link{box_cox_transform}()},
+\code{\link{convert_predictions}()},
+\code{\link{est_to_zr}()},
+\code{\link{folded_params}()},
+\code{\link{variance_box_cox}()}
 }
+\concept{Analysis-level functions}

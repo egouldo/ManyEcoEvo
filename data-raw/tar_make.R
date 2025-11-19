@@ -41,4 +41,3 @@ usethis::use_data(ManyEcoEvo,
 )
 toc()
 
-# TODO also need to add raw files to demonstrate pipeline / package functionality in package vignette and software manuscript.

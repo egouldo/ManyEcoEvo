@@ -25,15 +25,20 @@ log_back <- function(beta, se, sim) {
   original <- exp(simulated) %>% # exponential = inverse of log
     na.omit()
   m_est <- mean(original)
-  se_est <- sd(original) / sqrt(length(original))
+  se_est <- sd(original)
   quantiles <- quantile(original, c(0.025, 0.975), na.rm = TRUE)
-  set <- data.frame(mean_origin = m_est, se_origin = se_est, lower = quantiles[[1]], upper = quantiles[[2]])
+  set <- data.frame(mean_origin = m_est, 
+                    se_origin = se_est,
+                    lower = quantiles[[1]], 
+                    upper = quantiles[[2]])
+  
   if (flatten_dbl(set) %>%
     map_lgl(.f = ~ is.na(.x) | is.nan(.x) | is.infinite(.x)) %>%
     any()) {
     cli::cli_alert_danger("{.val NA}, {.val Inf} or {.val NaN} returned during back-transformation of effect sizes and standard errors.")
   }
   cli::cli_alert_success("Applied back-transformation for log-transformed effect sizes or out-of-sample predictions, using {.val {sim}} simulations.")
+  
   return(set)
 }
 
@@ -45,9 +50,12 @@ logit_back <- function(beta, se, sim) {
   original <- plogis(simulated) %>% # invlogit
     na.omit()
   m_est <- mean(original)
-  se_est <- sd(original) / sqrt(length(original))
+  se_est <- sd(original)
   quantiles <- quantile(original, c(0.025, 0.975), na.rm = TRUE)
-  set <- data.frame(mean_origin = m_est, se_origin = se_est, lower = quantiles[[1]], upper = quantiles[[2]])
+  set <- data.frame(mean_origin = m_est, 
+                    se_origin = se_est, 
+                    lower = quantiles[[1]], 
+                    upper = quantiles[[2]])
   if (flatten_dbl(set) %>%
     map_lgl(.f = ~ is.na(.x) | is.nan(.x) | is.infinite(.x)) %>%
     any()) {
@@ -65,9 +73,13 @@ probit_back <- function(beta, se, sim) {
   original <- pnorm(simulated) %>% # inv-probit
     na.omit()
   m_est <- mean(original)
-  se_est <- sd(original) / sqrt(length(original))
+  se_est <- sd(original)
   quantiles <- quantile(original, c(0.025, 0.975), na.rm = TRUE)
-  set <- data.frame(mean_origin = m_est, se_origin = se_est, lower = quantiles[[1]], upper = quantiles[[2]])
+  set <- data.frame(mean_origin = m_est, 
+                    se_origin = se_est, 
+                    lower = quantiles[[1]], 
+                    upper = quantiles[[2]])
+  
   if (flatten_dbl(set) %>%
     map_lgl(.f = ~ is.na(.x) | is.nan(.x) | is.infinite(.x)) %>%
     any()) {
@@ -85,9 +97,12 @@ inverse_back <- function(beta, se, sim) {
   original <- 1 / simulated %>% # inverse
     na.omit()
   m_est <- mean(original)
-  se_est <- sd(original) / sqrt(length(original))
+  se_est <- sd(original)
   quantiles <- quantile(original, c(0.025, 0.975), na.rm = TRUE)
-  set <- data.frame(mean_origin = m_est, se_origin = se_est, lower = quantiles[[1]], upper = quantiles[[2]])
+  set <- data.frame(mean_origin = m_est, 
+                    se_origin = se_est, 
+                    lower = quantiles[[1]], 
+                    upper = quantiles[[2]])
   if (flatten_dbl(set) %>%
     map_lgl(.f = ~ is.na(.x) | is.nan(.x) | is.infinite(.x)) %>%
     any()) {
@@ -105,9 +120,13 @@ square_back <- function(beta, se, sim) {
   original <- sqrt(simulated) %>% # inverse of x^2
     na.omit()
   m_est <- mean(original)
-  se_est <- sd(original) / sqrt(length(original))
+  se_est <- sd(original)
   quantiles <- quantile(original, c(0.025, 0.975), na.rm = TRUE)
-  set <- data.frame(mean_origin = m_est, se_origin = se_est, lower = quantiles[[1]], upper = quantiles[[2]])
+  set <- data.frame(mean_origin = m_est, 
+                    se_origin = se_est, 
+                    lower = quantiles[[1]], 
+                    upper = quantiles[[2]])
+  
   if (flatten_dbl(set) %>%
     map_lgl(.f = ~ is.na(.x) | is.nan(.x) | is.infinite(.x)) %>%
     any()) {
@@ -125,9 +144,12 @@ cube_back <- function(beta, se, sim) {
   original <- pracma::nthroot(simulated, n = 3) %>% # inverse of x^3, use non-base to allow for -ve numbers
     na.omit()
   m_est <- mean(original)
-  se_est <- sd(original) / sqrt(length(original))
+  se_est <- sd(original)
   quantiles <- quantile(original, c(0.025, 0.975), na.rm = TRUE)
-  set <- data.frame(mean_origin = m_est, se_origin = se_est, lower = quantiles[[1]], upper = quantiles[[2]])
+  set <- data.frame(mean_origin = m_est, 
+                    se_origin = se_est, 
+                    lower = quantiles[[1]], 
+                    upper = quantiles[[2]])
   if (flatten_dbl(set) %>%
     map_lgl(.f = ~ is.na(.x) | is.nan(.x) | is.infinite(.x)) %>%
     any()) {
@@ -145,9 +167,12 @@ identity_back <- function(beta, se, sim) { # identity (typo) TODO
   original <- simulated %>% #  no transformation
     na.omit()
   m_est <- mean(original)
-  se_est <- sd(original) / sqrt(length(original))
+  se_est <- sd(original)
   quantiles <- quantile(original, c(0.025, 0.975), na.rm = TRUE)
-  set <- data.frame(mean_origin = m_est, se_origin = se_est, lower = quantiles[[1]], upper = quantiles[[2]])
+  set <- data.frame(mean_origin = m_est, 
+                    se_origin = se_est, 
+                    lower = quantiles[[1]], 
+                    upper = quantiles[[2]])
   if (flatten_dbl(set) %>%
     map_lgl(.f = ~ is.na(.x) | is.nan(.x) | is.infinite(.x)) %>%
     any()) {
@@ -166,9 +191,12 @@ power_back <- function(beta, se, sim, n) {
   original <- pracma::nthroot(simulated, n = n) %>% # inverse of x^n, use non-base to allow for -ve numbers
     na.omit()
   m_est <- mean(original)
-  se_est <- sd(original) / sqrt(length(original))
+  se_est <- sd(original)
   quantiles <- quantile(original, c(0.025, 0.975), na.rm = TRUE)
-  set <- data.frame(mean_origin = m_est, se_origin = se_est, lower = quantiles[[1]], upper = quantiles[[2]])
+  set <- data.frame(mean_origin = m_est, 
+                    se_origin = se_est, 
+                    lower = quantiles[[1]], 
+                    upper = quantiles[[2]])
   if (flatten_dbl(set) %>%
     map_lgl(.f = ~ is.na(.x) | is.nan(.x) | is.infinite(.x)) %>%
     any()) {
@@ -187,7 +215,7 @@ divide_back <- function(beta, se, sim, n) {
   original <- simulated * n %>%
     na.omit()
   m_est <- mean(original, na.rm = TRUE)
-  se_est <- sd(original, na.rm = TRUE) / sqrt(length(original))
+  se_est <- sd(original, na.rm = TRUE)
   quantiles <- quantile(original,
     c(0.025, 0.975),
     na.rm = TRUE
@@ -218,9 +246,12 @@ square_root_back <- function(beta, se, sim) {
   original <- simulated^2 %>%
     na.omit()
   m_est <- mean(original)
-  se_est <- sd(original) / sqrt(length(original))
+  se_est <- sd(original)
   quantiles <- quantile(original, c(0.025, 0.975), na.rm = TRUE)
-  set <- data.frame(mean_origin = m_est, se_origin = se_est, lower = quantiles[[1]], upper = quantiles[[2]])
+  set <- data.frame(mean_origin = m_est, 
+                    se_origin = se_est, 
+                    lower = quantiles[[1]], 
+                    upper = quantiles[[2]])
   if (flatten_dbl(set) %>%
     map_lgl(.f = ~ is.na(.x) | is.nan(.x) | is.infinite(.x)) %>%
     any()) {

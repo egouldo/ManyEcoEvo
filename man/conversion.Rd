@@ -41,12 +41,10 @@ Conditionally apply back-transformation functions depending on the value of \cod
 \code{\link[=conversion_2]{conversion_2()}}, \code{\link[=back]{back()}}
 
 Other Back-transformation: 
-\code{\link{assign_transformation_type}()},
 \code{\link{back}},
 \code{\link{back_transform_response_vars_yi}()},
 \code{\link{clean_response_transformation}()},
 \code{\link{conversion_2}()},
-\code{\link{convert_predictions}()},
-\code{\link{rename_prediction_cols}()}
+\code{\link{convert_predictions}()}
 }
 \concept{Back-transformation}

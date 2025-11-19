@@ -1,6 +1,6 @@
-#' Prepare response variable data for nested ManyEcoEvo dataset - out of sample predictions only
+#' Prepare response variable data for nested ManyEcoEvo `yi` dataset
 #'
-#' @param ManyEcoEvo Complete ManyEcoEvo dataset containing nested datasets for each different analysis and exclusion set dataset
+#' @param data Complete ManyEcoEvo-style dataset containing nested datasets for each different analysis and exclusion set dataset.
 #' @param estimate_type A character string of length 1, equal to either "yi", "y25", "y50", "y75", indicating what type of estimates are being prepared.
 #' @param param_table A table of parameters \(mean, sd\) for *most* response variables used by analysts. This tibble is pulled from the named object exported by `ManyEcoEvo::`. but can be overwritten with the users's own `param_table` dataset.
 #'
@@ -8,32 +8,25 @@
 #' @details Operates on nested list-columns of data. The function back-transforms the response variables from the link to the response scale for each dataset in the ManyEcoEvo dataset. The back-transformed data is stored in a list-column called `back_transformed_data`. It is useful for when wanting to conduct a meta-analysis on the response scale, e.g. for the *Eucalyptus* count data. 
 #' `estimate_type` is used to specify the type of estimate to be standardised and parsed to [back_transform_response_vars_yi()]
 #' @seealso [back_transform_response_vars_yi()]. To be called prior to [generate_yi_subsets()].
+#' @import dplyr
+#' @importFrom purrr map2 map
+#' @importFrom pointblank expect_col_exists
 #' @family targets-pipeline functions
 #' @family Multi-dataset Wrapper Functions
 #' @export
-prepare_response_variables_yi <- function(ManyEcoEvo,
-                                          estimate_type = character(1L),
-                                          param_table = NULL) {
-  stopifnot(is.data.frame(ManyEcoEvo))
-  # TODO run checks on ManyEcoEvo
-  match.arg(estimate_type, choices = c("yi", "y25", "y50", "y75"), several.ok = FALSE)
+prepare_response_variables_yi <- function(data) {
+  stopifnot(is.data.frame(data))
   
-  out <- ManyEcoEvo %>%
+  pointblank::expect_col_exists(data, c("data", "diversity_data"))
+  
+  out <- data %>%
     ungroup() %>%
-    # dplyr::group_by(dataset) %>% #NOTE: mapping doesn't work properly when tibble is rowwise!
     dplyr::mutate(
-      data = purrr::map2(
-        .x = data, .y = dataset,
-        .f = ~ back_transform_response_vars_yi(
-          dat = .x,
-          estimate_type = !!{
-            estimate_type
-          },
-          param_table,
-          dataset = .y
-        )
+      data = purrr::map(
+        .x = data, 
+        .f = prepare_response_variables_yi
       ),
-      diversity_data = map2(
+      diversity_data = purrr::map2(
         .x = diversity_data,
         .y = data,
         .f = ~ semi_join(.x, .y) %>% 
@@ -43,37 +36,33 @@ prepare_response_variables_yi <- function(ManyEcoEvo,
   return(out)
 }
 
-#' Back Transform Response Variables - yi
+#' Back-transform analyst `yi` estiamtes to the response scale
 #'
-#' @param dat A dataframe of out of sample predictions analyst submission data
-#' @param estimate_type The type of estimate to be standardised. Character vector of length 1, whose value may be  "yi", "y25", "y50", "y75".
-#' @param dataset One of either "blue tit" or "eucalyptus"
-#'
+#' @param data dataframe of out of sample predictions analyst submission data
 #' @return A tibble of analyst data with standardised values contained in a list-column called 'back_transformed_data'
+#' @details
+#' `data` must contain the columns: `id_col`, `augmented_data`, `transformation`, `response_transformation_status`, where `augmented_data` is a list-column of dataframes containing the analyst predictions, `transformation` is the transformation used in the model, and `response_transformation_status` is the status of the response transformation.
+#' 
 #' @export
+#' @import dplyr
+#' @importFrom purrr pmap
+#' @importFrom rlang is_na na_lgl
+#' @importFrom pointblank col_exists
 #' @family Analysis-level functions
 #' @family Back-transformation
-back_transform_response_vars_yi <- function(dat,
-                                            estimate_type = character(1L),
-                                            dataset = character(1L)) {
+back_transform_response_vars_yi <- function(data) {
   # TODO insert checks that appropriate columns exist
   # TODO apply to data and check that all cases accounted for!
-  match.arg(estimate_type, choices = c("yi", "y25", "y50", "y75"), several.ok = FALSE)
-  match.arg(dataset, choices = c("eucalyptus", "blue tit"), several.ok = FALSE)
   
-  dat <- dat %>%
+  out <- data %>%
     pointblank::col_exists(
       columns =
-        c(
-          "TeamIdentifier",
-          "submission_id",
-          "analysis_id",
-          "split_id",
+        c("id_col",
           "augmented_data",
           "transformation",
           "response_transformation_status"
         )
-    ) %>% # add check for  response transformation
+    ) %>% # add check for response transformation
     dplyr::group_by(id_col) %>% 
     dplyr::mutate(
       transformation_type =
@@ -81,7 +70,8 @@ back_transform_response_vars_yi <- function(dat,
           response_transformation = response_transformation_status,
           link_fun = transformation
         )
-    ) %>%
+    ) %>% 
+    pointblank::col_exists(columns = "transformation_type") %>%
     dplyr::mutate(
       back_transformed_data =
         purrr::pmap(
@@ -105,5 +95,5 @@ back_transform_response_vars_yi <- function(dat,
     ) %>% 
     ungroup()
   
-  return(dat)
+  return(out)
 }

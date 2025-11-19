@@ -1,6 +1,6 @@
-#' Fit model of boxcox deviation scores as function of continuous ratings
+#' Fit model of Box-Cox deviation scores as function of continuous ratings
 #' @description
-#' Fit an lmer model of the box-cox transformed deviation from the meta-analytic
+#' Fit an `lmer::` model of the Box-Cox transformed deviation from the meta-analytic
 #' mean scores as a function of continuous peer-review ratings
 #'
 #' @param .data Data for model fitting

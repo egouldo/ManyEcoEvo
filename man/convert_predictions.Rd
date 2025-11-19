@@ -15,10 +15,10 @@ convert_predictions(
 \item{augmented_data}{A tibble of out of analyst's sample prediction data for 3 scenarios}
 }
 \value{
-A tibble of out of sample predictions on the response variable scale of the response variable used by the analyst
+A tibble of out-of-sample predictions on the response variable scale of the response variable used by the analyst
 }
 \description{
-Converts out of sample predictions on the link scale back to the response scale
+Converts out-of-sample predictions on the link scale back to the response scale
 }
 \seealso{
 \code{\link[=rename_prediction_cols]{rename_prediction_cols()}}
@@ -30,18 +30,15 @@ Other Analysis-level functions:
 \code{\link{box_cox_transform}()},
 \code{\link{est_to_zr}()},
 \code{\link{folded_params}()},
-\code{\link{pmap_wrap}()},
-\code{\link{rename_prediction_cols}()},
+\code{\link{pred_to_Z}()},
 \code{\link{variance_box_cox}()}
 
 Other Back-transformation: 
-\code{\link{assign_transformation_type}()},
 \code{\link{back}},
 \code{\link{back_transform_response_vars_yi}()},
 \code{\link{clean_response_transformation}()},
 \code{\link{conversion}()},
-\code{\link{conversion_2}()},
-\code{\link{rename_prediction_cols}()}
+\code{\link{conversion_2}()}
 }
 \concept{Analysis-level functions}
 \concept{Back-transformation}

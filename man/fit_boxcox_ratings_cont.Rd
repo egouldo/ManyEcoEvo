@@ -25,6 +25,11 @@ An object of class \code{lme4::lmerMod-class}
 \description{
 Fit an lmer model of the box-cox transformed deviation from the meta-analytic mean scores as a function of continuous peer-review ratings
 }
+\details{
+The model is fitted using the \code{\link[lme4:lmer]{lme4::lmer()}} function. The outcome variable is selected by the user \code{outcome}, and the variance of the outcome variable is specified in the argument \code{outcome_var}. The model is fitted with the continuous ratings predictor \code{RateAnalysis} and a random effect for \code{ReviewerId}.
+
+Note that the variables \code{study_id}, \code{outcome}, \code{outcome_var}, and the list-column \code{review_data} must be present in \code{data}. The \code{review_data} column is unnested (see \code{\link[tidyr:unnest]{tidyr::unnest()}}) by the function before fitting the model. Within \code{review_data}, the variables \code{RateAnalysis} and \code{ReviewerId} must be present.
+}
 \seealso{
 Other Model fitting and meta-analysis: 
 \code{\link{fit_MA_mv}()},

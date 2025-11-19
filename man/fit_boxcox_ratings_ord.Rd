@@ -2,7 +2,7 @@
 % Please edit documentation in R/fit_boxcox_ratings_ord.R
 \name{fit_boxcox_ratings_ord}
 \alias{fit_boxcox_ratings_ord}
-\title{Fit model of boxcox deviation scores as function of continuous ratings}
+\title{Fit model of Box-Cox deviation scores as function of continuous ratings}
 \usage{
 fit_boxcox_ratings_ord(.data, outcome, outcome_var, interceptless = FALSE)
 }
@@ -20,7 +20,7 @@ interceptless or not. Defaults to \code{FALSE}.}
 An object of class \code{lme4::lmerMod-class}
 }
 \description{
-Fit an lmer model of the box-cox transformed deviation from the meta-analytic
+Fit an \verb{lmer::} model of the Box-Cox transformed deviation from the meta-analytic
 mean scores as a function of continuous peer-review ratings
 }
 \seealso{

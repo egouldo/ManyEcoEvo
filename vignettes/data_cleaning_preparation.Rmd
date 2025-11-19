@@ -30,11 +30,11 @@ suppressPackageStartupMessages(library(tidyverse))
 
 ### Anonymising Data
 
-We have anonymised our public dataset `data(ManyEcoEvo)` `anonymise_teams()`, which takes a look-up table of new and old identifier names with which to replace each analysis identifier. The lookup table and original non-anonymised data can be stored in a private repository or component, on the OSF for example, while the anonymised dataset can be released publicly.
+We have anonymised our dataset using `anonymise_teams()`; which takes a look-up table of new and old identifier names with which to replace each analysis identifier. Our public dataset is `data(ManyEcoEvo)`. The lookup table and de-anonymised dataset is stored in a private component on the project's OSF. We recommend this practice of separating the anonymised and de-anonymised data, to ensure that the identities of analysts remain confidential while adhering to open practices.
 
 ## Data Pre-processing for Meta-analysis
 
-The meta-analysis requires that all estimates are on the same scale. This is because the meta-analysis is based on the assumption that the outcome measures are comparable. Note that the ManyAnalysts project utilises two different outcomes for meta-analysis, standardised effect-sizes, or $Z_r$ and out-of-sample predictions $y_i$, But alternative effect-size measures may be utilised instead[^1].
+Meta-analysis requires that all estimates are standardised to the same scale. This is because the meta-analysis is based on the assumption that the outcome measures are comparable. Note that the ManyAnalysts project utilises two different outcomes for meta-analysis, standardised effect-sizes, or $Z_r$ and out-of-sample predictions $y_i$, But alternative effect-size measures may be utilised instead[^1] for your meta-analysis. 
 
 [^1]: See Table 2 in @nakagawa2023: <https://environmentalevidencejournal.biomedcentral.com/articles/10.1186/s13750-023-00301-6/tables/2>
 
@@ -44,14 +44,14 @@ We provide the function `standardise_response()` to standardise a data-frame of 
 
 data("ManyEcoEvo")
 
-blue_tit_effect_sizes <- 
-  ManyEcoEvo %>% 
-  dplyr::filter(dataset == "blue tit") %>% 
-  pluck("data", 1) %>% 
-  slice(1:10) %>% 
-  select(contains("id"), 
+blue_tit_effect_sizes <-
+  ManyEcoEvo %>%
+  dplyr::filter(dataset == "blue tit") %>%
+  pluck("data", 1) %>%
+  slice(1:10) %>%
+  select(contains("id"),
          -response_id_S2,
-         contains("beta"), 
+         contains("beta"),
          adjusted_df)
 
 blue_tit_effect_sizes
@@ -60,7 +60,11 @@ standardise_response(dat = blue_tit_effect_sizes,
                      estimate_type = "Zr",
                      param_table = NULL, 
                      dataset = "blue tit") %>% 
-  select(id_col, contains("beta"), adjusted_df, Zr, VZr )
+  select(id_col, 
+         contains("beta"), 
+         adjusted_df, 
+         Zr, 
+         VZr )
 ```
 
 Note that if any of `beta_estimate`, `beta_SE` or `adjusted_df` are missing, `standardise_response()` is unable to compute standardised correlation coefficients $Z_r$ and the associated variance $\text{VZ}_r$.
@@ -80,8 +84,7 @@ blue_tit_predictions <-
 # ----- back-transform analyst estimates to original response scale ----
 blue_tit_back_transformed <- 
   blue_tit_predictions %>% 
-  back_transform_response_vars_yi(estimate_type = "yi",
-                                  dataset = "blue tit") %>% 
+  back_transform_response_vars_yi() %>% 
   ungroup %>% 
   select(
     id_col,
@@ -89,7 +92,7 @@ blue_tit_back_transformed <-
     contains("transformation"),
     augmented_data, 
     back_transformed_data
-  ) #TODO transformation column seems wrong! but output from convert_predictions() suggests correct transformation occured!
+  ) #TODO transformation column seems wrong! but output from convert_predictions() suggests correct transformation occurred!
 
 blue_tit_back_transformed
 
@@ -107,27 +110,35 @@ blue_tit_standardised <-
     id_col,
     params, 
     transformation,
-    augmented_data, 
+    augmented_data,
     back_transformed_data
   )
 
 blue_tit_standardised
 
 # ----- parameters ---- 
-blue_tit_standardised %>% pluck("params", 1) 
-blue_tit_standardised %>% pluck("params", 2) # gets a different set depending on the variable
+blue_tit_standardised %>%
+  pluck("params", 1) 
+blue_tit_standardised %>%
+  pluck("params", 2) # gets a different set depending on the variable
 
 # ---- raw predictions data ----
-blue_tit_back_transformed %>% pluck("augmented_data", 1)
-blue_tit_back_transformed %>% pluck("back_transformed_data", 1)
+blue_tit_back_transformed %>%
+  pluck("augmented_data", 1)
+blue_tit_back_transformed %>% 
+  pluck("back_transformed_data", 1)
 
 # ---- back-transformed & standardised predictions_data ----
-blue_tit_standardised %>% pluck("back_transformed_data", 1) 
+blue_tit_standardised %>% 
+  pluck("back_transformed_data", 1) 
 
 MA_data_yi <- blue_tit_standardised %>% 
   select(id_col, back_transformed_data) %>% 
   unnest(back_transformed_data) %>% 
-  pointblank::col_vals_between(columns = "Z", left = -3, right = 3, inclusive = TRUE)
+  pointblank::col_vals_between(columns = "Z", 
+                               left = -3, 
+                               right = 3, 
+                               inclusive = TRUE)
 ```
 
 ### Standardising effect-sizes to $Z_r$ {#sec-standardisation}

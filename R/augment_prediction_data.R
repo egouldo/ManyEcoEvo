@@ -6,16 +6,25 @@
 #' Where there are missing variables in `.data` or `checks` is missing,
 #' `NA` will be returned for the augmented prediction data instead.
 #' @param .data A data.frame of out of-sample-predictions analyst submission data
-#' @param checks A data.frame of pointblank interrogation output for `.data`
+#' @param checks A data.frame of `pointblank::` interrogation output for `.data`
 #' @param dataset A character string equal to either "blue tit" or "eucalyptus"
 #'
-#' @return A dataframe. Individual analyst submission containing augmented
+#' @return A dataframe of individual analyst submission containing augmented
 #' out-of-sample prediction data ready for meta-analysis.
 #' @export
 #'
 #' @examples
 #' # for testing and dev purposes:
 #' # safe_augment <- purrr:::safely(augment_prediction_data)
+#' @import dplyr
+#' @importFrom cli cli_abort cli_alert
+#' @importFrom purrr flatten_df flatten_chr
+#' @importFrom stringr str_detect
+#' @importFrom purrr set_names
+#' @importFrom tibble tibble
+#' @importFrom readr parse_number locale
+#' @importFrom tidyr drop_na
+#' @importFrom rlang is_na
 augment_prediction_data <- function(.data, checks, dataset) {
   if (is.logical(.data)) {
     return(NA)

@@ -89,12 +89,12 @@ plot_model_means_box_cox_cat <- function(dat,
     p <- p +
       labs(
         x = "Categorical Peer Review Rating",
-        y = "Absolute Deviation from\n Meta-Anaytic Mean Zr"
+        y = "Absolute Deviation from\n Meta-Anaytic Mean Effect Size"
       )
   } else {
     p <- p + labs(
       x = "Categorical Peer Review Rating",
-      y = "Deviation from\nMeta-Analytic Mean Effect Size"
+      y = "Box-Cox Deviation from\nMeta-Analytic Mean Effect Size"
     )
   }
 

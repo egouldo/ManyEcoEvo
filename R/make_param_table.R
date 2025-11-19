@@ -16,7 +16,7 @@
 #'
 #' @details # Note
 #' Currently variable names of `analysis_data` must not contain `.` because this character is used to split the `variable` from the `parameter` during `pivot_longer()`
-#' @seealso The table from this function is used to standardize out-of-sample predictions $y_i$ in [pred_to_Z()]
+#' @seealso The table from this function is used to standardize out-of-sample predictions \eqn{y_i} in [pred_to_Z()]
 make_param_table <- function(analysis_data, na.rm = TRUE) {
   out <- analysis_data %>%
     ungroup() %>%

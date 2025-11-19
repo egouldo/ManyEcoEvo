@@ -1,18 +1,13 @@
 ---
-title: "Analysing Many-Analyst Data"
-output: 
-  bookdown::html_document2:
-    base_format: rmarkdown::html_vignette
-    fig_caption: yes
-    toc: true
-pkgdown:
-  as_is: true
-vignette: >
-  %\VignetteIndexEntry{analysis}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+title: "Introducing the `ManyEcoEvo::` package"
+author: "Elliot Gould"
+format: html
+number-sections: true
+description: |
+  The `ManyEcoEvo` package provides tools for analysing many-analyst style data, specifically designed for the ManyEcoEvo project described in Gould et al. (202). This vignette demonstrates the core functionality for processing effect size estimates and conducting meta-analyses on data from multiple research teams analysing the same datasets.
+editor: visual
+tidy: styler
 ---
-
 
 ```{r setup}
 #| echo: false

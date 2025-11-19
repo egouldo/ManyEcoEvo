@@ -12,10 +12,10 @@ Z_VZ_preds <- function(yi, yi_se, mu_p, sd_p) {
   # TODO should we pass in whole DF as arg instead of yi + yi_se??
   # We want to be able to keep the values linked to their corresponding
   # scenario_value!
-  na_args <- purrr::discard(c(yi, yi_se, mu_p, sd_p), is.na) %>%
+  check_na_args <- purrr::discard(c(yi, yi_se, mu_p, sd_p), is.na) %>%
     length()
 
-  if (na_args < 3) {
+  if (check_na_args < 4) {
     cli::cli_alert_danger("Required values for computing Z/VZ predictions missing:")
     cli::cli_alert_warning("Returning {.val NA} for quadrupple:")
     cli::cli_ol(c(
@@ -26,7 +26,6 @@ Z_VZ_preds <- function(yi, yi_se, mu_p, sd_p) {
     ))
     return(NA)
   }
-
 
   Z <- (yi - mu_p) / sd_p
   VZ <- yi_se / sd_p

@@ -9,7 +9,7 @@
 #'
 #' @import dplyr
 #' @importFrom cli cli_h2
-calculate_deviation_score <- function(data, meta_analytic_model, outcome_colname) {
+calculate_deviation_score <- function(data, meta_analytic_model, outcome_colname) { #TODO does not fail if absent
   
   # ----- Argument Checks -----
   stopifnot(

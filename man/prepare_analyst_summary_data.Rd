@@ -7,7 +7,7 @@
 prepare_analyst_summary_data(
   data,
   data_subset_name = "all",
-  id_subsets = list(),
+  id_subsets,
   subset_names = character(0L)
 )
 }

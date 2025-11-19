@@ -16,7 +16,7 @@ calc_I2_ml <- function(fitted_model) {
 }
 
 #' Apportion heterogeneity of a multi-level meta-analytic model
-#' @description Estimates how much the total variance $I^2$ can be attributed to between- and within- cluster heterogeneity separately.
+#' @description Estimates how much the total variance \eqn{I^2} can be attributed to between- and within- cluster heterogeneity separately.
 #' @details From [http://www.metafor-project.org/doku.php/tips:i2_multilevel_multivariate](http://www.metafor-project.org/doku.php/tips:i2_multilevel_multivariate)
 #' @param fitted_model
 #'

@@ -4,10 +4,10 @@
 \alias{generate_rating_subsets}
 \title{Generate subsets of ManyEcoEvo Data based on Peer Review Ratings}
 \usage{
-generate_rating_subsets(ManyEcoEvo)
+generate_rating_subsets(data)
 }
 \arguments{
-\item{ManyEcoEvo}{a ManyEcoEvo dataframe containing formatted raw \code{data}, formatted \code{diversity_data}, the \code{estimate_type}, and \code{dataset}}
+\item{data}{a ManyEcoEvo dataframe containing formatted raw \code{data}, formatted \code{diversity_data}, the \code{estimate_type}, and \code{dataset}}
 }
 \value{
 A ManyEcoEvo dataframe with added column \code{exclusion_set} with new subsets of \code{data} and \code{diversity_data}
@@ -17,6 +17,8 @@ Generates two subsets of data based on for both complete and partial exclusion d
 }
 \details{
 To be executed on a ManyEcoEvo dataframe after the \code{compute_MA_inputs()} function. This function generates two subsets of data based on the peer review ratings for both complete and partial exclusion datasets for both \code{yi} and \code{Zr} estimates. The subsets are generated based on the \code{PublishableAsIs} column in the \code{data} list-column. The subsets are named \code{data_flawed} and \code{data_flawed_major} and are created by filtering out the data points with the \code{PublishableAsIs} values of \code{"deeply flawed and unpublishable"} and \code{"publishable with major revision"} respectively. The \code{diversity_data} list-column is also updated to reflect the new subsets of data.
+
+Note, This function expects that within the list-column \code{data}, there is a list-column \code{review_data} containing the columns \code{ReviewerId}, \code{RateAnalysis}, \code{PublishableAsIs}, and \code{PriorBelief}.
 }
 \seealso{
 Other Multi-dataset Wrapper Functions: 

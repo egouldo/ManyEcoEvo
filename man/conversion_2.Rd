@@ -15,7 +15,7 @@ conversion_2(beta, se, response_transformation, link_fun, sim = 10000)
 
 \item{link_fun}{Character string describing link function}
 
-\item{sim}{Number of simulations to use during back-transformation. Defaults to $10000$.}
+\item{sim}{Number of simulations to use during back-transformation. Defaults to \code{10000}.}
 }
 \value{
 The outputs of a back-transformation function, see family back-transformations
@@ -27,12 +27,10 @@ Conditionally apply back-transformation functions depending on the value of \cod
 \code{\link[=conversion]{conversion()}}
 
 Other Back-transformation: 
-\code{\link{assign_transformation_type}()},
 \code{\link{back}},
 \code{\link{back_transform_response_vars_yi}()},
 \code{\link{clean_response_transformation}()},
 \code{\link{conversion}()},
-\code{\link{convert_predictions}()},
-\code{\link{rename_prediction_cols}()}
+\code{\link{convert_predictions}()}
 }
 \concept{Back-transformation}

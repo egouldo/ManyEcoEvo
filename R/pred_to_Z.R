@@ -14,6 +14,7 @@
 #' @importFrom rlang is_na
 #' @importFrom tidyr any_of unnest
 #' @importFrom glue glue
+#' @family Analysis-level functions
 #' @seealso Equivalent to[log_transform_yi()] in terms of workflow data hierarchy.
 pred_to_Z <- function(back_transformed_data,
                       params) {

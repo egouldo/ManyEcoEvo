@@ -40,7 +40,7 @@ plot_effects_diversity <- function(mod, df, back_transform = FALSE) {
       geom_ribbon(aes(ymin = conf.low, ymax = conf.high), alpha = 0.1) +
       geom_point(data = df, aes(y = abs_deviation_score_estimate, x = mean_diversity_index)) +
       ggplot2::xlab("Mean Sorensen's Index") +
-      ggplot2::ylab("Deviation In Effect Size from Analytic Mean")
+      ggplot2::ylab("Absolute Deviation from\n Meta-Anaytic Mean Effect Size")
   } else {
     # TODO add check that columns are labelled appropriately i.e. same as what is supplied to aes()
     p <- ggplot(
@@ -51,7 +51,7 @@ plot_effects_diversity <- function(mod, df, back_transform = FALSE) {
       geom_ribbon(aes(ymin = conf.low, ymax = conf.high), alpha = 0.1) +
       geom_point(data = df, aes(y = box_cox_abs_deviation_score_estimate, x = mean_diversity_index)) +
       ggplot2::xlab("Mean Sorensen's Index") +
-      ggplot2::ylab("Deviation In Effect Size from Analytic Mean")
+      ggplot2::ylab("Box-Cox Deviation from\nMeta-Analytic Mean Effect Size")
   }
 
   return(p)

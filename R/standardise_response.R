@@ -1,5 +1,7 @@
 #' Process Response Data for Meta-Analysis
 #' 
+#' @description
+#' This is a family of functions that process response data for meta-analysis, either standardising effect sizes / out-of-sample predictions, or simply formatting the data for meta-analysis without standardisation or transformation.
 #' @param data A tibble of analyst data with a list-column called
 #' @param ... Ignored
 #' @importFrom cli cli_h1 cli_h2 
@@ -21,7 +23,7 @@ NULL
 #' @details
 #' # `standardise_response()`
 #'
-#' When the `estimate_type` is `"Zr"`, [standardise_response()] standardises 
+#' When the `estimate_type` is `"Zr"`, `standardise_response()` standardises 
 #' effect-sizes with [est_to_zr()], assuming that the `beta_estimate` and 
 #' `beta_SE` values have already been back-transformed to the appropriate scale. #TODO check this.
 #' 
@@ -37,8 +39,6 @@ NULL
 #' variable will not be standardised, and NA will be returned for that entry in `back_transformed_data`.
 #' @export
 #' @describeIn process_analyst_data Standardise response data for meta-analysis
-#' @family Analysis-level functions
-#' @seealso [est_to_zr()],[assign_transformation_type()], [pred_to_Z()]
 #' @examples
 #' # Standardise effect-sizes for eucalyptus dataset
 #' 
@@ -59,7 +59,9 @@ standardise_response <- function(data,
   
   # TODO insert checks that appropriate columns exist
   # TODO apply to data and check that all cases accounted for!
-  match.arg(estimate_type, choices = c("Zr", "yi", "y25", "y50", "y75"), several.ok = FALSE)
+  match.arg(estimate_type, 
+            choices = c("Zr", "yi", "y25", "y50", "y75"), 
+            several.ok = FALSE)
   
   cli::cli_h1(c("Computing meta-analysis inputs", 
                 "for {.arg estimate_type} = ", 
@@ -69,7 +71,9 @@ standardise_response <- function(data,
     
     # ------ Convert Effect Sizes to Zr -------
     
-    cli::cli_h2(paste0("Computing standardised effect sizes ", "{.code Zr}", " and variance ", "{.code VZr}"))
+    cli::cli_h2(paste0("Computing standardised effect sizes ", 
+                       "{.code Zr}", 
+                       " and variance ", "{.code VZr}"))
     
     data <- data %>%
       dplyr::mutate(
@@ -140,8 +144,6 @@ standardise_response <- function(data,
 
 #' Process response data for meta-analysis
 #' 
-#' @description
-#' This function generates the response data for meta-analysis without standardising the effect sizes / out-of-sample predictions.
 #' @describeIn process_analyst_data Process response data for meta-analysis but do not standardise effect-sizes
 #' @details
 #' # `process_response()`
@@ -173,15 +175,15 @@ process_response <- function(data, ...){
 #' 
 #' @param sim a numeric vector of length 1L with the number of simulations that should be passed to [log_transform()]
 #' @details
-#' # [log_transform_response()]
+#' # log_transform_response()
 #' 
-#' maps [log_transform_yi()] onto back-transformed data stored in list-columns within [data]
+#' maps [log_transform_yi()] onto back-transformed data stored in list-columns within `data`
 #' @examples
 #' data(ManyEcoEvo_yi)
 #' ManyEcoEvo_yi %>%
 #' filter(dataset == "eucalyptus") %>%
 #'   pluck("data", 1) %>%
-#'   back_transform_response_vars_yi("yi", "eucalyptus") %>%
+#'   back_transform_response_vars_yi() %>%
 #'   log_transform_response()
 #' @export
 #' @import dplyr
@@ -190,7 +192,6 @@ process_response <- function(data, ...){
 #' @importFrom purrr map
 #' @importFrom rlang is_na
 #' @describeIn process_analyst_data Standardise response data for meta-analysis
-#' @family Analysis-level functions
 log_transform_response <- function(data, sim = 10000L, ...) {
   # TODO insert checks that appropriate columns exist
   # TODO apply to data and check that all cases accounted for!
