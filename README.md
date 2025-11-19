@@ -81,7 +81,7 @@ Conduct](https://github.com/egouldo/ManyEcoEvo/blob/aa2b9dcb6462f35ce873418e0b9c
 
     To cite package ‘ManyEcoEvo’ in publications use:
 
-      Gould E, Fraser H, Nakagawa S, Parker T (2023). _ManyEcoEvo: Meta-analyse
+      Gould E, Fraser H, Nakagawa S, Parker T (2025). _ManyEcoEvo: Meta-analyse
       data from 'Many-Analysts' style studies_. R package version 1.0.0,
       <https://github.com/egouldo/ManyEcoEvo>.
 
@@ -90,12 +90,12 @@ Conduct](https://github.com/egouldo/ManyEcoEvo/blob/aa2b9dcb6462f35ce873418e0b9c
       @Manual{,
         title = {ManyEcoEvo: Meta-analyse data from 'Many-Analysts' style studies},
         author = {Elliot Gould and Hannah S. Fraser and Shinichi Nakagawa and Timothy H. Parker},
-        year = {2023},
+        year = {2025},
         note = {R package version 1.0.0},
         url = {https://github.com/egouldo/ManyEcoEvo},
       }
 
-[^1]: Gould, E., Fraser, H., Parker, T. *et al.* (2023). Same data,
+[^1]: Gould, E., Fraser, H., Parker, T. *et al.* (2025). Same data,
     different analysts: Variation in effect sizes due to analytical
     decisions in ecology and evolutionary biology \[Preprint\]. Ecology
     and Evolutionary Biology. https://doi.org/10.32942/X2GG62
