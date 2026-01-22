@@ -12,3 +12,4 @@ _targets/
 ^doc$
 ^Meta$
 ^data-raw/analyst_data/S2$
+^vignettes/*_files$
