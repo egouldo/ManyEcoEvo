@@ -46,7 +46,7 @@ include: true
 echo: true
 message: false
 warning: false
-error: true
+error: false
 cache: true
 bibliography: "vignettes.bib"
 ---
