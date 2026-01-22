@@ -9,6 +9,7 @@ tags:
 authors:
   - name: Elliot Gould
     orcid: 0000-0003-0872-7098
+    email: "elliot.gould@unimelb.edu.au"
     affiliations:
       - ref: aff1
   - name: Hannah S. Fraser
@@ -46,7 +47,7 @@ echo: true
 message: false
 warning: false
 error: true
-cache: false
+cache: true
 bibliography: "vignettes.bib"
 ---
 
