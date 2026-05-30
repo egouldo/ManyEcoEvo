@@ -33,6 +33,8 @@ pkgs <- c("tidyverse",
           "multilevelmod",
           "metafor",
           "parameters",
+          # "qs", #NOTE has been removed from CRAN
+          "qs2",
           "ManyEcoEvo" #TODO rm from here and just call in tar_option_set(), but will need to rm all namespacing, see gh issue #97
 ) 
 
@@ -50,6 +52,9 @@ tar_option_set(
   retrieval = "worker",
   controller = controller,
   format = "qs",
+  resources = tar_resources(
+    qs = tar_resources_qs(nthreads = 6)
+  ),
   seed = 1234
   # debug = c("augmented_data_3efd9941")#, #augmented_data_a4d78efa
   # cue = tar_cue(mode = "always") #because we have silent errors!
