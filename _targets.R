@@ -7,6 +7,11 @@ library(tidyverse)
 library(rlang)
 library(crew)
 
+# Note that ManyEcoEvo needs to be installed, if you have cloned this repo
+# and are using targets to rebuild the data objects, you can run
+# remotes::install_local() with the wd set to the project root (recommended).
+# If installing package from github, there's no guarantee of version match.
+
 pkgs <- c("tidyverse", 
           "naniar", 
           "tidyr", 
