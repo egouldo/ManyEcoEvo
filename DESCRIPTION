@@ -19,7 +19,7 @@ License: GPL (>= 3)
 URL: https://github.com/egouldo/ManyEcoEvo,
     https://egouldo.github.io/ManyEcoEvo/
 BugReports: https://github.com/egouldo/ManyEcoEvo/issues
-Depends: 
+Depends:
     R (>= 2.10),
     rmarkdown,
     bookdown
@@ -54,14 +54,15 @@ Suggests:
     performance,
     pracma,
     progress,
-    qs,
+    qs2,
+    quarto,
     recipes,
     rmarkdown,
     sae,
     targets,
     timetk,
     workflows
-VignetteBuilder: 
+VignetteBuilder:
     knitr
 Remotes:
     daniel1noble/orchaRd,
@@ -70,3 +71,4 @@ Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
+Config/Needs/website: quarto

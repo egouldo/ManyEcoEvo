@@ -7,13 +7,18 @@ library(tidyverse)
 library(rlang)
 library(crew)
 
-pkgs <- c("tidyverse", 
-          "naniar", 
-          "tidyr", 
-          "tidylog", 
-          "pointblank", 
-          "readxl", 
-          "betapart", 
+# Note that ManyEcoEvo needs to be installed, if you have cloned this repo
+# and are using targets to rebuild the data objects, you can run
+# remotes::install_local() with the wd set to the project root (recommended).
+# If installing package from github, there's no guarantee of version match.
+
+pkgs <- c("tidyverse",
+          "naniar",
+          "tidyr",
+          "tidylog",
+          "pointblank",
+          "readxl",
+          "betapart",
           "visNetwork",
           "recipes",
           "ggforestplot",
@@ -28,8 +33,10 @@ pkgs <- c("tidyverse",
           "multilevelmod",
           "metafor",
           "parameters",
+          # "qs", #NOTE has been removed from CRAN
+          "qs2",
           "ManyEcoEvo" #TODO rm from here and just call in tar_option_set(), but will need to rm all namespacing, see gh issue #97
-) 
+)
 
 controller <- crew::crew_controller_local(
   garbage_collection = TRUE,
@@ -45,13 +52,16 @@ tar_option_set(
   retrieval = "worker",
   controller = controller,
   format = "qs",
+  resources = tar_resources(
+    qs = tar_resources_qs(nthreads = 6)
+  ),
   seed = 1234
   # debug = c("augmented_data_3efd9941")#, #augmented_data_a4d78efa
   # cue = tar_cue(mode = "always") #because we have silent errors!
 )
 
-list(tarchetypes::tar_file_read(name = euc_reviews, 
-                                command = "data-raw/anonymised_data/euc_reviews.csv", 
+list(tarchetypes::tar_file_read(name = euc_reviews,
+                                command = "data-raw/anonymised_data/euc_reviews.csv",
                                 read = readr::read_csv(file = !!.x)),
      tarchetypes::tar_file_read(name = bt_reviews,
                                 command = "data-raw/anonymised_data/bt_reviews.csv",
@@ -65,59 +75,59 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
                                 read = readr::read_csv(file = !!.x)),
      tarchetypes::tar_file_read(name = predictions_validation_coded,
                                 command = "data-raw/anonymised_data/predictions_validations_worksheet.csv",
-                                read = readr::read_csv(!!.x) %>% 
+                                read = readr::read_csv(!!.x) %>%
                                   # dplyr::select(-transformation,
                                   #               -response_transformation_status,
                                   #               -response_variable_type,
                                   #               -error_distribution,
                                   #               -response_variable_name,
                                   #               -response_construction_description,
-                                  #               -submission_id) %>% 
+                                  #               -submission_id) %>%
                                   # dplyr::rename_with(.cols = ends_with("_new"),
-                                  #                    .fn =  stringr::str_remove, 
-                                  #                    "_new") %>% 
-                                  dplyr::mutate(other_action = 
-                                                  case_when(other_action == "columns_not_recognized_as_such_because_seperated_by_\";\"" 
-                                                            ~ rlang::na_chr, 
-                                                            TRUE ~ other_action))) , 
+                                  #                    .fn =  stringr::str_remove,
+                                  #                    "_new") %>%
+                                  dplyr::mutate(other_action =
+                                                  case_when(other_action == "columns_not_recognized_as_such_because_seperated_by_\";\""
+                                                            ~ rlang::na_chr,
+                                                            TRUE ~ other_action))) ,
      tarchetypes::tar_file_read(name = list_of_new_prediction_files,
                                 command = "data-raw/analyst_data/S2/list_of_new_csv_files.csv",
                                 read = readr::read_csv(!!.x)),
      targets::tar_target(name = all_review_data,
                          command = prepare_review_data(bt_reviews,euc_reviews)),
      targets::tar_target(ManyEcoEvo,
-                         command = prepare_ManyEcoEvo(master_data, 
-                                                      master_metadata, 
+                         command = prepare_ManyEcoEvo(master_data,
+                                                      master_metadata,
                                                       all_review_data)),
      targets::tar_target(name = ManyEcoEvo_results,
-                         command = 
-                           ManyEcoEvo %>% 
+                         command =
+                           ManyEcoEvo %>%
                            prepare_response_variables(
                              estimate_type = "Zr",
-                             dataset_standardise = 
-                               c("blue tit", "eucalyptus")) |>  
-                           generate_exclusion_subsets(estimate_type = "Zr") |> 
-                           generate_rating_subsets() |> 
+                             dataset_standardise =
+                               c("blue tit", "eucalyptus")) |>
+                           generate_exclusion_subsets(estimate_type = "Zr") |>
+                           generate_rating_subsets() |>
                            generate_expertise_subsets(
                              ManyEcoEvo:::expert_subset) |>
                            generate_collinearity_subset(
                              ManyEcoEvo:::collinearity_subset) |>
                            generate_outlier_subsets(
-                             outcome_variable = 
-                               list(dataset = list("eucalyptus" = "Zr", 
-                                                   "blue tit" = "Zr")), 
-                             n_min = -2, 
-                             n_max = -2, 
-                             ignore_subsets = 
+                             outcome_variable =
+                               list(dataset = list("eucalyptus" = "Zr",
+                                                   "blue tit" = "Zr")),
+                             n_min = -2,
+                             n_max = -2,
+                             ignore_subsets =
                                rlang::exprs(
-                                 collinearity_subset != "collinearity_removed", 
-                                 expertise_subset != "expert", 
+                                 collinearity_subset != "collinearity_removed",
+                                 expertise_subset != "expert",
                                  publishable_subset == "All")) |>
-                           compute_MA_inputs(estimate_type = "Zr") |> 
+                           compute_MA_inputs(estimate_type = "Zr") |>
                            meta_analyse_datasets(
-                             outcome_variable = "Zr", 
+                             outcome_variable = "Zr",
                              outcome_SE = "VZr",
-                             filter_vars = 
+                             filter_vars =
                                rlang::exprs(exclusion_set == "complete",
                                             expertise_subset == "All",
                                             publishable_subset == "All",
@@ -127,37 +137,37 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
                          preprocess_updated_prediction_files(list_of_new_prediction_files)),
      targets::tar_target(prediction_submissions,
                          preprocess_prediction_files(
-                           predictions_validation_coded, 
-                           ManyEcoEvo %>% 
-                             select(data) %>% 
-                             unnest(cols = data)) %>% 
-                           left_join(x = ., 
+                           predictions_validation_coded,
+                           ManyEcoEvo %>%
+                             select(data) %>%
+                             unnest(cols = data)) %>%
+                           left_join(x = .,
                                      y = updated_prediction_files %>%
                                        select(-transformation,
-                                              -response_variable_or_model), 
-                                     by = c("response_id", 
+                                              -response_variable_or_model),
+                                     by = c("response_id",
                                             "submission_id",
-                                            "question" = "survey_question", 
-                                            "analysis_id", 
-                                            "split_id", 
-                                            "dataset")) %>% 
-                           ungroup() %>% 
+                                            "question" = "survey_question",
+                                            "analysis_id",
+                                            "split_id",
+                                            "dataset")) %>%
+                           ungroup() %>%
                            mutate(
                              no_updated_checks = map_lgl(updated_checks, is_null),
-                             checks = ifelse(no_updated_checks == TRUE, 
-                                             checks, 
+                             checks = ifelse(no_updated_checks == TRUE,
+                                             checks,
                                              updated_checks),
-                             .keep = "unused") %>% 
+                             .keep = "unused") %>%
                            rowwise() %>% #NOTE: file_name and file_path replacement errors fails without rowwise
                            mutate(
-                             file_name = 
+                             file_name =
                                case_when(
                                  rlang::is_na(`new_csv_file_name--file-submissionID-csv_number`) ~ file_name,
                                  TRUE ~ `new_csv_file_name--file-submissionID-csv_number`),
                              filepath = case_when(
-                               rlang::is_na(`new_csv_file_name--file-submissionID-csv_number`) ~ filepath, 
+                               rlang::is_na(`new_csv_file_name--file-submissionID-csv_number`) ~ filepath,
                                TRUE ~ here::here("data-raw/analyst_data/S2", file_name)),
-                             exclude_read = 
+                             exclude_read =
                                case_when(
                                  response_id == "R_3dYDpQUfDUXjtDy" & submission_id == 2 ~ "exclude", # see col other_action & misc_notes in predictions_validation_worksheet.csv for reasons
                                  response_id == "R_3mfyhAj6rakbi5b" & submission_id == 1 ~ "exclude", #TODO: check whether THP's file has addressed these issues, if so we can remove this code as it is redundant
@@ -168,10 +178,10 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
                                  response_id == "R_1LRqq2WHrQaENtM" & submission_id == 1 ~ "exclude",
                                  response_id == "R_2V7qaLEfdbgUGg3" & submission_id == 1 ~ "exclude", # missing se.fit, but should be filtered out automatically if don't pass in preprocess_updated_prediction_files - might not have warning level set properly to detect f_pass < 1
                                  TRUE ~ "include")) %>% #TODO seems to be duplicating THP's effort - remove if not already coded as exclude_csv or exclude in ManyEcoEvo
-                           ungroup() %>% 
-                           dplyr::filter(exclude_read == "include") %>% 
-                           select(-`new_csv_file_name--file-submissionID-csv_number`, 
-                                  -updated_submission_data) %>% 
+                           ungroup() %>%
+                           dplyr::filter(exclude_read == "include") %>%
+                           select(-`new_csv_file_name--file-submissionID-csv_number`,
+                                  -updated_submission_data) %>%
                            filter(fs::path_ext(filepath) %nin% "zip")), #TODO check that stuff we haven't already manually unzipped isn't being accidentally removed
      tar_target(grouped_prediction_validation_data,
                 command = prediction_submissions %>% #TODO move this code (except group_by() %>%  tar_group()) into preprocess_prediction_files()
@@ -182,9 +192,9 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
                          dataset,
                          question,
                          file_name,
-                         filepath, 
+                         filepath,
                          checks,
-                         exclusions_all, 
+                         exclusions_all,
                          mixed_model,
                          transformation,
                          response_transformation_status,
@@ -192,27 +202,27 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
                          adjusted_df,
                          review_data,
                          sample_size
-                  ) %>% 
+                  ) %>%
                   drop_na(split_id) %>% #TODO, remove this `drop_na()` once we have fixed missing NA `gh issue view 109 -w`; `gh issue view 102 -w`
                   anti_join(., #TODO remove analyses where there are multiple submissions per split_id (~20) `gh issue view 109 -w`; `gh issue view 102 -w`
-                            {count(., response_id, submission_id, analysis_id, split_id) %>% 
-                                filter(n > 1)}) %>% 
-                  group_by(response_id, submission_id, analysis_id, split_id) %>% 
+                            {count(., response_id, submission_id, analysis_id, split_id) %>%
+                                filter(n > 1)}) %>%
+                  group_by(response_id, submission_id, analysis_id, split_id) %>%
                   tar_group(),
                 iteration = "group"),
      tar_target(groups,
                 grouped_prediction_validation_data,
                 pattern = map(grouped_prediction_validation_data)),
-     tar_target(submission_data, 
-                command = read_submission_data(groups$filepath), 
+     tar_target(submission_data,
+                command = read_submission_data(groups$filepath),
                 iteration = "list",
                 pattern = map(groups),
                 error = "continue" #TODO, run without continue and check for problems
      ),
      tar_target(augmented_data,
-                command = if(!rlang::is_na(submission_data)) { 
-                  augment_prediction_data(.data = submission_data, 
-                                          checks = groups$checks, 
+                command = if(!rlang::is_na(submission_data)) {
+                  augment_prediction_data(.data = submission_data,
+                                          checks = groups$checks,
                                           dataset = groups$dataset)
                 }else{
                   NA
@@ -222,9 +232,9 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
                 pattern = map(submission_data, groups)),
      tar_target(validated_augmented_data,
                 command = if (!rlang::is_na(augmented_data)) {
-                  validate_predictions(data_set = groups$dataset, 
-                                       input = augmented_data %>% 
-                                         ungroup(), 
+                  validate_predictions(data_set = groups$dataset,
+                                       input = augmented_data %>%
+                                         ungroup(),
                                        type = "df")
                 }else{
                   NA
@@ -235,8 +245,8 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
      ),
      tar_target(prediction_checks,
                 command = if (!rlang::is_na(validated_augmented_data)) {
-                  pointblank::interrogate(validated_augmented_data) %>% 
-                    pointblank::get_agent_report(., 
+                  pointblank::interrogate(validated_augmented_data) %>%
+                    pointblank::get_agent_report(.,
                                                  display_table = FALSE)
                 } else{
                   NA
@@ -249,93 +259,93 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
                 command = groups %>% #must be groups, not grouped_prediction_validation_data bc the row order changes
                   mutate(augmented_data = augmented_data,
                          checks = prediction_checks,
-                         validation_fail = 
-                           modify_if(.x = checks, 
+                         validation_fail =
+                           modify_if(.x = checks,
                                      .p = negate(rlang::is_na),
-                                     .f = ~ filter(.x, f_pass < 1, 
-                                                   stringr::str_detect(columns, "estimate|fit")) %>% 
-                                       nrow(.)) %>% 
-                           flatten_dbl(.) %>% 
+                                     .f = ~ filter(.x, f_pass < 1,
+                                                   stringr::str_detect(columns, "estimate|fit")) %>%
+                                       nrow(.)) %>%
+                           flatten_dbl(.) %>%
                            as.logical(.))),
      targets::tar_target(name = ManyEcoEvo_viz,
                          command =  make_viz(ManyEcoEvo_results)),
      targets::tar_target(name = ManyEcoEvo_yi,
-                         command = prepare_ManyEcoEvo_yi(master_data, 
-                                                         master_metadata, 
+                         command = prepare_ManyEcoEvo_yi(master_data,
+                                                         master_metadata,
                                                          all_prediction_data)),
      targets::tar_target(name = ManyEcoEvo_yi_results,
-                         command =  ManyEcoEvo_yi %>% 
+                         command =  ManyEcoEvo_yi %>%
                            mutate(
-                             data = 
-                               map_if(data, 
-                                      ~ filter(.x, 
+                             data =
+                               map_if(data,
+                                      ~ filter(.x,
                                                stringr::str_detect(
-                                                 response_variable_name, 
+                                                 response_variable_name,
                                                  "average.proportion.of.plots.containing",
                                                  negate = TRUE)),
-                                      .p = dataset == "eucalyptus")) %>%   
+                                      .p = dataset == "eucalyptus")) %>%
                            mutate(
                              diversity_data =
                                map2(
                                  .x = diversity_data,
                                  .y = data,
-                                 .f = ~ semi_join(.x, .y, join_by(id_col)) %>% 
+                                 .f = ~ semi_join(.x, .y, join_by(id_col)) %>%
                                    distinct()
                                )
-                           ) %>% 
+                           ) %>%
                            prepare_response_variables(
                              estimate_type = "yi",
-                             param_table = 
-                               ManyEcoEvo:::analysis_data_param_tables, 
+                             param_table =
+                               ManyEcoEvo:::analysis_data_param_tables,
                              dataset_standardise = "blue tit",
                              dataset_log_transform = "eucalyptus") %>%
                            generate_yi_subsets() %>% #TODO: must be run after prepare_response_variables??
-                           rowwise() %>% 
+                           rowwise() %>%
                            mutate(data = if (dataset == "eucalyptus") {
                              list(
                                exclude_extreme_estimates(
-                                 data, 
-                                 outcome_variable = "mean_log", 
-                                 outcome_SE = "se_log", 
-                                 param_table = ManyEcoEvo:::analysis_data_param_tables, 
-                                 sd_threshold = 3, 
-                                 .fn = log_transform, 
-                                 estimate = mean, 
+                                 data,
+                                 outcome_variable = "mean_log",
+                                 outcome_SE = "se_log",
+                                 param_table = ManyEcoEvo:::analysis_data_param_tables,
+                                 sd_threshold = 3,
+                                 .fn = log_transform,
+                                 estimate = mean,
                                  std.error = sd))
                            } else {list(data)},
                            diversity_data = if (dataset == "eucalyptus") {
                              list(
-                               semi_join(diversity_data, 
-                                         data, 
-                                         by = "id_col") %>% 
+                               semi_join(diversity_data,
+                                         data,
+                                         by = "id_col") %>%
                                  distinct())
-                           } else {list(diversity_data)}) %>% 
-                           ungroup %>% 
+                           } else {list(diversity_data)}) %>%
+                           ungroup %>%
                            apply_VZ_exclusions(
-                             VZ_colname = list("eucalyptus" = "se_log", 
-                                               "blue tit" = "VZ"), 
+                             VZ_colname = list("eucalyptus" = "se_log",
+                                               "blue tit" = "VZ"),
                              VZ_cutoff = 3) %>%
-                           compute_MA_inputs() %>%  
+                           compute_MA_inputs() %>%
                            meta_analyse_datasets(
-                             outcome_variable = 
-                               list(dataset = 
-                                      list("eucalyptus" = "mean_log", "blue tit" = "Z")), 
-                             outcome_SE = 
-                               list(dataset = 
+                             outcome_variable =
+                               list(dataset =
+                                      list("eucalyptus" = "mean_log", "blue tit" = "Z")),
+                             outcome_SE =
+                               list(dataset =
                                       list("eucalyptus" = "se_log", "blue tit" = "VZ")),
-                             filter_vars = NULL) 
+                             filter_vars = NULL)
      ),
      targets::tar_target(name = ManyEcoEvo_yi_viz,
                          command = make_viz(ManyEcoEvo_yi_results)),
      targets::tar_target(name = ManyEcoEvo_study_summary,
                          command = summarise_study(
-                           ManyEcoEvo, 
-                           ManyEcoEvo_results, 
-                           id_subsets = 
-                             list(ManyEcoEvo:::effect_ids, 
-                                  ManyEcoEvo:::prediction_ids), 
-                           subset_names = c("effects", "predictions"), 
-                           filter_vars = 
+                           ManyEcoEvo,
+                           ManyEcoEvo_results,
+                           id_subsets =
+                             list(ManyEcoEvo:::effect_ids,
+                                  ManyEcoEvo:::prediction_ids),
+                           subset_names = c("effects", "predictions"),
+                           filter_vars =
                              rlang::exprs(exclusion_set == "complete",
                                           estimate_type == "Zr",
                                           publishable_subset == "All",
@@ -345,7 +355,7 @@ list(tarchetypes::tar_file_read(name = euc_reviews,
      tarchetypes::tar_quarto(name = README,
                              path = "README.qmd"),
      tarchetypes::tar_quarto(name = README_data_raw,
-                             path = 
+                             path =
                                here::here("data-raw/analysis_datasets/",
                                           "README.qmd"))
 )
