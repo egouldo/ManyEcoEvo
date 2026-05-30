@@ -32,7 +32,7 @@ affiliations:
     name: The University of New South Wales
   - id: aff3
     name: Whitman College
-format: 
+format:
   html:
     html-math-method: mathjax
 title: "ManyEcoEvoR"
