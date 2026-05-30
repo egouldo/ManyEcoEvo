@@ -1,4 +1,5 @@
-tibble::tribble(
+response_identifier_key <-
+  tibble::tribble(
   ~TeamIdentifier , ~response_id        , ~response_id_S1     ,
   "Ayr"           , "R_11787O3NmejXKAH" , "R_1Itl59kv377gLJf" ,
   "Bega"          , "R_126erjKKuN3IwSJ" , "R_2cAVQfYDwn6t1op" ,
