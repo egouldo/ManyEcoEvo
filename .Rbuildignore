@@ -13,3 +13,7 @@ _targets/
 ^Meta$
 ^data-raw/analyst_data/S2$
 ^vignettes/*_files$
+^vignettes/articles/\.quarto$
+^vignettes/articles/*_files$
+^vignettes/articles$
+vignettes/Untitled.Rmd
