@@ -62,7 +62,7 @@ This package is released with a [Contributor Code of Conduct](https://github.com
 
 ## Citation
 
-```         
+```
 To cite package ‘ManyEcoEvo’ in publications use:
 
   Gould E, Fraser H, Nakagawa S, Parker T (2025). _ManyEcoEvo: Meta-analyse
