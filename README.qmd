@@ -51,6 +51,11 @@ The script that generates datasets used in the `ManyEcoEvo::` package is located
 
 This software is licensed with the GNU GPL 3 license.
 
+### Testing
+
+This package uses the `{testthat}` framework for unit testing.
+You can run the test suite locally using `devtools::test()`.
+
 ## Contributing
 
 This package is released with a [Contributor Code of Conduct](https://github.com/egouldo/ManyEcoEvo/blob/aa2b9dcb6462f35ce873418e0b9c9697cf0b2f24/CODE_OF_CONDUCT.md).
