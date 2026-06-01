@@ -4,6 +4,7 @@ knitr:
   opts_chunk:
     collapse: true
     comment: '#>'
+cache: true
 tags:
   - R
   - meta-analysis
@@ -81,7 +82,6 @@ Existing meta-analytic software within the R ecosystem are designed around fitti
 ManyEcoEvo provides a reproducible data pipeline and a multi-level wrapper framework for running meta-analyses programmatically across multiple datasets and over systematically varied analytical subsets of those datasets. The package provides a reusable workflow infrastructure that also generalises to sensitivity analyses in conventional meta-analyses. The ManyEcoEvo package occupies a distinctive niche in the R ecosystem that is not addressed by existing meta-analysis tooling. Its secondary contribution is to provide a curated, analysis-ready dataset to facilitate reproductions or re-analyses of @Gould2025.
 
 ## Dataset Description
-
 
 The *ManyEcoEvo* dataset contains analyst responses for two different research questions, each with their own analysis dataset: one examining blue tit nestling growth (evolutionary biology) and another examining eucalyptus seedling recruitment (conservation ecology).
 
@@ -253,25 +253,146 @@ plot_effects_diversity(
 
 ## Scaling up: Systematic Analysis Across Datasets and Analytical Subsets
 
-- Explain the nested tibble data structure as the object that the wrappers operate on — dataset, data, diversity_data as list-columns, grouped by exclusion_set, estimate_type, etc.
+The single-dataset walkthrough above introduced each analytical step individually — standardising estimates, fitting the meta-analytic model, computing deviation scores, and fitting downstream regressions — to make the logic of each step transparent. In practice, however, these steps are coordinated by a single wrapper function, `meta_analyse_datasets()`, which executes the full sequence in one call. We introduce it first on a single dataset before showing how the same call extends automatically to multiple datasets and analytical subsets.
 
-- Explain generate_exclusion_subsets() and related functions as expanding the nested structure by systematically generating new analytical subsets, so that the full downstream pipeline propagates through all subsets automatically. Draw the analogy to sensitivity analyses in conventional meta-analysis.
+### Preparing to map analyses over datasets with the nested tibble
 
+The pipeline is built around a nested tibble — a data frame where each row represents a dataset (e.g., "blue tit" or "eucalyptus"), and the analyst-level data for that dataset is stored in list-columns rather than as flat rows. The key list-columns are shown below:
 
+```{r}
+# The top-level object: one row per dataset
+ManyEcoEvo
+```
 
-- Explain meta_analyse_datasets() as the main coordination function — fitting models, computing deviation scores, applying transformations, and fitting downstream regressions in a single call across all dataset-by-subset combinations.
+Each element of the column `data` is itself a tibble of analyst submissions, for different `dataset`s. The nesting means that all downstream operations can be expressed as row-wise transformations using `purrr::map()` variants — the pipeline never needs to unpack and repack the full flat data frame.
 
-- Show a minimal code example using prepare_response_variables() -> compute_MA_inputs() -> meta_analyse_datasets() -> make_viz() (pull from existing vignette).
+`diversity_data` stores a tibble of variable-use data for the Sorensen index computation, while `estimate_type` describes the outcome variable. An equivalent dataset for point predictions rather than effect-sizes are stored separately in `ManyEcoEvo_yi`.
 
-- Note that filter_vars, outcome_variable, and VZ_colname as named lists are the user-facing interface points that make the framework generalisable to new datasets without modifying source code.
+### Coordinating the Full Pipeline with `meta_analyse_datasets()`
 
-## Integration with `targets::`
+`meta_analyse_datasets()` accepts the nested tibble produced by `prepare_response_variables()` and `compute_MA_inputs()` and, for each row, executes in sequence:
 
-The existing article does not mention targets:: at all, which is a notable omission given that the entire pipeline is implemented using targets ...
+1. removal of infinite and missing values from the outcome columns;
+2. fitting of the multilevel meta-analytic model via `fit_MA_mv()`;
+3. computation of each analyst's deviation from the meta-analytic mean via `calculate_deviation_score()`;
+4. Box–Cox transformation of the deviation scores via `box_cox_transform()`; and
+5. fitting of the downstream regression models — Sørensen diversity index, continuous peer-review ratings, categorical peer-review ratings, and random-effects inclusion.
 
-Add short section noting that the package is designed around targets:: for pipeline reproducibility
+Each result is returned as a new list-column in the same nested tibble. Applied to the single *Eucalyptus* dataset, equivalent to the blue tit dataset from the previous section. The call is:
 
-strengthens the reproducibility claim and is relevant to the JOSS audience.
+```{r}
+#| warning: false
+#| message: false
+single_dataset_results <-
+  analysis_data %>%
+  filter(dataset == "eucalyptus") %>%
+  prepare_response_variables(
+    estimate_type    = "Zr",
+    dataset_standardise = "eucalyptus"
+  ) %>%
+  compute_MA_inputs(estimate_type = "Zr") %>%
+  meta_analyse_datasets(
+    outcome_variable = "Zr",
+    outcome_SE       = "VZr"
+  )
+
+# One row, with all model outputs as list-columns
+single_dataset_results %>%
+  select(dataset, MA_mod, sorensen_glm, box_cox_rating_cont, box_cox_rating_cat)
+```
+
+This is equivalent to the manual sequence demonstrated in the previous section, but expressed as a single pipeline call whose structure does not change as the number of datasets or subsets grows.
+
+### Repeating the Analysis Across Multiple Datasets
+
+Extending the pipeline to both datasets requires no changes to the pipeline itself — only the input object changes. Because `meta_analyse_datasets()` iterates over rows of the nested tibble, passing a two-row object (one row per dataset) produces two complete sets of results:
+
+```{r}
+#| message: false
+#| warning: false
+meta_analysis_results <-
+  analysis_data %>%
+  prepare_response_variables(
+    estimate_type = "Zr",
+    dataset_standardise = c("blue tit", "eucalyptus")
+  ) %>%
+  compute_MA_inputs(estimate_type = "Zr") %>%
+  meta_analyse_datasets(
+    outcome_variable = "Zr",
+    outcome_SE       = "VZr"
+  ) %>%
+  make_viz()
+```
+
+The output retains the nested tibble structure, now with one row per dataset and additional list-columns for each fitted model and visualisation. Results for a given dataset are accessed by filtering on the `dataset` column:
+
+```{r}
+#| message: false
+# Compare heterogeneity statistics across datasets
+meta_analysis_results %>%
+  filter(model_name == "MA_mod") %>%
+  select(dataset, MA_fit_stats) %>%
+  unnest(MA_fit_stats) %>%
+  drop_na()
+```
+
+This is the simplest use case: the same analytical pipeline applied to two research questions, with the only difference being which datasets are passed in.
+
+### Generating Analytical Subsets
+
+Many-analyst studies routinely require repeating the full analysis under varied inclusion criteria. In @Gould2025, we repeated our meta-analysis after removing analyses rated as low quality by peer reviewers, after excluding analyses with collinear predictors, and after removing extreme outliers. In conventional practice, sensitivity analyses of this kind are usually implemented as ad hoc copies of the primary analysis script. `ManyEcoEvo` instead treats subset generation as a first-class operation that expands the nested tibble by adding rows, one per new subset, so that the full downstream pipeline propagates through all combinations without modification.
+
+`generate_exclusion_subsets()` and its companion functions (`generate_rating_subsets()`, `generate_expertise_subsets()`, `generate_collinearity_subset()`) each add new rows to the nested tibble. Each new row carries correctly filtered `data` and `diversity_data` list-columns, matched to that subset's inclusion criteria. Starting from two dataset rows, a typical call sequence produces on the order of twelve or more rows covering complete and partial exclusion sets and publishability subsets:
+
+```{r}
+#| message: false
+meta_analysis_results <-
+  analysis_data %>%
+  prepare_response_variables(
+    estimate_type = "Zr",
+    dataset_standardise = c("blue tit", "eucalyptus")
+  ) %>%
+  generate_exclusion_subsets(estimate_type = "Zr") %>%
+  generate_rating_subsets() %>%
+  compute_MA_inputs(estimate_type = "Zr") %>%
+  meta_analyse_datasets(
+    outcome_variable = "Zr",
+    outcome_SE       = "VZr",
+    filter_vars = rlang::exprs(
+      exclusion_set      == "complete",
+      publishable_subset == "All"
+    )
+  ) %>%
+  make_viz()
+
+# The nested tibble now has one row per dataset × subset combination
+meta_analysis_results %>%
+  distinct(dataset, exclusion_set, publishable_subset)
+```
+
+In the example above, the `filter_vars` argument to `meta_analyse_datasets()` — a list of `rlang::exprs()` calls — restricts the computationally expensive multivariate meta-regression to the nominated primary subset, whilst all simpler models are fitted across every row. Because the pipeline operates on the row structure rather than branching on dataset or subset identity, adding a new subset criterion requires only an additional `generate_*()` call; the rest of the pipeline is unchanged. In this way the analyses may be varied across datasets and subsets rather than forcing the user to repeatedly apply the same meta-analysis.
+
+Note the additional `make_viz()` step in the pipeline above, which extracts model summaries, fit statistics, forest plots and funnel plots for every model in each row. Below we show how the resultant model fit statistics can be obtained for multiple datasets from this tibble:
+
+```{r}
+#| message: false
+model_fit_stats <- meta_analysis_results %>%
+  filter(exclusion_set == "complete",
+         publishable_subset == "All",
+         model_name == "MA_mod")
+
+model_fit_stats %>%
+  filter(exclusion_set == "complete",
+         publishable_subset == "All") |>
+          select(model_name, mod_fit_stats)  |>
+          unnest()
+```
+
+## Curating the ManyEcoEvo dataset with `targets::`
+
+The existing article does not mention targets:: at all, which is a notable omission given that the entire pipeline is implemented using targets.
+
+Add short section noting that the package is also designed around targets:: for pipeline reproducibility.
 
 tar_make() reproduces the entire analysis from raw data to results, and that the pipeline architecture makes the computational dependency structure explicit and auditable.
 
