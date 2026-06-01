@@ -66,40 +66,19 @@ knitr::opts_chunk$set(
 ```
 
 
-### Paragraph 1: Many-analyst studies as an emerging study type; the research question they ask (analytical variation as the object of study).
+## Summary
 
-Many-analyst studies, a format of large-scale, crowd-sourced analysis blah blah blah, are an increasingly common new study type, exposing previously under-appreciated sources of heterogeneity in the results of scientific studies - researcher degrees of freedom.
+Many-analyst studies are an emerging format of crowd-sourced scientific analysis [@Schweinsberg2021], where analysts simultaneously, but independently, answer the same research question, using the same dataset [@Voracek2019; @Silberzahn2018]. Several high-profile many-analyst studies demonstrate how results and conclusions may be highly contingent on subjective, and defensible but arbitrary analysis decisions [@Silberzahn2018; @Botvinik-Nezer2020; @Breznau2021]. Analytic flexibility may be due to genuine disagreement among researchers or analytic uncertainty in choices such as which observations to include and what data-analysis strategy is most appropriate to answer a given research question with the data at hand [@Voracek2019; @Simonsohn2020, figure 1].
 
-Many-analyst studies demonstrate how subjective, often arbitrary but defensible analysis decisions may influence research results [@Silberzahn2018]. Many-analyst studies re-analysing existing published studies have demonstrated that, actually, the results were contingent on the analysis decisions of the researchers involved ?(was that )[@Silberzahn2018]. To the point where researcher degrees of freedom might change the final conclusion. These studies call into question the reliability of published findings, demonstrating (VERB) that many published findings are likely a product of analysis decisions rather than sampling variation due to true environmental heterogeneity.
+Similarly to meta-analysis, many-analyst studies treat analytical variation as the object of study. Yet the two study formats differ in the source of variation they examine, their study goals with respect to analysing variation, assumptions about analytical choices.
 
-### Paragraph 2: How many-analyst studies are analysed — meta-analytic methods applied to distributions of effect sizes across teams. The scale and repetition involved: multiple datasets, multiple analytical subsets, multiple outcome variables.
+Meta-analyses focus on synthesising data from multiple independent studies to calculate combined effect sizes, while many-analyst studies aim to characterise and understand analytic uncertainty, applying meta-analytic methods to distributions of effect sizes across individual or teams of independent researchers. Consequently, meta-analyses over individual studies assume the source of variation is due to different samples or populations, while many-analyst studies consider analytic variation as an additional source of heterogeneity in results. Many-analyst studies produce rich metadata for each analysis, including model type, transformations, variable selection or other analytic choices, that may either be used within meta-analyses or else as predictors or covariates within additional analyses that aim to characterise analytic uncertainty. Further, the two study types may differ in the scale and repetition involved; many-analyst studies may systematically repeat the same analyses over multiple datasest, multiple analytical subsets, or multiple outcome variables - for meta-analyses, such analyses are usually conducted as sensitivity analyses and are performed in an ad hoc, and poorly documented manner. For example, a conventional meta-analysis ay ask, "what happens to the pooled estimate if we remove outliers / restrict to high-quality studies / exclude a taxonomic group?"
 
-### Paragraph 3: Gap in existing software — existing meta-analysis tools operate on single models and single datasets, with no infrastructure for systematic, programmatic repetition across subsets or datasets. This is the gap ManyEcoEvo fills.
+### Statement of Need
 
-ManyEcoEvo was originally developed to facilitate the analysis of the 'Same Data, Many Analysts' study in ecology and evolutionary biology [@Gould2025]. 174 analyst teams, comprising 246 analysts, independently investigated the answers to two prespecified research questions using two previously unpublished datasets, one from conservation ecology, and one from evolutionary biology.
+Existing meta-analytic software within the R ecosystem are designed around fitting and interrogating a single model on a single dataset, with no infrastructure for systematic, programatic repetition across multiple datasets or subsets of analyses. While packages such as `metafor`, `meta`, and `orchaRd` provide excellent tools for conventional meta-analysis, none are designed to handle the specific data structure and analytical questions that arise in many-analysts style research. Many-analyst studies might share study-specific code, but it is not designed for application to new data (e.g. [github.com/manybabies/mb1-analysis-public](https://github.com/manybabies/mb1-analysis-public), [github.com/many-speech-analyses/many_analyses](https://github.com/many-speech-analyses/many_analyses)). Additionally, dedicated software designed to analyse and visualise analytic variation, for example decision analytic graphs or specification curves, are similarly built for application to a single dataset. Consequently, we developed ManyEcoEvo to facilitate the analysis of the 'Same Data, Many Analysts' study in ecology and evolutionary biology [@Gould2025], in which 174 analyst teams, comprising 246 analysts, independently investigated the answers to two prespecified research questions and datasets, one from conservation ecology, and one from evolutionary biology.
 
-
-Many-analyst studies typically use meta-analytic methods to analyse the variation in heterogeneity of results across independent teams. While packages such as `metafor`, `meta`, and `orchaRd` provide excellent tools for conventional meta-analysis, none are designed to handle the specific data structure and analytical questions that arise in many-analysts style research. Existing meta-analytic software within the R ecosystem are designed around fitting and interrogating a single model on a single dataset. However, many-analyst studies, such as the 'Same Data, Many Analyst' study, apply the same analysis across multiple datasets simultaneously, or to systematically generated and propagated analytical subsets.
-
-ManyEcoEvo provides a reproducible data pipeline and a multi-level wrapper framework for running meta-analyses systematically across multiple datasets and across systematically varied analytical subsets of those datasets. The package provides a reusable workflow infrastructure that also generalises to conventional meta-analyses. The ManyEcoEvo package occupies a distinctive niche in the R ecosystem that is not addressed by existing meta-analysis tooling.
-
-### Paragraph 4: Statement of contribution — the package as a reproducible data pipeline and multi-level wrapper framework, with the secondary contribution of providing a curated, analysis-ready dataset.
-
-Largely engineering contribution: the wrapper architecture that makes systematic, reproducible, large-scale repetition of the same analysis pipeline across many dataset variants a tractable, first-class operation rather than an ad hoc afterthought.
-
-## Statement of Need
-
-The results of some many-analyst studies have been controversial, yielding re-analyses criticising the original implementation of some many-analyst studies. For example, @Auspurg2021 re-analysed part of the seminal 'Red-Card' many-analyst study examining the influence of whether referees were more likely to give red cards to soccer players with dark skin tone than those with light skin tone [@Silberzahn2018].
-
-- facilitates re-analysis and replication.
-
-By providing the code and data for @Gould2025 in the *ManyEcoEvo* package, we allow similar re-analyses of the ‘Same Data, Many Analysts in Ecology and Evolutionary Biology’, wherein ManyEcoEvo can be used to re-run the analysis in @Gould2025 with slightly different methods, or subsets of data in order to verify and examine the robustness of our findings.
-
-Presently, no dedicated many-analyst software exists. Existing code, if shared, is typically written as study-specific scripts (e.g. [github.com/manybabies/mb1-analysis-public](https://github.com/manybabies/mb1-analysis-public), [github.com/many-speech-analyses/many_analyses](https://github.com/many-speech-analyses/many_analyses)).
-
-However, there are a range of existing packages that address various components of many-analyst workflows from data preparation, meta-analysis, and specification curve or multiverse analysis and visualisation of results.
-
-ManyEcoEvo provides a structured workflow that maps analytical operations systematically across datasets and data subsets. The packages wrapper architecture generalises to conventional meta-analyses, where sensitivity analyses repeat the meta-analysis across inclusion criteria or data subsets.
+ManyEcoEvo provides a reproducible data pipeline and a multi-level wrapper framework for running meta-analyses programmatically across multiple datasets and over systematically varied analytical subsets of those datasets. The package provides a reusable workflow infrastructure that also generalises to sensitivity analyses in conventional meta-analyses. The ManyEcoEvo package occupies a distinctive niche in the R ecosystem that is not addressed by existing meta-analysis tooling. Its secondary contribution is to provide a curated, analysis-ready dataset to facilitate reproductions or re-analyses of @Gould2025.
 
 ## Dataset Description
 
@@ -170,7 +149,7 @@ Each row represents a unique analysis (`id_col`), potentially with multiple anal
 
 ## Calculating meta-analytic results from raw estimates with the Blue tit dataset
 
-Here we introduce analysis-level functions in ManyEcoEvo demonstrating on a single dataset a typical analysis pipeline which moves from data cleaning and harmonisation, meta-analysis and analysis of sources of heterogeneity, and visualisation and reporting of results. Each of these functions is independently usable, so users can substitute their own standardisation method, their own model-fitting function, or their own deviation score approach.
+Here we introduce analysis-level functions in ManyEcoEvo demonstrating on a single dataset a typical analysis pipeline which moves from data cleaning and harmonisation, meta-analysis and analysis of sources of heterogeneity, and visualisation and reporting of results. Each of these functions is modular and usable independently of our package, so users can substitute their own standardisation method, their own model-fitting function, or their own deviation score approach.
 
 ### Data preparation for meta-analysis
 
@@ -298,5 +277,4 @@ tar_make() reproduces the entire analysis from raw data to results, and that the
 
 ## Conclusion
 
-Sharpen existing conclusion, it's a bit bland/generic.
- restate the core message: the primary contribution is the wrapper framework for systematic, reproducible repetition of meta-analyses across datasets and analytical subsets, with the secondary contribution of providing the ManyEcoEvo dataset in analysis-ready form.
+ManyEcoEvo provides a structured workflow that maps analytical operations systematically across datasets and data subsets. The packages wrapper architecture generalises to conventional meta-analyses, where sensitivity analyses repeat the meta-analysis across inclusion criteria or data subsets. Its contribution is largely architectural, making systematic, reproducible, large-scale repetition of the same analysis pipeline across many dataset variants a tractable, first-class operation rather than an ad hoc afterthought. Finally, it is also a data package for the 'Same Data, Many Analysts' study in Ecology and Evolution [@Gould2025].
