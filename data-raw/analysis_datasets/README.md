@@ -34,6 +34,8 @@ variable are excluded from further meta-analysis. See table below for
 constructed variables that are included/excluded in the out-of-sample
 predictions meta-analysis:
 
+<details class="code-fold">
+<summary>Code</summary>
 
 ``` r
 library(ManyEcoEvo)
@@ -88,7 +90,11 @@ all_constructed_vars %>%
   )
 ```
 
-Table 1 - tbl-constructed-variables
+</details>
+
+<div id="tbl-constructed-variables">
+
+Table 1
 
 | Constructed Variable | Included in $y_i$ meta-analysis? |
 |:---|:---|
@@ -106,3 +112,5 @@ Table 1 - tbl-constructed-variables
 | day_14_tarsus_length_deviation | FALSE |
 | residual_day14_weight | FALSE |
 | residual_day_14_weight_males | FALSE |
+
+</div>
