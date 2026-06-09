@@ -402,3 +402,9 @@ Package version dependencies are maintained using the `renv` package [@renv2024]
 ## Conclusion {#sec-R-conclusion}
 
 `ManyEcoEvo` provides a structured workflow that maps analytical operations systematically across datasets and data subsets. The package’s wrapper architecture is customised for many analyst projects but also generalises to conventional meta-analyses, where sensitivity analyses repeat the meta-analysis across inclusion criteria or data subsets. Its contribution is largely architectural, making systematic, reproducible, large-scale repetition of the same analysis pipeline across many dataset variants a tractable, first-class operation rather than an ad hoc afterthought. Finally, it is also a data package for the ‘Same Data, Many Analysts’ study in Ecology and Evolution [@Gould2025].
+
+## Session Information {#sec-R-session-info}
+
+```{r ManyEcoEvo-session-info}
+devtools::session_info()
+```
