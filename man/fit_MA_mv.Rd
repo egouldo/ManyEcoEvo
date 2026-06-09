@@ -24,10 +24,10 @@ fit_MA_mv(
 A fitted model of class \code{c("rma.mv","rma")}.
 }
 \description{
-Fit a meta-regression model with random effects using the \code{\link[metafor:rma.mv]{metafor::rma.mv()}} function from the \link[metafor:metafor-package]{metafor::metafor} package to a data.frame containing the estimates and variances for the meta-analysis.
+Fit a meta-regression model with random effects using the \code{\link[metafor:rma.mv]{metafor::rma.mv()}} function from the \link[metafor:metafor]{metafor::metafor} package to a data.frame containing the estimates and variances for the meta-analysis.
 }
 \details{
-This function is a wrapper around the \code{\link[metafor:rma.mv]{metafor::rma.mv()}} function from the \link[metafor:metafor-package]{metafor::metafor} package. It takes a dataframe containing the estimates and variances for the meta-analysis, the name of the column containing the estimates, the name of the column containing the variances, and the type of estimate to be used in the model. It then fits a metaregression model with random-effects using the \code{\link[metafor:rma.mv]{metafor::rma.mv()}} function called in \code{\link[=fit_metafor_mv]{fit_metafor_mv()}} and returns the fitted model.
+This function is a wrapper around the \code{\link[metafor:rma.mv]{metafor::rma.mv()}} function from the \link[metafor:metafor]{metafor::metafor} package. It takes a dataframe containing the estimates and variances for the meta-analysis, the name of the column containing the estimates, the name of the column containing the variances, and the type of estimate to be used in the model. It then fits a metaregression model with random-effects using the \code{\link[metafor:rma.mv]{metafor::rma.mv()}} function called in \code{\link[=fit_metafor_mv]{fit_metafor_mv()}} and returns the fitted model.
 
 Nested random effects are included for \code{TeamIdentifier} and \code{TeamIdentifier/study_id}.
 }
@@ -38,20 +38,20 @@ ManyEcoEvo_results$effects_analysis[[1]] \%>\%
 \seealso{
 \code{\link[=fit_metafor_mv]{fit_metafor_mv()}}, \code{\link[metafor:rma.mv]{metafor::rma.mv()}}
 
-Other Model fitting and meta-analysis: 
-\code{\link{fit_boxcox_ratings_cat}()},
-\code{\link{fit_boxcox_ratings_cont}()},
-\code{\link{fit_boxcox_ratings_ord}()},
-\code{\link{fit_metafor_mv}()},
-\code{\link{fit_metafor_mv_reduced}()},
-\code{\link{fit_metafor_uni}()},
-\code{\link{fit_multivar_MA}()},
-\code{\link{fit_sorensen_glm}()},
-\code{\link{fit_uni_mixed_effects}()},
-\code{\link{poss_fit_boxcox_ratings_cat}()},
-\code{\link{poss_fit_boxcox_ratings_cont}()},
-\code{\link{poss_fit_boxcox_ratings_ord}()},
-\code{\link{poss_fit_metafor_mv}()},
-\code{\link{poss_fit_uni_mixed_effects}()}
+Other Model fitting and meta-analysis:
+\code{\link[=fit_boxcox_ratings_cat]{fit_boxcox_ratings_cat()}},
+\code{\link[=fit_boxcox_ratings_cont]{fit_boxcox_ratings_cont()}},
+\code{\link[=fit_boxcox_ratings_ord]{fit_boxcox_ratings_ord()}},
+\code{\link[=fit_metafor_mv]{fit_metafor_mv()}},
+\code{\link[=fit_metafor_mv_reduced]{fit_metafor_mv_reduced()}},
+\code{\link[=fit_metafor_uni]{fit_metafor_uni()}},
+\code{\link[=fit_multivar_MA]{fit_multivar_MA()}},
+\code{\link[=fit_sorensen_glm]{fit_sorensen_glm()}},
+\code{\link[=fit_uni_mixed_effects]{fit_uni_mixed_effects()}},
+\code{\link[=poss_fit_boxcox_ratings_cat]{poss_fit_boxcox_ratings_cat()}},
+\code{\link[=poss_fit_boxcox_ratings_cont]{poss_fit_boxcox_ratings_cont()}},
+\code{\link[=poss_fit_boxcox_ratings_ord]{poss_fit_boxcox_ratings_ord()}},
+\code{\link[=poss_fit_metafor_mv]{poss_fit_metafor_mv()}},
+\code{\link[=poss_fit_uni_mixed_effects]{poss_fit_uni_mixed_effects()}}
 }
 \concept{Model fitting and meta-analysis}

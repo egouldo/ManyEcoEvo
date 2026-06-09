@@ -6,9 +6,6 @@
 \usage{
 read_submission_data(filepath)
 }
-\arguments{
-\item{filepath}{}
-}
 \value{
 A tibble of out of sample prediction data
 }

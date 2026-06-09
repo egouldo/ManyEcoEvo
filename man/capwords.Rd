@@ -21,11 +21,11 @@ Capitalise Words
 capwords("bah, bah, black sheep")
 }
 \seealso{
-Other Utility functions: 
-\code{\link{\%nin\%}()},
-\code{\link{named_group_split}()},
-\code{\link{rm_inf_na}()},
-\code{\link{subset_fns_Zr}()},
-\code{\link{subset_fns_yi}()}
+Other Utility functions:
+\code{\link{\%nin\%}},
+\code{\link[=named_group_split]{named_group_split()}},
+\code{\link[=rm_inf_na]{rm_inf_na()}},
+\code{\link[=subset_fns_Zr]{subset_fns_Zr()}},
+\code{\link[=subset_fns_yi]{subset_fns_yi()}}
 }
 \concept{Utility functions}

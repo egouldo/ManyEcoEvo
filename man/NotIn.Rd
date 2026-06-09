@@ -23,12 +23,12 @@ returning a logical vector indicating if there is a negative match or not.
 "A" \%in\% LETTERS[1:10]
 }
 \seealso{
-Other Utility functions: 
-\code{\link{capwords}()},
-\code{\link{named_group_split}()},
-\code{\link{rm_inf_na}()},
-\code{\link{subset_fns_Zr}()},
-\code{\link{subset_fns_yi}()}
+Other Utility functions:
+\code{\link[=capwords]{capwords()}},
+\code{\link[=named_group_split]{named_group_split()}},
+\code{\link[=rm_inf_na]{rm_inf_na()}},
+\code{\link[=subset_fns_Zr]{subset_fns_Zr()}},
+\code{\link[=subset_fns_yi]{subset_fns_yi()}}
 }
 \concept{Utility functions}
 \keyword{internal}

@@ -19,11 +19,11 @@ The subset functions are used to filter out predictions that are not
 to be included in the meta-analysis.
 }
 \seealso{
-Other Utility functions: 
-\code{\link{\%nin\%}()},
-\code{\link{capwords}()},
-\code{\link{named_group_split}()},
-\code{\link{rm_inf_na}()},
-\code{\link{subset_fns_Zr}()}
+Other Utility functions:
+\code{\link{\%nin\%}},
+\code{\link[=capwords]{capwords()}},
+\code{\link[=named_group_split]{named_group_split()}},
+\code{\link[=rm_inf_na]{rm_inf_na()}},
+\code{\link[=subset_fns_Zr]{subset_fns_Zr()}}
 }
 \concept{Utility functions}

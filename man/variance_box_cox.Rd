@@ -20,19 +20,19 @@ The variance of the Box-Cox transformed absolute deviation scores
 Calculate the variance of the Box-Cox transformed absolute deviation scores
 }
 \seealso{
-Other Box-Cox transformation: 
-\code{\link{box_cox_transform}()},
-\code{\link{folded_params}()}
+Other Box-Cox transformation:
+\code{\link[=box_cox_transform]{box_cox_transform()}},
+\code{\link[=folded_params]{folded_params()}}
 
-Other Analysis-level functions: 
-\code{\link{Z_VZ_preds}()},
-\code{\link{apply_sorensen_calc}()},
-\code{\link{back_transform_response_vars_yi}()},
-\code{\link{box_cox_transform}()},
-\code{\link{convert_predictions}()},
-\code{\link{est_to_zr}()},
-\code{\link{folded_params}()},
-\code{\link{pred_to_Z}()}
+Other Analysis-level functions:
+\code{\link[=Z_VZ_preds]{Z_VZ_preds()}},
+\code{\link[=apply_sorensen_calc]{apply_sorensen_calc()}},
+\code{\link[=back_transform_response_vars_yi]{back_transform_response_vars_yi()}},
+\code{\link[=box_cox_transform]{box_cox_transform()}},
+\code{\link[=convert_predictions]{convert_predictions()}},
+\code{\link[=est_to_zr]{est_to_zr()}},
+\code{\link[=folded_params]{folded_params()}},
+\code{\link[=pred_to_Z]{pred_to_Z()}}
 }
 \concept{Analysis-level functions}
 \concept{Box-Cox transformation}

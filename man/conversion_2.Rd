@@ -26,11 +26,11 @@ Conditionally apply back-transformation functions depending on the value of \cod
 \seealso{
 \code{\link[=conversion]{conversion()}}
 
-Other Back-transformation: 
+Other Back-transformation:
 \code{\link{back}},
-\code{\link{back_transform_response_vars_yi}()},
-\code{\link{clean_response_transformation}()},
-\code{\link{conversion}()},
-\code{\link{convert_predictions}()}
+\code{\link[=back_transform_response_vars_yi]{back_transform_response_vars_yi()}},
+\code{\link[=clean_response_transformation]{clean_response_transformation()}},
+\code{\link[=conversion]{conversion()}},
+\code{\link[=convert_predictions]{convert_predictions()}}
 }
 \concept{Back-transformation}

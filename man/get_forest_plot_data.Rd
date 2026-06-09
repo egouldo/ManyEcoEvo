@@ -19,11 +19,11 @@ Get Forest Plot Data from a Metafor Model
 get_forest_plot_data(model)
 }
 \seealso{
-Other Plotting functions: 
-\code{\link{plot_cont_rating_effects}()},
-\code{\link{plot_effects_diversity}()},
-\code{\link{plot_forest}()},
-\code{\link{plot_model_means_box_cox_cat}()},
-\code{\link{plot_model_means_orchard}()}
+Other Plotting functions:
+\code{\link[=plot_cont_rating_effects]{plot_cont_rating_effects()}},
+\code{\link[=plot_effects_diversity]{plot_effects_diversity()}},
+\code{\link[=plot_forest]{plot_forest()}},
+\code{\link[=plot_model_means_box_cox_cat]{plot_model_means_box_cox_cat()}},
+\code{\link[=plot_model_means_orchard]{plot_model_means_orchard()}}
 }
 \concept{Plotting functions}

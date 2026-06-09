@@ -32,11 +32,11 @@ Removes top outlier for \code{yi} datasets and top 2 and bottom 2 outliers for \
 \details{
 \subsection{Function Usage}{
 
-\code{n_min} and \code{n_max} are used to specify the number of outliers to remove from the bottom and top of the dataset, respectively. These arguments are passed to the \code{n} argument within \code{\link[dplyr:slice]{dplyr::slice_min()}} and \code{\link[=slice_max]{slice_max()}} respectively. Note that negative values of \code{n_min} and \code{n_max} will be removed from the dataset, while positive values of \code{n} will retain observations in the dataframe.
+\code{n_min} and \code{n_max} are used to specify the number of outliers to remove from the bottom and top of the dataset, respectively. These arguments are passed to the \code{n} argument within \code{\link[dplyr:slice_min]{dplyr::slice_min()}} and \code{\link[dplyr:slice_max]{slice_max()}} respectively. Note that negative values of \code{n_min} and \code{n_max} will be removed from the dataset, while positive values of \code{n} will retain observations in the dataframe.
 
 \code{ignore_subsets} is used to specify which subsets of the data should be ignored when removing outliers. This is useful when you want to remove outliers from all datasets except for specific subsets. For example, if you want to remove outliers from all datasets except for the \code{eucalyptus} dataset, you would pass \code{ignore_subsets = dataset == "eucalyptus"}.
 
-The function will check that any columns specified in \code{ignore_subsets} exist in the dataset using \code{\link[pointblank:col_exists]{pointblank::test_col_exists()}}. If they do not, the function will throw an error.
+The function will check that any columns specified in \code{ignore_subsets} exist in the dataset using \code{\link[pointblank:test_col_exists]{pointblank::test_col_exists()}}. If they do not, the function will throw an error.
 }
 
 \subsection{Analysis Pipeline Usage}{
@@ -69,23 +69,23 @@ analysis_data \%>\% generate_outlier_subsets(outcome_variable = list(dataset = l
 
 }
 \seealso{
-Other Multi-dataset Wrapper Functions: 
-\code{\link{apply_VZ_exclusions}()},
-\code{\link{compute_MA_inputs}()},
-\code{\link{generate_exclusion_subsets}()},
-\code{\link{generate_rating_subsets}()},
-\code{\link{generate_yi_subsets}()},
-\code{\link{make_viz}()},
-\code{\link{meta_analyse_datasets}()},
-\code{\link{prepare_ManyEcoEvo}()},
-\code{\link{prepare_ManyEcoEvo_yi}()},
-\code{\link{prepare_response_variables}()},
-\code{\link{prepare_response_variables_yi}()},
-\code{\link{summarise_analysis_types}()},
-\code{\link{summarise_conclusions}()},
-\code{\link{summarise_model_composition}()},
-\code{\link{summarise_reviews}()},
-\code{\link{summarise_sorensen_index}()},
-\code{\link{summarise_variable_counts}()}
+Other Multi-dataset Wrapper Functions:
+\code{\link[=apply_VZ_exclusions]{apply_VZ_exclusions()}},
+\code{\link[=compute_MA_inputs]{compute_MA_inputs()}},
+\code{\link[=generate_exclusion_subsets]{generate_exclusion_subsets()}},
+\code{\link[=generate_rating_subsets]{generate_rating_subsets()}},
+\code{\link[=generate_yi_subsets]{generate_yi_subsets()}},
+\code{\link[=make_viz]{make_viz()}},
+\code{\link[=meta_analyse_datasets]{meta_analyse_datasets()}},
+\code{\link[=prepare_ManyEcoEvo]{prepare_ManyEcoEvo()}},
+\code{\link[=prepare_ManyEcoEvo_yi]{prepare_ManyEcoEvo_yi()}},
+\code{\link[=prepare_response_variables]{prepare_response_variables()}},
+\code{\link[=prepare_response_variables_yi]{prepare_response_variables_yi()}},
+\code{\link[=summarise_analysis_types]{summarise_analysis_types()}},
+\code{\link[=summarise_conclusions]{summarise_conclusions()}},
+\code{\link[=summarise_model_composition]{summarise_model_composition()}},
+\code{\link[=summarise_reviews]{summarise_reviews()}},
+\code{\link[=summarise_sorensen_index]{summarise_sorensen_index()}},
+\code{\link[=summarise_variable_counts]{summarise_variable_counts()}}
 }
 \concept{Multi-dataset Wrapper Functions}

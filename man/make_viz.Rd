@@ -21,12 +21,12 @@ Compute model summaries, tidy model summaries, model fit statistics, funnel plot
 The following functions are applied to each model:
 \itemize{
 \item \code{mod_summary}:  \code{\link[base:summary]{base::summary()}} to extract model summaries
-\item \code{tidy_mod_summary}: \code{\link[broom.mixed:reexports]{broom.mixed::tidy()}} to extract tidy model summaries
-\item \code{mod_fit_stats} / \code{mod_glance}:  \code{\link[performance:model_performance]{performance::performance()}} and \code{\link[broom:reexports]{broom::glance()}} to extract model fit statistics
+\item \code{tidy_mod_summary}: \code{\link[broom.mixed:tidy]{broom.mixed::tidy()}} to extract tidy model summaries
+\item \code{mod_fit_stats} / \code{mod_glance}:  \code{\link[performance:performance]{performance::performance()}} and \code{\link[broom:glance]{broom::glance()}} to extract model fit statistics
 \item \code{funnel_plot}:  \code{\link[metaviz:viz_funnel]{metaviz::viz_funnel()}} to create funnel plots for \code{rma.uni} models
 \item \code{forest_plot}:  \code{\link[=gg_forest]{gg_forest()}} to create forest plots for \code{rma.mv} models
 \item \code{MA_fit_stats}:  \code{\link[=get_MA_fit_stats]{get_MA_fit_stats()}} to extract model fit statistics for \code{rma.mv} models
-\item \code{model_params}: \code{\link[parameters:model_parameters]{parameters::parameters()}} to extract model parameters
+\item \code{model_params}: \code{\link[parameters:parameters]{parameters::parameters()}} to extract model parameters
 }
 
 Note that where the fitted model object doesn't exist, i.e. is a \code{NA} or \code{NULL} value, the function will return \code{NA} for all components.
@@ -37,23 +37,23 @@ make_viz(ManyEcoEvo_results)
 \seealso{
 \code{\link[=get_MA_fit_stats]{get_MA_fit_stats()}}, \code{\link[=gg_forest]{gg_forest()}}
 
-Other Multi-dataset Wrapper Functions: 
-\code{\link{apply_VZ_exclusions}()},
-\code{\link{compute_MA_inputs}()},
-\code{\link{generate_exclusion_subsets}()},
-\code{\link{generate_outlier_subsets}()},
-\code{\link{generate_rating_subsets}()},
-\code{\link{generate_yi_subsets}()},
-\code{\link{meta_analyse_datasets}()},
-\code{\link{prepare_ManyEcoEvo}()},
-\code{\link{prepare_ManyEcoEvo_yi}()},
-\code{\link{prepare_response_variables}()},
-\code{\link{prepare_response_variables_yi}()},
-\code{\link{summarise_analysis_types}()},
-\code{\link{summarise_conclusions}()},
-\code{\link{summarise_model_composition}()},
-\code{\link{summarise_reviews}()},
-\code{\link{summarise_sorensen_index}()},
-\code{\link{summarise_variable_counts}()}
+Other Multi-dataset Wrapper Functions:
+\code{\link[=apply_VZ_exclusions]{apply_VZ_exclusions()}},
+\code{\link[=compute_MA_inputs]{compute_MA_inputs()}},
+\code{\link[=generate_exclusion_subsets]{generate_exclusion_subsets()}},
+\code{\link[=generate_outlier_subsets]{generate_outlier_subsets()}},
+\code{\link[=generate_rating_subsets]{generate_rating_subsets()}},
+\code{\link[=generate_yi_subsets]{generate_yi_subsets()}},
+\code{\link[=meta_analyse_datasets]{meta_analyse_datasets()}},
+\code{\link[=prepare_ManyEcoEvo]{prepare_ManyEcoEvo()}},
+\code{\link[=prepare_ManyEcoEvo_yi]{prepare_ManyEcoEvo_yi()}},
+\code{\link[=prepare_response_variables]{prepare_response_variables()}},
+\code{\link[=prepare_response_variables_yi]{prepare_response_variables_yi()}},
+\code{\link[=summarise_analysis_types]{summarise_analysis_types()}},
+\code{\link[=summarise_conclusions]{summarise_conclusions()}},
+\code{\link[=summarise_model_composition]{summarise_model_composition()}},
+\code{\link[=summarise_reviews]{summarise_reviews()}},
+\code{\link[=summarise_sorensen_index]{summarise_sorensen_index()}},
+\code{\link[=summarise_variable_counts]{summarise_variable_counts()}}
 }
 \concept{Multi-dataset Wrapper Functions}

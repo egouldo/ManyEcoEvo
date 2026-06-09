@@ -36,20 +36,20 @@ Fit univariate meta-analysis with metafor
 #                      slab = .$study_id)
 }
 \seealso{
-Other Model fitting and meta-analysis: 
-\code{\link{fit_MA_mv}()},
-\code{\link{fit_boxcox_ratings_cat}()},
-\code{\link{fit_boxcox_ratings_cont}()},
-\code{\link{fit_boxcox_ratings_ord}()},
-\code{\link{fit_metafor_mv}()},
-\code{\link{fit_metafor_mv_reduced}()},
-\code{\link{fit_multivar_MA}()},
-\code{\link{fit_sorensen_glm}()},
-\code{\link{fit_uni_mixed_effects}()},
-\code{\link{poss_fit_boxcox_ratings_cat}()},
-\code{\link{poss_fit_boxcox_ratings_cont}()},
-\code{\link{poss_fit_boxcox_ratings_ord}()},
-\code{\link{poss_fit_metafor_mv}()},
-\code{\link{poss_fit_uni_mixed_effects}()}
+Other Model fitting and meta-analysis:
+\code{\link[=fit_MA_mv]{fit_MA_mv()}},
+\code{\link[=fit_boxcox_ratings_cat]{fit_boxcox_ratings_cat()}},
+\code{\link[=fit_boxcox_ratings_cont]{fit_boxcox_ratings_cont()}},
+\code{\link[=fit_boxcox_ratings_ord]{fit_boxcox_ratings_ord()}},
+\code{\link[=fit_metafor_mv]{fit_metafor_mv()}},
+\code{\link[=fit_metafor_mv_reduced]{fit_metafor_mv_reduced()}},
+\code{\link[=fit_multivar_MA]{fit_multivar_MA()}},
+\code{\link[=fit_sorensen_glm]{fit_sorensen_glm()}},
+\code{\link[=fit_uni_mixed_effects]{fit_uni_mixed_effects()}},
+\code{\link[=poss_fit_boxcox_ratings_cat]{poss_fit_boxcox_ratings_cat()}},
+\code{\link[=poss_fit_boxcox_ratings_cont]{poss_fit_boxcox_ratings_cont()}},
+\code{\link[=poss_fit_boxcox_ratings_ord]{poss_fit_boxcox_ratings_ord()}},
+\code{\link[=poss_fit_metafor_mv]{poss_fit_metafor_mv()}},
+\code{\link[=poss_fit_uni_mixed_effects]{poss_fit_uni_mixed_effects()}}
 }
 \concept{Model fitting and meta-analysis}

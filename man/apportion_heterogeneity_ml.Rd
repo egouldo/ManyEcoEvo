@@ -6,9 +6,6 @@
 \usage{
 apportion_heterogeneity_ml(fitted_model)
 }
-\arguments{
-\item{fitted_model}{}
-}
 \value{
 A named numeric vector of length 2.
 }
@@ -19,8 +16,8 @@ Estimates how much the total variance \eqn{I^2} can be attributed to between- an
 From \url{http://www.metafor-project.org/doku.php/tips:i2_multilevel_multivariate}
 }
 \seealso{
-Other Meta-analysis statistics: 
-\code{\link{calc_I2_ml}()},
-\code{\link{compare_ml_MA}()}
+Other Meta-analysis statistics:
+\code{\link[=calc_I2_ml]{calc_I2_ml()}},
+\code{\link[=compare_ml_MA]{compare_ml_MA()}}
 }
 \concept{Meta-analysis statistics}

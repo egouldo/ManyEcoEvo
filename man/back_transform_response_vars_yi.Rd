@@ -19,22 +19,22 @@ Back-transform analyst \code{yi} estiamtes to the response scale
 \code{data} must contain the columns: \code{id_col}, \code{augmented_data}, \code{transformation}, \code{response_transformation_status}, where \code{augmented_data} is a list-column of dataframes containing the analyst predictions, \code{transformation} is the transformation used in the model, and \code{response_transformation_status} is the status of the response transformation.
 }
 \seealso{
-Other Analysis-level functions: 
-\code{\link{Z_VZ_preds}()},
-\code{\link{apply_sorensen_calc}()},
-\code{\link{box_cox_transform}()},
-\code{\link{convert_predictions}()},
-\code{\link{est_to_zr}()},
-\code{\link{folded_params}()},
-\code{\link{pred_to_Z}()},
-\code{\link{variance_box_cox}()}
+Other Analysis-level functions:
+\code{\link[=Z_VZ_preds]{Z_VZ_preds()}},
+\code{\link[=apply_sorensen_calc]{apply_sorensen_calc()}},
+\code{\link[=box_cox_transform]{box_cox_transform()}},
+\code{\link[=convert_predictions]{convert_predictions()}},
+\code{\link[=est_to_zr]{est_to_zr()}},
+\code{\link[=folded_params]{folded_params()}},
+\code{\link[=pred_to_Z]{pred_to_Z()}},
+\code{\link[=variance_box_cox]{variance_box_cox()}}
 
-Other Back-transformation: 
+Other Back-transformation:
 \code{\link{back}},
-\code{\link{clean_response_transformation}()},
-\code{\link{conversion}()},
-\code{\link{conversion_2}()},
-\code{\link{convert_predictions}()}
+\code{\link[=clean_response_transformation]{clean_response_transformation()}},
+\code{\link[=conversion]{conversion()}},
+\code{\link[=conversion_2]{conversion_2()}},
+\code{\link[=convert_predictions]{convert_predictions()}}
 }
 \concept{Analysis-level functions}
 \concept{Back-transformation}

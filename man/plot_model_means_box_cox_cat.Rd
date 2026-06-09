@@ -36,11 +36,11 @@ A ggplot object
 Plot model means for box-cox transformed deviation scores as a function of categorical ratings
 }
 \seealso{
-Other Plotting functions: 
-\code{\link{get_forest_plot_data}()},
-\code{\link{plot_cont_rating_effects}()},
-\code{\link{plot_effects_diversity}()},
-\code{\link{plot_forest}()},
-\code{\link{plot_model_means_orchard}()}
+Other Plotting functions:
+\code{\link[=get_forest_plot_data]{get_forest_plot_data()}},
+\code{\link[=plot_cont_rating_effects]{plot_cont_rating_effects()}},
+\code{\link[=plot_effects_diversity]{plot_effects_diversity()}},
+\code{\link[=plot_forest]{plot_forest()}},
+\code{\link[=plot_model_means_orchard]{plot_model_means_orchard()}}
 }
 \concept{Plotting functions}

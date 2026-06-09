@@ -28,30 +28,30 @@ A tibble of ManyEcoEvo analyst response data with out-of-sample predictions (\eq
 Prepare ManyEcoEvo raw dataset for out-of-sample predictions
 }
 \seealso{
-Other targets-pipeline functions: 
-\code{\link{generate_rating_subsets}()},
-\code{\link{prepare_ManyEcoEvo}()},
-\code{\link{prepare_response_variables_yi}()},
-\code{\link{prepare_review_data}()}
+Other targets-pipeline functions:
+\code{\link[=generate_rating_subsets]{generate_rating_subsets()}},
+\code{\link[=prepare_ManyEcoEvo]{prepare_ManyEcoEvo()}},
+\code{\link[=prepare_response_variables_yi]{prepare_response_variables_yi()}},
+\code{\link[=prepare_review_data]{prepare_review_data()}}
 
-Other Multi-dataset Wrapper Functions: 
-\code{\link{apply_VZ_exclusions}()},
-\code{\link{compute_MA_inputs}()},
-\code{\link{generate_exclusion_subsets}()},
-\code{\link{generate_outlier_subsets}()},
-\code{\link{generate_rating_subsets}()},
-\code{\link{generate_yi_subsets}()},
-\code{\link{make_viz}()},
-\code{\link{meta_analyse_datasets}()},
-\code{\link{prepare_ManyEcoEvo}()},
-\code{\link{prepare_response_variables}()},
-\code{\link{prepare_response_variables_yi}()},
-\code{\link{summarise_analysis_types}()},
-\code{\link{summarise_conclusions}()},
-\code{\link{summarise_model_composition}()},
-\code{\link{summarise_reviews}()},
-\code{\link{summarise_sorensen_index}()},
-\code{\link{summarise_variable_counts}()}
+Other Multi-dataset Wrapper Functions:
+\code{\link[=apply_VZ_exclusions]{apply_VZ_exclusions()}},
+\code{\link[=compute_MA_inputs]{compute_MA_inputs()}},
+\code{\link[=generate_exclusion_subsets]{generate_exclusion_subsets()}},
+\code{\link[=generate_outlier_subsets]{generate_outlier_subsets()}},
+\code{\link[=generate_rating_subsets]{generate_rating_subsets()}},
+\code{\link[=generate_yi_subsets]{generate_yi_subsets()}},
+\code{\link[=make_viz]{make_viz()}},
+\code{\link[=meta_analyse_datasets]{meta_analyse_datasets()}},
+\code{\link[=prepare_ManyEcoEvo]{prepare_ManyEcoEvo()}},
+\code{\link[=prepare_response_variables]{prepare_response_variables()}},
+\code{\link[=prepare_response_variables_yi]{prepare_response_variables_yi()}},
+\code{\link[=summarise_analysis_types]{summarise_analysis_types()}},
+\code{\link[=summarise_conclusions]{summarise_conclusions()}},
+\code{\link[=summarise_model_composition]{summarise_model_composition()}},
+\code{\link[=summarise_reviews]{summarise_reviews()}},
+\code{\link[=summarise_sorensen_index]{summarise_sorensen_index()}},
+\code{\link[=summarise_variable_counts]{summarise_variable_counts()}}
 }
 \concept{Multi-dataset Wrapper Functions}
 \concept{targets-pipeline functions}

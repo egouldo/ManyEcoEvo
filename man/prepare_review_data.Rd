@@ -8,8 +8,6 @@ prepare_review_data(bt_reviews, euc_reviews)
 }
 \arguments{
 \item{bt_reviews}{Blue tit review}
-
-\item{euc_reviews}{}
 }
 \value{
 a tibble of peer-review data for blue tit and eucalyptus analyses
@@ -18,10 +16,10 @@ a tibble of peer-review data for blue tit and eucalyptus analyses
 Prepare peer-review data from Qualtrics
 }
 \seealso{
-Other targets-pipeline functions: 
-\code{\link{generate_rating_subsets}()},
-\code{\link{prepare_ManyEcoEvo}()},
-\code{\link{prepare_ManyEcoEvo_yi}()},
-\code{\link{prepare_response_variables_yi}()}
+Other targets-pipeline functions:
+\code{\link[=generate_rating_subsets]{generate_rating_subsets()}},
+\code{\link[=prepare_ManyEcoEvo]{prepare_ManyEcoEvo()}},
+\code{\link[=prepare_ManyEcoEvo_yi]{prepare_ManyEcoEvo_yi()}},
+\code{\link[=prepare_response_variables_yi]{prepare_response_variables_yi()}}
 }
 \concept{targets-pipeline functions}

@@ -24,11 +24,11 @@ A ggplot object
 Plot the means of a model with a predictor variable
 }
 \seealso{
-Other Plotting functions: 
-\code{\link{get_forest_plot_data}()},
-\code{\link{plot_cont_rating_effects}()},
-\code{\link{plot_effects_diversity}()},
-\code{\link{plot_forest}()},
-\code{\link{plot_model_means_box_cox_cat}()}
+Other Plotting functions:
+\code{\link[=get_forest_plot_data]{get_forest_plot_data()}},
+\code{\link[=plot_cont_rating_effects]{plot_cont_rating_effects()}},
+\code{\link[=plot_effects_diversity]{plot_effects_diversity()}},
+\code{\link[=plot_forest]{plot_forest()}},
+\code{\link[=plot_model_means_box_cox_cat]{plot_model_means_box_cox_cat()}}
 }
 \concept{Plotting functions}

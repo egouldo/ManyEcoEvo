@@ -29,11 +29,11 @@ plot_forest(plot_data, MA_mean = FALSE)
 plot_forest(plot_data, intercept = FALSE, MA_mean = FALSE)
 }
 \seealso{
-Other Plotting functions: 
-\code{\link{get_forest_plot_data}()},
-\code{\link{plot_cont_rating_effects}()},
-\code{\link{plot_effects_diversity}()},
-\code{\link{plot_model_means_box_cox_cat}()},
-\code{\link{plot_model_means_orchard}()}
+Other Plotting functions:
+\code{\link[=get_forest_plot_data]{get_forest_plot_data()}},
+\code{\link[=plot_cont_rating_effects]{plot_cont_rating_effects()}},
+\code{\link[=plot_effects_diversity]{plot_effects_diversity()}},
+\code{\link[=plot_model_means_box_cox_cat]{plot_model_means_box_cox_cat()}},
+\code{\link[=plot_model_means_orchard]{plot_model_means_orchard()}}
 }
 \concept{Plotting functions}

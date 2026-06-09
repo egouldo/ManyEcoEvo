@@ -24,6 +24,7 @@ Useful links:
 
 Authors:
 \itemize{
+  \item Elliot Gould \email{elliot.gould@unimelb.edu.au} (\href{https://orcid.org/0000-0002-6585-538X}{ORCID})
   \item Hannah S. Fraser (\href{https://orcid.org/0000-0003-2443-4463}{ORCID})
   \item Shinichi Nakagawa (\href{https://orcid.org/0000-0002-7765-5182}{ORCID})
   \item Timothy H. Parker (\href{https://orcid.org/0000-0003-2995-5284}{ORCID})

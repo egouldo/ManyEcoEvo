@@ -20,19 +20,19 @@ Box-cox transform absolute deviation from the meta-analytic mean scores
 \seealso{
 \code{\link[=variance_boxcox]{variance_boxcox()}}, \code{\link[=folded_params]{folded_params()}}
 
-Other Box-Cox transformation: 
-\code{\link{folded_params}()},
-\code{\link{variance_box_cox}()}
+Other Box-Cox transformation:
+\code{\link[=folded_params]{folded_params()}},
+\code{\link[=variance_box_cox]{variance_box_cox()}}
 
-Other Analysis-level functions: 
-\code{\link{Z_VZ_preds}()},
-\code{\link{apply_sorensen_calc}()},
-\code{\link{back_transform_response_vars_yi}()},
-\code{\link{convert_predictions}()},
-\code{\link{est_to_zr}()},
-\code{\link{folded_params}()},
-\code{\link{pred_to_Z}()},
-\code{\link{variance_box_cox}()}
+Other Analysis-level functions:
+\code{\link[=Z_VZ_preds]{Z_VZ_preds()}},
+\code{\link[=apply_sorensen_calc]{apply_sorensen_calc()}},
+\code{\link[=back_transform_response_vars_yi]{back_transform_response_vars_yi()}},
+\code{\link[=convert_predictions]{convert_predictions()}},
+\code{\link[=est_to_zr]{est_to_zr()}},
+\code{\link[=folded_params]{folded_params()}},
+\code{\link[=pred_to_Z]{pred_to_Z()}},
+\code{\link[=variance_box_cox]{variance_box_cox()}}
 }
 \concept{Analysis-level functions}
 \concept{Box-Cox transformation}

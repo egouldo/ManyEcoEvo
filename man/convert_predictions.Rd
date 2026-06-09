@@ -23,22 +23,22 @@ Converts out-of-sample predictions on the link scale back to the response scale
 \seealso{
 \code{\link[=rename_prediction_cols]{rename_prediction_cols()}}
 
-Other Analysis-level functions: 
-\code{\link{Z_VZ_preds}()},
-\code{\link{apply_sorensen_calc}()},
-\code{\link{back_transform_response_vars_yi}()},
-\code{\link{box_cox_transform}()},
-\code{\link{est_to_zr}()},
-\code{\link{folded_params}()},
-\code{\link{pred_to_Z}()},
-\code{\link{variance_box_cox}()}
+Other Analysis-level functions:
+\code{\link[=Z_VZ_preds]{Z_VZ_preds()}},
+\code{\link[=apply_sorensen_calc]{apply_sorensen_calc()}},
+\code{\link[=back_transform_response_vars_yi]{back_transform_response_vars_yi()}},
+\code{\link[=box_cox_transform]{box_cox_transform()}},
+\code{\link[=est_to_zr]{est_to_zr()}},
+\code{\link[=folded_params]{folded_params()}},
+\code{\link[=pred_to_Z]{pred_to_Z()}},
+\code{\link[=variance_box_cox]{variance_box_cox()}}
 
-Other Back-transformation: 
+Other Back-transformation:
 \code{\link{back}},
-\code{\link{back_transform_response_vars_yi}()},
-\code{\link{clean_response_transformation}()},
-\code{\link{conversion}()},
-\code{\link{conversion_2}()}
+\code{\link[=back_transform_response_vars_yi]{back_transform_response_vars_yi()}},
+\code{\link[=clean_response_transformation]{clean_response_transformation()}},
+\code{\link[=conversion]{conversion()}},
+\code{\link[=conversion_2]{conversion_2()}}
 }
 \concept{Analysis-level functions}
 \concept{Back-transformation}

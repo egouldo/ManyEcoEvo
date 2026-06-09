@@ -34,11 +34,11 @@ clean_response_transformation("new_transformation", ManyEcoEvo:::transformation_
 \seealso{
 To be called after to \code{\link[=assign_transformation_type]{assign_transformation_type()}}
 
-Other Back-transformation: 
+Other Back-transformation:
 \code{\link{back}},
-\code{\link{back_transform_response_vars_yi}()},
-\code{\link{conversion}()},
-\code{\link{conversion_2}()},
-\code{\link{convert_predictions}()}
+\code{\link[=back_transform_response_vars_yi]{back_transform_response_vars_yi()}},
+\code{\link[=conversion]{conversion()}},
+\code{\link[=conversion_2]{conversion_2()}},
+\code{\link[=convert_predictions]{convert_predictions()}}
 }
 \concept{Back-transformation}
