@@ -14,7 +14,8 @@ vignette: >
 ---
 
 
-```{r setup}
+```{r}
+#| label: setup
 #| echo: false
 #| message: false
 # library(ManyEcoEvo)

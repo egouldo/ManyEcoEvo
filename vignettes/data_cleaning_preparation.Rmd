@@ -14,14 +14,16 @@ vignette: >
 bibliography: vignettes.bib
 ---
 
-```{r, include = FALSE}
+```{r}
+#| include: false
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
 ```
 
-```{r setup}
+```{r}
+#| label: setup
 library(ManyEcoEvo)
 suppressPackageStartupMessages(library(tidyverse))
 ```
@@ -40,7 +42,8 @@ Meta-analysis requires that all estimates are standardised to the same scale. Th
 
 We provide the function `standardise_response()` to standardise a data-frame of analyst-data.
 
-```{r demo_standardise_response_Zr}
+```{r}
+#| label: demo_standardise_response_Zr
 
 data("ManyEcoEvo")
 
@@ -71,7 +74,8 @@ Note that if any of `beta_estimate`, `beta_SE` or `adjusted_df` are missing, `st
 
 Below we standardise a data frame containing out-of-sample point-estimate predictions, which are stored in a list-column of dataframes, called `augmented_data`, notice some additional console messages about back-transformations, as well as an additional step *Transforming out of sample predictions from link to response scale*. That's because, depending on what `estimate_type` is being standardised, a different workflow will be implemented by `standardise_response()`.
 
-```{r demo_standardise_response_yi}
+```{r}
+#| label: demo_standardise_response_yi
 # ----- Create example blue tit dataset ----
 
 data("ManyEcoEvo_yi")
