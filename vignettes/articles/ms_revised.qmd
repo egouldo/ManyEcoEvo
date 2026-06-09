@@ -388,8 +388,8 @@ model_fit_stats <- meta_analysis_results %>%
   )
 
 model_fit_stats %>%
-  filter(exclusion_set == "complete", publishable_subset == "All") |>
-  select(model_name, mod_fit_stats) |>
+  filter(exclusion_set == "complete", publishable_subset == "All") %>%
+  select(model_name, mod_fit_stats) %>%
   unnest()
 ```
 
