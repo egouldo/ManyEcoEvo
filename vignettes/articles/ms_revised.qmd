@@ -63,26 +63,21 @@ knitr::opts_chunk$set(
   echo = TRUE,
   tidy = "styler"
 )
-
 ```
 
+## Summary {#sec-R-summary}
 
-## Summary
+Many-analyst studies are an emerging format of crowdsourced scientific analysis [@Schweinsberg2021], where analysts simultaneously, but independently, answer the same research question, using the same dataset [@Voracek2019; @Silberzahn2018]. Several high-profile many-analyst studies demonstrate how results and conclusions may be highly contingent on subjective, defensible but differing analysis decisions [@Silberzahn2018; @Botvinik-Nezer2020; @Breznau2021]. Deviations in analysis choices among researchers may occur due to disagreement about the best modelling strategy given the data, or variation in the data preparation (e.g. choosing which observations to include) [@Voracek2019; @Simonsohn2020, figure 1].
 
-Many-analyst studies are an emerging format of crowd-sourced scientific analysis [@Schweinsberg2021], where analysts simultaneously, but independently, answer the same research question, using the same dataset [@Voracek2019; @Silberzahn2018]. Several high-profile many-analyst studies demonstrate how results and conclusions may be highly contingent on subjective, and defensible but differing analysis decisions [@Silberzahn2018; @Botvinik-Nezer2020; @Breznau2021]. Analysis deviations may differ due to disagreement about the best modelling strategy given the data, or variation in the data preparation (e.g. choosing which observations to include) [@Voracek2019; @Simonsohn2020, figure 1].
-
-Similarly to meta-analysis, many-analyst studies treat analytical variation as the object of study. Yet the two study formats differ in the source of variation they examine, their study goals with respect to analysing variation, and in the assumptions made about analytical choices.
-
-Meta-analyses focus on synthesising data from a single analysis from each of multiple independent studies (and therefore datasets), while many-analyst studies examine a single dataset, analysed in multiple ways. Both types of analysis aim to understand why results differ, and provide a combined effect estimate based on all information. Meta-analyses studies assume the source of variation is due to different samples or populations, while many-analyst studies consider analytic variation as an additional source of heterogeneity in results. Many-analyst studies produce rich metadata for each analysis - including model type, transformations, variable selection or other analytic choices - that may either be used within meta-analyses or else as predictors or covariates within additional analyses that aim to characterise analytic uncertainty. Reporting in ecological studies, including meta-analyses is opaque and incomplete in ecology [@Schmolke2010fd; @ODea2021a; @Zvereva2021; @Zvereva2021; @Culina2020]. In line with their position as meta-science studies, many-analyst studies typically strive for a high degree of documentation, and extensive sensitivity analysis performed by using the same analytic protocol on various subsets of the data.
+Similarly to meta-analysis, many-analyst studies treat analytical variation as the object of study. Yet the two study formats differ in the source of variation they examine, their study goals with respect to analysing variation, and in the assumptions made about analytical choices. Meta-analyses focus on synthesising data from a single analysis from each of multiple independent studies (and therefore datasets), while many-analyst studies examine a single dataset, analysed in multiple ways. Both types of analysis aim to understand why results differ, and provide a combined effect-size estimate based on all information. Meta-analyses studies assume the source of variation is due to sampling or measurement error, while many-analyst studies consider analytic variation as an additional source of heterogeneity in results. Many-analyst studies produce rich metadata for each analysis - including model type, transformations, variable selection or other analytic choices - that may either be used within meta-analyses or else as predictors or covariates within additional analyses that aim to characterise analytic uncertainty. Reporting in ecological studies, including meta-analyses, is opaque and incomplete in ecology [@ODea2021a; @Zvereva2021; @Culina2020; @Kambouris2024; @Kimmel2023]. In line with their position as meta-science studies, many-analyst studies typically strive for a high degree of documentation, and extensive sensitivity analysis performed by using the same analytic protocol on various subsets of the data.
 
 ### Statement of Need {#sec-R-statement}
 
-Existing meta-analytic software within the R ecosystem are designed around fitting and interrogating a single model on a single dataset, with no infrastructure for systematic, programmatic repetition of meta-analyses across multiple datasets or data subsets. Packages such as `metafor` [@metafor], `meta` [@lortie2020], and `orchaRd` [@orchaRd] provide tools for conducting meta-regressions, extracting model summaries, and visualising forest plots and orchard plots on a single dataset. However, none are designed to handle the specific data structure and analytical questions that arise in many-analyst style research. Many-analyst studies might share study-specific code, but it is not designed for application to new data.[^04-chapmanyecoevor-1] While some visualisation methods from multiverse or specification-curve analysis software can be applied to many-analyst data - like analytic decision graphs [@Liu2020;@Liu2021] or specification curve plots [@simonsohn2015;@Masur2020], they do not provide functionality for addressing earlier steps in the many-analyst workflow. Consequently, we developed `ManyEcoEvo` to facilitate the analysis of the ‘Same Data, Many Analysts’ study in ecology and evolutionary biology [@sec-ManyEcoEvo]; in which 174 analyst teams, comprising 246 analysts, independently investigated the answers to two prespecified research questions and datasets, one from conservation ecology, and one from evolutionary biology.
+Existing meta-analytic R packages are designed around fitting and interrogating a single model on a single dataset, with no infrastructure for systematic, programmatic repetition of meta-analyses across multiple datasets or data subsets. Packages such as `metafor` [@metafor], `meta` [@meta], and `orchaRd` [@orchaRd] provide tools for conducting meta-regressions, extracting model summaries, and visualising forest plots and orchard plots on a single dataset. However, none are designed to handle the specific data structure and analytical questions that arise in many-analyst style research. Many-analyst studies might share study-specific code, but it is not designed for application to new data.[^04-chapmanyecoevor-1] While some visualisation methods from multiverse or specification-curve analysis software can be applied to many-analyst data - like analytic decision graphs [@Liu2020;@Liu2021] or specification curve plots [@simonsohn2015;@Masur2020], they do not provide functionality for addressing earlier steps in the many-analyst workflow. Consequently, we developed `ManyEcoEvo` to facilitate the analysis of the ‘Same Data, Many Analysts’ study in ecology and evolutionary biology [@Gould2025]; in which 174 analyst teams, comprising 246 analysts, independently investigated the answers to two prespecified research questions and datasets, one from conservation ecology, and one from evolutionary biology.
 
 [^04-chapmanyecoevor-1]: Examples of study-specific code sharing from well-known many-analyst studies: [the 'many babies' project](github.com/manybabies/mb1-analysis-public) [@ManyBabies], and [the 'many primates' project ](github.com/many-speech-analyses/many_analyses) [@ManyPrimates].
 
-
-`ManyEcoEvo` provides a reproducible data pipeline and a multi-level wrapper framework for running meta-analyses programmatically across multiple datasets and over systematically varied analytical subsets of those datasets. The package provides a reusable workflow infrastructure that also generalises to sensitivity analyses in conventional meta-analyses. The ManyEcoEvo package occupies a distinctive niche in the R ecosystem that is not addressed by existing meta-analysis tooling. Its secondary contribution is to provide a curated, analysis-ready dataset to facilitate reproductions or re-analyses of @Gould2025.
+`ManyEcoEvo` utilises *tidyverse* design principles [@tidyverse2019] to support a reproducible framework for executing multiple meta-analyses across multiple datasets, and over systematically varied analytical subsets of those datasets. The package provides a reusable workflow infrastructure that also generalises to sensitivity analyses in conventional meta-analyses. The `ManyEcoEvo` package occupies a distinct niche in the R ecosystem that is not addressed by existing meta-analysis tooling. Its secondary contribution is to provide a curated, analysis-ready dataset to facilitate reproductions or re-analyses of @Gould2025.
 
 ## Dataset Description {#sec-R-data}
 
@@ -93,23 +88,24 @@ The `ManyEcoEvo` dataset contains analyst responses for two different research q
 library(ManyEcoEvo)
 library(tidyverse)
 library(metafor)
+set.seed(1234)
 ```
 
 ```{r}
 #| label: load-full-dataset
-# Load the built-in dataset
+# Load dataset
 data("ManyEcoEvo")
 # Examine the basic structure
 ManyEcoEvo
 glimpse(ManyEcoEvo)
 ```
 
-The data is structured with list-columns:
+The data uses a nested data structure [@wickham2023r4ds, Chapter 23; @tidyr, <https://tidyr.tidyverse.org/articles/nest.html>], with a row for each analysis dataset, and two list-columns:
 
-- `data`: Contains the effect size estimates and analysis metadata for each dataset
-- `diversity_data`: Contains information about variables used by each analysis team
+- `data`, which contains the effect-size estimates and analyst metadata as tibbles for each analysis dataset, and
+- `diversity_data`, which contains information about variables used by each analysis team, also as tibbles.
 
-We will work with a subset of the blue tit dataset for illustration purposes.
+For illustration purposes, only a subset of the blue tit dataset is used below.
 
 ```{r}
 #| label: create-MWE-data
@@ -152,14 +148,11 @@ Each row represents a unique analysis (`id_col`), potentially with multiple anal
 
 ## Calculating meta-analytic results from raw estimates with the blue tit dataset {#sec-R-single-blue-tits}
 
-Here we introduce analysis-level functions in `ManyEcoEvo` demonstrating on a single dataset a typical analysis pipeline which moves from data cleaning and harmonisation, meta-analysis and analysis of sources of heterogeneity, and visualisation and reporting of results. Each of these functions is modular and usable independently of our package, so users can substitute their own standardisation method, their own model-fitting function, or their own deviation score approach.
+Here, we introduce analysis-level functions in `ManyEcoEvo` demonstrating a typical analysis pipeline on a single dataset, which moves from data cleaning and harmonisation, meta-analysis and analysis of sources of heterogeneity, and visualisation and reporting of results. Each of these functions is modular and usable independently of the package, so users can substitute their own standardisation method, their own model-fitting function, or their own deviation score approach.
 
 ### Data preparation for meta-analysis
 
-The first step in any meta-analysis is ensuring that the estimands of interest – in this case, effect sizes as correlation coefficients – are on the same response scale to ensure that we are not 'comparing apples to oranges.'
-
-
-The meta-analyses in the `ManyEcoEvo` study are performed on Fishers' Z transformed correlation coefficients $Z_r$ with the function `est_to_zr()`, which is called by `standardise_response()`, adding columns of standardised estimates `Zr` and their variance `VZr`:
+The first step in any meta-analysis is ensuring that the estimands of interest – in this case, effect sizes as correlation coefficients – are on the same response scale to enable comparison of effect-sizes from heterogenous analyses. The meta-analyses in the `ManyEcoEvo` study are performed on Fishers' $Z$ transformed correlation coefficients $Z_r$ with the function `est_to_zr()` (<https://egouldo.github.io/ManyAnalysts/#step-5-evaluate-variation>), which is called by `standardise_response()`, adding columns of standardised estimates `Zr` and their variance `VZr`:
 
 ```{r}
 # label: glimpse-effect-sizes
@@ -169,11 +162,11 @@ standardised_effect_sizes %>%
   glimpse()
 ```
 
-Now that we have standardised the analysts' estimates, we can progress to conducting our meta-analysis.
+Now that the analysts' estimates have been standardised, the meta-analysis can progress.
 
 ### Meta-analysis and univariate analyses
 
-We fit a metaregression to the standardised effect sizes, using the `metafor` package, with nested random effects:
+Following @Gould2025, we fit a metaregression to the standardised effect sizes, using the `metafor` package, with nested random effects (@eq-MA_Zr):
 
 ```{r}
 #| label: glimpse-MA-model
@@ -190,7 +183,7 @@ summary(ma_model)
 
 #### Calculate Inputs for Univariate Analyses
 
-Calculate deviation of $Z_r$ from the meta-analytic mean for each analysis `id_col`, then Box-Cox transform each deviation score:
+In @Gould2025, we examined how different analysis features influenced the deviation of estimated effect sizes from the meta-analytic mean effect size, including the distinctiveness of variables, peer-review ratings (as a numerical and categorical score), and whether the analyses included random effects. First, the outcome variable must be created by calculating the deviation of $Z_r$ from the meta-analytic mean for each analysis `id_col`. The deviation scores are then Box-Cox transformed:
 
 ```{r}
 #| label: BoxCox-deviation-scores
@@ -202,7 +195,9 @@ effect_size_data <- standardised_effect_sizes %>%
   box_cox_transform(dataset = "blue tit", outcome_SE_colname = "VZr")
 ```
 
-Calculate mean Sorensen's similarity index for each analysis:
+#### Regression on Distinctiveness of Analysis Variables
+
+Below I fit the univariate regression on the distinctiveness of analysis variables, measured as the mean Sorensen's pairwise similarity index. This approach treats each analysts' variable set as a presence/absence matrix (stored in `diversity_data`) to compute a mean pairwise similarity score per analysis:
 
 ```{r}
 #| label: extract-diversity-data
@@ -215,9 +210,7 @@ mean_sorensen_data <-
 mean_sorensen_data
 ```
 
-#### Regression on Distinctiveness of Analysis Variables
-
-Join required `mean_diversity_indices` into `effect_size_data` and fit a univariate `glm` model of deviation scores on mean Sorensen's diversity index. Note that the returned model is fitted using *parsnip* [@parsnip2024].
+The mean Sorensen's index data is then joined with the deviation scores to fit a univariate `glm` model of the deviation scores on mean Sorensen's diversity index. The model is fitted using `parsnip` package and is therefore returned as a `parsnip` object [@parsnip2024].
 
 ```{r}
 #| label: glimpse-diversity-model
@@ -230,59 +223,61 @@ diversity_model # View model summary
 
 #### Visualise Results
 
-Create a forest plot for the blue tit meta-analysis:
+`ManyEcoEvo` includes several data extraction and plotting functions for visualising the meta-analysis and univariate models. Including a forest plot, shown for the blue tit meta-analyses:
 
 ```{r}
 #| label: fig-ManyEcoEvoR-forest
 #| fig-cap: |
-#|    Forest plots of meta-analytic estimated standardised effect sizes ($Z_r$, blue circles) and their 95% confidence intervals for each effect size included in the meta-analysis model. Results are shown for a subset of the complete blue tit dataset from @Gould2025. Meta-analytic mean effect size is shown as diamond.
+#|    Forest plots of meta-analytic estimated standardised effect sizes ($Z_r$, blue circles) and their 95% confidence intervals for each effect size included in the meta-analysis model. Results are shown for a subset of the complete blue tit dataset from @sec-ManyEcoEvo. Meta-analytic mean effect size is shown as diamond.
 #| fig-scap: "Forest plots of meta-analytic estimated standardised effect sizes for a subset of the blue tit dataset."
 get_forest_plot_data(ma_model) %>%
   plot_forest(intercept = TRUE)
 ```
 
-Create a marginal effects plot for the univariate analysis on the distinctiveness of variables, back-transforming the response variables for easier interpretation:
+Below I plot the marginal effects for the model of deviation in analysis scores on the distinctiveness of variables, back-transforming Box-Cox transformed response variables for easier visual interpretation:
 
 ```{r}
 #| label: fig-ManyEcoEvoR-Sorensen
 #| fig-cap: |
-#|   Fitted model of the Box-Cox transformed deviation score (deviation in the effect size from the meta-analytic mean) as a function of the mean Sorensen's index showing distinctiveness of the set of predictor variables, for a subset of the blue tit dataset from @Gould2025. Grey ribbons indicate predicted values are 95% CI's. Deviation scores have been back-transformed to the original scale.
+#|   Fitted model of the Box-Cox transformed deviation score (deviation in the effect size from the meta-analytic mean) as a function of the mean Sorensen's index showing distinctiveness of the set of predictor variables, for a subset of the blue tit dataset from @sec-ManyEcoEvo. Grey ribbons indicate predicted values are 95% CI's. Deviation scores have been back-transformed to the original scale.
 #| fig-scap: "Scatterplot of Box-Cox transformed deviation scores as a function of the the mean Sorensen's index."
-plot_effects_diversity(
+p_sorensen <- plot_effects_diversity(
   mod = diversity_model,
   df = effect_size_data,
   back_transform = TRUE
 )
+p_sorensen +
+  theme_bw()
 ```
+
+Since the returned plot is a `ggplot2` object [@ggplot2] the aesthetics can be easily customised, as illustrated above by changing the plot theme.
 
 ## Scaling up: Systematic Analysis Across Datasets and Analytical Subsets {#sec-R-scaling-up}
 
-The single-dataset walkthrough above introduced each analytical step individually — standardising estimates, fitting the meta-analytic model, computing deviation scores, and fitting downstream regressions — to make the logic of each step transparent. In practice, however, these steps are coordinated by a single wrapper function, `meta_analyse_datasets()`, which executes the full sequence in one call. We introduce it first on a single dataset before showing how the same call extends automatically to multiple datasets and analytical subsets.
+To demonstrate the logic of the analysis pipeline, each step was introduced individually above, moving from standardising estimates, fitting the meta-analytic model, computing deviation scores, to fitting univariate regressions and visualising results. To simplify scaling up to multiple analyses across different datasets and subsets of those datasets, `ManyEcoEvo` provides a single wrapper function to coordinate each step, `meta_analyse_datasets()`, which executes the full sequence in one call. The function is introduced and applied to a single dataset first, before illustrating how the same call extends to multiple datasets and analytical subsets.
 
 ### Preparing to map analyses over datasets with the nested tibble
 
 The pipeline is built around a nested tibble — a data frame where each row represents a dataset (e.g., "blue tit" or "eucalyptus"), and the analyst-level data for that dataset is stored in list-columns rather than as flat rows. The key list-columns are shown below:
 
 ```{r}
-# The top-level object: one row per dataset
+# The top-level object: one row per analysis dataset
 ManyEcoEvo
 ```
 
-Each element of the column `data` is itself a tibble of analyst submissions, for different `dataset`s. The nesting means that all downstream operations can be expressed as row-wise transformations using `purrr::map()` variants — the pipeline never needs to unpack and repack the full flat data frame.
-
-`diversity_data` stores a tibble of variable-use data for the Sorensen index computation, while `estimate_type` describes the outcome variable. An equivalent dataset for point predictions rather than effect-sizes is stored separately in `ManyEcoEvo_yi`.
+Each element of the column `data` is itself a tibble of analyst submissions, for each `dataset`. The nesting means that all downstream operations can be expressed as row-wise transformations using `purrr::map()` variants — the pipeline never needs to unpack and repack the full flat data frame. `diversity_data` stores a tibble of variable-use data for the Sorensen index computation, while `estimate_type` describes the outcome variable. An equivalent dataset for point predictions, rather than effect-sizes, is stored separately in `ManyEcoEvo_yi`.
 
 ### Coordinating the Full Pipeline with `meta_analyse_datasets()`
 
 `meta_analyse_datasets()` accepts the nested tibble produced by `prepare_response_variables()` and `compute_MA_inputs()` and, for each row, executes in sequence:
 
-1.  removal of infinite and missing values from the outcome columns;
-2.  fitting of the multilevel meta-analytic model via `fit_MA_mv()`;
-3.  computation of each analyst's deviation from the meta-analytic mean via `calculate_deviation_score()`;
-4.  Box–Cox transformation of the deviation scores via `box_cox_transform()`; and
-5.  fitting of the downstream regression models — Sørensen diversity index, continuous peer-review ratings, categorical peer-review ratings, and random-effects inclusion.
+1.  Removal of infinite and missing values from the outcome columns.
+2.  Fitting of the multilevel meta-analytic model via `fit_MA_mv()`, a wrapper function around `metafor::rma.mv()` function from the `metafor` package [@metafor].
+3.  Computation of each analyst's deviation from the meta-analytic mean via `calculate_deviation_score()`.
+4.  Box–Cox transformation of the deviation scores via `box_cox_transform()`.
+5.  Fitting of the univariate regression models.
 
-Each result is returned as a new list-column in the same nested tibble. Applied to the single *Eucalyptus* dataset, equivalent to the blue tit dataset from the previous section. The call is:
+Each result is returned as a new list-column in the same nested tibble. This call is now applied to the *Eucalyptus* dataset:
 
 ```{r}
 #| warning: false
@@ -305,7 +300,7 @@ single_dataset_results %>%
   select(dataset, MA_mod, sorensen_glm, box_cox_rating_cont, box_cox_rating_cat)
 ```
 
-This is equivalent to the manual sequence demonstrated in the previous section, but expressed as a single pipeline call whose structure does not change as the number of datasets or subsets grows.
+This is equivalent to the manual sequence demonstrated in the previous section (@sec-R-single-blue-tits), but expressed as a single pipeline call whose structure does not change as the number of datasets or subsets grows.
 
 ### Repeating the Analysis Across Multiple Datasets
 
@@ -314,6 +309,7 @@ Extending the pipeline to both datasets requires no changes to the pipeline itse
 ```{r}
 #| message: false
 #| warning: false
+#| echo: false
 meta_analysis_results <-
   analysis_data %>%
   prepare_response_variables(
@@ -324,34 +320,52 @@ meta_analysis_results <-
   meta_analyse_datasets(
     outcome_variable = "Zr",
     outcome_SE = "VZr"
-  ) %>%
+  )
+```
+
+```{r}
+#| message: false
+#| warning: false
+meta_analysis_results
+```
+
+The output retains the nested tibble structure, now with one row per dataset and additional list-columns for each fitted model and visualisation. This design facilitates chaining together additional steps in the analysis, for example, by calling `make_viz()` to extract model summaries, fit statistics, forest plots and funnel plots for every model in each row.
+
+```{r}
+#| message: false
+#| warning: false
+#| echo: false
+meta_analysis_viz <-
+  meta_analysis_results %>%
   make_viz()
 ```
 
-The output retains the nested tibble structure, now with one row per dataset and additional list-columns for each fitted model and visualisation. Results for a given dataset are accessed by filtering on the `dataset` column:
+Results for a given dataset are accessed by filtering on the `dataset` column:
 
 ```{r}
 #| message: false
 # Compare heterogeneity statistics across datasets
-meta_analysis_results %>%
+meta_analysis_viz %>%
   filter(model_name == "MA_mod") %>%
   select(dataset, MA_fit_stats) %>%
   unnest(MA_fit_stats) %>%
   drop_na()
 ```
 
-This is the simplest use case: the same analytical pipeline applied to two research questions, with the only difference being which datasets are passed in.
+This is the simplest use case: the same analytical pipeline applied to two research questions and associated many-analyst datasets.
 
 ### Generating Analytical Subsets
 
-Many-analyst studies routinely require repeating the full analysis under varied inclusion criteria. In @Gould2025, we repeated our meta-analysis after removing analyses rated as low quality by peer reviewers, after excluding analyses with collinear predictors, and after removing extreme outliers. In conventional practice, sensitivity analyses of this kind are usually implemented as ad hoc copies of the primary analysis script. `ManyEcoEvo` instead treats subset generation as a first-class operation that expands the nested tibble by adding rows, one per new subset, so that the full downstream pipeline propagates through all combinations without modification.
+Many-analyst studies can involve repeating the full analysis under varied inclusion criteria. In @sec-ManyEcoEvo, the meta-analysis was repeated on data subsets after removing analyses rated as low quality by peer reviewers, after excluding analyses with collinear predictors, and after removing extreme outliers. In conventional practice, sensitivity analyses of this kind are usually implemented as ad hoc copies of the primary analysis script. `ManyEcoEvo` instead treats subset generation as a first-class operation that expands the nested tibble by adding rows, one per new subset, so that the full downstream pipeline propagates through all combinations.
 
-`generate_exclusion_subsets()` and its companion functions (`generate_rating_subsets()`, `generate_expertise_subsets()`, `generate_collinearity_subset()`) each add new rows to the nested tibble. Each new row carries correctly filtered `data` and `diversity_data` list-columns, matched to that subset's inclusion criteria. Starting from two dataset rows, a typical call sequence produces on the order of twelve or more rows covering complete and partial exclusion sets and publishability subsets:
+`generate_exclusion_subsets()` and its companion functions (`generate_rating_subsets()`, `generate_expertise_subsets()`, `generate_collinearity_subset()`) each add new rows to the nested tibble. Each new row carries correctly filtered `data` and `diversity_data` list-columns, matched to that subset's inclusion criteria. Starting from two separate many-analyst datasets, a typical call sequence produces multiple rows corresponding to each data subset:
 
 ```{r}
 #| message: false
+#| warnings: false
+#| echo: false
 meta_analysis_results <-
-  analysis_data %>%
+  ManyEcoEvo %>%
   prepare_response_variables(
     estimate_type = "Zr",
     dataset_standardise = c("blue tit", "eucalyptus")
@@ -368,15 +382,17 @@ meta_analysis_results <-
     )
   ) %>%
   make_viz()
+```
 
+```{r}
+#| message: false
+#| warnings: false
 # The nested tibble now has one row per dataset × subset combination
 meta_analysis_results %>%
   distinct(dataset, exclusion_set, publishable_subset)
 ```
 
-In the example above, the `filter_vars` argument to `meta_analyse_datasets()` — a list of `rlang::exprs()` calls — restricts the computationally expensive multivariate meta-regression to the nominated primary subset, whilst all simpler models are fitted across every row. Because the pipeline operates on the row structure rather than branching on dataset or subset identity, adding a new subset criterion requires only an additional `generate_*()` call; the rest of the pipeline is unchanged. In this way the analyses may be varied across datasets and subsets rather than forcing the user to repeatedly apply the same meta-analysis.
-
-Note the additional `make_viz()` step in the pipeline above, which extracts model summaries, fit statistics, forest plots and funnel plots for every model in each row. Below we show how the resultant model fit statistics can be obtained for multiple datasets from this tibble:
+In the example above, the `filter_vars` argument to `meta_analyse_datasets()` — a list of `rlang::exprs()` calls — restricts the computationally expensive multivariate meta-regression to the nominated primary subset, whilst all simpler models are fitted across every row. Because the pipeline operates on the row structure rather than branching on dataset or subset identity, adding a new subset criterion requires only an additional `generate_*()` call; the rest of the pipeline is unchanged. In this way the analyses may be varied across datasets and subsets rather than forcing the user to repeatedly apply the same meta-analysis. Lastly, resultant model fit statistics can be obtained for multiple datasets from this tibble:
 
 ```{r}
 #| message: false
@@ -393,15 +409,15 @@ model_fit_stats %>%
   unnest()
 ```
 
-## Curating the ManyEcoEvo dataset with the `targets` package {#sec-R-targets}
+## Curating the `ManyEcoEvo` dataset with the `targets` package {#sec-R-targets}
 
-This package provides the raw, cleaned, transformed datasets as well as the outputs of all meta-analyses performed in @Gould2025. The full analysis pipeline can be reproduced with the targets package [@landau2021], which is an R pipeline tool kit that builds make-like reproducible analyses by declaring steps (targets) and their dependencies. The `ManyEcoEvo` host repository provides a small driver (`data-raw/tar_make.R`) that runs `targets::tar_make()` to execute the pipeline that creates the package analysis objects (e.g. `ManyEcoEvo`, `ManyEcoEvo_results`). The final objects are saved into the package with `data/` via `usethis::use_data()`.
+This package provides the raw, cleaned, transformed datasets as well as the outputs of all meta-analyses performed in @sec-ManyEcoEvo. The full analysis pipeline can be reproduced with the targets package [@targets], which is an R pipeline tool kit that builds make-like reproducible analyses by declaring steps (targets) and their dependencies. The `ManyEcoEvo` host repository provides a small driver (`data-raw/tar_make.R`) that runs `targets::tar_make()` to execute the pipeline that creates the package analysis objects (e.g. `ManyEcoEvo`, `ManyEcoEvo_results`). The final objects are saved into the package with `data/` via `usethis::use_data()`.
 
-Package version dependencies are maintained using the `renv` package [@renv2024], which records all package versions in a dedicated project library. The package dependencies are declared in the targets pipeline, and targets runs inside a dedicated project R session where every target is executed using that library. The targets pipeline architecture, coupled with `renv`'s dependency management makes the computational dependency structure explicit and auditable. The result is a reproducible cached workflow that generates the exact results data used in @Gould2025. Instructions for a clean build and install can be found on the package repository's README, see <https://github.com/egouldo/ManyEcoEvo>.
+Package version dependencies are maintained using the `renv` package [@renv], which records all package versions in a dedicated project library. The package dependencies are declared in the targets pipeline, and targets runs inside a dedicated project R session where every target is executed using that library. The targets pipeline architecture, coupled with `renv`'s dependency management, makes the computational dependency structure explicit and auditable. The result is a reproducible cached workflow that generates the exact results data used in @sec-ManyEcoEvo. Instructions for a clean build and install can be found on the package repository's README, see <https://github.com/egouldo/ManyEcoEvo>.
 
 ## Conclusion {#sec-R-conclusion}
 
-`ManyEcoEvo` provides a structured workflow that maps analytical operations systematically across datasets and data subsets. The package’s wrapper architecture is customised for many analyst projects but also generalises to conventional meta-analyses, where sensitivity analyses repeat the meta-analysis across inclusion criteria or data subsets. Its contribution is largely architectural, making systematic, reproducible, large-scale repetition of the same analysis pipeline across many dataset variants a tractable, first-class operation rather than an ad hoc afterthought. Finally, it is also a data package for the ‘Same Data, Many Analysts’ study in Ecology and Evolution [@Gould2025].
+`ManyEcoEvo` provides a structured workflow that maps analytical operations systematically across datasets and data subsets. The package’s wrapper architecture is customised for many-analyst studies but also generalises to conventional meta-analyses, where sensitivity analyses repeat the meta-analysis across inclusion criteria or data subsets. Its contribution is largely architectural, making reproducible application of the analysis pipeline across many dataset variants a tractable, first-class operation, rather than an ad hoc after thought. Additionally, it serves as a data package for the ‘Same Data, Many Analysts’ study in Ecology and Evolution (@sec-ManyEcoEvo).
 
 ## Session Information {#sec-R-session-info}
 
