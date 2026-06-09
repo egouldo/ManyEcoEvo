@@ -53,7 +53,7 @@ tar_option_set(
   controller = controller,
   format = "qs",
   resources = tar_resources(
-    qs = tar_resources_qs(nthreads = 6)
+    qs = tar_resources_qs(nthreads = 6L)
   ),
   seed = 1234
   # debug = c("augmented_data_3efd9941")#, #augmented_data_a4d78efa

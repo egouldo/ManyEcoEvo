@@ -13,3 +13,6 @@ _targets/
 ^Meta$
 ^data-raw/analyst_data/S2$
 ^vignettes/*_files$
+^[.]?air[.]toml$
+^\.vscode$
+^README\.qmd$
