@@ -59,14 +59,14 @@ blue_tit_effect_sizes <-
 
 blue_tit_effect_sizes
 
-standardise_response(dat = blue_tit_effect_sizes, 
+standardise_response(dat = blue_tit_effect_sizes,
                      estimate_type = "Zr",
-                     param_table = NULL, 
-                     dataset = "blue tit") %>% 
-  select(id_col, 
-         contains("beta"), 
-         adjusted_df, 
-         Zr, 
+                     param_table = NULL,
+                     dataset = "blue tit") %>%
+  select(id_col,
+         contains("beta"),
+         adjusted_df,
+         Zr,
          VZr )
 ```
 
@@ -79,22 +79,22 @@ Below we standardise a data frame containing out-of-sample point-estimate predic
 # ----- Create example blue tit dataset ----
 
 data("ManyEcoEvo_yi")
-blue_tit_predictions <- 
-  ManyEcoEvo_yi %>% 
-  dplyr::filter(dataset == "blue tit") %>% 
-  pluck("data", 1) %>% 
+blue_tit_predictions <-
+  ManyEcoEvo_yi %>%
+  dplyr::filter(dataset == "blue tit") %>%
+  pluck("data", 1) %>%
   head()
 
 # ----- back-transform analyst estimates to original response scale ----
-blue_tit_back_transformed <- 
-  blue_tit_predictions %>% 
-  back_transform_response_vars_yi() %>% 
-  ungroup %>% 
+blue_tit_back_transformed <-
+  blue_tit_predictions %>%
+  back_transform_response_vars_yi() %>%
+  ungroup %>%
   select(
     id_col,
     response_variable_name,
     contains("transformation"),
-    augmented_data, 
+    augmented_data,
     back_transformed_data
   ) #TODO transformation column seems wrong! but output from convert_predictions() suggests correct transformation occurred!
 
@@ -102,17 +102,17 @@ blue_tit_back_transformed
 
 # ----- standardize to Z scale ------
 
-blue_tit_standardised <- 
-  blue_tit_back_transformed %>% 
+blue_tit_standardised <-
+  blue_tit_back_transformed %>%
   standardise_response(
     estimate_type = "yi" ,
-    param_table = ManyEcoEvo:::analysis_data_param_tables, 
+    param_table = ManyEcoEvo:::analysis_data_param_tables,
     dataset = "blue tit"
-  ) %>% 
-  ungroup %>% 
+  ) %>%
+  ungroup %>%
   select(
     id_col,
-    params, 
+    params,
     transformation,
     augmented_data,
     back_transformed_data
@@ -120,28 +120,28 @@ blue_tit_standardised <-
 
 blue_tit_standardised
 
-# ----- parameters ---- 
+# ----- parameters ----
 blue_tit_standardised %>%
-  pluck("params", 1) 
+  pluck("params", 1)
 blue_tit_standardised %>%
   pluck("params", 2) # gets a different set depending on the variable
 
 # ---- raw predictions data ----
 blue_tit_back_transformed %>%
   pluck("augmented_data", 1)
-blue_tit_back_transformed %>% 
+blue_tit_back_transformed %>%
   pluck("back_transformed_data", 1)
 
 # ---- back-transformed & standardised predictions_data ----
-blue_tit_standardised %>% 
-  pluck("back_transformed_data", 1) 
+blue_tit_standardised %>%
+  pluck("back_transformed_data", 1)
 
-MA_data_yi <- blue_tit_standardised %>% 
-  select(id_col, back_transformed_data) %>% 
-  unnest(back_transformed_data) %>% 
-  pointblank::col_vals_between(columns = "Z", 
-                               left = -3, 
-                               right = 3, 
+MA_data_yi <- blue_tit_standardised %>%
+  select(id_col, back_transformed_data) %>%
+  unnest(back_transformed_data) %>%
+  pointblank::col_vals_between(columns = "Z",
+                               left = -3,
+                               right = 3,
                                inclusive = TRUE)
 ```
 
