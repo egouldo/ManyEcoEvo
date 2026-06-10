@@ -38,7 +38,7 @@ affiliations:
     name: The University of New South Wales
   - id: aff3
     name: Whitman College
-bibliography: "vignettes/articles/vignettes.bib"
+bibliography: "vignettes.bib"
 ---
 
 ```{r}
@@ -67,7 +67,7 @@ knitr::opts_chunk$set(
 
 ## Summary
 
-Many-analyst studies are an emerging format of crowdsourced scientific analysis [@Schweinsberg2021], in which multiple analysts independently answer the same research question using the same dataset [@Voracek2019; @Silberzahn2018]. Several high-profile studies demonstrate that results and conclusions can be highly contingent on subjective but defensible analytical decisions [@Silberzahn2018; @Botvinik-Nezer202; @Breznau2021; @Huntington-Klein2021; @Hoogeveen2022; @Coretta2023], arising from disagreement about modelling strategy or variation in data preparation [@Voracek2019; @Simonsohn2020]. Similarly to meta-analysis, many-analyst studies treat analytical variation as the object of study, and produce rich metadata for each analysis — including model type, transformations, and variable selection — that can be used to characterise analytical uncertainty. Unlike meta-analysis, the source of variation under study is analytical rather than arising from sampling or measurement error between independent datasets.
+Many-analyst studies are an emerging format of crowdsourced scientific analysis [@Schweinsberg2021], in which multiple analysts independently answer the same research question using the same dataset [@Voracek2019; @Silberzahn2018]. Several high-profile studies demonstrate that results and conclusions can be highly contingent on subjective but defensible analytical decisions [@Silberzahn2018; @Botvinik-Nezer2020; @Breznau2021; @Huntington-Klein2021; @Hoogeveen2022; @Coretta2023], arising from disagreement about modelling strategy or variation in data preparation [@Voracek2019; @Simonsohn2020]. Similarly to meta-analysis, many-analyst studies treat analytical variation as the object of study, and produce rich metadata for each analysis — including model type, transformations, and variable selection — that can be used to characterise analytical uncertainty. Unlike meta-analysis, the source of variation under study is analytical rather than arising from sampling or measurement error between independent datasets.
 
 `ManyEcoEvo` is an R package that provides a structured, reproducible workflow for conducting the statistical analyses characteristic of many-analyst studies. The package implements a pipeline that: standardises heterogeneous analyst estimates onto a common scale; fits multilevel meta-analytic models across multiple analyst submissions; computes each analyst's deviation from the meta-analytic mean; and fits a series of univariate regression models examining how analytical choices relate to deviation from the consensus estimate among teams. The pipeline is built around a nested tibble structure that allows the full sequence of operations to be mapped systematically over multiple datasets and over systematically varied analytical subsets of those datasets — for example, subsets defined by peer-review quality ratings, variable collinearity, or analyst expertise. This architecture makes repeated application of the analysis pipeline across many dataset variants a tractable problem.
 
