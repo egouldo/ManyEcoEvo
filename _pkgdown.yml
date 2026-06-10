@@ -1,6 +1,8 @@
 url: https://egouldo.github.io/ManyEcoEvo/
 development:
   mode: auto
+deploy:
+  install_metadata: true
 template:
   bootstrap: 5
 reference:
@@ -42,7 +44,7 @@ reference:
   - starts_with("subset_fns")
 - subtitle: Transforming and standardising meta-analysis variables
   desc: |
-    Functions for computing and standardising response and predictor 
+    Functions for computing and standardising response and predictor
     variables for meta-analysis.
   contents:
   - box_cox_transform
@@ -85,8 +87,8 @@ reference:
   - run_model_checks
 - subtitle: Summarising Analysis Features
   desc: |
-    Functions for summarising qualitative and quantitative features of analyses, 
-    including model specification and variable selection, analyst conclusions and 
+    Functions for summarising qualitative and quantitative features of analyses,
+    including model specification and variable selection, analyst conclusions and
     modelling approaches.
   contents:
   - starts_with("summarise")
@@ -98,7 +100,7 @@ reference:
   - calculate_variable_counts
 - title: 'Scaling Up: Working with data subsets or multiple datasets'
   desc: |
-    Functions for working with multiple datasets or data subsets within a 
+    Functions for working with multiple datasets or data subsets within a
     tidyverse list-column framework.
 - subtitle: Wrapper Functions
   desc: ''
