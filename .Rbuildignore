@@ -16,3 +16,7 @@ _targets/
 ^[.]?air[.]toml$
 ^\.vscode$
 ^README\.qmd$
+^vignettes/\.quarto$
+^vignettes/articles/\.quarto$
+^vignettes/articles/*_files$
+^vignettes/articles$

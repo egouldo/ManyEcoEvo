@@ -63,8 +63,7 @@ Suggests:
     testthat (>= 3.0.0),
     timetk,
     workflows
-VignetteBuilder:
-    knitr
+VignetteBuilder:knitr, quarto
 Remotes:
     daniel1noble/orchaRd,
     NightingaleHealth/ggforestplot

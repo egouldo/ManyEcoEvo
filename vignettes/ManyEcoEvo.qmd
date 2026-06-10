@@ -1,5 +1,10 @@
 ---
-title: "ManyEcoEvo: an R package for Analysing Many-analyst-style Data"
+title: "ManyEcoEvo"
+subtitle: "an R package for Analysing Many-analyst-style Data"
+vignette: >
+  %\VignetteIndexEntry{ManyEcoEvo}
+  %\VignetteEngine{quarto::html}
+  %\VignetteEncoding{UTF-8}
 knitr:
   opts_chunk:
     collapse: true
@@ -38,7 +43,7 @@ affiliations:
     name: The University of New South Wales
   - id: aff3
     name: Whitman College
-bibliography: "vignettes.bib"
+bibliography: "vignettes/articles/vignettes.bib"
 ---
 
 ```{r}
@@ -67,7 +72,7 @@ knitr::opts_chunk$set(
 
 ## Summary {#sec-R-summary}
 
-Many-analyst studies are an emerging format of crowdsourced scientific analysis [@Schweinsberg2021], where analysts simultaneously, but independently, answer the same research question, using the same dataset [@Voracek2019; @Silberzahn2018]. Several high-profile many-analyst studies demonstrate how results and conclusions may be highly contingent on subjective, defensible but differing analysis decisions [@Silberzahn2018; @Botvinik-Nezer2020; @Breznau2021]. Deviations in analysis choices among researchers may occur due to disagreement about the best modelling strategy given the data, or variation in the data preparation (e.g. choosing which observations to include) [@Voracek2019; @Simonsohn2020, figure 1].
+Many-analyst studies are an emerging format of crowdsourced scientific analysis [@Schweinsberg2021], where analysts simultaneously, but independently, answer the same research question, using the same dataset [@Voracek2019; @Silberzahn2018]. Several high-profile many-analyst studies demonstrate how results and conclusions may be highly contingent on subjective, defensible but differing analysis decisions [@Silberzahn2018; @Botvinik-Nezer2020; @Breznau2021; @Huntington-Klein2021; @Hoogeveen2022; @Coretta2023]. Deviations in analysis choices among researchers may occur due to disagreement about the best modelling strategy given the data, or variation in the data preparation (e.g. choosing which observations to include) [@Voracek2019; @Simonsohn2020, figure 1].
 
 Similarly to meta-analysis, many-analyst studies treat analytical variation as the object of study. Yet the two study formats differ in the source of variation they examine, their study goals with respect to analysing variation, and in the assumptions made about analytical choices. Meta-analyses focus on synthesising data from a single analysis from each of multiple independent studies (and therefore datasets), while many-analyst studies examine a single dataset, analysed in multiple ways. Both types of analysis aim to understand why results differ, and provide a combined effect-size estimate based on all information. Meta-analyses studies assume the source of variation is due to sampling or measurement error, while many-analyst studies consider analytic variation as an additional source of heterogeneity in results. Many-analyst studies produce rich metadata for each analysis - including model type, transformations, variable selection or other analytic choices - that may either be used within meta-analyses or else as predictors or covariates within additional analyses that aim to characterise analytic uncertainty. Reporting in ecological studies, including meta-analyses, is opaque and incomplete in ecology [@ODea2021a; @Zvereva2021; @Culina2020; @Kambouris2024; @Kimmel2023]. In line with their position as meta-science studies, many-analyst studies typically strive for a high degree of documentation, and extensive sensitivity analysis performed by using the same analytic protocol on various subsets of the data.
 
