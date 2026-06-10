@@ -21,7 +21,7 @@ Plot a forest plot using the data from \code{get_forest_plot_data}
 }
 \examples{
 data(ManyEcoEvo_results)
-model <- ManyEcoEvo_results \%>\% pluck("MA_mod", 1) 
+model <- ManyEcoEvo_results \%>\% pluck("MA_mod", 1)
 plot_data <- get_forest_plot_data(model)
 plot_forest(plot_data)
 plot_forest(plot_data, intercept = FALSE)

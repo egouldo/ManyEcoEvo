@@ -17,39 +17,60 @@
 #' #                   starts_with("abs_dev"),
 #' #                            lambda),
 #' #                            back_transform = TRUE)
+#' @import ggplot2
+#' @import dplyr
+#' @importFrom tibble tibble
+#' @importFrom rlang check_installed
 plot_effects_diversity <- function(mod, df, back_transform = FALSE) {
   # TODO extract df from fitted model and supply lambda separately!??
+  rlang::check_installed("sae", reason = "to use `bxcx()`")
+  rlang::check_installed("ggeffects", reason = "to use `ggpredict()`")
   predictions_df <- mod %>%
     ggeffects::ggpredict(terms = "mean_diversity_index [all]") %>%
-    as_tibble()
+    tibble::as_tibble()
 
   if (back_transform == TRUE) {
     # TODO add check that predictor var has correct col name, and lambda exists
     predictions_df <- predictions_df %>%
-      mutate(lambda = df$lambda %>% unique()) %>%
-      mutate(across(
+      dplyr::mutate(lambda = df$lambda %>% unique()) %>%
+      dplyr::mutate(dplyr::across(
         .cols = c(-group, -x),
         ~ sae::bxcx(unique(df$lambda), x = .x, InverseQ = TRUE)
       ))
 
-    p <- ggplot(
+    p <- ggplot2::ggplot(
       data = predictions_df,
-      mapping = aes(x = x, y = predicted)
+      mapping = ggplot2::aes(x = x, y = predicted)
     ) +
-      geom_line() +
-      geom_ribbon(aes(ymin = conf.low, ymax = conf.high), alpha = 0.1) +
-      geom_point(data = df, aes(y = abs_deviation_score_estimate, x = mean_diversity_index)) +
+      ggplot2::geom_line() +
+      ggplot2::geom_ribbon(
+        aes(ymin = conf.low, ymax = conf.high),
+        alpha = 0.1
+      ) +
+      ggplot2::geom_point(
+        data = df,
+        ggplot2::aes(y = abs_deviation_score_estimate, x = mean_diversity_index)
+      ) +
       ggplot2::xlab("Mean Sorensen's Index") +
       ggplot2::ylab("Absolute Deviation from\n Meta-Anaytic Mean Effect Size")
   } else {
     # TODO add check that columns are labelled appropriately i.e. same as what is supplied to aes()
-    p <- ggplot(
+    p <- ggplot2::ggplot(
       data = predictions_df,
-      mapping = aes(x = x, y = predicted)
+      mapping = ggplot2::aes(x = x, y = predicted)
     ) +
-      geom_line() +
-      geom_ribbon(aes(ymin = conf.low, ymax = conf.high), alpha = 0.1) +
-      geom_point(data = df, aes(y = box_cox_abs_deviation_score_estimate, x = mean_diversity_index)) +
+      ggplot2::geom_line() +
+      ggplot2::geom_ribbon(
+        ggplot2::aes(ymin = conf.low, ymax = conf.high),
+        alpha = 0.1
+      ) +
+      ggplot2::geom_point(
+        data = df,
+        ggplot2::aes(
+          y = box_cox_abs_deviation_score_estimate,
+          x = mean_diversity_index
+        )
+      ) +
       ggplot2::xlab("Mean Sorensen's Index") +
       ggplot2::ylab("Box-Cox Deviation from\nMeta-Analytic Mean Effect Size")
   }

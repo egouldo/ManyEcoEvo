@@ -10,7 +10,6 @@
 #' @export
 #' @import dplyr
 #' @importFrom purrr map_dfr map
-#' @importFrom broom tidy
 #' @importFrom tidyr unnest pivot_wider
 #' @import metafor
 #' @family Multi-dataset Wrapper Functions
@@ -21,7 +20,12 @@
 #' data(ManyEcoEvo_yi_results)
 #' data(ManyEcoEvo)
 #' summarise_conclusions(ManyEcoEvo_results, ManyEcoEvo_yi_results, ManyEcoEvo)
-summarise_conclusions <- function(ManyEcoEvo_results, ManyEcoEvo_yi_results, ManyEcoEvo) {
+summarise_conclusions <- function(
+  ManyEcoEvo_results,
+  ManyEcoEvo_yi_results,
+  ManyEcoEvo
+) {
+  rlang::check_installed("broom", reason = "to use `tidy()`")
   effect_ids <- ManyEcoEvo_results %>%
     filter(
       exclusion_set == "complete",
@@ -30,14 +34,14 @@ summarise_conclusions <- function(ManyEcoEvo_results, ManyEcoEvo_yi_results, Man
     ungroup() %>%
     select(MA_mod, effects_analysis, estimate_type, dataset) %>%
     group_by(estimate_type, dataset) %>%
-    mutate(tidy_mod = map(
-      MA_mod,
-      ~ broom::tidy(.x,
-        conf.int = TRUE,
-        include_studies = TRUE
-      ) %>%
-        rename(study_id = term)
-    ), .keep = "none") %>%
+    mutate(
+      tidy_mod = map(
+        MA_mod,
+        ~ broom::tidy(.x, conf.int = TRUE, include_studies = TRUE) %>%
+          rename(study_id = term)
+      ),
+      .keep = "none"
+    ) %>%
     unnest(tidy_mod) %>%
     filter(type == "study") %>%
     ungroup() %>%
@@ -53,11 +57,14 @@ summarise_conclusions <- function(ManyEcoEvo_results, ManyEcoEvo_yi_results, Man
     ungroup() %>%
     select(MA_mod, effects_analysis, -exclusion_set, dataset, estimate_type) %>%
     group_by(estimate_type, dataset) %>%
-    mutate(tidy_mod = map(
-      MA_mod,
-      ~ broom::tidy(.x, conf.int = TRUE, include_studies = TRUE) %>%
-        rename(study_id = term)
-    ), .keep = "none") %>%
+    mutate(
+      tidy_mod = map(
+        MA_mod,
+        ~ broom::tidy(.x, conf.int = TRUE, include_studies = TRUE) %>%
+          rename(study_id = term)
+      ),
+      .keep = "none"
+    ) %>%
     unnest(tidy_mod) %>%
     filter(type == "study") %>%
     ungroup() %>%

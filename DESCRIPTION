@@ -22,14 +22,14 @@ BugReports: https://github.com/egouldo/ManyEcoEvo/issues
 Depends:
     R (>= 4.1),
     rmarkdown,
-    bookdown
 Imports:
     betapart,
     cli,
     data.table,
-    dplyr (>= 1.1.4),
+    dplyr,
     forcats,
     fs,
+    ggplot2,
     glue,
     here,
     lifecycle,
@@ -40,15 +40,22 @@ Imports:
     pointblank,
     purrr,
     rlang,
+    stringr,
     tibble,
     tidyr,
     tidyselect,
     withr
 Suggests:
+    broom,
     broom.mixed,
+    EnvStats,
+    ggbeeswarm,
     ggeffects,
+    ggforestplot (>= 0.1.0),
+    janitor,
     knitr,
     metaviz,
+    orchaRd (>= 2.1.3),
     parameters,
     parsnip,
     performance,
@@ -56,14 +63,16 @@ Suggests:
     progress,
     qs2,
     quarto,
+    readr,
+    readxl,
     recipes,
-    rmarkdown,
     sae,
+    see,
     targets,
     testthat (>= 3.0.0),
     timetk,
     workflows
-VignetteBuilder:knitr, quarto
+VignetteBuilder: knitr, quarto
 Remotes:
     daniel1noble/orchaRd,
     NightingaleHealth/ggforestplot

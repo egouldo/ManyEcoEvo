@@ -6,31 +6,31 @@
 #' @family Plotting functions
 #' @examples
 #' get_forest_plot_data(model)
-#' @importFrom broom tidy
 #' @import dplyr
-#' @importFrom forcats fct_reorder
 #' @importFrom stringr str_detect
 #' @importFrom purrr keep_at
-get_forest_plot_data <- function(model){
-  model %>% 
-    broom::tidy(conf.int = TRUE, include_studies = TRUE) %>% 
+get_forest_plot_data <- function(model) {
+  rlang::check_installed("forcats", reason = "to use `fct_reorder()`")
+  rlang::check_installed("broom", reason = "to use `tidy()`")
+  model %>%
+    broom::tidy(conf.int = TRUE, include_studies = TRUE) %>%
     dplyr::mutate(
-      point_shape = 
-        ifelse(stringr::str_detect(term, "overall"), 
-               "mean", 
-               "study"),
-      term = 
-        forcats::fct_reorder(term, 
-                             estimate) %>% 
-        forcats::fct_reorder(., 
-                             point_shape,
-                             .desc = FALSE),
-      parameter_type = case_when(str_detect(term, "overall") ~ "mean",
-                                 TRUE ~ "study"),
+      point_shape = ifelse(
+        stringr::str_detect(term, "overall"),
+        "mean",
+        "study"
+      ),
+      term = forcats::fct_reorder(term, estimate) %>%
+        forcats::fct_reorder(., point_shape, .desc = FALSE),
+      parameter_type = case_when(
+        str_detect(term, "overall") ~ "mean",
+        TRUE ~ "study"
+      ),
       # point_shape = factor(point_shape, levels = c("study", "mean")),
       # parameter_type = factor(parameter_type, levels = c("study", "mean")),
-      meta_analytic_mean =  pull(., estimate, type) %>% 
-        keep_at(at = "summary")) %>% 
+      meta_analytic_mean = pull(., estimate, type) %>%
+        keep_at(at = "summary")
+    ) %>%
     select(-type, Parameter = term, everything())
 }
 
@@ -42,59 +42,68 @@ get_forest_plot_data <- function(model){
 #' @return A ggplot object
 #' @export
 #' @import ggplot2
-#' @importFrom ggforestplot theme_forest
-#' @importFrom NatParksPalettes scale_color_natparks_d
 #' @family Plotting functions
 #' @examples
 #' data(ManyEcoEvo_results)
-#' model <- ManyEcoEvo_results %>% pluck("MA_mod", 1) 
+#' model <- ManyEcoEvo_results %>% pluck("MA_mod", 1)
 #' plot_data <- get_forest_plot_data(model)
 #' plot_forest(plot_data)
 #' plot_forest(plot_data, intercept = FALSE)
 #' plot_forest(plot_data, MA_mean = FALSE)
 #' plot_forest(plot_data, intercept = FALSE, MA_mean = FALSE)
-plot_forest <- function(data, intercept = TRUE, MA_mean = TRUE){
+plot_forest <- function(data, intercept = TRUE, MA_mean = TRUE) {
+  rlang::check_installed("ggforestplot", reason = "to use `theme_forest()`")
+
   if (MA_mean == FALSE) {
     data <- filter(data, Parameter != "overall")
   }
-  
-  p <- data %>% 
-    ggplot(aes(y = estimate, 
-                        x =  Parameter, 
-                        ymin = conf.low, 
-                        ymax = conf.high,
-                        shape = point_shape,
-                        colour = parameter_type)) +
+
+  p <- data %>%
+    ggplot(aes(
+      y = estimate,
+      x = Parameter,
+      ymin = conf.low,
+      ymax = conf.high,
+      shape = point_shape,
+      colour = parameter_type
+    )) +
     geom_pointrange(fatten = 2) +
     ggforestplot::theme_forest() +
-    theme(axis.line = element_line(linewidth = 0.10, colour = "black"),
-          axis.line.y = element_blank(),
-          text = element_text(family = "Helvetica")#,
-          # axis.text.y = element_blank()
+    theme(
+      axis.line = element_line(linewidth = 0.10, colour = "black"),
+      axis.line.y = element_blank(),
+      text = element_text(family = "Helvetica") #,
+      # axis.text.y = element_blank()
     ) +
-    # guides(shape = guide_legend(title = NULL), 
+    # guides(shape = guide_legend(title = NULL),
     #        colour = guide_legend(title = NULL)
     #        ) +
     coord_flip() +
-    ylab(bquote(Standardised~Effect~Size~Z[r])) +
+    ylab(bquote(Standardised ~ Effect ~ Size ~ Z[r])) +
     xlab(element_blank()) +
     # scale_y_continuous(breaks = c(-4,-3,-2,-1,0,1),
     # minor_breaks = seq(from = -4.5, to = 1.5, by = 0.5)) +
-    # NatParksPalettes::scale_color_natparks_d("Glacier")
-    scale_shape_manual(values = c("study" = 16, "mean" = 23), # circle and diamond
-                       name = NULL) +
-    scale_color_manual(values = c("study" = "#088096", "mean" = "#01353D"),
-                       name = NULL) 
-  
+    scale_shape_manual(
+      values = c("study" = 16, "mean" = 23), # circle and diamond
+      name = NULL
+    ) +
+    scale_color_manual(
+      values = c("study" = "#088096", "mean" = "#01353D"),
+      name = NULL
+    )
+
   if (intercept == TRUE) {
     p <- p + geom_hline(yintercept = 0)
   }
   if (MA_mean == TRUE) {
-    p <- p + geom_hline(aes(yintercept = meta_analytic_mean), 
-                        data = data,
-                        colour = "#01353D", 
-                        linetype = "dashed")
+    p <- p +
+      geom_hline(
+        aes(yintercept = meta_analytic_mean),
+        data = data,
+        colour = "#01353D",
+        linetype = "dashed"
+      )
   }
-  
+
   return(p)
 }

@@ -8,24 +8,26 @@
 #' @return A ggplot object
 #' @export
 #' @import ggplot2
-#' @importFrom ggbeeswarm geom_quasirandom
 #' @import dplyr
-#' @importFrom see theme_modern
 #' @importFrom forcats fct_relevel
 #' @family Plotting functions
-plot_model_means_orchard <- function(dat,
-                                     variable,
-                                     predictor_means,
-                                     new_order,
-                                     title) {
+plot_model_means_orchard <- function(
+  dat,
+  variable,
+  predictor_means,
+  new_order,
+  title
+) {
+  rlang::check_installed("see", reason = "to use `theme_modern()`")
+  rlang::check_installed("ggbeeswarm", reason = "to use `geom_quasirandom()`")
   dat <- dat %>%
     rename(weights = `(weights)`) %>%
     mutate(
-      "{{variable}}" := #
-        fct_relevel(
-          .f = {{ variable }},
-          new_order
-        ),
+      "{{variable}}" := fct_relevel(
+        #
+        .f = {{ variable }},
+        new_order
+      ),
       weights = as.numeric(weights)
     )
 
@@ -42,7 +44,13 @@ plot_model_means_orchard <- function(dat,
     ) +
     geom_pointrange(
       dat = predictor_means,
-      aes(x = {{ variable }}, y = Mean, ymin = CI_low, ymax = CI_high, color = {{ variable }}),
+      aes(
+        x = {{ variable }},
+        y = Mean,
+        ymin = CI_low,
+        ymax = CI_high,
+        color = {{ variable }}
+      ),
       size = 1,
       alpha = 1
     ) +

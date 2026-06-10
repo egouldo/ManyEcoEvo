@@ -5,16 +5,27 @@
 #' @return A fitted model object of class `glm` and `parsnip`
 #' @export
 #' @family Model fitting and meta-analysis
-#' @importFrom parsnip linear_reg fit
-#' @importFrom recipes recipe update_role
-#' @importFrom workflows workflow add_model add_recipe extract_fit_parsnip
 #' @import dplyr
 #' @importFrom cli cli_h2 cli_alert_info
 #' @importFrom pointblank expect_col_exists
 #' @importFrom purrr simplify
-#' @importFrom rlang try_fetch
+#' @importFrom rlang try_fetch check_installed
 fit_sorensen_glm <- function(data) {
-  cli::cli_h2(c("Fitting glm for box-cox transformed outcome with sorensen diversity index as predictor"))
+  rlang::check_installed(
+    "parsnip",
+    reason = "to use `linear_reg()` and `fit()`"
+  )
+  rlang::check_installed(
+    "recipes",
+    reason = "to use `recipe()` and `update_role()`"
+  )
+  rlang::check_installed(
+    "workflows",
+    reason = "to use `workflow()`, `add_model()`, `add_recipe()`, `extract_fit_parsnip()`"
+  )
+  cli::cli_h2(c(
+    "Fitting glm for box-cox transformed outcome with sorensen diversity index as predictor"
+  ))
   # Only run cur_group() when called within a dplyr grouping context
   rlang::try_fetch(
     {
@@ -27,30 +38,28 @@ fit_sorensen_glm <- function(data) {
       # Silently ignore if not in a dplyr grouping context
     }
   )
-  
-  pointblank::expect_col_exists(data, 
-                                columns = c(starts_with("box_cox_abs_"),
-                                            "mean_diversity_index"))
-  
+
+  pointblank::expect_col_exists(
+    data,
+    columns = c(starts_with("box_cox_abs_"), "mean_diversity_index")
+  )
+
   data <- data %>%
-    dplyr::select(dplyr::starts_with("box_cox_abs_"), 
-                  mean_diversity_index)
-  
+    dplyr::select(dplyr::starts_with("box_cox_abs_"), mean_diversity_index)
+
   glm_recipe <-
-    recipes::recipe(~.,
-                    data = data
-    ) %>%
+    recipes::recipe(~., data = data) %>%
     recipes::update_role(starts_with("box_cox_abs_"), new_role = "outcome")
-  
+
   glm_mod <- parsnip::linear_reg(engine = "glm")
-  
+
   fitted_mod <-
     workflows::workflow() %>%
     workflows::add_model(glm_mod) %>%
     workflows::add_recipe(glm_recipe) %>%
     parsnip::fit(data = data) %>%
     workflows::extract_fit_parsnip()
-  
+
   return(fitted_mod)
 }
 
@@ -58,7 +67,8 @@ fit_sorensen_glm <- function(data) {
 #' @description A version of [fit_sorensen_glm()] that returns `NA` if an error is encountered
 #' @keywords internal
 #' @importFrom purrr possibly
-poss_fit_sorensen_glm <- purrr::possibly(fit_sorensen_glm,
-                                         otherwise = NA,
-                                         quiet = FALSE
-) 
+poss_fit_sorensen_glm <- purrr::possibly(
+  fit_sorensen_glm,
+  otherwise = NA,
+  quiet = FALSE
+)

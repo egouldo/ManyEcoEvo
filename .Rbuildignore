@@ -20,3 +20,8 @@ _targets/
 ^vignettes/articles/\.quarto$
 ^vignettes/articles/*_files$
 ^vignettes/articles$
+.lintr
+.nojekyll
+.renvignore
+.devcontainer
+^manuscript$

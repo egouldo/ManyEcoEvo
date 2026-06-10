@@ -12,13 +12,16 @@
 #' @import dplyr
 #' @importFrom tidyr unnest
 #' @importFrom purrr map map_dfr set_names
-#' @importFrom broom tidy
 #' @author Hannah S. Fraser
 #' @author Elliot Gould
 #' @family Multi-dataset Wrapper Functions
 #' @examples
 #' summarise_sorensen_index(ManyEcoEvo_results, ManyEcoEvo_yi_results)
-summarise_sorensen_index <- function(ManyEcoEvo_results, ManyEcoEvo_yi_results) {
+summarise_sorensen_index <- function(
+  ManyEcoEvo_results,
+  ManyEcoEvo_yi_results
+) {
+  rlang::check_installed("broom", reason = "to use `tidy()`")
   sorensen_index_zr <-
     ManyEcoEvo_results %>%
     filter(
@@ -29,14 +32,14 @@ summarise_sorensen_index <- function(ManyEcoEvo_results, ManyEcoEvo_yi_results) 
     ungroup() %>%
     select(dataset, diversity_indices) %>%
     unnest(diversity_indices)
-  
+
   sorensen_index_yi <-
     ManyEcoEvo_yi_results %>%
     filter(exclusion_set == "complete") %>%
     ungroup() %>%
     select(dataset, diversity_indices) %>%
     unnest(diversity_indices)
-  
+
   effect_ids <- ManyEcoEvo_results %>% # TODO ensure for other related functions are properly filtering ManyEcoEvo_results
     filter(
       exclusion_set == "complete",
@@ -45,45 +48,46 @@ summarise_sorensen_index <- function(ManyEcoEvo_results, ManyEcoEvo_yi_results) 
     ) %>%
     select(MA_mod, effects_analysis) %>%
     group_by(estimate_type, dataset) %>%
-    mutate(tidy_mod = 
-             map(
-               MA_mod,
-               ~ broom::tidy(.x,
-                             conf.int = TRUE,
-                             include_studies = TRUE
-               ) %>%
-                 rename(study_id = term)
-             ), .keep = "none") %>%
+    mutate(
+      tidy_mod = map(
+        MA_mod,
+        ~ broom::tidy(.x, conf.int = TRUE, include_studies = TRUE) %>%
+          rename(study_id = term)
+      ),
+      .keep = "none"
+    ) %>%
     unnest(tidy_mod) %>%
     filter(type == "study") %>%
     ungroup() %>%
     select(study_id) %>%
     rename(id_col = study_id) %>% # TODO duplicates for "Bell-2-2-1" and "Bonalbo-1-1-1 WHY?
     distinct()
-  
+
   prediction_ids <- ManyEcoEvo_yi_results %>% # TODO Euc mod_data_logged not here!
     filter(exclusion_set == "complete") %>%
     select(MA_mod, effects_analysis, -exclusion_set) %>%
     group_by(estimate_type, dataset) %>%
-    mutate(tidy_mod = 
-             map(
-               MA_mod,
-               ~ broom::tidy(.x, conf.int = TRUE, include_studies = TRUE) %>%
-                 rename(study_id = term)
-             ), .keep = "none") %>%
+    mutate(
+      tidy_mod = map(
+        MA_mod,
+        ~ broom::tidy(.x, conf.int = TRUE, include_studies = TRUE) %>%
+          rename(study_id = term)
+      ),
+      .keep = "none"
+    ) %>%
     unnest(tidy_mod) %>%
     filter(type == "study") %>%
     ungroup() %>%
     select(study_id) %>%
     rename(id_col = study_id) %>%
     distinct()
-  
+
   effects <- sorensen_index_zr %>% # TODO consider generalising, so for each 'estimate_type' group: repeat.
     right_join(effect_ids, by = c("id_col")) # repeat for each
-  
+
   predictions <- sorensen_index_yi %>%
     right_join(prediction_ids, by = c("id_col"))
-  
+
   summarised_data <-
     map_dfr(
       .x = list(predictions, effects) %>%
@@ -91,7 +95,7 @@ summarise_sorensen_index <- function(ManyEcoEvo_results, ManyEcoEvo_yi_results) 
       .f = summarise_sorensen_index_data,
       .id = "subset"
     )
-  
+
   return(summarised_data)
 }
 

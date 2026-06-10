@@ -11,34 +11,36 @@
 #' @export
 #' @import ggplot2
 #' @import dplyr
-#' @importFrom see geom_jitter2 scale_fill_material_d theme_modern
-#' @importFrom EnvStats stat_n_text
 #' @importFrom forcats fct_relevel
-#' @importFrom sae bxcx
 #' @family Plotting functions
-plot_model_means_box_cox_cat <- function(dat,
-                                         variable,
-                                         predictor_means,
-                                         new_order,
-                                         title,
-                                         lambda,
-                                         back_transform = FALSE) {
+plot_model_means_box_cox_cat <- function(
+  dat,
+  variable,
+  predictor_means,
+  new_order,
+  title,
+  lambda,
+  back_transform = FALSE
+) {
+  rlang::check_installed("sae", reason = "to use `bxcx()`")
+  rlang::check_installed("EnvStats", reason = "to use `stat_n_text()`")
   dat <- mutate(
     dat,
-    "{{variable}}" := #
-      fct_relevel(
-        .f = {{ variable }},
-        new_order
-      )
+    "{{variable}}" := fct_relevel(
+      #
+      .f = {{ variable }},
+      new_order
+    )
   )
 
   if (back_transform == TRUE) {
     dat <- dat %>%
       mutate(
-        box_cox_abs_deviation_score_estimate =
-          sae::bxcx(unique(lambda),
-            x = box_cox_abs_deviation_score_estimate, InverseQ = TRUE
-          )
+        box_cox_abs_deviation_score_estimate = sae::bxcx(
+          unique(lambda),
+          x = box_cox_abs_deviation_score_estimate,
+          InverseQ = TRUE
+        )
       )
 
     predictor_means <- predictor_means %>%
@@ -50,12 +52,16 @@ plot_model_means_box_cox_cat <- function(dat,
       ))
   }
 
-  p <- ggplot(dat, aes(
-    x = {{ variable }},
-    y = box_cox_abs_deviation_score_estimate
-  )) +
+  p <- ggplot(
+    dat,
+    aes(
+      x = {{ variable }},
+      y = box_cox_abs_deviation_score_estimate
+    )
+  ) +
     # Add base dat
-    geom_violin(aes(fill = {{ variable }}),
+    geom_violin(
+      aes(fill = {{ variable }}),
       trim = TRUE,
       # scale = "count", #TODO consider toggle on/off?
       colour = "white"
@@ -92,10 +98,11 @@ plot_model_means_box_cox_cat <- function(dat,
         y = "Absolute Deviation from\n Meta-Anaytic Mean Effect Size"
       )
   } else {
-    p <- p + labs(
-      x = "Categorical Peer Review Rating",
-      y = "Box-Cox Deviation from\nMeta-Analytic Mean Effect Size"
-    )
+    p <- p +
+      labs(
+        x = "Categorical Peer Review Rating",
+        y = "Box-Cox Deviation from\nMeta-Analytic Mean Effect Size"
+      )
   }
 
   return(p)

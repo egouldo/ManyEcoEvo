@@ -4,19 +4,20 @@
 #' @param .id character string of the analysis identifier column
 #'
 #' @return A tibble containing the variables `id_col`, `mean_diversity_index` and `num_variables`; the total number of variables used in a given analysis.
-#' @export 
+#' @export
 #' @details
 #' Sorensen pair-wise dissimilarity is calculated as the number of shared variables between two analyses divided by the total number of variables used in both analyses. After calculating the Sorensen dissimilarity for all pairwise comparisons, the function then computes the mean diversity index for each analysis as the mean of all pairwise comparisons for that analysis, generating a single value per analysis.
-#' 
+#'
 #' @seealso See [betapart::beta.pair()] for details of the Sorensen dissimilarity calculation.
 #' @import dplyr
 #' @importFrom tibble column_to_rownames as_tibble rownames_to_column
-#' @importFrom betapart beta.pair
 calculate_sorensen_diversity_index <- function(.data, .id = character()) {
+  rlang::check_installed("betapart", reason = "to use `beta.pair()`")
   out <-
     .data %>%
     tibble::column_to_rownames(paste0(.id)) %>%
-    mutate(across(everything(),
+    mutate(across(
+      everything(),
       .fns = ~ case_when(
         !is.na(.x) ~ 1,
         TRUE ~ 0
@@ -29,17 +30,21 @@ calculate_sorensen_diversity_index <- function(.data, .id = character()) {
     betapart::beta.pair(index.family = "sorensen") %>%
     pluck("beta.sor") %>%
     as.matrix() %>%
-    as_tibble(rownames = NA) %>%
-    tibble::rownames_to_column("id_col") %>%
+    tibble::as_tibble(rownames = NA) %>%
+    rownames_to_column("id_col") %>%
     bind_cols(num_variables = num_variables) %>%
     filter(num_variables > 0) %>%
     rowwise() %>%
     mutate(
-      mean_diversity_index = 
-        mean(c_across(cols = -c(
-          num_variables,
-          id_col
-        )), na.rm = TRUE)
+      mean_diversity_index = mean(
+        c_across(
+          cols = -c(
+            num_variables,
+            id_col
+          )
+        ),
+        na.rm = TRUE
+      )
     ) %>%
     select(
       id_col,

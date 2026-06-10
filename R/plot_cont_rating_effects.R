@@ -22,7 +22,15 @@
 #' #   ggpubr::theme_pubclean() +
 #' #   ggplot2::xlab("Rating") +
 #' #   ggplot2::ylab("Deviation In Effect Size from Analytic Mean")
-plot_cont_rating_effects <- function(df = data.frame(), response = character(), predictor = character(), group = NULL, plot = TRUE, back_transform = FALSE) {
+plot_cont_rating_effects <- function(
+  df = data.frame(),
+  response = character(),
+  predictor = character(),
+  group = NULL,
+  plot = TRUE,
+  back_transform = FALSE
+) {
+  rlang::check_installed("sae", reason = "to use `bxcx()`")
   if (is.null(group)) {
     f <- rlang::new_formula(
       rlang::ensym(response),
@@ -30,7 +38,14 @@ plot_cont_rating_effects <- function(df = data.frame(), response = character(), 
     )
     mod <- lm(f, data = df)
   } else {
-    f <- as.formula(paste(as.name(response), "~ ", as.name(predictor), "+ (1 | ", as.name(group), ")"))
+    f <- as.formula(paste(
+      as.name(response),
+      "~ ",
+      as.name(predictor),
+      "+ (1 | ",
+      as.name(group),
+      ")"
+    ))
     mod <- lme4::lmer(formula = f, data = df)
   } # Because ggeffects looks for the model variable in the gloabl environment...
 
@@ -41,7 +56,9 @@ plot_cont_rating_effects <- function(df = data.frame(), response = character(), 
 
   if (back_transform == TRUE) {
     df <- df %>% # use abs deviation values
-      mutate(box_cox_abs_deviation_score_estimate = abs_deviation_score_estimate)
+      mutate(
+        box_cox_abs_deviation_score_estimate = abs_deviation_score_estimate
+      )
 
     predictions_df <- predictions_df %>%
       mutate(lambda = df$lambda %>% unique()) %>%

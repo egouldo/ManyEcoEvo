@@ -7,8 +7,6 @@
 #' @family Out-of-Sample Prediction Validation
 #' @name validate
 #' @importFrom pointblank create_agent col_exists col_is_integer col_is_numeric col_is_character col_vals_in_set action_levels warn_on_fail vars
-#' @importFrom fs file_exists
-#' @importFrom readr read_csv
 #' @importFrom stringr str_split
 #' @importFrom purrr pluck
 #' @seealso [pointblank::create_agent()]
@@ -19,11 +17,12 @@ NULL
 #' @export
 #' @describeIn validate Validate Blue tit predictions data
 validate_predictions_df_blue_tit <- function(input, type = "filepath") {
+  rlang::check_installed("fs", reason = "to use `file_exists()`")
   match.arg(arg = type, choices = c("filepath", "df"), several.ok = FALSE)
 
   if (type == "filepath") {
     if (fs::file_exists(input)) {
-      dat <- read_csv(input) # TODO, need conditional readin fn based on extension?
+      dat <- readr::read_csv(input) # TODO, need conditional readin fn based on extension?
       tbl_name <- str_split(input, pattern = "~") %>% pluck(1, 2)
     } else {
       (NA)
@@ -35,12 +34,12 @@ validate_predictions_df_blue_tit <- function(input, type = "filepath") {
 
   predictions_agent_blue_tit <-
     pointblank::create_agent(
-      tbl = dat, tbl_name = tbl_name,
+      tbl = dat,
+      tbl_name = tbl_name,
       label = "Predictions File Data Structure QA - Blue tit dataset"
     ) %>%
     col_exists(
-      columns =
-        vars(scenario, estimate, se.fit),
+      columns = vars(scenario, estimate, se.fit),
       actions = warn_on_fail(),
       label = "Check required columns exist"
     ) %>%
@@ -78,7 +77,7 @@ validate_predictions_df_euc <- function(input, type = "filepath") {
 
   if (type == "filepath") {
     if (fs::file_exists(input)) {
-      dat <- read_csv(input) # TODO, need conditional readin fn based on extension?
+      dat <- readr::read_csv(input) # TODO, need conditional readin fn based on extension?
       tbl_name <- str_split(input, pattern = "~") %>% pluck(1, 2)
     } else {
       (NA)
@@ -90,12 +89,12 @@ validate_predictions_df_euc <- function(input, type = "filepath") {
 
   predictions_agent_euc <-
     pointblank::create_agent(
-      tbl = dat, tbl_name = tbl_name,
+      tbl = dat,
+      tbl_name = tbl_name,
       label = "Predictions File Data Structure QA  - Eucalyptus dataset"
     ) %>%
     col_exists(
-      columns =
-        vars(SurveyID, fit, se.fit),
+      columns = vars(SurveyID, fit, se.fit),
       actions = warn_on_fail(),
       label = "Check required columns exist"
     ) %>%
@@ -129,18 +128,21 @@ validate_predictions_df_euc <- function(input, type = "filepath") {
 #' @export
 #' @describeIn validate Wrapper-function for [validate_predictions_df_euc()] and [validate_predictions_df_blue_tit()]
 #' @family Out-of-Sample Prediction Validation
-validate_predictions <- function(data_set, input, type = "filepath") { # TODO change `data` to `filepath` for semantic accuracy
+validate_predictions <- function(data_set, input, type = "filepath") {
+  # TODO change `data` to `filepath` for semantic accuracy
   # I have written a separate function to control the conditional application of the validation
   # because using if else doesn't return the full data from the agent interrogation
   match.arg(arg = type, choices = c("filepath", "df"), several.ok = FALSE)
-  match.arg(arg = data_set, choices = c("eucalyptus", "blue tit"), several.ok = FALSE)
+  match.arg(
+    arg = data_set,
+    choices = c("eucalyptus", "blue tit"),
+    several.ok = FALSE
+  )
 
   if (data_set == "eucalyptus") {
     out <- validate_predictions_df_euc(input, type)
   } else {
-    (
-      out <- validate_predictions_df_blue_tit(input, type)
-    )
+    (out <- validate_predictions_df_blue_tit(input, type))
   }
 
   return(out)

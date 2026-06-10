@@ -22,7 +22,6 @@
 #' @importFrom stringr str_detect
 #' @importFrom purrr set_names
 #' @importFrom tibble tibble
-#' @importFrom readr parse_number locale
 #' @importFrom tidyr drop_na
 #' @importFrom rlang is_na
 augment_prediction_data <- function(.data, checks, dataset) {
@@ -88,7 +87,6 @@ augment_prediction_data <- function(.data, checks, dataset) {
         distinct(other_action) %>%
         flatten_chr()
 
-
       # nrow(test_check_dat) should be 0
       # action should be NA
       # if no columns are missing, then we select the vars we want
@@ -153,10 +151,21 @@ augment_prediction_data <- function(.data, checks, dataset) {
       submission_data %>%
         group_by(scenario) %>%
         mutate(
-          scenario = ifelse(is.character(scenario), parse_number(scenario), scenario),
+          scenario = ifelse(
+            is.character(scenario),
+            readr::parse_number(scenario),
+            scenario
+          ),
           across(
             where(is.character),
-            ~ ifelse(str_detect(., ","), parse_number(., locale = locale(decimal_mark = ",")), as.numeric(.))
+            ~ ifelse(
+              str_detect(., ","),
+              readr::parse_number(
+                .,
+                locale = readr::locale(decimal_mark = ",")
+              ),
+              as.numeric(.)
+            )
           )
         )
     }
@@ -193,7 +202,6 @@ augment_prediction_data <- function(.data, checks, dataset) {
     } else {
       augmented_df <- reformat_bluetit(augmented_df)
     }
-
 
     out <- augmented_df
 
