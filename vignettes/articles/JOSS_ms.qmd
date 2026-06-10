@@ -192,3 +192,5 @@ results_with_subsets %>%
 ```
 
 A complete worked example, including forest plots, marginal effects plots, and extraction of model fit statistics, is provided in the package vignette at <https://egouldo.github.io/ManyEcoEvo/>.
+
+# References

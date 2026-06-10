@@ -308,7 +308,7 @@ single_dataset_results %>%
   select(dataset, MA_mod, sorensen_glm, box_cox_rating_cont, box_cox_rating_cat)
 ```
 
-This is equivalent to the manual sequence demonstrated in the previous section (@sec-R-single-blue-tits), but expressed as a single pipeline call whose structure does not change as the number of datasets or subsets grows.
+This is equivalent to the manual sequence demonstrated in @sec-R-single-blue-tits, but expressed as a single pipeline call whose structure does not change as the number of datasets or subsets grows.
 
 ### Repeating the Analysis Across Multiple Datasets
 
@@ -432,3 +432,5 @@ Package version dependencies are maintained using the `renv` package [@renv], wh
 ```{r ManyEcoEvo-session-info}
 devtools::session_info()
 ```
+
+# References
