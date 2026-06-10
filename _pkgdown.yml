@@ -5,6 +5,9 @@ deploy:
   install_metadata: true
 template:
   bootstrap: 5
+  math-rendering: mathjax
+figures:
+  dev: grDevices::png
 reference:
 - title: Unprocessed data cleaning and checking
   desc: |
