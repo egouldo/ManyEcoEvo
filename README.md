@@ -119,6 +119,8 @@ A BibTeX entry for LaTeX users is
 }
 ```
 
+## References
+
 <div id="refs" class="references csl-bib-body hanging-indent">
 
 <div id="ref-Gould2025" class="csl-entry">
