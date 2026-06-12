@@ -29,7 +29,7 @@ Key features include:
 - A **Dataset-agnostic pipeline** that scales from single datasets to
   multiple datasets, and data subsets
 - **Curated datasets** from the ‘Same Data, Many Analysts’ study in
-  ecology and evolutionary biology[^1]
+  ecology and evolutionary biology (Gould et al. 2025)
 - **Reproducible infrastructure** built on `targets` and `renv` for
   transparent computational dependencies
 
@@ -38,7 +38,7 @@ conventional meta-analyses and sensitivity analyses.
 
 ## Installation
 
-You can install the development version of ManyEcoEvo from
+You can install `ManyEcoEvo` from source at
 [GitHub](https://github.com/) with:
 
 ``` r
@@ -46,26 +46,35 @@ You can install the development version of ManyEcoEvo from
 pak::pak("egouldo/ManyEcoEvo")
 ```
 
-# Relationship to the ManyEcoEvo manuscript
+## Building the package data for the ‘Same Data, Different Analysts’ study in ecology and evolution
 
-Raw, intermediate, and final analysis datasets in this package are
-produced by a reproducible
-[`targets::`](https://github.com/ropensci/targets) package pipeline
-(`data-raw/tar_make.R`) and exported as package data objects. The
-datasets and analysis functions from v2.7.6 of the package are used
-directly by the Quarto manuscript of Gould et al. (2025) at
-<https://egouldo.github.io/ManyAnalysts/>. To reproduce the
-data-generation and analyses locally:
+The `ManyEcoEvo` package ships with several datasets, that include the
+analyst datasets, cleaned input data containing analyst responses and
+metadata, outputs of all analyses in the main manuscript for Gould et
+al. (2025). The full analysis pipeline can be reproduced with the
+`targets::` package (Landau 2021), which is an R pipeline tool kit that
+builds make-like reproducible analyses by declaring steps (targets) and
+their dependencies.
+
+The datasets and analysis functions from
+[v2.7.6](https://github.com/egouldo/ManyEcoEvo/releases/tag/v2.7.6) of
+`ManyEcoEvo` are used directly within the reproducible Quarto manuscript
+for Gould et al. (2025) at <https://egouldo.github.io/ManyAnalysts/>.
+Steps for regenerating the data and reproducing the analysis of Gould et
+al. (2025) are described below.
 
 1.  Clone or download [this
-    repository](https://github.com/egouldo/ManyEcoEvo)
+    repository](https://github.com/egouldo/ManyEcoEvo). Anyone wishing
+    to faithfully reproduce or re-analyse Gould et al. (2025) should use
+    [v2.7.6](https://github.com/egouldo/ManyEcoEvo/releases/tag/v2.7.6)
+    of the repository.
 2.  Run `renv::restore()` to load the packages used in the analysis
     pipeline locally on your machine (see
-    [`renv::`](https://rstudio.github.io/renv/index.html) for details)
+    [`renv::`](https://rstudio.github.io/renv/index.html) for details).
 3.  Run `targets::tar_destroy("local")` to remove any record and caches
-    of existing targets
+    of existing targets.
 4.  Run `targets::tar_make()` in your console, depending on your
-    machine’s ahrdware, the analysis pipeline will take between 2 and 10
+    machine’s hardware, the analysis pipeline will take between 2 and 10
     minutes to execute
 5.  You can view a table of all targets in the pipeline by running
     `targets::tar_meta()`
@@ -82,7 +91,14 @@ targets::tar_read("ManyEcoEvo")
 ```
 
 Please see the documentation at <https://docs.ropensci.org/targets/> for
-further detail.
+further detail on using the `targets:::` package.
+
+For users who wish to completely rebuild the package using the
+regenerated data, the steps described above are stored in a small driver
+script (`data-raw/tar_make.R`) that runs the `tragets::` pipeline before
+saving the package data with `usethis::use_data()`. The package can then
+be rebuilt using the regular processes and tools for R package, such as
+`devtools::build()`.
 
 ## License
 
@@ -104,7 +120,7 @@ To cite the package ‘ManyEcoEvo’ in publications use:
 
 > Gould E, Fraser H, Nakagawa S, Parker T (2026). *ManyEcoEvo:
 > Meta-analyse data from ‘Many-Analysts’ style studies*. R package
-> version 2.7.8, <https://github.com/egouldo/ManyEcoEvo>.
+> version 2.8.0.9000, <https://github.com/egouldo/ManyEcoEvo>.
 
 A BibTeX entry for LaTeX users is
 
@@ -113,9 +129,9 @@ A BibTeX entry for LaTeX users is
   title = {ManyEcoEvo: Meta-analyse data from 'Many-Analysts' style studies},
   author = {Elliot Gould and Hannah S. Fraser and Shinichi Nakagawa and Timothy H. Parker},
   year = {2025},
-  note = {R package version 2.7.8},
+  note = {R package version 2.7.8.9000},
   url = {https://github.com/egouldo/ManyEcoEvo},
-  doi = {https://doi.org/10.5281/zenodo.13690949}
+  doi = {https://doi.org/10.5281/zenodo.10046152}
 }
 ```
 
@@ -132,10 +148,13 @@ Decisions in Ecology and Evolutionary Biology.” *BMC Biology* 23 (1):
 
 </div>
 
+<div id="ref-landau2021" class="csl-entry">
+
+Landau, William. 2021. “The Targets R Package: A Dynamic
+<span class="nocase">Make-like</span> Function-Oriented Pipeline Toolkit
+for Reproducibility and High-Performance Computing.” *Journal of Open
+Source Software* 6 (57): 2959. <https://doi.org/10.21105/joss.02959>.
+
 </div>
 
-[^1]: Gould, E., Fraser, H. S., Parker, T. H., Nakagawa, S., Griffith,
-    S. C., Vesk, P. A., Fidler, F., … Zitomer, R. A. (2025). Same data,
-    different analysts: Variation in effect sizes due to analytical
-    decisions in ecology and evolutionary biology. BMC Biology, 23(1),
-    35. https://doi.org/10.1186/s12915-024-02101-x
+</div>
