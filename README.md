@@ -49,27 +49,27 @@ pak::pak("egouldo/ManyEcoEvo")
 ## Building the package data for the ‘Same Data, Different Analysts’ study in ecology and evolution
 
 The `ManyEcoEvo` package ships with several datasets, that include the
-analyst datasets, cleaned input data containing analyst responses and
-metadata, outputs of all analyses in the main manuscript for Gould et
-al. (2025). The full analysis pipeline can be reproduced with the
-`targets::` package (Landau 2021), which is an R pipeline tool kit that
-builds make-like reproducible analyses by declaring steps (targets) and
-their dependencies.
+raw analysis datasets provided to analysts, cleaned input data
+containing analyst responses and metadata, outputs of all analyses in
+the main manuscript for Gould et al. (2025). The full analysis pipeline
+can be reproduced with the `targets::` package (Landau 2021), which is
+an R pipeline tool kit that builds make-like reproducible analyses by
+declaring steps (targets) and their dependencies.
 
 The datasets and analysis functions from
 [v2.7.6](https://github.com/egouldo/ManyEcoEvo/releases/tag/v2.7.6) of
 `ManyEcoEvo` are used directly within the reproducible Quarto manuscript
 for Gould et al. (2025) at <https://egouldo.github.io/ManyAnalysts/>.
 Steps for regenerating the data and reproducing the analysis of Gould et
-al. (2025) are described below.
+al. (2025) are defined in `./_targets.R` and described below.
 
 1.  Clone or download [this
     repository](https://github.com/egouldo/ManyEcoEvo). Anyone wishing
     to faithfully reproduce or re-analyse Gould et al. (2025) should use
     [v2.7.6](https://github.com/egouldo/ManyEcoEvo/releases/tag/v2.7.6)
     of the repository.
-2.  Run `renv::restore()` to load the packages used in the analysis
-    pipeline locally on your machine (see
+2.  Run `renv::restore()` to load the packages and their exact versions
+    used in the analysis pipeline locally on your machine (see
     [`renv::`](https://rstudio.github.io/renv/index.html) for details).
 3.  Run `targets::tar_destroy("local")` to remove any record and caches
     of existing targets.
@@ -91,7 +91,7 @@ targets::tar_read("ManyEcoEvo")
 ```
 
 Please see the documentation at <https://docs.ropensci.org/targets/> for
-further detail on using the `targets:::` package.
+further detail on using the `targets::` package.
 
 For users who wish to completely rebuild the package using the
 regenerated data, the steps described above are stored in a small driver

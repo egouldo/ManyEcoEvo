@@ -50,12 +50,12 @@ pak::pak("egouldo/ManyEcoEvo")
 
 ## Building the package data for the 'Same Data, Different Analysts' study in ecology and evolution
 
-The `ManyEcoEvo` package ships with several datasets, that include the analyst datasets, cleaned input data containing analyst responses and metadata, outputs of all analyses in the main manuscript for @Gould2025.  The full analysis pipeline can be reproduced with the `targets::` package [@targets], which is an R pipeline tool kit that builds make-like reproducible analyses by declaring steps (targets) and their dependencies.
+The `ManyEcoEvo` package ships with several datasets, that include the raw analysis datasets provided to analysts, cleaned input data containing analyst responses and metadata, outputs of all analyses in the main manuscript for @Gould2025.  The full analysis pipeline can be reproduced with the `targets::` package [@landau2021], which is an R pipeline tool kit that builds make-like reproducible analyses by declaring steps (targets) and their dependencies.
 
-The datasets and analysis functions from [v2.7.6](https://github.com/egouldo/ManyEcoEvo/releases/tag/v2.7.6) of `ManyEcoEvo` are used directly within the reproducible Quarto manuscript for @Gould2025 at <https://egouldo.github.io/ManyAnalysts/>. Steps for regenerating the data and reproducing the analysis of @Gould2025 are described below.
+The datasets and analysis functions from [v2.7.6](https://github.com/egouldo/ManyEcoEvo/releases/tag/v2.7.6) of `ManyEcoEvo` are used directly within the reproducible Quarto manuscript for @Gould2025 at <https://egouldo.github.io/ManyAnalysts/>. Steps for regenerating the data and reproducing the analysis of @Gould2025 are defined in `./_targets.R` and described below.
 
 1.  Clone or download [this repository](https://github.com/egouldo/ManyEcoEvo). Anyone wishing to faithfully reproduce or re-analyse @Gould2025 should use [v2.7.6](https://github.com/egouldo/ManyEcoEvo/releases/tag/v2.7.6) of the repository.
-2.  Run `renv::restore()` to load the packages used in the analysis pipeline locally on your machine (see [`renv::`](https://rstudio.github.io/renv/index.html) for details).
+2.  Run `renv::restore()` to load the packages and their exact versions used in the analysis pipeline locally on your machine (see [`renv::`](https://rstudio.github.io/renv/index.html) for details).
 3.  Run `targets::tar_destroy("local")` to remove any record and caches of existing targets.
 4.  Run `targets::tar_make()` in your console, depending on your machine's hardware, the analysis pipeline will take between 2 and 10 minutes to execute
 5.  You can view a table of all targets in the pipeline by running `targets::tar_meta()`
@@ -65,7 +65,7 @@ The datasets and analysis functions from [v2.7.6](https://github.com/egouldo/Man
 targets::tar_read("ManyEcoEvo")
 ```
 
-Please see the documentation at <https://docs.ropensci.org/targets/> for further detail on using the `targets:::` package.
+Please see the documentation at <https://docs.ropensci.org/targets/> for further detail on using the `targets::` package.
 
 For users who wish to completely rebuild the package using the regenerated data, the steps described above are stored in a small driver script (`data-raw/tar_make.R`) that runs the `tragets::` pipeline before saving the package data with `usethis::use_data()`. The package can then be rebuilt using the regular processes and tools for R package, such as `devtools::build()`.
 
@@ -102,5 +102,3 @@ A BibTeX entry for LaTeX users is
 ```
 
 ## References
-
-[^1]: Gould, E., Fraser, H. S., Parker, T. H., Nakagawa, S., Griffith, S. C., Vesk, P. A., Fidler, F., … Zitomer, R. A. (2025). Same data, different analysts: Variation in effect sizes due to analytical decisions in ecology and evolutionary biology. BMC Biology, 23(1), 35. https://doi.org/10.1186/s12915-024-02101-x
