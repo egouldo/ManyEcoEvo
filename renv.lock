@@ -170,16 +170,6 @@
       ],
       "Hash": "7b77557b453924e27e8a0c88d6798cd4"
     },
-    "NatParksPalettes": {
-      "Package": "NatParksPalettes",
-      "Version": "0.2.0",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Requirements": [
-        "ggplot2"
-      ],
-      "Hash": "05ed62d3fd9859d386a6ecb875dcbeb7"
-    },
     "PearsonDS": {
       "Package": "PearsonDS",
       "Version": "1.3.2",
@@ -2966,14 +2956,15 @@
     },
     "orchaRd": {
       "Package": "orchaRd",
-      "Version": "2.1.3",
+      "Version": "2.2.0",
       "Source": "GitHub",
       "RemoteType": "github",
       "RemoteHost": "api.github.com",
       "RemoteRepo": "orchaRd",
       "RemoteUsername": "daniel1noble",
+      "RemotePkgRef": "daniel1noble/orchaRd",
       "RemoteRef": "HEAD",
-      "RemoteSha": "48e99a48b7c52a37c893ceb1dad4e4e44ec88843",
+      "RemoteSha": "48664a1224950596cdda8f25975becddd67312d1",
       "Requirements": [
         "MASS",
         "Matrix",
@@ -3000,7 +2991,7 @@
         "tidyverse",
         "utils"
       ],
-      "Hash": "93671259297b5ed661d7efc747f9b6ab"
+      "Hash": "02238f2c529cd160054fa64486e19d1c"
     },
     "osfr": {
       "Package": "osfr",
