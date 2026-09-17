@@ -24,9 +24,20 @@ The `ManyEcoEvo` package provides a suite of functions for:
 devtools::install_github("egouldo/ManyEcoEvo")
 ```
 
+## Accessing analysis datasets (without installing the package)
+
+If you only need the analysis datasets and do not want to install `ManyEcoEvo::`, you can download them directly from this repository:
+
+-   `data-raw/analysis_datasets/blue_tit_data_updated_2020-04-18.csv`: <https://github.com/egouldo/ManyEcoEvo/blob/main/data-raw/analysis_datasets/blue_tit_data_updated_2020-04-18.csv>
+-   `data-raw/analysis_datasets/Euc_data.csv`: <https://github.com/egouldo/ManyEcoEvo/blob/main/data-raw/analysis_datasets/Euc_data.csv>
+
+You can also find these datasets at the OSF links listed in [`data-raw/analysis_datasets/README.md`](data-raw/analysis_datasets/README.md).
+
 # Regenerating the ManyEcoEvo dataset
 
-The data processing and analysis can be freely reproduced with the help of the [`targets::`](https://github.com/ropensci/targets) package. Please see the documentation at <https://docs.ropensci.org/targets/> for further detail.
+You do **not** need to run the local [`targets::`](https://github.com/ropensci/targets) pipeline to use the package or to download the analysis datasets above. The data processing and analysis pipeline is optional, and is only needed if you want to reproduce the dataset generation and analysis in *Gould et al.*.
+
+Please see the documentation at <https://docs.ropensci.org/targets/> for further detail.
 
 Should you wish to completely reproduce the dataset generation and analysis in *Gould et al.*, complete the following steps:
 
