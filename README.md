@@ -42,7 +42,7 @@ If you only need the analysis datasets and do not want to install
 You can also find these datasets at the OSF links listed in
 [`data-raw/analysis_datasets/README.md`](data-raw/analysis_datasets/README.md).
 
-# Regenerating the ManyEcoEvo dataset
+## Regenerating the ManyEcoEvo dataset
 
 You do **not** need to run the local
 [`targets::`](https://github.com/ropensci/targets) pipeline to use the
